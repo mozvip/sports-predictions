@@ -1,0 +1,40 @@
+package predictions.resources;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+
+import predictions.model.User;
+import predictions.model.UserDAO;
+import predictions.views.RankingsView;
+
+@Path("/rankings")
+@Produces(MediaType.TEXT_HTML)
+public class RankingsResource {
+	
+	private UserDAO userDAO;
+	
+	@Context private HttpServletRequest httpRequest;
+
+	public RankingsResource(UserDAO userDAO) {
+		super();
+		this.userDAO = userDAO;
+	}
+
+	@GET
+	public RankingsView getView() {
+		return new RankingsView( userDAO, (String) httpRequest.getAttribute("community") );
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<User> getRankings() {
+		return userDAO.findUsersOrderedByScore( (String) httpRequest.getAttribute("community") );
+	}
+
+}

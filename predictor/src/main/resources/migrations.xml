@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="Guillaume Serre" id="1">
+        <createTable catalogName="PREDICTOR" schemaName="PUBLIC" tableName="USER">
+            <column name="EMAIL" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="COMMUNITY" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+    		<column name="ADMIN" type="BOOLEAN" defaultValueBoolean="false" />
+            <column name="LAST_LOGIN_DATE" type="TIMESTAMP" />
+            <column name="CHANGE_PASSWORD_TOKEN" type="VARCHAR(100)" />
+            <column defaultValueNumeric="0" name="CURRENT_SCORE" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume Serre" id="1402578543320-1">
+        <createTable catalogName="PREDICTOR" schemaName="PUBLIC" tableName="MATCH_PREDICTION">
+            <column name="COMMUNITY" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMAIL" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MATCH_ID" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HOME_TEAM_ID" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="HOME_SCORE" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="AWAY_SCORE" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AWAY_TEAM_ID" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HOME_WINNER" type="BOOLEAN(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume Serre" id="1402578543320-3">
+        <addPrimaryKey catalogName="PREDICTOR" columnNames="EMAIL, COMMUNITY" constraintName="CONSTRAINT_2" schemaName="PUBLIC" tableName="USER"/>
+    </changeSet>
+    <changeSet author="Guillaume Serre" id="1402578543320-4">
+        <addPrimaryKey catalogName="PREDICTOR" columnNames="EMAIL, COMMUNITY, MATCH_ID" constraintName="CONSTRAINT_F" schemaName="PUBLIC" tableName="MATCH_PREDICTION"/>
+    </changeSet>
+    <changeSet id="4" author="serregu">
+        <createTable catalogName="PREDICTOR" schemaName="PUBLIC" tableName="ACTUAL_RESULT">
+            <column name="MATCH_ID" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HOME_TEAM_ID" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AWAY_TEAM_ID" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="HOME_SCORE" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="AWAY_SCORE" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HOME_WINNER" type="BOOLEAN(1)"/>
+        </createTable>    	
+    </changeSet>
+    <changeSet id="5" author="serregu">
+        <addPrimaryKey catalogName="PREDICTOR" columnNames="MATCH_ID" constraintName="PK_ACTUAL_RESULT" schemaName="PUBLIC" tableName="ACTUAL_RESULT"/>
+    </changeSet>
+    <changeSet id="6" author="serregu">
+    	<addColumn catalogName="PREDICTOR" tableName="ACTUAL_RESULT">
+    		<column name="VALIDATED" type="BOOLEAN"></column>
+    	</addColumn>
+    </changeSet>
+    <changeSet id="7" author="serregu">
+    	<createTable catalogName="PREDICTOR" schemaName="PUBLIC" tableName="TEAM_NAME">
+            <column name="TEAM_ID" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+			<column name="TEAM_NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+    	</createTable>
+    </changeSet>
+    <changeSet id="8" author="serregu">
+        <addPrimaryKey catalogName="PREDICTOR" columnNames="TEAM_ID" constraintName="PK_TEAM_NAME" schemaName="PUBLIC" tableName="TEAM_NAME"/>
+    </changeSet>
+    <changeSet id="9" author="serregu">
+    	<addColumn catalogName="PREDICTOR" tableName="ACTUAL_RESULT">
+    		<column name="GROUP" type="VARCHAR(1)"></column>
+    	</addColumn>
+    </changeSet>
+    <changeSet id="10" author="serregu">
+    	<addColumn catalogName="PREDICTOR" tableName="TEAM_NAME">
+    		<column name="GROUP" type="VARCHAR(1)"></column>
+    	</addColumn>
+    </changeSet>
+    <changeSet id="11" author="serregu">
+    	<addColumn catalogName="PREDICTOR" tableName="ACTUAL_RESULT">
+    		<column name="HOME_TEAM_NAME" type="VARCHAR(100)"></column>
+    		<column name="AWAY_TEAM_NAME" type="VARCHAR(100)"></column>
+    	</addColumn>
+    </changeSet>
+</databaseChangeLog>
