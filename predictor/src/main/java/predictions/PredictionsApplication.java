@@ -1,17 +1,22 @@
 package predictions;
 
 import java.util.EnumSet;
+import java.util.List;
 
 import javax.servlet.DispatcherType;
 
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.skife.jdbi.v2.DBI;
 
+import com.google.common.collect.Lists;
+
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthFilter;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.auth.chained.ChainedAuthFilter;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
@@ -76,24 +81,23 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 
 		PredictorBasicAuthenticator basicAuthenticator = new PredictorBasicAuthenticator( userDAO );
 		
-	    environment.jersey().register(new AuthDynamicFeature(
-	            new BasicCredentialAuthFilter.Builder<User>()
-	                .setAuthenticator( basicAuthenticator )
-	                .setAuthorizer(new PredictorAuthorizer())
-	                .setRealm("Euro 2016 Application Realm")
-	                .buildAuthFilter()));
+        BasicCredentialAuthFilter<User> basicCredentialAuthFilter = new BasicCredentialAuthFilter.Builder<User>()
+            .setAuthenticator( basicAuthenticator )
+            .setAuthorizer(new PredictorAuthorizer())
+            .setRealm("Euro 2016 Application Realm")
+            .buildAuthFilter();
 	    
 		PredictorOAuthAuthenticator oAuthAuthenticator = new PredictorOAuthAuthenticator( userDAO );
 
-	    environment.jersey().register(new AuthDynamicFeature(
-	            new OAuthCredentialAuthFilter.Builder<User>()
-	            	.setAuthenticator( oAuthAuthenticator )
-	                .setAuthorizer(new PredictorAuthorizer())
-	                .setRealm("Euro 2016 Application Realm")
-	                .buildAuthFilter()));
-
+        OAuthCredentialAuthFilter<User> oauthCredentialAuthFilter = new OAuthCredentialAuthFilter.Builder<User>()
+        	.setAuthenticator( oAuthAuthenticator )
+            .setAuthorizer(new PredictorAuthorizer())
+            .setRealm("Euro 2016 Application Realm")
+            .buildAuthFilter();
+	    
+	    List<AuthFilter<? extends Object, User>> filters = Lists.newArrayList(basicCredentialAuthFilter, oauthCredentialAuthFilter);
+	    environment.jersey().register(new AuthDynamicFeature(new ChainedAuthFilter(filters)));
 	    environment.jersey().register(RolesAllowedDynamicFeature.class);
-
 	    environment.jersey().register(new AuthValueFactoryProvider.Binder<User>(User.class));
 
 	}

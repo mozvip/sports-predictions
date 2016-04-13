@@ -69,7 +69,7 @@ public class MatchPrediction {
 
 
 	public String getEmail() {
-		return email != null ? email.toUpperCase() : null;
+		return email != null ? email.toLowerCase() : null;
 	}
 
 

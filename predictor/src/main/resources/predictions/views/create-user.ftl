@@ -35,7 +35,7 @@
 		
 	</script>	
 
-    <div class="container">
+    <div class="container contents">
 
 		<form role="form" action="/user/create" method="POST">
 		  <div class="form-group">

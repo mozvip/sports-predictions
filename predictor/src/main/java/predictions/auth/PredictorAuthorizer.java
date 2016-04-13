@@ -6,8 +6,10 @@ import predictions.model.User;
 public class PredictorAuthorizer implements Authorizer<User>{
 
 	public boolean authorize(User principal, String role) {
-		// TODO Auto-generated method stub
-		return false;
+		if (role.equalsIgnoreCase("ADMIN")) {
+			return principal.isAdmin();
+		}
+		return true;
 	}
 
 }

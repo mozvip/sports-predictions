@@ -11,9 +11,9 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/score/submit">Submit Score</a></li>
-            <li><a href="/user/create">Create User</a></li>
-            <li><a href="/change-password">Change Password</a></li>
+            <li><a href="/api/score/submit">Submit Score</a></li>
+            <li><a href="/api/user/create">Create User</a></li>
+            <li><a href="/api/change-password">Change Password</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

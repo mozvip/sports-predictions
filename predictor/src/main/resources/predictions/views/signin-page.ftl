@@ -7,7 +7,7 @@
 
 	<#include "navbar.ftl">
 
-    <div class="container">
+    <div class="container contents">
 
 		<form role="form" action="#" method="POST">
 		  <div class="form-group">
@@ -20,7 +20,7 @@
 		  </div>
 		  <div class="button-group">
 		  	<button type="submit" class="btn btn-primary">Submit</button>
-			<a href="/user/forget-password" class="btn btn-warning">J'ai oublié mon mot de passe!</a>
+			<a href="/api/user/forget-password" class="btn btn-warning">J'ai oublié mon mot de passe!</a>
 			</div>
 		</form>
 		

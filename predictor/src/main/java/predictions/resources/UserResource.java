@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -54,14 +55,11 @@ public class UserResource {
 		this.matchPredictionDAO.createTable();
 	}
 
+	@RolesAllowed("ADMIN")
 	@DELETE
 	public void deleteUser( @Auth User user, @QueryParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
-		if (user.isAdmin() ) {
-			this.dao.delete( community, email.toUpperCase() );
-		} else {
-			logger.warn( String.format("Community : %s : Non-admin user %s attempted to delete user %s", community, user.getEmail(), email ));
-		}
+		this.dao.delete( community, email.toLowerCase() );
 	}
 
 	@POST
@@ -185,7 +183,7 @@ public class UserResource {
 		String community = (String) httpRequest.getAttribute("community");
 		
 		MatchPredictions predictions = null;
-		if( dao.authentify(community, email.toUpperCase().trim(), password) != null ) {
+		if( dao.authentify(community, email.toLowerCase().trim(), password) != null ) {
 			predictions = buildPredictions( community, email );
 			predictions.setAuthToken( generateAuthToken(community, email, password) );
 		}

@@ -7,7 +7,7 @@
 
 	<#include "navbar.ftl">
 
-    <div class="container">
+    <div class="container contents">
 
 		<form role="form" action="#" method="POST">
 		  <div class="form-group">

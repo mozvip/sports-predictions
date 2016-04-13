@@ -7,7 +7,7 @@
 
 	<#include "navbar.ftl">
 	
-    <div class="container">
+    <div class="container contents">
     
     	<form action="/api/score/submit" method="POST">
 		  <div class="form-group">

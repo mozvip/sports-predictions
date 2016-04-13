@@ -45,7 +45,7 @@ public class ChangePasswordResource {
 	
 	@POST
 	public void changePassword( @Auth User user, @FormParam("password") String password, @FormParam("email") String email) {
-		email = email.trim().toUpperCase();
+		email = email.trim().toLowerCase();
 		if (user.isAdmin() || StringUtils.equalsIgnoreCase(user.getEmail(), email)) {
 			password = password.trim();
 			logger.info(String.format("User %s changing password for %s", user.getEmail(), email));

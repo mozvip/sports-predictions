@@ -24,7 +24,7 @@ public class PredictorOAuthAuthenticator implements Authenticator<String, User> 
 //		int i = username.indexOf( COMMUNITY_EMAIL_SEPARATOR );
 //		
 //		String community = username.substring( 0, i );
-//		String email = username.substring( i + 5 ).toUpperCase().trim();
+//		String email = username.substring( i + 5 ).toLowerCase().trim();
 //
 //		User user = dao.authentify( community, email, credentials.getPassword() );
 //		if (user != null) {

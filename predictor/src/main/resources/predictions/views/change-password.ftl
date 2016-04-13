@@ -28,7 +28,7 @@
 		}
 	</script>	
 
-    <div class="container">
+    <div class="container contents">
 
 		<form role="form" onSubmit="changePassword($('#email').val(), $('#password').val());">
 		  <div class="form-group">

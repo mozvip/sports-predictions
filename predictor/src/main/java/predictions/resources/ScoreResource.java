@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -56,7 +57,7 @@ public class ScoreResource {
 		
 		List<User> allUsers = userDAO.findUsers();
 		for (User user : allUsers) {
-			scores.put( String.format("%s:%s", user.getCommunity(), user.getEmail().toUpperCase()), 0 );
+			scores.put( String.format("%s:%s", user.getCommunity(), user.getEmail().toLowerCase()), 0 );
 		}
 
 		List<MatchPrediction> predictions = matchPredictionDAO.findAll();
@@ -64,7 +65,7 @@ public class ScoreResource {
 		for (ActualResult actualResult : results) {
 			for (MatchPrediction prediction : predictions) {
 				
-				String ident = String.format("%s:%s", prediction.getCommunity(), prediction.getEmail().toUpperCase());
+				String ident = String.format("%s:%s", prediction.getCommunity(), prediction.getEmail().toLowerCase());
 				
 				if (!scores.containsKey( ident )) {
 					continue;
@@ -107,14 +108,13 @@ public class ScoreResource {
 		
 	}
 
+	@RolesAllowed("ADMIN")
 	@Path("/submit")
 	@POST
 	public void postScore( @Auth User user, @FormParam("gameNum") int gameNum, @FormParam("homeScore") int homeScore, @FormParam("awayScore") int awayScore, @FormParam("homeTeamId") String homeTeamId, @FormParam("awayTeamId") String awayTeamId ) {
-		if (user.isAdmin()) {
-			ActualResult result = actualResultDAO.find(gameNum);
-			actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeScore > awayScore ? true : false );
-			recalculateScores();
-		}
+		ActualResult result = actualResultDAO.find(gameNum);
+		actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeScore > awayScore ? true : false );
+		recalculateScores();
 	}
 	
 	@Path("/submit")

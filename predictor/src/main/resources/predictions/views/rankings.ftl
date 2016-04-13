@@ -7,7 +7,7 @@
 
 	<#include "navbar.ftl">
 
-    <div class="container">
+    <div class="container contents">
     
     	<h2>${community}</h2>
 

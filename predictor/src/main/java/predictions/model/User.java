@@ -54,7 +54,7 @@ public class User implements Principal {
 
 	@JsonProperty
 	public String getEmail() {
-		return email.toUpperCase();
+		return email.toLowerCase();
 	}
 	
 	@JsonProperty
@@ -75,5 +75,9 @@ public class User implements Principal {
 	@JsonProperty
 	public Date getLastLoginDate() {
 		return lastLoginDate;
+	}
+	
+	public String getChangePasswordToken() {
+		return changePasswordToken;
 	}
 }

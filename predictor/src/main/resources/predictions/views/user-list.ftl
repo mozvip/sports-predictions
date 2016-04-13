@@ -29,7 +29,7 @@
 		}
 	</script>
 
-    <div class="container">
+    <div class="container contents">
 
 		<table class="table">
 		<#list users as user>
