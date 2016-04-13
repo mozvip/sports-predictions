@@ -1,3 +1,6 @@
+	<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 900px; width: 1368px; z-index: -999998; position: absolute;">
+	<img src="/images/header-background.jpg" style="position: absolute; margin: 0px; padding: 0px; border: none; width: 1440px; height: 900px; max-height: none; max-width: none; z-index: -999999; left: -36px; top: 0px;"></div>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
