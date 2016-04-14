@@ -13,5 +13,6 @@ deploy:
   api_key:
     secure: V+e/aoi7FDPAaxN8L3PCVSBfy0WWo5Zs8QB0pvH+EG99+fxZi1iYuVb5jDJDQT0jmF3sC+RXBeajcp8/upkJp95bubelca+IKLrl6hSCBH/wJ+Yud/L2N5kOJXwUxWN2JDap0STgerfahuzgcTN0EWmHWSbLWuiNdO32cXuG8onU+vWxjQ6s5df2rJ/w0BIZmDHWKD+keGm7nFloAoNU6Z0yR5G2f5J9cTu8gN2aqEQWaZZufgGFvatLXh93R+y+dsJD6xtuTxjV5kpkUd2jR13ILZKhxkTEkHoQAQfk1GJss9SHfPyrP+kkK6n0aJvrjpd8UtNwNWd+vBm0PwMMTnhiVg0iVRJmUqNDhsJoy2IFogQoIL+WT06Fp1YRshWu6muxBhOEXfpcNPLGy/SrB7c8W1zOEjiixDmjBmKL8bOap+//zDgA1wmJF1GPAUBB3f+pThmAmI69eD6o0VBkZWaBJyOLZteCsPCYdhcMjTgJVBlcUp1bbhkIXQsFf4PzC74cPg+GVqHv9gR9tFZGDZxOLq1wXPaBwr3mpFKVrEN+PaFEAPf4XQlesKYmsjVd5SVdAS6JdJFXKZUyFVSH7lJSHGUMj3a94UzjCe6HGcvstX60BoWr/Bw2wDtFOaQ1jpKcYRLVUkDci0BKL4Cm3VyKHh1I25t1Iwmbrax2n10=
   file: target/predictor-backend-0.0.1-SNAPSHOT.jar
+  skip_cleanup: true
   on:
     repo: mozvip/sports-predictions
