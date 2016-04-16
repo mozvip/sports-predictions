@@ -1,11 +1,12 @@
-	<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 900px; width: 1368px; z-index: -999998; position: absolute;">
-	<img src="/images/header-background.jpg" style="position: absolute; margin: 0px; padding: 0px; border: none; width: 1440px; height: 900px; max-height: none; max-width: none; z-index: -999999; left: -36px; top: 0px;"></div>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/jquery-backstretch/jquery.backstretch.min.js"></script>
+    <script>
+    	$("body").backstretch("/images/header-background.jpg");
+    </script>
     <!-- Google analytics -->
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -35,7 +35,7 @@
 		
 	</script>	
 
-    <div class="container contents">
+    <div class="container contents well">
 
 		<form role="form" action="/user/create" method="POST">
 		  <div class="form-group">
@@ -61,7 +61,7 @@
 		  <div class="checkbox">
 			<label><input type="checkbox" value="">Administrator</label>
 		  </div>		  
-		  <button type="submit" class="btn btn-primary">Submit</button>
+		  <button type="submit" class="btn btn-primary">Create User</button>
 		</form>
 
     </div> <!-- /container -->

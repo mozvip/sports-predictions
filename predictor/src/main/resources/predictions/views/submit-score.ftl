@@ -7,7 +7,7 @@
 
 	<#include "navbar.ftl">
 	
-    <div class="container contents">
+    <div class="container contents well">
     
     	<form action="/api/score/submit" method="POST">
 		  <div class="form-group">
@@ -20,13 +20,13 @@
 		  </div>
 		  <div class="form-group">
 		    <label for="password">Home Score</label>
-		    <input type="number" class="form-control" name="homeScore" size="2" maxlength="2" />
+		    <input type="number" class="form-control" name="homeScore" required size="2" maxlength="2" />
 		  </div>
 		  <div class="form-group">
 		    <label for="password">Away Score</label>
-		    <input type="number" class="form-control" name="awayScore" size="2" maxlength="2" />
+		    <input type="number" class="form-control" name="awayScore" required size="2" maxlength="2" />
 		  </div>
-		  <button type="submit" class="btn btn-default">Submit</button>
+		  <button type="submit" class="btn btn-primary">Submit Score</button>
 		</form>
 
     </div> <!-- /container -->

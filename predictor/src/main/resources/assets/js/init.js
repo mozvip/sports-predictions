@@ -56,7 +56,7 @@ jQuery(document).ready(function($) {
 /* Backstretch Settings
 ------------------------------------------------------ */
 
-	$("#intro").backstretch("images/header-background.jpg");
+	$("body").backstretch("images/header-background.jpg");
 
 
 /*----------------------------------------------------*/

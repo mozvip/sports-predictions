@@ -18,6 +18,7 @@
     "angular": "^1.5.1",
     "ngSweetAlert": "angular-sweetalert#^1.1.0",
     "angular-bootstrap": "^1.2.4",
-    "angular-route": "^1.5.3"
+    "angular-route": "^1.5.3",
+    "jquery-backstretch": "backstretch#^2.0.4"
   }
 }
