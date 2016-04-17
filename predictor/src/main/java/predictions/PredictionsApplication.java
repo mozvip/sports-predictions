@@ -8,6 +8,7 @@ import javax.servlet.DispatcherType;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.skife.jdbi.v2.DBI;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.Lists;
 
 import io.dropwizard.Application;
@@ -24,6 +25,8 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+import io.swagger.jaxrs.config.BeanConfig;
+import io.swagger.jaxrs.listing.ApiListingResource;
 import predictions.auth.CommunityFilter;
 import predictions.auth.PredictorAuthorizer;
 import predictions.auth.PredictorBasicAuthenticator;
@@ -73,6 +76,10 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		
 		environment.servlets().addFilter("communityFilter", CommunityFilter.class).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
+		// swagger
+		environment.jersey().register(new ApiListingResource());
+		environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		
 		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO));
 		environment.jersey().register(new UserListResource(userDAO, matchPredictionDAO));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
@@ -99,6 +106,12 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    environment.jersey().register(new AuthDynamicFeature(new ChainedAuthFilter(filters)));
 	    environment.jersey().register(RolesAllowedDynamicFeature.class);
 	    environment.jersey().register(new AuthValueFactoryProvider.Binder<User>(User.class));
+	    
+	    BeanConfig config = new BeanConfig();
+	    config.setTitle("Sports Predictions Application");
+	    config.setVersion("1.0.0");
+	    config.setResourcePackage("predictions");
+	    config.setScan(true);
 
 	}
 

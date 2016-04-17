@@ -107,6 +107,23 @@
 			<artifactId>commons-email</artifactId>
 			<version>1.4</version>
 		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-jersey2-jaxrs</artifactId>
+			<version>1.5.8</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>
+						jersey-container-servlet-core
+					</artifactId>
+					<groupId>org.glassfish.jersey.containers</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>javax.inject</artifactId>
+					<groupId>org.glassfish.hk2.external</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 	<properties>
 		<dropwizard.version>1.0.0-rc2</dropwizard.version>

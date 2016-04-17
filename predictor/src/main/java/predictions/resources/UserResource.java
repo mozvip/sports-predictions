@@ -4,6 +4,7 @@ import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
@@ -87,6 +88,9 @@ public class UserResource {
 	@POST
 	@Path("/create")
 	public void createUser(@FormParam("email") String email, @FormParam("name") String name, @FormParam("password") String password, @FormParam("admin") boolean admin) {
+		if (admin) {
+			// check that creator is admin
+		}
 		String community = (String) httpRequest.getAttribute("community");
 		dao.insert(email, name, community, password, admin);
 	}
@@ -168,11 +172,9 @@ public class UserResource {
 	@Path("/forget-password")
 	@Produces(MediaType.TEXT_HTML)
 	public ForgetPasswordPageView forgetPassword( @FormParam("email") String email ) {
-		
 		String community = (String) httpRequest.getAttribute("community");
-		
-		// TODO
-		
+		UUID uuid = UUID.randomUUID();
+		dao.setChangePasswordToken(community, email, uuid);
 		return new ForgetPasswordPageView();
 	}
 
