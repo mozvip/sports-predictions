@@ -99,7 +99,7 @@ public class UserResource {
 	
 	@GET
 	@Path("/availability")
-	@ApiOperation("Indicates if the email given as parameter is already used by a user")
+	@ApiOperation("Indicates if the email given as parameter is available for new users")
 	public boolean isAvailable(@QueryParam("email") String email) {
 		String community = (String) httpRequest.getAttribute("community");
 		return dao.findExistingUser(community, email) == null;
@@ -129,12 +129,14 @@ public class UserResource {
 	@POST
 	@Path("/save")
 	@Timed
+	@ApiOperation("Save predictions for the connected user")
 	public void save( @Auth User user, MatchPredictions predictions ) {
 		savePredictions( user.getCommunity(), user.getEmail(), predictions );
 	}
 
 	@GET
 	@Path("/list")
+	@ApiOperation("Return the current rankings")
 	public Rankings getRankings() {
 		String community = (String) httpRequest.getAttribute("community");
 		return new Rankings( dao.findUsersOrderedByScore( community ) );
@@ -142,6 +144,7 @@ public class UserResource {
 	
 	@GET
 	@Path("/predictions")
+	@ApiOperation("Get the current predictions for the connected user")
 	public MatchPredictions getPredictions( @Auth User user ) {
 		return buildPredictions( user.getCommunity(), user.getEmail() );
 	}

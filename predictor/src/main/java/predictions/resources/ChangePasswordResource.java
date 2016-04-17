@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.dropwizard.auth.Auth;
+import io.swagger.annotations.ApiOperation;
 import predictions.model.User;
 import predictions.model.UserDAO;
 import predictions.views.ChangePasswordView;
@@ -33,18 +34,14 @@ public class ChangePasswordResource {
 	@Context private HttpServletRequest httpRequest;
 
 	@GET
+	@ApiOperation(value="Displays the view to change password", hidden=true)
 	public ChangePasswordView getView() {
 		return new ChangePasswordView( userDAO, (String) httpRequest.getAttribute("community") );
 	}
 	
-	@Path("/reset")
 	@POST
-	public void resetPassword( @FormParam("email") String email ) {
-		// TODO
-	}
-	
-	@POST
-	public void changePassword( @Auth User user, @FormParam("password") String password, @FormParam("email") String email) {
+	@ApiOperation(value="Changes a password")
+	public void changePassword( @Auth User user, @FormParam("password") String password, @FormParam("email") String email, @FormParam("changePasswordToken") String changePasswordToken) {
 		email = email.trim().toLowerCase();
 		if (user.isAdmin() || StringUtils.equalsIgnoreCase(user.getEmail(), email)) {
 			password = password.trim();
