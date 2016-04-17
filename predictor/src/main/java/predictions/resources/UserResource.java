@@ -44,14 +44,14 @@ public class UserResource {
 
 	private final static Logger logger = LoggerFactory.getLogger( UserResource.class );
 
-	private UserDAO dao;
+	private UserDAO userDAO;
 	private MatchPredictionDAO matchPredictionDAO;
 	private ActualResultDAO actualResultDAO;
 
 	@Context private HttpServletRequest httpRequest;
 
 	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO ) {
-		this.dao = dao;
+		this.userDAO = dao;
 		this.matchPredictionDAO = matchPredictionDAO;
 		this.actualResultDAO = actualResultDAO;
 		this.matchPredictionDAO.createTable();
@@ -62,7 +62,7 @@ public class UserResource {
 	@ApiOperation(value="Deletes a user from the application")
 	public void deleteUser( @Auth User user, @QueryParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
-		this.dao.delete( community, email.toLowerCase() );
+		this.userDAO.delete( community, email.toLowerCase() );
 	}
 
 	@POST
@@ -74,9 +74,9 @@ public class UserResource {
 		
 		String community = (String) httpRequest.getAttribute("community");
 
-		User user = dao.findExistingUser(community, predictions.getEmail() );
+		User user = userDAO.findExistingUser(community, predictions.getEmail() );
 		if (user == null) {
-			dao.insert( predictions.getEmail(), predictions.getName(), community, predictions.getPassword() );
+			userDAO.insert( predictions.getEmail(), predictions.getName(), community, predictions.getPassword() );
 			savePredictions( community, predictions.getEmail(), predictions );
 			String authToken = generateAuthToken(community, predictions.getEmail(), predictions.getPassword());
 			result.setAuthToken( authToken );
@@ -92,7 +92,7 @@ public class UserResource {
 	@ApiOperation("Create a new regular user")
 	public void createUser(@FormParam("email") String email, @FormParam("name") String name, @FormParam("password") String password) {
 		String community = (String) httpRequest.getAttribute("community");
-		dao.insert(email, name, community, password );
+		userDAO.insert(email, name, community, password );
 	}
 	
 	@RolesAllowed("ADMIN")
@@ -101,7 +101,7 @@ public class UserResource {
 	@ApiOperation(value="Gives or remove admin privileges to an existing user, can only be invoked by a connected admin")
 	public void setAdmin(@Auth User user, @FormParam("email") String email, @FormParam("admin") boolean admin) {
 		String community = (String) httpRequest.getAttribute("community");
-		dao.setAdmin( community, email, admin );
+		userDAO.setAdmin( community, email, admin );
 	}
 	
 	@GET
@@ -109,7 +109,7 @@ public class UserResource {
 	@ApiOperation("Indicates if the email is available for new users")
 	public boolean isAvailable(@QueryParam("email") String email) {
 		String community = (String) httpRequest.getAttribute("community");
-		return dao.findExistingUser(community, email) == null;
+		return userDAO.findExistingUser(community, email) == null;
 	}
 	
 	@GET
@@ -146,7 +146,7 @@ public class UserResource {
 	@ApiOperation("Return the current rankings")
 	public Rankings getRankings() {
 		String community = (String) httpRequest.getAttribute("community");
-		return new Rankings( dao.findUsersOrderedByScore( community ) );
+		return new Rankings( userDAO.findUsersOrderedByScore( community ) );
 	}	
 	
 	@GET
@@ -191,7 +191,7 @@ public class UserResource {
 	public void forgetPassword( @FormParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		UUID uuid = UUID.randomUUID();
-		dao.setChangePasswordToken(community, email, uuid);
+		userDAO.setChangePasswordToken(community, email, uuid);
 		
 		// TODO : send email
 		
@@ -205,7 +205,7 @@ public class UserResource {
 		String community = (String) httpRequest.getAttribute("community");
 		
 		MatchPredictions predictions = null;
-		if( dao.authentify(community, email.toLowerCase().trim(), password) != null ) {
+		if( userDAO.authentify(community, email.toLowerCase().trim(), password) != null ) {
 			predictions = buildPredictions( community, email );
 			predictions.setAuthToken( generateAuthToken(community, email, password) );
 		}
