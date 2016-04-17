@@ -16,7 +16,6 @@ import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthFilter;
 import io.dropwizard.auth.AuthValueFactoryProvider;
-import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.auth.chained.ChainedAuthFilter;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
@@ -27,6 +26,7 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
+import predictions.auth.CommunityBasicCredentialAuthFilter;
 import predictions.auth.CommunityFilter;
 import predictions.auth.PredictorAuthorizer;
 import predictions.auth.PredictorBasicAuthenticator;
@@ -88,7 +88,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 
 		PredictorBasicAuthenticator basicAuthenticator = new PredictorBasicAuthenticator( userDAO );
 		
-        BasicCredentialAuthFilter<User> basicCredentialAuthFilter = new BasicCredentialAuthFilter.Builder<User>()
+		CommunityBasicCredentialAuthFilter<User> basicCredentialAuthFilter = new CommunityBasicCredentialAuthFilter.Builder<User>()
             .setAuthenticator( basicAuthenticator )
             .setAuthorizer(new PredictorAuthorizer())
             .setRealm("Euro 2016 Application Realm")

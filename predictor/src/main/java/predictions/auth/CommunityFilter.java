@@ -17,17 +17,18 @@ public class CommunityFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
-		String community = request.getServerName();
+		String community = extractCommunity( request.getServerName() );
+		request.setAttribute("community", community);
+		chain.doFilter(request, response);
+
+	}
+
+	public static String extractCommunity(String community) {
 		int i = community.indexOf('.');
 		if (i > 0) {
 			community = community.substring(0, i);
 		}
-		
-		request.setAttribute("community", community);
-
-		chain.doFilter(request, response);
-
+		return community;
 	}
 
 	public void destroy() {

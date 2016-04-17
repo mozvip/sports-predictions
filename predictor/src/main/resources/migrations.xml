@@ -111,4 +111,10 @@
     		<column name="AWAY_TEAM_NAME" type="VARCHAR(100)"></column>
     	</addColumn>
     </changeSet>
+    <changeSet id="12" author="serregu">
+    	<addColumn catalogName="PREDICTOR" tableName="USER">
+    		<column name="EMAIL_VALID" type="BOOLEAN" defaultValueBoolean="false" />
+    	</addColumn>
+    </changeSet>
+
 </databaseChangeLog>

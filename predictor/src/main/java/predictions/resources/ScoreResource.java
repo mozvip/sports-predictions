@@ -112,7 +112,7 @@ public class ScoreResource {
 	@RolesAllowed("ADMIN")
 	@Path("/submit")
 	@POST
-	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended.")
+	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate all scores")
 	public void postScore( @Auth User user, @FormParam("gameNum") int gameNum, @FormParam("homeScore") int homeScore, @FormParam("awayScore") int awayScore) {
 		ActualResult result = actualResultDAO.find(gameNum);
 		actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeScore > awayScore ? true : false );

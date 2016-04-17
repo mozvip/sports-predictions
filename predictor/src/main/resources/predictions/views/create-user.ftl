@@ -10,7 +10,9 @@
 	<script>
 		function checkAvailability( email ) {
 			$.get( "/api/user/availability?email=" + email, function( data ) {
-  				alert(data);
+  				if (data === 'false') {
+  					swal('This email is already taken');
+  				}
 			});
 		}
 	</script>	
@@ -38,10 +40,7 @@
 		  	<label for="confirm-password" class="control-label">Confirm Password</label>
 		    <input type="password" class="form-control" required id="confirm-password" placeholder="Confirm password">
 		  </div>
-		  <div class="checkbox">
-			<label><input type="checkbox" name="admin" value="true">Administrator</label>
-		  </div>		  
-		  <button type="submit" class="btn btn-primary">Create User</button>
+		  <button type="submit" class="btn btn-primary" id="createUserButton">Create User</button>
 		</form>
 
     </div> <!-- /container -->

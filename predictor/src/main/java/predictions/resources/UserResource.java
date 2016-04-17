@@ -76,7 +76,7 @@ public class UserResource {
 
 		User user = dao.findExistingUser(community, predictions.getEmail() );
 		if (user == null) {
-			dao.insert( predictions.getEmail(), predictions.getName(), community, predictions.getPassword(), false );
+			dao.insert( predictions.getEmail(), predictions.getName(), community, predictions.getPassword() );
 			savePredictions( community, predictions.getEmail(), predictions );
 			String authToken = generateAuthToken(community, predictions.getEmail(), predictions.getPassword());
 			result.setAuthToken( authToken );
@@ -89,17 +89,24 @@ public class UserResource {
 
 	@POST
 	@Path("/create")
-	public void createUser(@FormParam("email") String email, @FormParam("name") String name, @FormParam("password") String password, @FormParam("admin") boolean admin) {
-		if (admin) {
-			// check that creator is admin
-		}
+	@ApiOperation("Create a new regular user")
+	public void createUser(@FormParam("email") String email, @FormParam("name") String name, @FormParam("password") String password) {
 		String community = (String) httpRequest.getAttribute("community");
-		dao.insert(email, name, community, password, admin);
+		dao.insert(email, name, community, password );
+	}
+	
+	@RolesAllowed("ADMIN")
+	@POST
+	@Path("/set-admin")
+	@ApiOperation(value="Gives or remove admin privileges to an existing user, can only be invoked by a connected admin")
+	public void setAdmin(@Auth User user, @FormParam("email") String email, @FormParam("admin") boolean admin) {
+		String community = (String) httpRequest.getAttribute("community");
+		dao.setAdmin( community, email, admin );
 	}
 	
 	@GET
 	@Path("/availability")
-	@ApiOperation("Indicates if the email given as parameter is available for new users")
+	@ApiOperation("Indicates if the email is available for new users")
 	public boolean isAvailable(@QueryParam("email") String email) {
 		String community = (String) httpRequest.getAttribute("community");
 		return dao.findExistingUser(community, email) == null;
@@ -135,7 +142,7 @@ public class UserResource {
 	}
 
 	@GET
-	@Path("/list")
+	@Path("/rankings")
 	@ApiOperation("Return the current rankings")
 	public Rankings getRankings() {
 		String community = (String) httpRequest.getAttribute("community");
