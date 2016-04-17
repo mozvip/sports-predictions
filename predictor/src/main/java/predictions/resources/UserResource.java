@@ -176,16 +176,20 @@ public class UserResource {
 
 	@POST
 	@Path("/forget-password")
-	@Produces(MediaType.TEXT_HTML)
-	public ForgetPasswordPageView forgetPassword( @FormParam("email") String email ) {
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value="Declares a forgotten password and send the relevant email")
+	public void forgetPassword( @FormParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		UUID uuid = UUID.randomUUID();
 		dao.setChangePasswordToken(community, email, uuid);
-		return new ForgetPasswordPageView();
+		
+		// TODO : send email
+		
 	}
 
 	@POST
 	@Path("/signin")
+	@ApiOperation("Used to login a user")
 	public MatchPredictions signIn( @FormParam("email") String email, @FormParam("password") String password ) {
 
 		String community = (String) httpRequest.getAttribute("community");
