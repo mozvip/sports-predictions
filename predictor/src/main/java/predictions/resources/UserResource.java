@@ -81,7 +81,7 @@ public class UserResource {
 			String authToken = generateAuthToken(community, predictions.getEmail(), predictions.getPassword());
 			result.setAuthToken( authToken );
 		} else {
-			result.setMessage("Un utilisateur avec cet email existe déjà ");
+			result.setMessage("Cet email est dÃ©jÃ  utilisÃ© par un utilisateur");
 		}
 
 		return result;
