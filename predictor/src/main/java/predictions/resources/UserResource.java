@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.codahale.metrics.annotation.Timed;
 
 import io.dropwizard.auth.Auth;
+import io.swagger.annotations.ApiOperation;
 import predictions.model.ActualResult;
 import predictions.model.ActualResultDAO;
 import predictions.model.AuthenticationResult;
@@ -58,6 +59,7 @@ public class UserResource {
 
 	@RolesAllowed("ADMIN")
 	@DELETE
+	@ApiOperation(value="Deletes a user from the application")
 	public void deleteUser( @Auth User user, @QueryParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		this.dao.delete( community, email.toLowerCase() );
@@ -97,6 +99,7 @@ public class UserResource {
 	
 	@GET
 	@Path("/availability")
+	@ApiOperation("Indicates if the email given as parameter is already used by a user")
 	public boolean isAvailable(@QueryParam("email") String email) {
 		String community = (String) httpRequest.getAttribute("community");
 		return dao.findExistingUser(community, email) == null;
@@ -105,6 +108,7 @@ public class UserResource {
 	@GET
 	@Path("/create")
 	@Produces(MediaType.TEXT_HTML)
+	@ApiOperation(value="Display the view to create a new user", hidden=true)
 	public CreateUserView createUser() {
 		return new CreateUserView( (String) httpRequest.getAttribute("community") );	
 	}	
@@ -157,6 +161,7 @@ public class UserResource {
 	@GET
 	@Path("/signin")
 	@Produces(MediaType.TEXT_HTML)
+	@ApiOperation(value="Display the view to signin", hidden=true)
 	public SigninPageView signIn() {
 		return new SigninPageView();
 	}
@@ -164,6 +169,7 @@ public class UserResource {
 	@GET
 	@Path("/forget-password")
 	@Produces(MediaType.TEXT_HTML)
+	@ApiOperation(value="Display the view to declare a lost password", hidden=true)
 	public ForgetPasswordPageView forgetPasswordGetView() {
 		return new ForgetPasswordPageView();
 	}

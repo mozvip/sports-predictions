@@ -110,6 +110,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    BeanConfig config = new BeanConfig();
 	    config.setTitle("Sports Predictions Application");
 	    config.setVersion("1.0.0");
+	    config.setBasePath("/api");
 	    config.setResourcePackage("predictions");
 	    config.setScan(true);
 
