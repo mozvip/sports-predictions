@@ -16,6 +16,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.dropwizard.auth.Auth;
+import io.swagger.annotations.ApiOperation;
 import predictions.model.ActualResult;
 import predictions.model.ActualResultDAO;
 import predictions.model.Game;
@@ -111,7 +112,7 @@ public class ScoreResource {
 	@RolesAllowed("ADMIN")
 	@Path("/submit")
 	@POST
-	public void postScore( @Auth User user, @FormParam("gameNum") int gameNum, @FormParam("homeScore") int homeScore, @FormParam("awayScore") int awayScore, @FormParam("homeTeamId") String homeTeamId, @FormParam("awayTeamId") String awayTeamId ) {
+	public void postScore( @Auth User user, @FormParam("gameNum") int gameNum, @FormParam("homeScore") int homeScore, @FormParam("awayScore") int awayScore) {
 		ActualResult result = actualResultDAO.find(gameNum);
 		actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeScore > awayScore ? true : false );
 		recalculateScores();
@@ -120,6 +121,7 @@ public class ScoreResource {
 	@Path("/submit")
 	@Produces("text/html; charset=UTF-8")
 	@GET
+	@ApiOperation(value="Displays the view to submit scores", hidden=true)
 	public SubmitScoreView get() {
 		return new SubmitScoreView( games, actualResultDAO );
 	}

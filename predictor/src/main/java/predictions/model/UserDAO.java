@@ -14,10 +14,10 @@ public interface UserDAO {
 	void insert(@Bind("email") String email, @Bind("name") String name, @Bind("community") String community,
 			@Bind("password") String password, @Bind("admin") boolean admin);
 
-	@SqlUpdate("update user set currentScore=:score where community=:community AND LOWER(email)=LOWER(:email)")
+	@SqlUpdate("update user set currentScore=:score where community=:community AND email=LOWER(:email)")
 	void updateScore(@Bind("email") String email, @Bind("community") String community, @Bind("score") int score);
 
-	@SqlUpdate("update user set password = HASH('SHA256', STRINGTOUTF8(:password),1000) where LOWER(email)=:email and community=:community")
+	@SqlUpdate("update user set password = HASH('SHA256', STRINGTOUTF8(:password),1000) where email=:email and community=:community")
 	void updatePassword(@Bind("email") String email, @Bind("community") String community,
 			@Bind("password") String password);
 
@@ -25,23 +25,23 @@ public interface UserDAO {
 	@Mapper(UserResultSetMapper.class)
 	List<User> findUsersOrderedByScore(@Bind("community") String community);
 
-	@SqlQuery("select * from user where community=:community and LOWER(email)=:email and password=HASH('SHA256', STRINGTOUTF8(:password),1000)")
+	@SqlQuery("select * from user where community=:community and email=:email and password=HASH('SHA256', STRINGTOUTF8(:password),1000)")
 	@Mapper(UserResultSetMapper.class)
 	User authentify(@Bind("community") String community, @Bind("email") String email,
 			@Bind("password") String password);
 
-	@SqlQuery("select * from user where community=:community and LOWER(email)=:email")
+	@SqlQuery("select * from user where community=:community and email=:email")
 	@Mapper(UserResultSetMapper.class)
 	User findExistingUser(@Bind("community") String community, @Bind("email") String email);
 
-	@SqlUpdate("delete from user where community = :community and LOWER(email) = :email")
+	@SqlUpdate("delete from user where community = :community and email = :email")
 	void delete(@Bind("community") String community, @Bind("email") String email);
 
 	@SqlQuery("select * from user")
 	@Mapper(UserResultSetMapper.class)
 	List<User> findUsers();
 
-	@SqlUpdate("update user set CHANGE_PASSWORD_TOKEN=:token where community=:community AND LOWER(email)=LOWER(:email)")
+	@SqlUpdate("update user set CHANGE_PASSWORD_TOKEN=:token where community=:community AND email=LOWER(:email)")
 	void setChangePasswordToken(@Bind("community") String community, @Bind("email") String email, @Bind("token") UUID uuid);
 
 }
