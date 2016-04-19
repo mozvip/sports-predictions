@@ -1,0 +1,2822 @@
+/* 4em      / 52px */
+/* 4em      / 48px */
+/* 4em      / 48px */
+/* 4em      / 48px */
+/* 4em      / 48px */
+/* 2.71em   / 36px */
+/* 2.51     / ~33px */
+/* 2.33     / ~30px */
+/* 2.15     / 28px */
+/* 2.15     / 28px */
+/* 1.85      / 24px */
+/* 1.85      / 24px */
+/* 1.58      / ~21px */
+/* 1.46      / 19px */
+/* 1.46      / 19px */
+/* 1.26      / 16px */
+/* 1.26      / 16px */
+/* 1.08      / 14px  */
+/* 1         / 13px  */
+/* 0.92      / 12px  */
+/* 0.85      / 11px  */
+.btn-icon {
+  display: inline-block;
+  font-size: 12px;
+  width: 26px;
+  height: 26px;
+  margin-left: 10px !important;
+  padding: 6px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #08315c;
+}
+.btn-icon-borderless {
+  display: inline-block;
+  font-size: 16.376256px;
+  width: 16.376256px;
+  height: 16.376256px;
+  margin-left: 10px !important;
+  padding: 0;
+  border: 0;
+}
+/* Flags 64x64 */
+/* 
+ * 	Core Owl Carousel CSS File
+ *	v1.3.3
+ */
+/* clearfix */
+.owl-carousel .owl-wrapper:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+/* display none until init */
+.owl-carousel {
+  display: none;
+  position: relative;
+  width: 100%;
+  -ms-touch-action: pan-y;
+}
+.owl-carousel .owl-wrapper {
+  display: none;
+  position: relative;
+  -webkit-transform: translate3d(0px, 0px, 0px);
+}
+.owl-carousel .owl-wrapper-outer {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.owl-carousel .owl-wrapper-outer.autoHeight {
+  -webkit-transition: height 500ms ease-in-out;
+  -moz-transition: height 500ms ease-in-out;
+  -ms-transition: height 500ms ease-in-out;
+  -o-transition: height 500ms ease-in-out;
+  transition: height 500ms ease-in-out;
+}
+.owl-carousel .owl-item {
+  float: left;
+}
+.owl-controls .owl-page,
+.owl-controls .owl-buttons div {
+  cursor: pointer;
+}
+.owl-controls {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/* mouse grab icon */
+.grabbing {
+  cursor: url(grabbing.png) 8 8, move;
+}
+/* fix */
+.owl-carousel .owl-wrapper,
+.owl-carousel .owl-item {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+}
+.owl-item {
+  float: left;
+  padding: 0 15px;
+}
+.mosaic-card-photogallery {
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) and (max-width: 1200px) {
+  .mosaic-card-photogallery {
+    width: 66%;
+  }
+}
+@media (min-width: 1440px) and (max-width: 1990px) {
+  .mosaic-card-photogallery {
+    width: 66%;
+  }
+}
+.mosaic-card-photogallery .card-content > div {
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  text-align: center;
+  color: #b8bac1;
+  font-size: 20.6293662px;
+}
+.owl-carousel-wrap {
+  position: relative;
+  z-index: 1;
+  /*@media @min-large {
+    padding: 0;
+  }*/
+}
+@media (min-width: 960px) and (max-width: 1990px) {
+  .owl-carousel-wrap {
+    padding: 0 50px;
+  }
+}
+@media (min-width: 960px) {
+  .owl-carousel-wrap .carousel-more {
+    display: block;
+    height: auto !important;
+  }
+}
+.owl-carousel-wrap .owl-wrapper-outer {
+  z-index: 2;
+}
+.owl-carousel-wrap .carousel-more-wrap {
+  margin-bottom: -40px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+.owl-carousel-wrap .carousel-more-wrap .carousel-more-btn {
+  width: 100%;
+}
+.owl-carousel-wrap .carousel-more-wrap .carousel-more-btn .icon-arrow-thin-down,
+.owl-carousel-wrap .carousel-more-wrap .carousel-more-btn .icon-arrow-thin-top {
+  border: 0;
+  color: #FFF;
+  font-size: 25.98706015px;
+}
+.owl-carousel-wrap .carousel-more-wrap .carousel-more-btn .icon-arrow-thin-top {
+  display: none !important;
+}
+.owl-carousel-wrap .carousel-more-wrap .carousel-more-btn.more--opened .icon-arrow-thin-down {
+  display: none !important;
+}
+.owl-carousel-wrap .carousel-more-wrap .carousel-more-btn.more--opened .icon-arrow-thin-top {
+  display: inline-block !important;
+}
+.owl-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+}
+.owl-controls .owl-buttons {
+  font-family: "icomoon";
+}
+.owl-controls .owl-next,
+.owl-controls .owl-prev {
+  text-indent: -9999px;
+  color: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  min-width: 15px;
+  top: 50%;
+  margin-top: -30px;
+  font-size: 60px;
+}
+.owl-controls .owl-next:after,
+.owl-controls .owl-prev:after {
+  content: "\e60e";
+  display: block;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  text-indent: 0;
+  left: 0;
+}
+.owl-controls .owl-next.disabled,
+.owl-controls .owl-prev.disabled {
+  cursor: default;
+  color: rgba(0, 0, 0, 0.1);
+}
+.owl-controls .owl-next {
+  right: 0;
+  margin-right: -15px;
+}
+.owl-controls .owl-prev {
+  left: 0;
+  margin-left: -15px;
+}
+.owl-controls .owl-prev:after {
+  left: auto;
+  right: 0;
+  content: "\e60c";
+}
+.match-row {
+  margin-top: 0;
+  position: relative;
+  border-top: 1px solid #ddd;
+}
+.match-row:before,
+.match-row:after {
+  content: " ";
+  display: table;
+}
+.match-row:after {
+  clear: both;
+}
+.match-row [class^="col-"],
+.match-row [class*="col-"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+.match-row .match-row_link:before,
+.match-row .match-row_link:after {
+  content: " ";
+  display: table;
+}
+.match-row .match-row_link:after {
+  clear: both;
+}
+.match-row .match-date {
+  color: #767676;
+  height: 15px;
+}
+.match-row .match-row_info {
+  margin-top: 0;
+  font-size: 12.03703704px;
+  line-height: 30px;
+}
+@media (min-width: 440px) {
+  .match-row .match-row_info {
+    line-height: 1.4;
+  }
+}
+@media (min-width: 1440px) {
+  .match-row .match-row_info {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+}
+.match-row .long-match-date {
+  color: #1a1a1a;
+}
+.match-row .match-location {
+  color: #767676;
+}
+.match-row .match-location .match-location_stadium:after {
+  content: ",";
+}
+.match-row .match-referee {
+  display: none;
+  color: #767676;
+  clear: both;
+}
+.match-row .match-row_status {
+  text-align: center;
+  clear: both;
+}
+.match-row .match-row_match-status {
+  display: none;
+  visibility: hidden;
+  clear: both;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 12px;
+  padding: 3px 4px 0;
+  vertical-align: middle;
+  color: #FFF;
+}
+@media (max-width: 1439px) {
+  .match-row .match-row_match-status {
+    margin-top: 8px;
+  }
+}
+.match-row .match-row_broadcaster {
+  clear: both;
+  line-height: 18px;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 11.14540466px;
+  display: none;
+  visibility: hidden;
+}
+.match-row .match-row_rw {
+  line-height: 18px;
+  text-align: center;
+  font-size: 12.03703704px;
+  display: block;
+  padding-top: 8px;
+}
+.match-row .match-row_hl {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -16px;
+  width: 32px;
+  height: 32px;
+  background-color: #65beec;
+  display: none;
+  visibility: hidden;
+}
+.match-row_match {
+  font-weight: 500;
+  font-style: normal;
+}
+.match-row_match .team-home,
+.match-row_match .team-away {
+  float: left;
+  position: relative;
+}
+.match-row_match .match--score {
+  float: left;
+  font-size: 17.68635648px;
+  padding: 0;
+}
+@media (min-width: 320px) and (max-width:370px) {
+  .match-row_match .match--score {
+    font-size: 13px;
+  }
+}
+.match-row_match .match--score .match--score_score {
+  letter-spacing: 5px;
+}
+.match-row_match .match--score[data-status="0"] {
+  color: #000;
+}
+.match-row_match .match--winner .team-name,
+.match-row_match .match--winner .team-code {
+  color: #1a1a1a;
+}
+.match-row_match .team-name {
+  text-transform: uppercase;
+  font-size: 14.04px;
+}
+@media (min-width: 1440px) {
+  .match-row_match .team-name {
+    font-size: 16.376256px;
+  }
+}
+.match-row_match .team-code {
+  text-transform: uppercase;
+  font-size: 16.376256px;
+}
+@media (min-width: 320px) and (max-width:370px) {
+  .match-row_match .team-code {
+    font-size: 12.03703704px;
+  }
+}
+@media (min-width: 440px) {
+  .match-row .match-date span {
+    display: none;
+  }
+  .match-row .match-date:first-child {
+    padding-bottom: 0;
+  }
+}
+.match-row--horizontal {
+  color: #767676;
+}
+.match-row--horizontal .match-row_link,
+.match-row--horizontal .match-row_wrap {
+  color: #767676;
+  padding-top: 30px;
+  min-height: 84px;
+}
+@media (min-width: 440px) {
+  .match-row--horizontal .match-row_link,
+  .match-row--horizontal .match-row_wrap {
+    padding-top: 18px;
+    min-height: 70px;
+  }
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .match-row_link,
+  .match-row--horizontal .match-row_wrap {
+    min-height: 80px;
+  }
+}
+.match-row--horizontal .match-row_link {
+  display: block;
+}
+.match-row--horizontal .match-row_link:hover {
+  background-color: #f5f5f5;
+}
+.match-row--horizontal .match-row_group {
+  position: absolute;
+  top: 29px;
+  height: 32px;
+  left: 0;
+  width: 32px;
+}
+@media (min-width: 440px) {
+  .match-row--horizontal .match-row_group {
+    top: 19.33333333px;
+  }
+}
+.match-row--horizontal .match-row_group .group-label {
+  display: none;
+}
+.match-row--horizontal .match-row_group .group-name {
+  line-height: 32px;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .match-row_group {
+    height: 46px;
+    width: 46px;
+  }
+  .match-row--horizontal .match-row_group .group-label {
+    display: block;
+  }
+  .match-row--horizontal .match-row_group .group-name {
+    line-height: 1;
+  }
+}
+.match-row--horizontal .team-flag {
+  background-size: 160px 352px;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 0;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .team-flag {
+    background-size: 230px 506px;
+    width: 46px;
+    height: 46px;
+  }
+}
+.match-row--horizontal .match--score {
+  text-align: center;
+  height: 32px;
+}
+.match-row--horizontal .match--score .match--score_score,
+.match-row--horizontal .match--score .match--score_time {
+  line-height: 32px;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .match--score .match--score_score,
+  .match-row--horizontal .match--score .match--score_time {
+    line-height: 46px;
+  }
+}
+.match-row--horizontal .team-name_name {
+  display: table-cell;
+  vertical-align: middle;
+  height: 32px;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .team-name_name {
+    height: 46px;
+  }
+}
+.match-row--horizontal .team-code {
+  line-height: 32px;
+}
+.match-row--horizontal .team-name {
+  position: absolute;
+  top: 0;
+}
+.match-row--horizontal .team-home {
+  text-align: right;
+  padding-right: 32px;
+  height: 32px;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .team-home {
+    height: 46px;
+    padding-right: 46px;
+  }
+}
+.match-row--horizontal .team-home .team-name,
+.match-row--horizontal .team-home .team-code {
+  text-align: right;
+  right: 32px;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .team-home .team-name,
+  .match-row--horizontal .team-home .team-code {
+    right: 46px;
+  }
+}
+.match-row--horizontal .team-home .team-flag {
+  right: 0;
+}
+.match-row--horizontal .team-away {
+  text-align: left;
+  padding-left: 32px;
+  height: 32px;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .team-away {
+    height: 46px;
+    padding-left: 46px;
+  }
+}
+.match-row--horizontal .team-away .team-name,
+.match-row--horizontal .team-away .team-code {
+  text-align: left;
+  left: 32px;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .team-away .team-name,
+  .match-row--horizontal .team-away .team-code {
+    left: 46px;
+  }
+}
+.match-row--horizontal .team-away .team-flag {
+  left: 0;
+}
+.match-row--horizontal .match-row_link {
+  width: 100%;
+}
+.match-row--horizontal .match-row_group {
+  border: 1px solid #007cba;
+  border-radius: 50%;
+  font-size: 11.14540466px;
+  text-align: center;
+  color: #007cba;
+  display: block;
+}
+.match-row--horizontal .match-row_group .group-label {
+  padding-top: 9px;
+}
+.match-row--horizontal .match-row_group .group-name {
+  display: block;
+  font-size: 17.68635648px;
+  font-weight: 500;
+  font-style: normal;
+}
+.match-row--horizontal .match-row_group:hover {
+  background-color: #007cba;
+  border-color: #007cba;
+  color: #FFF;
+}
+.match-row--horizontal .match-row_info {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+@media (min-width: 440px) {
+  .match-row--horizontal .match-row_info {
+    position: static;
+    float: left;
+  }
+}
+.match-row--horizontal .long-match-date + .match-round {
+  display: inline-block;
+}
+@media (min-width: 1440px) {
+  .match-row--horizontal .long-match-date {
+    display: inline;
+    float: left;
+  }
+}
+.match-row--horizontal .round-name {
+  float: right;
+  display: block;
+}
+@media (min-width: 440px) {
+  .match-row--horizontal .round-name {
+    float: none;
+  }
+}
+@media (min-width: 1440px) {
+  .match-row--horizontal .round-name {
+    display: inline;
+    float: left;
+    margin-left: 4px;
+  }
+  .match-row--horizontal .round-name:before {
+    content: "- ";
+  }
+}
+.match-row--horizontal .match-round {
+  display: inline-block;
+}
+.match-row--horizontal .match-location {
+  padding-bottom: 10px;
+}
+@media (min-width: 1440px) {
+  .match-row--horizontal .match-location {
+    clear: both;
+    padding-bottom: 0;
+  }
+}
+.match-row--horizontal .match-location .match-location_stadium {
+  display: none;
+}
+@media (min-width: 960px) {
+  .match-row--horizontal .match-location .match-location_stadium {
+    display: inline;
+  }
+}
+.match-row--horizontal .match-location .match-location_venue {
+  display: none;
+}
+@media (min-width: 440px) {
+  .match-row--horizontal .match-location .match-location_venue {
+    display: inline;
+  }
+}
+.match-row--horizontal .match-referee {
+  display: none;
+}
+@media (min-width: 1440px) {
+  .match-row--horizontal .match-referee {
+    display: block;
+  }
+}
+.match-row--horizontal .match-row_match {
+  width: 60%;
+  margin: 0 auto;
+}
+.match-row--horizontal .team-home .team-name,
+.match-row--horizontal .team-home .team-code {
+  padding-right: 5px;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .team-home .team-name,
+  .match-row--horizontal .team-home .team-code {
+    padding-right: 10px;
+  }
+}
+.match-row--horizontal .team-away .team-name,
+.match-row--horizontal .team-away .team-code {
+  padding-left: 5px;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .team-away .team-name,
+  .match-row--horizontal .team-away .team-code {
+    padding-left: 10px;
+  }
+}
+.match-row--horizontal .team-home,
+.match-row--horizontal .team-away {
+  width: 33%;
+}
+.match-row--horizontal .match--score {
+  width: 33%;
+}
+.match-row--horizontal .team-code {
+  display: block !important;
+}
+.match-row--horizontal .team-name {
+  display: none !important;
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .match-row_match {
+    margin-left: 0;
+  }
+}
+@media (min-width: 440px) {
+  .match-row--horizontal .match-row_match {
+    width: 55%;
+    margin-left: 30%;
+  }
+  .match-row--horizontal .match-row_info {
+    margin-top: 0;
+    width: 30%;
+    word-break: break-all;
+  }
+  .match-row--horizontal .team-home,
+  .match-row--horizontal .team-away {
+    width: 38%;
+  }
+  .match-row--horizontal .match--score {
+    width: 24%;
+  }
+}
+@media (min-width: 768px) {
+  .match-row--horizontal .team-code {
+    display: none !important;
+  }
+  .match-row--horizontal .team-name {
+    display: block !important;
+  }
+}
+@media (min-width: 960px) {
+  .match-row--horizontal .match-row_match {
+    width: 60%;
+  }
+  .match-row--horizontal .match-row_info {
+    word-break: normal;
+  }
+}
+@media (min-width: 1440px) {
+  .match-row--horizontal .match-row_info {
+    padding-top: 5px;
+    width: 30%;
+  }
+  .match-row--horizontal .match-row_match {
+    width: 65%;
+  }
+}
+@media (min-width: 440px) {
+  .match-row--horizontal.match-finalTrn .match-row_info {
+    padding-left: 40px;
+  }
+}
+@media (min-width: 768px) {
+  .match-row--horizontal.match-finalTrn .match-row_info {
+    padding-left: 55px;
+  }
+}
+.match-row--vertical .match-group {
+  width: 100%;
+  border-radius: 0;
+  background-color: none;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+}
+.match-row--vertical .match-group .group-name {
+  display: inline;
+  font-weight: normal;
+}
+.match-row--vertical .match-row_info {
+  margin-left: 0;
+  float: none;
+  width: auto;
+  text-align: center;
+}
+.match-row--vertical .match-row_info .long-match-date,
+.match-row--vertical .match-row_info .match-location {
+  line-height: 20px;
+}
+.match-row--vertical .match-row_match {
+  width: 100%;
+}
+.match-row--vertical .team-home,
+.match-row--vertical .team-away {
+  width: 33%;
+}
+.match-row--vertical .match--score {
+  width: 33%;
+}
+.match-row--vertical .team-code {
+  display: block !important;
+}
+.match-row--vertical .team-name {
+  display: none !important;
+  margin: 0 -10px;
+}
+@media (min-width: 1440px) {
+  .match-row--vertical .team-code {
+    display: none !important;
+  }
+  .match-row--vertical .team-name {
+    display: block !important;
+  }
+}
+.article {
+  padding-bottom: 40px;
+}
+.article .container-fluid {
+  max-width: 1440px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.article p {
+  margin: 0;
+}
+.article_header {
+  margin-top: 40px;
+}
+.article_headline {
+  font-size: 51.94825349px;
+  font-weight: 500;
+  font-style: normal;
+  color: #08315c;
+  font-size: 28.06602496px;
+  /* 2.15em   / 28px */
+  line-height: 1;
+  margin: 10px 0;
+}
+@media (min-width: 960px) {
+  .article_headline {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 51.94825349px;
+    /* 4em / 52px */
+  }
+}
+@media (min-width: 960px) {
+  .article_headline {
+    margin: 20px 0;
+  }
+}
+.article_roofline {
+  font-weight: bold;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16.376256px;
+  color: #b8bac1;
+}
+.article_social {
+  margin-top: 10px;
+}
+@media (min-width: 960px) {
+  .article_social {
+    margin-top: 20px;
+  }
+}
+.article_social .share-buttons li {
+  float: left;
+  margin-right: 10px;
+}
+.article_social .share-buttons a {
+  display: block;
+  margin: 0;
+  width: 38px;
+  height: 38px;
+  line-height: 36px;
+  border: 1px solid #007cba;
+  border-radius: 50%;
+  text-align: center;
+}
+.article_social .share-buttons a:hover {
+  border-color: #65beec;
+}
+.article_social .share-buttons a:before {
+  font-size: 14px;
+}
+.article_summary {
+  margin-top: 30px;
+}
+.article_summary p {
+  color: #b8bac1;
+  font-size: 17.68635648px;
+  line-height: 1.3;
+}
+@media (min-width: 768px) {
+  .article_summary p {
+    font-size: 24.06209273px;
+    line-height: 1.3;
+  }
+}
+.article_navigation {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-weight: 500;
+  font-style: normal;
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0 10px;
+}
+@media (min-width: 960px) {
+  .article_navigation:before,
+  .article_navigation:after {
+    content: " ";
+    display: table;
+  }
+  .article_navigation:after {
+    clear: both;
+  }
+}
+.article_navigation .article_nav-item {
+  line-height: 1.5;
+  white-space: nowrap;
+}
+@media (min-width: 960px) {
+  .article_navigation .article_nav-item {
+    float: left;
+    padding: 0 7px;
+    font-size: 12px;
+  }
+}
+@media (min-width: 1440px) {
+  .article_navigation .article_nav-item {
+    padding: 0 10px;
+    font-size: 14.04px;
+  }
+}
+.article_navigation .article_nav-item .article_nav-link {
+  color: #65beec;
+}
+.article_navigation .article_nav-item [class^="icon-"],
+.article_navigation .article_nav-item [class*=" icon-"] {
+  font-size: 8px;
+  vertical-align: middle;
+}
+@media (max-width: 440px) {
+  .article_picture {
+    margin: 0 -15px;
+  }
+}
+.article_picture .img-responsive {
+  width: 100%;
+}
+.article_top-content {
+  margin-top: 30px;
+}
+.article_content {
+  margin-top: 30px;
+}
+.article_body {
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+}
+.article_body p,
+.article_body li {
+  color: #647590;
+  font-size: 15.1632px;
+  line-height: 1.58687432;
+}
+@media (min-width: 768px) {
+  .article_body p,
+  .article_body li {
+    font-size: 16.376256px;
+    line-height: 1.71382427;
+  }
+}
+.article_body p {
+  margin-top: 40px;
+}
+.article_body p:first-of-type {
+  margin-top: 0;
+}
+.article_body ul {
+  margin-top: 10px;
+  margin-left: 2em;
+}
+.article_body li {
+  list-style-type: disc;
+}
+.article_body strong {
+  font-weight: bold;
+  font-weight: 500;
+  font-style: normal;
+}
+.article_body .promoLibrary {
+  margin-top: 40px;
+}
+.article_module {
+  background-color: #f5f5f5;
+  min-height: 150px;
+}
+.article_footer .article_footer_content {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid #ddd;
+}
+.content_roofline {
+  font-weight: bold;
+  color: #ddd;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 14.04px;
+  color: #b8bac1;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+@media (min-width: 440px) {
+  .content_roofline {
+    font-size: 16.376256px;
+  }
+}
+/* EMBEDDED IMAGES */
+.article-embedded_image {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+@media (min-width: 960px) {
+  .article-embedded_image {
+    margin-bottom: 30px;
+  }
+}
+.article-embedded_image .img-responsive {
+  width: 100%;
+  margin-bottom: 5px;
+}
+@media (min-width: 960px) {
+  .article-embedded_image .img-responsive {
+    margin-bottom: 10px;
+  }
+}
+.article-embedded_image.pull-left {
+  width: 50%;
+  padding-right: 15px;
+}
+@media (min-width: 960px) {
+  .article-embedded_image.pull-left {
+    width: 50%;
+    margin-left: -12.5%;
+    padding-right: 30px;
+  }
+}
+.article-embedded_image.pull-right {
+  width: 50%;
+  padding-left: 15px;
+}
+@media (min-width: 960px) {
+  .article-embedded_image.pull-right {
+    width: 50%;
+    margin-right: -12.5%;
+    padding-left: 30px;
+  }
+}
+.article-embedded_image.embedded-image-big {
+  width: 100%;
+  padding-right: 0;
+}
+@media (min-width: 960px) {
+  .article-embedded_image.embedded-image-big {
+    width: 112.5%;
+    padding-right: 0;
+  }
+}
+.article-embedded_image.embedded-image-duo {
+  width: 100%;
+  padding-right: 0;
+}
+@media (min-width: 440px) {
+  .article-embedded_image.embedded-image-duo {
+    width: 50%;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 960px) {
+  .article-embedded_image.embedded-image-duo {
+    width: 50%;
+    padding-right: 0;
+  }
+}
+.article-embedded_image.embedded-image-trio {
+  width: 100%;
+  padding-right: 0;
+  /*@media @min-tablet {
+      width: 50%;
+      padding-right: (@grid-gutter-width/2);
+    }*/
+}
+@media (min-width: 768px) {
+  .article-embedded_image.embedded-image-trio {
+    width: 33.33333333%;
+    padding-right: 30px;
+  }
+}
+@media (min-width: 960px) {
+  .article-embedded_image.embedded-image-trio {
+    width: 37.5%;
+    margin-left: -12.5%;
+  }
+}
+.mceNonEditable + .mceNonEditable .embedded-image-duo.pull-left {
+  margin-left: 0;
+}
+@media (min-width: 440px) {
+  .mceNonEditable + .mceNonEditable .embedded-image-duo.pull-left {
+    padding-left: 15px;
+    padding-right: 0;
+  }
+}
+@media (min-width: 960px) {
+  .mceNonEditable + .mceNonEditable .embedded-image-duo.pull-left {
+    margin-left: 12.5%;
+    padding-left: 0;
+  }
+}
+@media (min-width: 960px) {
+  .mceNonEditable + .mceNonEditable .embedded-image-trio.pull-left {
+    margin-left: 0;
+  }
+}
+.article-embedded_caption {
+  display: block;
+  font-weight: normal;
+  font-weight: 400;
+  font-style: normal;
+  font-style: italic;
+  font-size: 13px;
+  line-height: 20px;
+  color: #a3a3a3;
+}
+@media (min-width: 960px) {
+  .article-embedded_caption {
+    font-size: 14.04px;
+  }
+}
+.article-embedded_credits {
+  display: block;
+  font-weight: bold;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 11px;
+  line-height: 1;
+  color: #a3a3a3;
+}
+@media (min-width: 960px) {
+  .article-embedded_credits {
+    font-size: 12px;
+  }
+}
+.team-profile_content {
+  background-color: #FFF;
+  padding: 20px;
+  text-align: left;
+  margin-top: 200px;
+  margin-bottom: 20px;
+}
+.team-profile_content span.link {
+  color: #65beec;
+  display: block;
+}
+@media (min-width: 440px) {
+  .team-profile_content {
+    margin-top: 80px;
+    margin: 0;
+    width: 70%;
+  }
+}
+@media (min-width: 660px) {
+  .team-profile_content {
+    width: 50%;
+  }
+}
+@media (min-width: 1440px) {
+  .team-profile_content {
+    width: 40%;
+  }
+}
+.team-profile_content p {
+  padding-top: 15px;
+  color: #767676;
+  line-height: 1.3;
+}
+.team-profile_content p > a {
+  display: block;
+}
+.team-profile_content .team-profile_title {
+  text-transform: capitalize;
+  margin: 0;
+}
+.team-profile_content .team-profile_palmares {
+  margin: 30px 0 0;
+}
+.team-profile_content .team-profile_palmares .svg-icon {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  fill: #80889e;
+  background-color: transparent;
+}
+.team-profile_content .team-profile_palmares .team-palmares {
+  float: left;
+  display: table-cell;
+}
+.team-profile_content .team-profile_palmares .item {
+  display: inline-block;
+  margin: 0 2%;
+}
+.team-profile_content .team-profile_palmares .item .legend {
+  font-weight: bold;
+  font-weight: 500;
+  font-style: normal;
+  color: #767676;
+  font-size: 12.03703704px;
+}
+.team-profile_content .team-profile_palmares .item .value {
+  margin: 7px 0;
+  font-size: 30.31130696px;
+  font-weight: bold;
+  font-weight: 500;
+  font-style: normal;
+}
+.team-profile {
+  background-color: #00113f;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 0;
+}
+@media (min-width: 440px) {
+  .team-profile {
+    background-size: 500%;
+    background-position: 60% top;
+  }
+}
+@media (min-width: 660px) {
+  .team-profile {
+    background-size: 300%;
+    background-position: 50% top;
+  }
+}
+@media (min-width: 960px) {
+  .team-profile {
+    background-size: auto;
+  }
+}
+.team-profile.team-ALB {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/ALB.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-ALB {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/ALB.jpg");
+  }
+}
+.team-profile.team-AUT {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/AUT.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-AUT {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/AUT.jpg");
+  }
+}
+.team-profile.team-BEL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/BEL.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-BEL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/BEL.jpg");
+  }
+}
+.team-profile.team-CRO {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/CRO.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-CRO {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/CRO.jpg");
+  }
+}
+.team-profile.team-CZE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/CZE.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-CZE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/CZE.jpg");
+  }
+}
+.team-profile.team-ENG {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/ENG.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-ENG {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/ENG.jpg");
+  }
+}
+.team-profile.team-ESP {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/ESP.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-ESP {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/ESP.jpg");
+  }
+}
+.team-profile.team-FRA {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/FRA.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-FRA {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/FRA.jpg");
+  }
+}
+.team-profile.team-GER {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/GER.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-GER {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/GER.jpg");
+  }
+}
+.team-profile.team-HUN {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/HUN.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-HUN {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/HUN.jpg");
+  }
+}
+.team-profile.team-IRL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/IRL.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-IRL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/IRL.jpg");
+  }
+}
+.team-profile.team-ISL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/ISL.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-ISL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/ISL.jpg");
+  }
+}
+.team-profile.team-ITA {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/ITA.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-ITA {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/ITA.jpg");
+  }
+}
+.team-profile.team-NIR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/NIR.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-NIR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/NIR.jpg");
+  }
+}
+.team-profile.team-POL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/POL.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-POL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/POL.jpg");
+  }
+}
+.team-profile.team-POR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/POR.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-POR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/POR.jpg");
+  }
+}
+.team-profile.team-ROU {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/ROU.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-ROU {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/ROU.jpg");
+  }
+}
+.team-profile.team-RUS {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/RUS.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-RUS {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/RUS.jpg");
+  }
+}
+.team-profile.team-SUI {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/SUI.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-SUI {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/SUI.jpg");
+  }
+}
+.team-profile.team-SVK {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/SVK.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-SVK {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/SVK.jpg");
+  }
+}
+.team-profile.team-SWE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/SWE.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-SWE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/SWE.jpg");
+  }
+}
+.team-profile.team-TUR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/TUR.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-TUR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/TUR.jpg");
+  }
+}
+.team-profile.team-UKR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/UKR.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-UKR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/UKR.jpg");
+  }
+}
+.team-profile.team-WAL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/WAL.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-WAL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/WAL.jpg");
+  }
+}
+.team-profile.team-AND {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/AND.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-AND {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/AND.jpg");
+  }
+}
+.team-profile.team-ARM {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/ARM.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-ARM {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/ARM.jpg");
+  }
+}
+.team-profile.team-AZE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/AZE.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-AZE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/AZE.jpg");
+  }
+}
+.team-profile.team-BIH {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/BIH.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-BIH {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/BIH.jpg");
+  }
+}
+.team-profile.team-BLR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/BLR.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-BLR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/BLR.jpg");
+  }
+}
+.team-profile.team-BUL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/BUL.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-BUL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/BUL.jpg");
+  }
+}
+.team-profile.team-CYP {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/CYP.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-CYP {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/CYP.jpg");
+  }
+}
+.team-profile.team-DEN {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/DEN.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-DEN {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/DEN.jpg");
+  }
+}
+.team-profile.team-EST {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/EST.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-EST {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/EST.jpg");
+  }
+}
+.team-profile.team-FRO {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/FRO.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-FRO {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/FRO.jpg");
+  }
+}
+.team-profile.team-FIN {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/FIN.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-FIN {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/FIN.jpg");
+  }
+}
+.team-profile.team-GEO {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/GEO.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-GEO {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/GEO.jpg");
+  }
+}
+.team-profile.team-GIB {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/GIB.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-GIB {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/GIB.jpg");
+  }
+}
+.team-profile.team-GRE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/GRE.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-GRE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/GRE.jpg");
+  }
+}
+.team-profile.team-ISR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/ISR.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-ISR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/ISR.jpg");
+  }
+}
+.team-profile.team-KAZ {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/KAZ.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-KAZ {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/KAZ.jpg");
+  }
+}
+.team-profile.team-LVA {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/LVA.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-LVA {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/LVA.jpg");
+  }
+}
+.team-profile.team-LIE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/LIE.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-LIE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/LIE.jpg");
+  }
+}
+.team-profile.team-LTU {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/LTU.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-LTU {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/LTU.jpg");
+  }
+}
+.team-profile.team-LUX {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/LUX.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-LUX {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/LUX.jpg");
+  }
+}
+.team-profile.team-MDA {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/MDA.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-MDA {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/MDA.jpg");
+  }
+}
+.team-profile.team-MKD {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/MKD.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-MKD {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/MKD.jpg");
+  }
+}
+.team-profile.team-MLT {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/MLT.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-MLT {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/MLT.jpg");
+  }
+}
+.team-profile.team-MNE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/MNE.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-MNE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/MNE.jpg");
+  }
+}
+.team-profile.team-NED {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/NED.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-NED {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/NED.jpg");
+  }
+}
+.team-profile.team-NOR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/NOR.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-NOR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/NOR.jpg");
+  }
+}
+.team-profile.team-SCO {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/SCO.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-SCO {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/SCO.jpg");
+  }
+}
+.team-profile.team-SMR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/SMR.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-SMR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/SMR.jpg");
+  }
+}
+.team-profile.team-SRB {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/SRB.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-SRB {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/SRB.jpg");
+  }
+}
+.team-profile.team-SVN {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/S/SVN.jpg");
+}
+@media (min-width: 440px) {
+  .team-profile.team-SVN {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/profile/XL/SVN.jpg");
+  }
+}
+[class*="coach-profile--"] .article_top-content {
+  margin: 30px auto 0;
+}
+.coach-profile_picture {
+  margin-bottom: 30px;
+}
+.coach-profile_picture .img-responsive {
+  width: 100%;
+}
+.coach-profile_info {
+  color: #647590;
+}
+.coach-profile_info p {
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.coach-profile_info .coach-profile_label {
+  font-weight: 700;
+  font-style: normal;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+.coach-profile_info h4 {
+  margin: 20px 0;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  font-size: 14.04px;
+  font-weight: 700;
+  font-style: normal;
+  color: #1a1a1a;
+}
+.coach-profile_info h5 {
+  margin: 20px 0 10px;
+  font-weight: 700;
+  font-style: normal;
+  color: #1a1a1a;
+  font-size: 14.04px;
+}
+.coach-profile_stats h3 {
+  font-size: 16.376256px;
+  font-weight: 700;
+  font-style: normal;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+.coach-profile_stats .table {
+  border-top: 1px solid #ddd;
+}
+.coach-profile_stats .table tr[data-is-current-team="1"] a,
+.coach-profile_stats .table tr[data-is-current-team="1"] td {
+  color: #1a1a1a;
+}
+.coach-profile_stats .table th,
+.coach-profile_stats .table td {
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+  width: 10%;
+}
+.coach-profile_stats .table th:first-child,
+.coach-profile_stats .table td:first-child {
+  width: auto;
+  text-align: left;
+}
+.coach-profile_stats .table th {
+  border-top: 1px solid #ddd;
+  color: #767676;
+  font-size: 12.03703704px;
+}
+.coach-profile_stats .table td {
+  color: #b8bac1;
+  height: 50px;
+}
+.coach-profile_stats .table td,
+.coach-profile_stats .table th {
+  font-size: 16.376256px;
+}
+.coach-profile_stats .table--coach-national {
+  margin-bottom: 30px;
+}
+.coach-profile_stats .table--coach-club .table_row-title td {
+  height: auto;
+  padding-top: 20px;
+  font-weight: 400;
+  font-style: normal;
+  border-bottom: 1px dashed #ddd;
+}
+.coach-matchlist .team--all-matches {
+  display: none;
+}
+.teams--qualified .team-hub_link {
+  display: block;
+  margin: 10px 0;
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: 130%;
+  height: 110px;
+  background-color: #1a1a1a;
+}
+.teams--qualified .team-hub_link .team-container {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+.teams--qualified .team-name {
+  color: #FFF;
+  font-size: 24px;
+  font-weight: 500;
+  font-style: normal;
+  max-width: 200px;
+  padding-left: 10px;
+  display: table-cell;
+  vertical-align: middle;
+}
+.teams--qualified .team-name .team-flag {
+  width: 45px;
+  height: 45px;
+  background-size: 225px 495px;
+  vertical-align: middle;
+}
+.row-not-qualified {
+  display: none;
+}
+.row-not-qualified .teams--not-qualified {
+  color: #65beec;
+  display: table;
+  font-size: 17px;
+  margin: 10px 0;
+  height: 80px;
+}
+.row-not-qualified .teams--not-qualified a {
+  background-color: #f5f5f5;
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 10px;
+}
+.row-not-qualified .teams--not-qualified a .team-name {
+  color: #005696;
+  font-weight: 500;
+  font-style: normal;
+  vertical-align: middle;
+}
+.row-not-qualified .teams--not-qualified a .team-name .team-flag {
+  width: 25px;
+  height: 25px;
+  background-size: 125px 275px;
+  vertical-align: middle;
+  float: left;
+  margin: 0 10px 0 0;
+}
+[data-code="ALB"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/ALB.jpg");
+}
+[data-code="AUT"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/AUT.jpg");
+}
+[data-code="BEL"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/BEL.jpg");
+}
+[data-code="CRO"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/CRO.jpg");
+}
+[data-code="CZE"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/CZE.jpg");
+}
+[data-code="ENG"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/ENG.jpg");
+}
+[data-code="ESP"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/ESP.jpg");
+}
+[data-code="FRA"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/FRA.jpg");
+}
+[data-code="GER"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/GER.jpg");
+}
+[data-code="HUN"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/HUN.jpg");
+}
+[data-code="IRL"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/IRL.jpg");
+}
+[data-code="ISL"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/ISL.jpg");
+}
+[data-code="ITA"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/ITA.jpg");
+}
+[data-code="NIR"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/NIR.jpg");
+}
+[data-code="POL"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/POL.jpg");
+}
+[data-code="POR"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/POR.jpg");
+}
+[data-code="ROU"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/ROU.jpg");
+}
+[data-code="RUS"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/RUS.jpg");
+}
+[data-code="SUI"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/SUI.jpg");
+}
+[data-code="SVK"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/SVK.jpg");
+}
+[data-code="SWE"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/SWE.jpg");
+}
+[data-code="TUR"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/TUR.jpg");
+}
+[data-code="UKR"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/UKR.jpg");
+}
+[data-code="WAL"] .team-hub_link {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/M/WAL.jpg");
+}
+.teams--control {
+  text-transform: uppercase;
+  margin: 15px 0;
+}
+.teams--control a {
+  color: #005696;
+}
+.teams--control a:hover,
+.teams--control a:active {
+  color: #005696;
+}
+.teams--control a span {
+  border: 1px solid #005696;
+  border-radius: 50%;
+  padding: 5px;
+}
+@media (max-width: 1439px) {
+  .teams--qualified a {
+    height: 100px;
+    background-position: top left;
+  }
+  .teams--qualified .team-name {
+    font-size: 22px;
+  }
+}
+@media (max-width: 959px) {
+  .teams--qualified a {
+    background-color: #1A1517;
+    background-position: top left;
+    background-size: 110%;
+    height: 90px;
+    overflow: hidden;
+  }
+  .teams--qualified .team-name {
+    font-size: 18px;
+  }
+  .teams--qualified .team-name .team-flag {
+    width: 32px;
+    height: 32px;
+    background-size: 160px 352px;
+  }
+  .teams--qualified a,
+  .teams--not-qualified {
+    margin: 5px 0;
+  }
+  .teams--not-qualified {
+    height: 45px !important;
+  }
+  .teams--not-qualified .team-name {
+    font-size: 14px;
+  }
+  .teams--not-qualified .team-name .team-flag {
+    width: 25px;
+    height: 25px;
+    background-size: 125px 275px;
+  }
+}
+.team-header {
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 0;
+}
+.team-header.section {
+  background-color: #1a1011;
+}
+@media (min-width: 440px) {
+  .team-header {
+    background-size: 300%;
+    background-position: 35% top;
+  }
+}
+@media (min-width: 660px) {
+  .team-header {
+    background-size: 200%;
+  }
+}
+@media (min-width: 960px) {
+  .team-header {
+    background-size: auto;
+  }
+}
+.team-header.team-ALB {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/ALB.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-ALB {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/ALB.jpg");
+  }
+}
+.team-header.team-AUT {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/AUT.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-AUT {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/AUT.jpg");
+  }
+}
+.team-header.team-BEL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/BEL.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-BEL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/BEL.jpg");
+  }
+}
+.team-header.team-CRO {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/CRO.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-CRO {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/CRO.jpg");
+  }
+}
+.team-header.team-CZE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/CZE.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-CZE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/CZE.jpg");
+  }
+}
+.team-header.team-ENG {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/ENG.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-ENG {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/ENG.jpg");
+  }
+}
+.team-header.team-ESP {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/ESP.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-ESP {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/ESP.jpg");
+  }
+}
+.team-header.team-FRA {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/FRA.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-FRA {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/FRA.jpg");
+  }
+}
+.team-header.team-GER {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/GER.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-GER {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/GER.jpg");
+  }
+}
+.team-header.team-HUN {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/HUN.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-HUN {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/HUN.jpg");
+  }
+}
+.team-header.team-IRL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/IRL.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-IRL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/IRL.jpg");
+  }
+}
+.team-header.team-ISL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/ISL.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-ISL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/ISL.jpg");
+  }
+}
+.team-header.team-ITA {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/ITA.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-ITA {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/ITA.jpg");
+  }
+}
+.team-header.team-NIR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/NIR.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-NIR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/NIR.jpg");
+  }
+}
+.team-header.team-POL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/POL.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-POL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/POL.jpg");
+  }
+}
+.team-header.team-POR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/POR.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-POR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/POR.jpg");
+  }
+}
+.team-header.team-ROU {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/ROU.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-ROU {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/ROU.jpg");
+  }
+}
+.team-header.team-RUS {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/RUS.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-RUS {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/RUS.jpg");
+  }
+}
+.team-header.team-SUI {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/SUI.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-SUI {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/SUI.jpg");
+  }
+}
+.team-header.team-SVK {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/SVK.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-SVK {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/SVK.jpg");
+  }
+}
+.team-header.team-SWE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/SWE.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-SWE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/SWE.jpg");
+  }
+}
+.team-header.team-TUR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/TUR.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-TUR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/TUR.jpg");
+  }
+}
+.team-header.team-UKR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/UKR.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-UKR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/UKR.jpg");
+  }
+}
+.team-header.team-WAL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/WAL.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-WAL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/WAL.jpg");
+  }
+}
+.team-header.team-AND {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/AND.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-AND {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/AND.jpg");
+  }
+}
+.team-header.team-ARM {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/ARM.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-ARM {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/ARM.jpg");
+  }
+}
+.team-header.team-AZE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/AZE.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-AZE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/AZE.jpg");
+  }
+}
+.team-header.team-BIH {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/BIH.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-BIH {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/BIH.jpg");
+  }
+}
+.team-header.team-BLR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/BLR.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-BLR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/BLR.jpg");
+  }
+}
+.team-header.team-BUL {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/BUL.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-BUL {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/BUL.jpg");
+  }
+}
+.team-header.team-CYP {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/CYP.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-CYP {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/CYP.jpg");
+  }
+}
+.team-header.team-DEN {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/DEN.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-DEN {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/DEN.jpg");
+  }
+}
+.team-header.team-EST {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/EST.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-EST {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/EST.jpg");
+  }
+}
+.team-header.team-FRO {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/FRO.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-FRO {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/FRO.jpg");
+  }
+}
+.team-header.team-FIN {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/FIN.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-FIN {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/FIN.jpg");
+  }
+}
+.team-header.team-GEO {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/GEO.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-GEO {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/GEO.jpg");
+  }
+}
+.team-header.team-GIB {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/GIB.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-GIB {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/GIB.jpg");
+  }
+}
+.team-header.team-GRE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/GRE.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-GRE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/GRE.jpg");
+  }
+}
+.team-header.team-ISR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/ISR.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-ISR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/ISR.jpg");
+  }
+}
+.team-header.team-KAZ {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/KAZ.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-KAZ {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/KAZ.jpg");
+  }
+}
+.team-header.team-LVA {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/LVA.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-LVA {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/LVA.jpg");
+  }
+}
+.team-header.team-LIE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/LIE.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-LIE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/LIE.jpg");
+  }
+}
+.team-header.team-LTU {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/LTU.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-LTU {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/LTU.jpg");
+  }
+}
+.team-header.team-LUX {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/LUX.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-LUX {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/LUX.jpg");
+  }
+}
+.team-header.team-MDA {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/MDA.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-MDA {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/MDA.jpg");
+  }
+}
+.team-header.team-MKD {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/MKD.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-MKD {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/MKD.jpg");
+  }
+}
+.team-header.team-MLT {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/MLT.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-MLT {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/MLT.jpg");
+  }
+}
+.team-header.team-MNE {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/MNE.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-MNE {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/MNE.jpg");
+  }
+}
+.team-header.team-NED {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/NED.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-NED {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/NED.jpg");
+  }
+}
+.team-header.team-NOR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/NOR.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-NOR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/NOR.jpg");
+  }
+}
+.team-header.team-SCO {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/SCO.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-SCO {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/SCO.jpg");
+  }
+}
+.team-header.team-SMR {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/SMR.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-SMR {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/SMR.jpg");
+  }
+}
+.team-header.team-SRB {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/SRB.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-SRB {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/SRB.jpg");
+  }
+}
+.team-header.team-SVN {
+  background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/S/SVN.jpg");
+}
+@media (min-width: 440px) {
+  .team-header.team-SVN {
+    background-image: url("http://img.uefa.com/imgml/2016/euro/teams/header/XL/SVN.jpg");
+  }
+}
+.team--all-matches {
+  padding: 20px;
+  text-align: left;
+}
+.team--all-matches a {
+  color: #000 !important;
+}
+.table--standings {
+  border-top: 1px solid #ddd;
+}
+.table--standings tr[data-is-current-team="1"] a,
+.table--standings tr[data-is-current-team="1"] td {
+  color: #1a1a1a;
+}
+.table--standings th,
+.table--standings td {
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+  width: 10%;
+}
+.table--standings th:first-child,
+.table--standings td:first-child {
+  width: auto;
+  text-align: left;
+}
+.table--standings th {
+  border-top: 1px solid #ddd;
+  color: #767676;
+  font-size: 12.03703704px;
+}
+.table--standings td {
+  color: #b8bac1;
+  height: 50px;
+}
+.table--standings td:not(:first-child) {
+  font-size: 16.376256px;
+}
+.table--standings .table_team-name_block {
+  display: block;
+  width: 100%;
+  text-align: left;
+  height: 32px;
+  /*@media @min-tablet {
+    height: @flagsize;
+  }*/
+}
+.table--standings .table_team-name_block:before,
+.table--standings .table_team-name_block:after {
+  content: " ";
+  display: table;
+}
+.table--standings .table_team-name_block:after {
+  clear: both;
+}
+.table--standings .table_team-name_block .team-name_name {
+  display: table-cell;
+  vertical-align: middle;
+  height: 32px;
+}
+.table--standings .table_team-name_block .team-code {
+  height: 32px;
+  line-height: 32px;
+  display: none;
+}
+.table--standings .table_team-name_block .team-name {
+  height: 32px;
+}
+.table--standings .table_team-name_block .team-name,
+.table--standings .table_team-name_block .team-code {
+  text-align: left;
+  padding-left: 40px;
+  text-transform: uppercase;
+}
+.table--standings .table_team-name_block .team-flag {
+  width: 32px;
+  height: 32px;
+  background-size: 160px 352px;
+  float: left;
+}
+@media (max-width: 959px) {
+  .table--standings .table_team-name_block .team-code {
+    display: block;
+  }
+  .table--standings .table_team-name_block .team-name {
+    display: none;
+  }
+}
+@media (min-width: 440px) {
+  .table--standings .table_team-name_block .team-code {
+    display: none;
+  }
+  .table--standings .table_team-name_block .team-name {
+    display: block;
+  }
+}
+.table--standings .table_team-for,
+.table--standings .table_team-against,
+.table--standings .table_team-goal-diff {
+  display: none;
+}
+h2.team-statistics-title {
+  margin: 20px 0 30px 0;
+}
+@media (max-width: 959px) {
+  h2.team-statistics-title {
+    margin: 0;
+  }
+}
+.row--team-statistics h5 {
+  margin: 20px 0;
+}
+.row--team-statistics .statistics-score > div,
+.row--team-statistics .statistics-cards > div,
+.row--team-statistics .statistics-field > div {
+  border-top: 1px solid #ddd;
+  display: table;
+  height: 80px;
+  width: 100%;
+}
+.row--team-statistics .statistics-score .statistics-container,
+.row--team-statistics .statistics-cards .statistics-container,
+.row--team-statistics .statistics-field .statistics-container {
+  display: table-cell;
+  vertical-align: middle;
+}
+.row--team-statistics .statistics-score .statistics-container .item,
+.row--team-statistics .statistics-cards .statistics-container .item,
+.row--team-statistics .statistics-field .statistics-container .item {
+  display: inline-block;
+  margin: 0 2%;
+}
+.row--team-statistics .statistics-score .statistics-container .item .legend,
+.row--team-statistics .statistics-cards .statistics-container .item .legend,
+.row--team-statistics .statistics-field .statistics-container .item .legend {
+  font-weight: bold;
+  font-weight: 500;
+  font-style: normal;
+  color: #767676;
+  display: block;
+  font-size: 12.03703704px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.row--team-statistics .statistics-score .statistics-container .item .value,
+.row--team-statistics .statistics-cards .statistics-container .item .value,
+.row--team-statistics .statistics-field .statistics-container .item .value {
+  font-weight: bolder;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 19.101265px;
+}
+.row--team-statistics .statistics-score .svg-icon-wrap,
+.row--team-statistics .statistics-cards .svg-icon-wrap,
+.row--team-statistics .statistics-field .svg-icon-wrap {
+  display: table-cell;
+  height: 30px;
+  vertical-align: middle;
+  width: 30px;
+}
+.row--team-statistics .statistics-score .svg-icon-wrap .svg-icon,
+.row--team-statistics .statistics-cards .svg-icon-wrap .svg-icon,
+.row--team-statistics .statistics-field .svg-icon-wrap .svg-icon {
+  fill: #767676;
+}
+.row--team-statistics .statistics-score .item,
+.row--team-statistics .statistics-cards .item {
+  min-width: 105px;
+}
+@media (min-width: 768px) and (max-width: 960px) {
+  .row--team-statistics .item {
+    margin: 0 4% !important;
+  }
+}
+@media (min-width: 960px) {
+  .row--team-statistics {
+    padding-left: 15px;
+  }
+  .row--team-statistics .statistics-score,
+  .row--team-statistics .statistics-cards,
+  .row--team-statistics .statistics-field {
+    padding: 0;
+  }
+  .row--team-statistics .statistics-score:first-child,
+  .row--team-statistics .statistics-cards:first-child,
+  .row--team-statistics .statistics-field:first-child {
+    padding-left: 15px;
+  }
+  .row--team-statistics .statistics-score:last-child,
+  .row--team-statistics .statistics-cards:last-child,
+  .row--team-statistics .statistics-field:last-child {
+    padding-right: 15px;
+  }
+}
+.squad--coach {
+  position: relative;
+}
+.squad--coach .squad--coach-picture {
+  margin-bottom: 20px;
+}
+@media (min-width: 960px) {
+  .squad--coach .squad--coach-picture {
+    margin-bottom: 0;
+  }
+}
+.squad--coach .squad--coach-info {
+  padding-bottom: 60px;
+}
+.squad--coach .squad_coach-bio {
+  margin-top: 20px;
+  margin-bottom: 0;
+  color: #647590;
+  line-height: 1.4;
+}
+.squad--coach .squad--coach-more {
+  position: absolute;
+  bottom: 0;
+}
+.squad--coach .btn {
+  margin-top: 20PX;
+}
+.squad--stats .squad--stats-title {
+  font-weight: bold;
+  color: #ddd;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 14.04px;
+  color: #b8bac1;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+@media (min-width: 440px) {
+  .squad--stats .squad--stats-title {
+    font-size: 16.376256px;
+  }
+}
+.squad--stats + .squad--stats {
+  margin-top: 30px;
+}
+.match--date {
+  margin-bottom: 10px;
+  font-size: 17.68635648px;
+}
+.match--date + .matches .match-row .round-name {
+  margin-left: 0;
+  float: none;
+}
+.match--date + .matches .match-row .round-name:before {
+  display: none;
+}
+.matches {
+  margin-bottom: 15px;
+}
+@media (min-width: 960px) {
+  .matches {
+    margin-bottom: 30px;
+  }
+}
+@media (min-width: 960px) {
+  .section.team-header {
+    min-height: 220px;
+  }
+}
+.section.team-header .container-fluid {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+.section.team-header .box-content {
+  margin-top: 0;
+}
+.section.team-header .team-header_content {
+  padding: 10px 0;
+}
+.section.team-header .team-header_content:before,
+.section.team-header .team-header_content:after {
+  content: " ";
+  display: table;
+}
+.section.team-header .team-header_content:after {
+  clear: both;
+}
+@media (min-width: 960px) {
+  .section.team-header .team-header_content {
+    padding-top: 75px;
+    padding-bottom: 0;
+  }
+}
+.section.team-header .team-header_team-name {
+  float: left;
+}
+.section.team-header .team-header_team-name .team-flag {
+  float: left;
+  background-size: 160px 352px;
+  width: 32px;
+  height: 32px;
+}
+@media (min-width: 960px) {
+  .section.team-header .team-header_team-name .team-flag {
+    float: left;
+    background-size: 350px 770px;
+    width: 70px;
+    height: 70px;
+  }
+}
+.section.team-header .team-header_team-name .team-name {
+  margin-left: 32px;
+  clear: right;
+  color: #FFF;
+  padding-left: 15px;
+  line-height: 32px;
+}
+@media (min-width: 960px) {
+  .section.team-header .team-header_team-name .team-name {
+    font-weight: 500;
+    font-style: normal;
+    color: #FFF;
+    font-size: 28.06602496px;
+    /* 2.71em / 28px */
+    line-height: 70px;
+    margin-left: 70px;
+  }
+}
+@media (min-width: 960px) and (min-width: 960px) {
+  .section.team-header .team-header_team-name .team-name {
+    font-size: 48.10023471px;
+    /* 2.71em   / 48px */
+  }
+}
+.section.team-header .team-favourite-button {
+  border-color: #feba3d;
+  float: left;
+  clear: left;
+  height: 36px;
+  line-height: 1;
+  margin: 15px 0;
+  padding: 8px 10px;
+  font-size: 14.04px;
+  text-transform: lowercase;
+  width: auto;
+}
+.section.team-header .team-favourite-button .icon-heart:before {
+  color: #feba3d;
+}
+.section.team-header .team-favourite-button .icon-cross {
+  font-size: 9px;
+}
+@media (min-width: 960px) {
+  .section.team-header .team-favourite-button {
+    clear: none;
+    margin: 17px 40px;
+  }
+}
+.section.team-header .team-favourite-button:focus,
+.section.team-header .team-favourite-button.focus,
+.section.team-header .team-favourite-button:hover {
+  color: #FFF;
+  background-color: transparent;
+}
+.section.team-header .team-favourite-button.following {
+  background-color: #feba3d;
+  cursor: default;
+}
+.section.team-header .team-favourite-button.following:focus,
+.section.team-header .team-favourite-button.following:active {
+  outline: none;
+}
+.section.team-header .team-header_social {
+  clear: left;
+  float: left;
+  margin: 15px 0;
+}
+@media (min-width: 960px) {
+  .section.team-header .team-header_social {
+    margin-top: 5px;
+    margin-left: 75px;
+  }
+}
+.section.team-header .team-favourite-button + .team-header_social {
+  clear: none;
+}
+@media (min-width: 960px) {
+  .section.team-header .team-favourite-button + .team-header_social {
+    clear: left;
+  }
+}
+.section.team-header .share-buttons li {
+  float: left;
+  height: 32px;
+  margin-left: 10px;
+  color: #a3a3a3;
+}
+.section.team-header .share-buttons li a:before {
+  color: #a3a3a3;
+  line-height: 32px;
+  font-size: 16.376256px;
+}
+.section.team-header .team-correspondent {
+  float: left;
+  clear: both;
+  color: #a3a3a3;
+  font-size: 13px;
+  font-style: italic;
+}
+@media (min-width: 960px) {
+  .section.team-header .team-correspondent {
+    margin-left: 90px;
+  }
+}
+.section.team-header .team-correspondent .icon-twitter,
+.section.team-header .team-correspondent .team-correspondent-twitter {
+  display: none;
+}
+@media (min-width: 960px) {
+  .section.team-header .team-correspondent .icon-twitter,
+  .section.team-header .team-correspondent .team-correspondent-twitter {
+    display: inline-block;
+  }
+}
+.section.team-header .team-correspondent .icon-twitter {
+  color: #FFF;
+  margin-left: 15px;
+}
