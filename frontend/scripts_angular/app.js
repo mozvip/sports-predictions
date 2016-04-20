@@ -1,4 +1,7 @@
-angular.module('euro2016-predictions', ['ngRoute'])
+angular.module('euro2016-predictions', ['chieffancypants.loadingBar', 'ngRoute'])
+	   .config(function (cfpLoadingBarProvider) {
+			cfpLoadingBarProvider.includeSpinner = true;
+        })
  
 .controller('LoginController', function($scope, $route, $routeParams, $location) {
     

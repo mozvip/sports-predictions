@@ -19,9 +19,10 @@
     "angular-sweetalert": "^1.1.0",
     "angular-bootstrap": "#1.2.4",
     "angular-route": "^1.5.3",
-    "backstretch": "^2.0.4"
+    "backstretch": "^2.0.4",
+    "angular-loading-bar": "^0.9.0"
   },
   "resolutions": {
     "angular": "1.5.5"
-  }  
+  }
 }
