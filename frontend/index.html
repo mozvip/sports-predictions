@@ -1,0 +1,93 @@
+<!doctype html>
+<html ng-app="euro2016-predictions">
+
+<head>
+    <base href="/">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="scripts_angular/app.js"></script>
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/teams.css" />
+    <link rel="stylesheet" href="css/flags.css" />
+	<link rel="stylesheet" href="css/base-max.css" />
+	<link rel="stylesheet" href="css/hp.css" />
+	<title>Euro 2016 Prédictions</title>
+</head>
+
+<body>
+
+<div class="container-fluid main-wrap">
+    <header class="row header-wrap">
+
+	<nav role="navigation" class="navbar navbar-inverse navbar-lv0 nav-minimized">
+	  <div class="container-fluid">
+		  <img alt="UEFA.COM logo" src="images/uefa-logo.png" style="margin: 5px">
+		  <ul class="nav navbar-nav navbar-right">
+			<!--Login-->
+			<li id="uefa-login" class="dropdown nav-login" style="display: block;">
+				<a href="#login" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Connexion <span class="glyphicon glyphicon-user" aria-hidden="true"> </span></a>
+			</li>
+			</ul>
+      </li>
+    
+	</nav>
+
+    </header>
+  <!-- Content wrapper -->
+  <div class="body row">
+    <div class="content-wrap">
+      <!-- Navigation -->
+      <div style="" class="navigation">
+        
+		<nav class="navbar-lv2 d3-plugin" role="navigation" data-plugin="navigation" data-options="{&quot;disableStickyHeader&quot;: &quot;False&quot;}">
+		  
+		  <div class="competition-favourite-team d3-plugin" data-plugin="favouriteloader" data-script="/CompiledAssets/js/plugins/favourite.loader.source.js" data-options="{&quot;baseUrl&quot;:&quot;/teams/[TEAMID]/libraries/_team-favourite&quot;,&quot;emptyValue&quot;:true}">
+		  </div>
+		  <!-- Logo -->
+		  <div class="competition-logo">
+			<a class="logolink" title="UEFA EURO 2016" href="#">UEFA EURO 2016</a>
+		  </div>
+
+		  <!-- Navigation -->
+		  <div class="navbar-lv2-wrap js-nav-wrap navbar-lv2-only">
+			<div class="container-fluid">
+			  <ul class="navbar-lv2-nav js-nav">
+				<li class="navbar-lv2-item " role="presentation">
+				  <a class="navbar-lv2-item-link" href="#">Matches</a>
+				</li>
+				<li class="navbar-lv2-item " role="presentation">
+				  <a class="navbar-lv2-item-link" href="#ranks">Classements</a>
+				</li>
+				<li class="navbar-lv2-item " role="presentation">
+				  <a class="navbar-lv2-item-link" href="#pronostic">Pronostiques</a>
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+		
+      </div>
+      <!-- Main content -->
+      <div class="content">
+		<div ng-view>
+		</div>
+      </div>
+		<!-- Footer -->
+        <footer xtcz="Footer" class="footer-wrap" style="height: 320px">
+			<div  class="watermark-footer">
+			</div>
+        </footer>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
