@@ -1,5 +1,5 @@
 {
-  "name": "Euro 2016",
+  "name": "sports-predictions",
   "description": "Sports Predictions Application",
   "main": "",
   "moduleType": [],
@@ -14,11 +14,14 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.6",
-    "angular": "^1.5.1",
-    "ngSweetAlert": "angular-sweetalert#^1.1.0",
-    "angular-bootstrap": "^1.2.4",
+    "bootstrap": "#3.3.6",
+    "angular": "#1.5.5",
+    "angular-sweetalert": "^1.1.0",
+    "angular-bootstrap": "#1.2.4",
     "angular-route": "^1.5.3",
-    "jquery-backstretch": "backstretch#^2.0.4"
-  }
+    "backstretch": "^2.0.4"
+  },
+  "resolutions": {
+    "angular": "1.5.5"
+  }  
 }

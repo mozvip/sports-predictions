@@ -13,3 +13,4 @@ hs_err_pid*
 predictor/target/
 predictor/predictor.trace.db
 frontend/node_modules/
+frontend/bower_components/
