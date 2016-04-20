@@ -3,7 +3,9 @@ jdk:
 - oraclejdk8
 before_install:
 - npm install -g bower
-- cd predictor/src/main/resources/assets/
+- cd frontend
+- bower install
+- cd ../predictor/src/main/resources/assets/
 - bower install
 - cd ../../../../
 env:
