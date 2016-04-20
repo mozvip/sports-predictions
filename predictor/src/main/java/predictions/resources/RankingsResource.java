@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import io.swagger.annotations.ApiOperation;
 import predictions.model.User;
 import predictions.model.UserDAO;
 import predictions.views.RankingsView;
@@ -27,14 +28,9 @@ public class RankingsResource {
 	}
 
 	@GET
+	@ApiOperation(value="Displays the rankings view", hidden=true)
 	public RankingsView getView() {
 		return new RankingsView( userDAO, (String) httpRequest.getAttribute("community") );
-	}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getRankings() {
-		return userDAO.findUsersOrderedByScore( (String) httpRequest.getAttribute("community") );
 	}
 
 }

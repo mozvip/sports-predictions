@@ -14,6 +14,7 @@
             <li><a href="/api/score/submit">Submit Score</a></li>
             <li><a href="/api/user/create">Create User</a></li>
             <li><a href="/api/change-password">Change Password</a></li>
+            <li><a href="/api/rankings">Rankings</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

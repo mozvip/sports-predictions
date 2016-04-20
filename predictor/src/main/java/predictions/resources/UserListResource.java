@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import io.swagger.annotations.ApiOperation;
 import predictions.model.MatchPredictionDAO;
 import predictions.model.UserDAO;
 import predictions.views.UserListView;
@@ -27,6 +28,7 @@ public class UserListResource {
 	}
 
 	@GET
+	@ApiOperation(value="Display the list of users view", hidden=true)
 	public UserListView getUserList() {
 		String community = (String) httpRequest.getAttribute("community");
 		return new UserListView( userDAO, community );
