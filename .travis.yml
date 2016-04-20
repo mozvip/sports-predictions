@@ -3,9 +3,9 @@ jdk:
 - oraclejdk8
 before_install:
 - npm install -g bower
-- cd /predictor/src/main/resources/assets/
+- cd predictor/src/main/resources/assets/
 - bower install
-- cd /predictor
+- cd ../../../
 env:
   global:
   - secure: PYUMsFrRU1OJ/Om4PUsZhQ10BFwmTZOEifmzm6Fkw0tyRXYrs5AAdNDzIk9R/NMeC2BCjTWLicfl1N1OUPh4V4JFjkOn/71VoFA1puqLmVg7vBCSOxDou6RGGm6bJ1cRlA8dQW48s+a7yWTBd0rQNUb7klXNTi42P0JhwRFMAmReZvG5BBbelptOJ4PV1QLYKUKKR/4r72hNYFBfz0vYzq4H+VcGOn/0adr8PoGr8frDBV0XMFMCrTNaJbZpXW3/n96CKUZH2oGoyr8jMuMzOYIMO1rJf6b35Xn0fpLorYnFcA9J47XNPd1H/1WlSi6TkMgwG4qQEkSD21SlChrMjhpB6onTh2+SdsDvnjeCvh3MHtKGyw23TYdSnxiNhNvDqsGetFKV8L95kkpimLtMjmXi32Tt9c4lQ9gh7NLJQB8JEiPcT7/b59owMNMxZxpRV12Bgd6qsoHmAmJzuPMEn5RfXWTXQytcie19kUEGeryFCiaxBQ+//ezX3Uw3FPDaSbu/DU/npmSp/g8dOJaeVY3nwNG19Y7gWBq/71UoNohm2d4j2wKcvdmAXzZit1XOYecpjYCYBYnNofenimyzEbRExTq4wIzVS15tkAD4UQ4sU8n56ISLkZ6TVzM5Jfi3gPB6g5YaPg8L733ReteQDnfZmnHb7M+ZdBSle7RLk84=
