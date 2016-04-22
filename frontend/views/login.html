@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="main_connexion">
+			<div class="main_connexion" ng-controller="LoginController">
 					
 				<div class="row">
 				<div class="col-xs-12 col-sm-6 col-sm-offset-1">
@@ -10,13 +10,13 @@
 					<h1>Connexion</h1>
 					<br/>
 					
-					<form name="login" role="form" class="form-horizontal" method="post" accept-charset="utf-8">
+					<div name="login" role="form" class="form-horizontal"> 
 						<div class="form-group">
-							<div class="col-md-8"><input name="username" placeholder="Idenfiant" class="form-control" type="text" id="UserUsername"/></div>
+							<div class="col-md-8"><input name="username" placeholder="Idenfiant" class="form-control" type="text" id="UserUsername" ng-model="User.Login"/></div>
 						</div> 
 						
 						<div class="form-group">
-							<div class="col-md-8"><input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword"/></div>
+							<div class="col-md-8"><input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword" ng-model="User.Password"/></div>
 						</div> 
 						
 						<div class="form-group">
@@ -24,11 +24,11 @@
 						</div>
 						
 						<div class="form-group">
-							<div class="col-md-offset-0 col-md-8"><input  class="btn btn-success btn btn-success" type="submit" value="Connexion"/></div>
+							<div class="col-md-offset-0 col-md-8"><button class="btn btn-success btn btn-success"  ng-click="login()">Connexion</button></div>
 							<a href="#signup"><input  class="btn btn-success btn btn-success" type="submit" value="Inscription"/></a>
 						</div>
 					
-					</form>
+					</div>
 				</div>
 				</div>
 				

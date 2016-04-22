@@ -1,65 +1,127 @@
-angular.module('euro2016-predictions', ['chieffancypants.loadingBar', 'ngRoute'])
-	   .config(function (cfpLoadingBarProvider) {
+angular.module('euro2016-predictions', [/*'chieffancypants.loadingBar',*/ 'ngRoute'])
+		/*.config(function (cfpLoadingBarProvider) {
 			cfpLoadingBarProvider.includeSpinner = true;
-        })
+        })*/
  
-.controller('LoginController', function($scope, $route, $routeParams, $location) {
+.controller('LoginController', ['$scope', '$route', '$routeParams', '$location', 'UserService',function($scope, $route, $routeParams, $location, UserService) {
     
+	$scope.User = {
+        Login: '',
+        Password: ''
+    };
+	
     $scope.login = function() {
-        alert( $scope.username );
+		//alert( $scope.User.Login + " " +  $scope.User.Password);
+		var res = UserService.login($scope.User.Login, $scope.User.Password);
+		
+		 res.then(function (result) {
+            if (result.authToken != null) {
+                $scope.auth = result.authToken;
+            }
+        });
     }
     
-})
- 
-.controller('WelcomeController', function($scope, $route, $routeParams, $location) {
-    
-    $scope.message = "Hello World !";
-    
-})
+}])
+.service('UserService', ['$rootScope', '$http', '$q', function($rootScope, $http, $q)
+{
+	return {
+		isConnected: function(){
+			return false;
+		},
+		login: function(login, password){
+			var deferredObject = $q.defer();
+			
+			var userResult ={
+				User: null,
+				message: ''
+			}
+			
+			var data = {
+				email:'sylvain.le.gouellec@cgi.com',
+				password:'asmrugby63'
+			};
 
-.controller('SignupController', function($scope, $route, $routeParams, $location) {
-})
+			var config = {
+				headers : {
+					'Accept' : 'application/json',
+					'Content-Type' : 'application/x-www-form-urlencoded'
+					//'Access-Control-Allow-Origin': '*'
+					},
+				dataType: 'script'
+			};
 
-.controller('InputScoresController', function($scope, $route, $routeParams, $location) {
-    
-    
-    
-})
-
-.config(function($routeProvider, $locationProvider) {
+			$http
+            .post('https://www.pronostics2016.com/api/user/signin', data, config)
+			.then(function(data){
+				userResult.User = data;
+				userResult.message = 'Authentification OK';
+				deferredObject.resolve({ User:  userResult });
+				$rootScope.$broadcast("connectionStateChanged");
+			}, function(data){
+				userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
+				deferredObject.resolve({ User: userResult });
+			});
+			/*.success(function (data) {
+				userResult.User = data;
+				deferredObject.resolve({ User:  userResult });
+				$rootScope.$broadcast("connectionStateChanged");
+			})
+			.error(function(data){
+				userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
+				deferredObject.resolve({ User: userResult });
+			});*/
+			
+			return deferredObject.promise;
+		},
+		logout: function(){
+			
+			$rootScope.$broadcast("connectionStateChanged");
+		}
+	};
+}])
+.config(function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider
     .when('/welcome', {
-      controller:'WelcomeController',
-      templateUrl:'/views/welcome.html'
+      templateUrl:'/views/welcome.html',
+	  authorized: false
     })
 	.when('/pronostic', {
-      controller:'PronosticController',
-      templateUrl:'/views/pronostic.html'
+      templateUrl:'/views/pronostic.html',
+	  authorized: true
     })
 	.when('/ranks', {
-      controller:'RankController',
-      templateUrl:'/views/ranks.html'
+      templateUrl:'/views/ranks.html',
+	  authorized: false
     })
     .when('/login', {
       controller:'LoginController',
-      templateUrl:'/views/login.html'
-    })
-    .when('/signup', {
-      controller:'SignupController',
-      templateUrl:'signup.html'
+      templateUrl:'/views/login.html',
+	  authorized: false
     })
     .when('/input-scores', {
-      controller:'InputScoresController',
       templateUrl:'input-scores.html'
     })
 	.when('/signup', {
-		controller:'SignupController',
-		templateUrl:'/views/signup.html'
+		templateUrl:'/views/signup.html',
+	  authorized: false
 	})
     .otherwise({
       redirectTo:'/welcome'
     });
+	
+	$httpProvider.interceptors.push(function($q, $location){
+		return { 'responseError' : function(rejection){
+			if(rejection.status === 401)
+				$location.url('login');
+			}
+		};
+	});
 })
- 
-;
+.run(['$rootScope', '$location', 'UserService', function($rootScope, $location, UserService) {
+    $rootScope.$on("$routeChangeStart", function (event, next, current) {
+			if (next.authorized  && !UserService.isConnected()) {
+				$location.url("login");
+        }
+    });
+}]);
 
