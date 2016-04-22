@@ -1,85 +1,20 @@
-angular.module('euro2016-predictions', [/*'chieffancypants.loadingBar',*/ 'ngRoute'])
-		/*.config(function (cfpLoadingBarProvider) {
-			cfpLoadingBarProvider.includeSpinner = true;
-        })*/
- 
-.controller('LoginController', ['$scope', '$route', '$routeParams', '$location', 'UserService',function($scope, $route, $routeParams, $location, UserService) {
-    
-	$scope.User = {
-        Login: '',
-        Password: ''
-    };
-	
-    $scope.login = function() {
-		//alert( $scope.User.Login + " " +  $scope.User.Password);
-		var res = UserService.login($scope.User.Login, $scope.User.Password);
-		
-		 res.then(function (result) {
-            if (result.authToken != null) {
-                $scope.auth = result.authToken;
-            }
-        });
-    }
-    
-}])
-.service('UserService', ['$rootScope', '$http', '$q', function($rootScope, $http, $q)
-{
-	return {
-		isConnected: function(){
-			return false;
-		},
-		login: function(login, password){
-			var deferredObject = $q.defer();
-			
-			var userResult ={
-				User: null,
-				message: ''
-			}
-			
-			var data = {
-				email:login,
-				password:password
-			};
+// Application du site euro2016Predictions
+var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypants.loadingBar', 'ngRoute'])
+                                    .config(function (cfpLoadingBarProvider) {
+                                        cfpLoadingBarProvider.includeSpinner = true;
+                                    });
 
-			var config = {
-				headers : {
-					'Accept' : 'application/json',
-					'Content-Type' : 'application/x-www-form-urlencoded'
-					//'Access-Control-Allow-Origin': '*'
-					},
-				dataType: 'script'
-			};
+/* Définition des controllers à l'application */
+euro2016Predictions.controller('LoginController', LoginController);
 
-			$http
-            .post('https://www.pronostics2016.com/api/user/signin', data, config)
-			.then(function(data){
-				userResult.User = data;
-				userResult.message = 'Authentification OK';
-				deferredObject.resolve({ User:  userResult });
-				$rootScope.$broadcast("connectionStateChanged");
-			}, function(data){
-				userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
-				deferredObject.resolve({ User: userResult });
-			});
-			/*.success(function (data) {
-				userResult.User = data;
-				deferredObject.resolve({ User:  userResult });
-				$rootScope.$broadcast("connectionStateChanged");
-			})
-			.error(function(data){
-				userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
-				deferredObject.resolve({ User: userResult });
-			});*/
-			
-			return deferredObject.promise;
-		},
-		logout: function(){
-			
-			$rootScope.$broadcast("connectionStateChanged");
-		}
-	};
-}])
-.config(function($routeProvider, $locationProvider, $httpProvider) {
+/*  Interceptor des réponses HTTP  pour l'auth  */
+euro2016Predictions.factory('AuthInterceptor', AuthInterceptor);
+
+/* Définition des factory */ 
+euro2016Predictions.factory('UserService', UserService);
+									
+
+var config = function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider
     .when('/welcome', {
       templateUrl:'/views/welcome.html',
@@ -109,15 +44,12 @@ angular.module('euro2016-predictions', [/*'chieffancypants.loadingBar',*/ 'ngRou
       redirectTo:'/welcome'
     });
 	
-	$httpProvider.interceptors.push(function($q, $location){
-		return { 'responseError' : function(rejection){
-			if(rejection.status === 401)
-				$location.url('login');
-			}
-		};
-	});
-})
-.run(['$rootScope', '$location', 'UserService', function($rootScope, $location, UserService) {
+    $httpProvider.interceptors.push('AuthInterceptor');
+}
+config.$inject = ['$routeProvider', '$locationProvider', '$httpProvider'];
+euro2016Predictions.config(config);
+
+euro2016Predictions.run(['$rootScope', '$location', 'UserService', function($rootScope, $location, UserService) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
 			if (next.authorized  && !UserService.isConnected()) {
 				$location.url("login");
