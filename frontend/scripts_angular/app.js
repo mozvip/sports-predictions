@@ -37,8 +37,8 @@ angular.module('euro2016-predictions', [/*'chieffancypants.loadingBar',*/ 'ngRou
 			}
 			
 			var data = {
-				email:'sylvain.le.gouellec@cgi.com',
-				password:'asmrugby63'
+				email:login,
+				password:password
 			};
 
 			var config = {
