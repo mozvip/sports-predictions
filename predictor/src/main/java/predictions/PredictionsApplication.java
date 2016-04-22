@@ -4,7 +4,9 @@ import java.util.EnumSet;
 import java.util.List;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration.Dynamic;
 
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.skife.jdbi.v2.DBI;
 
@@ -74,7 +76,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		
 		environment.jersey().setUrlPattern("/api");
 		
-		environment.servlets().addFilter("communityFilter", CommunityFilter.class).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+		environment.servlets().addFilter("CommunityFilter", CommunityFilter.class).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
 		// swagger
 		environment.jersey().register(new ApiListingResource());
@@ -85,6 +87,12 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new RankingsResource(userDAO));
 		environment.jersey().register(new ScoreResource(actualResultDAO, matchPredictionDAO, userDAO));
+		
+		Dynamic corsFilter = environment.servlets().addFilter("CrossOriginFilter", CrossOriginFilter.class);
+		corsFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+		corsFilter.setInitParameter("allowedOrigins", "*");
+		corsFilter.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
+		corsFilter.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
 
 		PredictorBasicAuthenticator basicAuthenticator = new PredictorBasicAuthenticator( userDAO );
 		
