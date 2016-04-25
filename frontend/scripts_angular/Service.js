@@ -8,37 +8,33 @@
 **/
 var UserService = function($rootScope, $http, $q)
 {
+	var token = null;
 	return {
 		isConnected: function(){
-			return false;
+			return token != null;
+		},
+		getToken: function(){
+			return token;
 		},
 		login: function(login, password){
 			var deferredObject = $q.defer();
-			
 			var userResult ={
-				User: null,
 				message: ''
-			}
-			
-			var data = {
-				email:login,
-				password:password
 			};
-
+			var data = 'email='+login+'&password='+password;
 			var config = {
-				headers : {
-					'Accept' : 'application/json',
-					'Content-Type' : 'application/x-www-form-urlencoded'
-					//'Access-Control-Allow-Origin': '*'
-					},
-				dataType: 'script'
+				headers : { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
 			};
-
+			
 			$http
             .post('https://www.pronostics2016.com/api/user/signin', data, config)
 			.then(function(data){
-				userResult.User = data;
-				userResult.message = 'Authentification OK';
+				userResult.status = data.status;
+				if(data.status === 200)
+					token = data.data.authToken;
+				else
+					userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
+				
 				deferredObject.resolve({ User:  userResult });
 				$rootScope.$broadcast("connectionStateChanged");
 			}, function(data){
@@ -49,7 +45,7 @@ var UserService = function($rootScope, $http, $q)
 			return deferredObject.promise;
 		},
 		logout: function(){
-			
+			token = null;
 			$rootScope.$broadcast("connectionStateChanged");
 		}
 	};

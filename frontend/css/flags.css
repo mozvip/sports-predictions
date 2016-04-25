@@ -3,7 +3,7 @@
     display: inline-block;
     margin: 0;
     background-repeat: no-repeat;
-    background-image: url(http://img.uefa.com/imgml/2016/euro/flags/flags_sprite_empty_64x64.png)
+    background-image: url(../images/flags_sprite_empty_64x64.png)
 }
 
 .flag-ALB {
