@@ -1,5 +1,5 @@
 // Application du site euro2016Predictions
-var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypants.loadingBar', 'ngRoute'])
+var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypants.loadingBar', 'ngRoute', 'ui.bootstrap'])
                                     .config(function (cfpLoadingBarProvider) {
                                         cfpLoadingBarProvider.includeSpinner = false;
                                     });
@@ -7,6 +7,7 @@ var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypant
 /* Définition des controllers à l'application */
 euro2016Predictions.controller('LoginController', LoginController);
 euro2016Predictions.controller('HomeController', HomeController);
+euro2016Predictions.controller('SignupController', SignupController);
 
 /*  Interceptor des réponses HTTP  pour l'auth  */
 euro2016Predictions.factory('AuthInterceptor', AuthInterceptor);
@@ -18,29 +19,30 @@ euro2016Predictions.factory('UserService', UserService);
 var config = function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider
     .when('/welcome', {
-	  controller: 'HomeController',
-      templateUrl:'/views/welcome.html',
-	  authorized: false
+		controller: 'HomeController',
+		templateUrl:'/views/welcome.html',
+		authorized: false
     })
 	.when('/pronostic', {
-      templateUrl:'/views/pronostic.html',
-	  authorized: true
+		templateUrl:'/views/pronostic.html',
+		authorized: true
     })
 	.when('/ranks', {
-      templateUrl:'/views/ranks.html',
-	  authorized: false
+		templateUrl:'/views/ranks.html',
+		authorized: false
     })
     .when('/login', {
-      controller:'LoginController',
-      templateUrl:'/views/login.html',
-	  authorized: false
+		controller:'LoginController',
+		templateUrl:'/views/login.html',
+		authorized: false
     })
     .when('/input-scores', {
-      templateUrl:'input-scores.html'
+		templateUrl:'input-scores.html'
     })
 	.when('/signup', {
+		controller: 'SignupController',
 		templateUrl:'/views/signup.html',
-	  authorized: false
+		authorized: false
 	})
     .otherwise({
       redirectTo:'/welcome'

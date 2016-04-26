@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="main_connexion">
+			<div class="main_connexion" ng-controller="SignupController">
 					
 				<div class="row">
 				<div class="col-xs-12 col-sm-6 col-sm-offset-1">
@@ -24,7 +24,7 @@
 						</div>
 		
 						<div class="form-group">
-							<div class="col-md-8">Erreur utilisateur déjà existant !</div>
+							<div class="col-md-8" style="color: red">{{returnRequest}}</div>
 						</div>
 						
 						<div class="form-group">

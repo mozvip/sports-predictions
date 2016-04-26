@@ -12,6 +12,7 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+	<!-- <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script> -->
 	
 	<script src="scripts_angular/Service.js"></script>
 	<script src="scripts_angular/Controler.js"></script>
@@ -41,7 +42,7 @@
 		  <!--Profil / Log Out-->
 			<li id="uefa-profil" class="dropdown nav-login" style="display: block;" show-when-connected>
 				<a href="#profil" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profil <span class="glyphicon glyphicon-home" aria-hidden="true"> </span></a>
-				<a href="#welcome" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Se déconnecter <span class="glyphicon glyphicon-off" aria-hidden="true"> </span></a>
+				<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off" aria-hidden="true"> </span></a>
 			</li>
 			<!--Login-->
 			<li id="uefa-login" class="dropdown nav-login" style="display: block;" hide-when-connected>
