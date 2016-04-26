@@ -7,16 +7,14 @@
 * logout()
 * signup()
 **/
-var UserService = function($rootScope, $http, $q)
+var UserService = function($rootScope, $http, $q, $cookies)
 {
-	var token = null;
 	return {
 		isConnected: function(){
 			return this.getToken() != null;
 		},
 		getToken: function(){
-			//  TODO : Utiliser les cookies
-			return token;
+			return $cookies.get('SESSION_ID');
 		},
 		login: function(login, password){
 			var deferredObject = $q.defer();
@@ -33,7 +31,7 @@ var UserService = function($rootScope, $http, $q)
 			.then(function(data){
 				userResult.status = data.status;
 				if(data.status === 200)
-					token = data.data.authToken;
+					$cookies.put('SESSION_ID', data.data.authToken);
 				else
 					userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
 				
@@ -47,7 +45,7 @@ var UserService = function($rootScope, $http, $q)
 			return deferredObject.promise;
 		},
 		logout: function(){
-			token = null;
+			$cookies.remove('SESSION_ID');
 			$rootScope.$broadcast("connectionStateChanged");
 		},
 		signup: function(login, name, password)
@@ -75,4 +73,4 @@ var UserService = function($rootScope, $http, $q)
 		}
 	};
 }
-UserService.$inject = ['$rootScope', '$http', '$q'];
+UserService.$inject = ['$rootScope', '$http', '$q', '$cookies'];
