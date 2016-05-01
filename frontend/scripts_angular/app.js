@@ -49,6 +49,8 @@ var config = function($routeProvider, $locationProvider, $httpProvider) {
     });
 	
     $httpProvider.interceptors.push('AuthInterceptor');
+    
+    $locationProvider.html5Mode(false);
 };
 config.$inject = ['$routeProvider', '$locationProvider', '$httpProvider'];
 euro2016Predictions.config(config);
