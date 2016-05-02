@@ -8,22 +8,21 @@ var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypant
 euro2016Predictions.controller('LoginController', LoginController);
 euro2016Predictions.controller('HomeController', HomeController);
 euro2016Predictions.controller('SignupController', SignupController);
+euro2016Predictions.controller('TestController', TestController);
 
 /*  Interceptor des réponses HTTP  pour l'auth  */
 euro2016Predictions.factory('AuthInterceptor', AuthInterceptor);
 
 /* Définition des factory */ 
 euro2016Predictions.factory('UserService', UserService);
+euro2016Predictions.factory('PredictionService', PredictionService);
+euro2016Predictions.factory('RankingService', RankingService);
 									
 
 var config = function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider
-    .when('/welcome', {
-		controller: 'HomeController',
-		templateUrl:'/views/welcome.html',
-		authorized: false
-    })
 	.when('/pronostic', {
+		controller: 'HomeController',
 		templateUrl:'/views/pronostic.html',
 		authorized: true
     })
@@ -44,8 +43,12 @@ var config = function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl:'/views/signup.html',
 		authorized: false
 	})
+	.when('/yourStats', {
+		templateUrl:'/views/yourStats.html',
+		authorized: true	
+	})
     .otherwise({
-      redirectTo:'/welcome'
+      redirectTo:'/pronostic'
     });
 	
     $httpProvider.interceptors.push('AuthInterceptor');

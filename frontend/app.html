@@ -4,6 +4,7 @@
 <head>
     <base href="/">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<script src="https://code.highcharts.com/highcharts.js"></script>
 
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
@@ -13,6 +14,9 @@
     <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
 	<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+	
+	<!-- FOR TEST -->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
 	
 	<script src="scripts_angular/Service.js"></script>
 	<script src="scripts_angular/Controler.js"></script>
@@ -44,11 +48,7 @@
 				<a href="#profil" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profil <span class="glyphicon glyphicon-home" aria-hidden="true"> </span></a>
 				<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off" aria-hidden="true"> </span></a>
 			</li>
-			<!--Login-->
-			<li id="uefa-login" class="dropdown nav-login" style="display: block;" hide-when-connected>
-				<a href="#login" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Connexion <span class="glyphicon glyphicon-user" aria-hidden="true"> </span></a>
-			</li>
-			</ul>
+		  </ul>
       </li>
     
 	</nav>
@@ -74,13 +74,6 @@
 			<div class="container-fluid">
 			  <ul class="navbar-lv2-nav js-nav">
 				<li class="navbar-lv2-item " role="presentation">
-				  <a class="navbar-lv2-item-link" href="#">Matches</a>
-				</li>
-				<li class="navbar-lv2-item " role="presentation">
-				  <a class="navbar-lv2-item-link" href="#ranks">Classements</a>
-				</li>
-				<li class="navbar-lv2-item " role="presentation">
-				  <a class="navbar-lv2-item-link" href="#pronostic">Pronostiques</a>
 				</li>
 			  </ul>
 			</div>

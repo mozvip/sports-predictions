@@ -3,12 +3,15 @@
 * Expose method to login, logout user,to know if user is connected and to sign up a new user.
 * Controler which use this service : HeaderController (TO IMPLEMENT), LoginController, SignupController(TO IMPLEMENT)
 * isConnected()
+* getToken()
 * login(login, password)
 * logout()
 * signup()
+* loginAvailable()
+* forgetPassword()
+* changePassword()
 **/
-var UserService = function($rootScope, $http, $q, $cookies)
-{
+var UserService = function($rootScope, $http, $q, $cookies){
 	return {
 		isConnected: function(){
 			return this.getToken() != null;
@@ -48,8 +51,7 @@ var UserService = function($rootScope, $http, $q, $cookies)
 			$cookies.remove('SESSION_ID');
 			$rootScope.$broadcast("connectionStateChanged");
 		},
-		signup: function(login, name, password)
-		{
+		signup: function(login, name, password){
 			var deferredObject = $q.defer();
 			var userResult = {};
 			var data = 'email='+login+'&name='+name+'&password='+password;
@@ -70,7 +72,37 @@ var UserService = function($rootScope, $http, $q, $cookies)
 			});
 			
 			return deferredObject.promise;
+		},
+		loginAvailable: function(login){
+			// TODO : TO BE IMPLEMENT
+		},
+		forgetPassword: function(login){
+			// TODO : TO BE IMPLEMENT
+		},
+		changePassword: function(){
+			// TODO : TO BE IMPLEMENT
 		}
 	};
 }
 UserService.$inject = ['$rootScope', '$http', '$q', '$cookies'];
+
+var PredictionService = function($rootScope, $http, $q){
+	return {
+		save: function(){
+			// TODO : TO BE IMPLEMENT
+		},
+		get: function(){
+			// TODO : TO BE IMPLEMENT
+		}
+	};
+}
+PredictionService.$inject = ['$rootScope', '$http', '$q'];
+
+var RankingService = function($rootScope, $http, $q){
+	return {
+		get: function(){
+			// TODO : TO BE IMPLEMENT
+		}
+	};
+}
+RankingService.$inject = ['$rootScope', '$http', '$q'];
