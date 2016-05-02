@@ -29,7 +29,7 @@ LoginController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Use
 * Login user in euro2016 Predictor
 * login()  https://www.google.com/recaptcha/admin#site/320777337
 **/
-var SignupController = function($scope, $route, $routeParams, $location, UserService, $uibModal, vcRecaptchaService) {
+var SignupController = function($scope, $route, $routeParams, $location, UserService, $uibModal, vcRecaptchaService, RankingService) {
     
 	// Implementation recaptcha
 	$scope.response = null;
@@ -42,28 +42,25 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 	$scope.newuser = {
         Login: '',
 		Name: '',
-        Password: ''
+        Password: '', 
+		ConfirmPassword: '',
+		login_available: null,
+		same_password: null
     };
 
     $scope.setResponse = function (response) {
-        console.info('Response available');
-
         $scope.response = response;
     };
 
     $scope.setWidgetId = function (widgetId) {
-        console.info('Created widget ID: %s', widgetId);
-
         $scope.widgetId = widgetId;
     };
 	
 	$scope.cbExpiration = function() {
-		console.info('Captcha expired. Resetting response object');
 		vcRecaptchaService.reload($scope.widgetId);
 		$scope.response = null;
     };
-				 
-				 	
+				 			 	
 	var openModal = function(){
 		var modalInstance = $uibModal.open({
 			  animation: true,
@@ -71,6 +68,26 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 			  size: 'lg'
 		});
 	}	
+	
+	$scope.loginChanged = function(){
+		// TODO : Verifier que c'est bien une adresse mail via regex
+		if($scope.newuser.Login != undefined && $scope.newuser.Login != ''){
+			var res = UserService.loginAvailable($scope.newuser.Login);
+			 res.then(function (result) {
+				$scope.newuser.login_available = result.Result;
+			});
+		}
+		else
+			$scope.newuser.login_available = true;
+		
+		if($scope.newuser.login_available)
+			$scope.returnRequest = '';
+		else
+			$scope.returnRequest = 'Cette adresse mail est déjà utilisée !';
+	}
+		
+	$scope.init = function(){
+	}
 		
     $scope.save = function() {
 		var res = UserService.signup($scope.newuser.Login, $scope.newuser.Name, $scope.newuser.Password);
@@ -86,7 +103,7 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
         });
     }
 }
-SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal', 'vcRecaptchaService'];
+SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal', 'vcRecaptchaService', 'RankingService'];
 
 /**
 * Angular Controller -> HomeController  

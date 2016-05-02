@@ -2,14 +2,14 @@
 * Angular Service -> UserService
 * Expose method to login, logout user,to know if user is connected and to sign up a new user.
 * Controler which use this service : HeaderController (TO IMPLEMENT), LoginController, SignupController(TO IMPLEMENT)
-* isConnected()
-* getToken()
-* login(login, password)
-* logout()
-* signup()
-* loginAvailable()
-* forgetPassword()
-* changePassword()
+* isConnected() -> Can get is user is connected
+* getToken() -> Return user access token
+* login(login, password) -> Log user with login/password
+* logout() -> Log out current user
+* signup() -> Sign up new user
+* loginAvailable() -> Can know if login is available for sign up
+* forgetPassword() ->  User forgot password
+* changePassword() -> Can change password for current user
 **/
 var UserService = function($rootScope, $http, $q, $cookies){
 	return {
@@ -73,8 +73,22 @@ var UserService = function($rootScope, $http, $q, $cookies){
 			
 			return deferredObject.promise;
 		},
-		loginAvailable: function(login){
-			// TODO : TO BE IMPLEMENT
+		loginAvailable: function(login){	
+			var deferredObject = $q.defer();
+			var result = true;
+			var config = {
+				headers : { 'Accept' : 'application/json'}
+			};
+			
+			$http
+            .get('https://www.pronostics2016.com/api/user/availability?email='+login,config)
+			.then(function(data){
+				deferredObject.resolve({ Result:  data.data });
+			}, function(data){
+				deferredObject.resolve({ Result:  false });
+			});
+			
+			return deferredObject.promise;
 		},
 		forgetPassword: function(login){
 			// TODO : TO BE IMPLEMENT
@@ -101,7 +115,27 @@ PredictionService.$inject = ['$rootScope', '$http', '$q'];
 var RankingService = function($rootScope, $http, $q){
 	return {
 		get: function(){
-			// TODO : TO BE IMPLEMENT
+			var deferredObject = $q.defer();
+			var result;
+			var config = {
+				headers : { 'Accept' : 'application/json'}
+			};
+			
+			$http
+            .get('https://www.pronostics2016.com/api/user/rankings', config)
+			.then(function(data){
+				result.status = data.status;
+				if(data.status === 200)
+					result = data.data;
+				else
+					result.message = 'Erreur dans la récupération des résultats !';
+				deferredObject.resolve({ Ranks:  result });
+			}, function(data){
+				result.message = 'Erreur dans la récupération des résultats !';
+				deferredObject.resolve({ User: userResult });
+			});
+			
+			return deferredObject.promise;
 		}
 	};
 }
