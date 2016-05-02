@@ -21,7 +21,8 @@
     "angular-route": "^1.5.3",
     "backstretch": "^2.0.4",
     "angular-loading-bar": "^0.9.0",
-    "angular-cookies": "^1.5.5"
+    "angular-cookies": "^1.5.5",
+    "angular-recaptcha": "^3.0.3"
   },
   "resolutions": {
     "angular": "1.5.5"

@@ -12,7 +12,7 @@
 					
 					<form name="login" role="form" class="form-horizontal" method="post" accept-charset="utf-8">
 						<div class="form-group">
-							<div class="col-md-8"><input name="email" placeholder="Email" class="form-control" type="text" id="email"/></div>
+							<div class="col-md-8"><input name="email" placeholder="Email" class="form-control" type="email" id="email"/></div>
 						</div> 
 						
 						<div class="form-group">
@@ -27,6 +27,16 @@
 							<div class="col-md-8" style="color: red">{{returnRequest}}</div>
 						</div>
 						
+						
+						<div
+							vc-recaptcha
+							theme="'light'"
+							key="model.key"
+							on-create="setWidgetId(widgetId)"
+							on-success="setResponse(response)"
+							on-expire="cbExpiration()"
+						></div>
+						<br/>
 						<div class="form-group">
 							<div class="col-md-offset-0 col-md-8"><input  class="btn btn-success btn btn-success" type="submit" value="Inscription"/></div>
 						</div>

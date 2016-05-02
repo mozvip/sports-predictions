@@ -12,6 +12,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,6 +33,8 @@ import predictions.views.SubmitScoreView;
 @Produces("text/html; charset=UTF-8")
 public class ScoreResource {
 	
+	private final static Logger logger = LoggerFactory.getLogger( ScoreResource.class );
+	
 	ActualResultDAO actualResultDAO;
 	MatchPredictionDAO matchPredictionDAO;
 	UserDAO userDAO;
@@ -46,8 +51,7 @@ public class ScoreResource {
 		try {
 			games = mapper.readValue(input, new TypeReference<List<Game>>(){});
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		
 	}

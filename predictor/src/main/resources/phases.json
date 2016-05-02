@@ -1,0 +1,22 @@
+[
+	{
+		phaseName	: "Before Opening",
+		phaseEnd	: "2016-05-15T21:00+02",
+		welcomePage	: "coming-soon.html"
+	},
+	{
+		phaseName	: 'Groups Phase',
+		phaseEnd	: "2016-06-10T21:00+02",
+		welcomePage	: "groups.html"
+	},
+	{
+		phaseName	: 'Finals Phase',
+		phaseEnd	: "2016-06-10T21:00+02",
+		welcomePage	: "finals.html"
+	},
+	{
+		phaseName	: 'After Event',
+		phaseEnd	: "2016-06-10T21:00+02",
+		welcomePage	: "rankings.html"
+	}
+]

@@ -11,7 +11,7 @@ app.use('/views', express.static(__dirname + '/views'));
 
 
 app.get('/', function(req, res) {
-	fs.readFile("app.html", 'utf8', function(err, text){
+	fs.readFile("index.html", 'utf8', function(err, text){
 		console.log("RENDER INDEX.HTML");
         res.send(text);
     });

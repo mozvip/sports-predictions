@@ -1,5 +1,5 @@
 // Application du site euro2016Predictions
-var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypants.loadingBar', 'ngRoute', 'ui.bootstrap', 'ngCookies'])
+var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypants.loadingBar', 'ngRoute', 'ui.bootstrap', 'ngCookies', 'vcRecaptcha'])
                                     .config(function (cfpLoadingBarProvider) {
                                         cfpLoadingBarProvider.includeSpinner = false;
                                     });
@@ -52,6 +52,8 @@ var config = function($routeProvider, $locationProvider, $httpProvider) {
     });
 	
     $httpProvider.interceptors.push('AuthInterceptor');
+    
+    $locationProvider.html5Mode(false);
 };
 config.$inject = ['$routeProvider', '$locationProvider', '$httpProvider'];
 euro2016Predictions.config(config);

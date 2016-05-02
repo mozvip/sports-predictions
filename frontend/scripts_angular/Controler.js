@@ -27,16 +27,43 @@ LoginController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Use
 /**
 * Angular Controller -> LoginController  
 * Login user in euro2016 Predictor
-* login()
+* login()  https://www.google.com/recaptcha/admin#site/320777337
 **/
-var SignupController = function($scope, $route, $routeParams, $location, UserService, $uibModal) {
+var SignupController = function($scope, $route, $routeParams, $location, UserService, $uibModal, vcRecaptchaService) {
     
+	// Implementation recaptcha
+	$scope.response = null;
+    $scope.widgetId = null;
+
+    $scope.model = {
+        key: '6Ld5rB4TAAAAAAiWW8cilATzl6uOo8fP8hf9efti'
+    };
+	
 	$scope.newuser = {
         Login: '',
 		Name: '',
         Password: ''
     };
+
+    $scope.setResponse = function (response) {
+        console.info('Response available');
+
+        $scope.response = response;
+    };
+
+    $scope.setWidgetId = function (widgetId) {
+        console.info('Created widget ID: %s', widgetId);
+
+        $scope.widgetId = widgetId;
+    };
 	
+	$scope.cbExpiration = function() {
+		console.info('Captcha expired. Resetting response object');
+		vcRecaptchaService.reload($scope.widgetId);
+		$scope.response = null;
+    };
+				 
+				 	
 	var openModal = function(){
 		var modalInstance = $uibModal.open({
 			  animation: true,
@@ -59,7 +86,7 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
         });
     }
 }
-SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal'];
+SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal', 'vcRecaptchaService'];
 
 /**
 * Angular Controller -> HomeController  
