@@ -4,14 +4,16 @@
 * Controler which use this service : HeaderController (TO IMPLEMENT), LoginController, SignupController(TO IMPLEMENT)
 * isConnected() -> Can get is user is connected
 * getToken() -> Return user access token
+* getCurrentLogin() -> Return current user login
 * login(login, password) -> Log user with login/password
 * logout() -> Log out current user
 * signup() -> Sign up new user
 * loginAvailable() -> Can know if login is available for sign up
-* forgetPassword() ->  User forgot password
-* changePassword() -> Can change password for current user
+* forgetPassword() ->  User forgot password : TO TEST
+* changePassword() -> Can change password for current user : TODO
 **/
 var UserService = function($rootScope, $http, $q, $cookies){
+	var currentLogin = null;
 	return {
 		isConnected: function(){
 			return this.getToken() != null;
@@ -19,6 +21,9 @@ var UserService = function($rootScope, $http, $q, $cookies){
 		getToken: function(){
 			return $cookies.get('SESSION_ID');
 		},
+		getCurrentLogin: function(){
+			return this.currentLogin;
+		}
 		login: function(login, password){
 			var deferredObject = $q.defer();
 			var userResult ={
@@ -33,8 +38,10 @@ var UserService = function($rootScope, $http, $q, $cookies){
             .post('https://www.pronostics2016.com/api/user/signin', data, config)
 			.then(function(data){
 				userResult.status = data.status;
-				if(data.status === 200)
+				if(data.status === 200){
 					$cookies.put('SESSION_ID', data.data.authToken);
+					currentLogin = login;
+				}
 				else
 					userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
 				
@@ -91,9 +98,30 @@ var UserService = function($rootScope, $http, $q, $cookies){
 			return deferredObject.promise;
 		},
 		forgetPassword: function(login){
-			// TODO : TO BE IMPLEMENT
+			// A TESTER LORSQUE TOUT EST OK
+			var deferredObject = $q.defer();
+			var data = 'email='+login;
+			var message = '';
+			var config = {
+				headers : { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
+			};
+			
+			$http
+            .post('https://www.pronostics2016.com/api/user/forget-password', data, config)
+			.then(function(data){
+				userResult.status = data.status;
+				if(data.status === 200)
+					message = 'Un email vous a été envoyé permettant de réinitialiser votre mot de passe !';
+				else
+					message = 'Cette adresse mail est inconnue !';
+			}, function(data){
+				message = 'Erreur : identifiant incorrect !';
+			});
+			
+			deferredObject.resolve({ Return: message });
+			return deferredObject.promise;
 		},
-		changePassword: function(){
+		changePassword: function(login, newPassword, token){
 			// TODO : TO BE IMPLEMENT
 		}
 	};
@@ -105,13 +133,37 @@ var PredictionService = function($rootScope, $http, $q){
 		save: function(){
 			// TODO : TO BE IMPLEMENT
 		},
-		get: function(){
-			// TODO : TO BE IMPLEMENT
+		get: function(token){
+			var deferredObject = $q.defer();
+			var result;
+			var config = {
+				headers : { 'Accept' : 'application/json',
+				'Authorization': 'Basic ' + token}
+			};
+			
+			$http
+            .get('https://www.pronostics2016.com/api/user/predictions', config)
+			.then(function(data){
+				result.status = data.status;
+				if(data.status === 200)
+					result = data.match_predictions_attributes;
+				deferredObject.resolve({ Predictions:  result });
+			}, function(data){
+				deferredObject.resolve({ Predictions: null });
+			});
+			
+			return deferredObject.promise;
 		}
 	};
 }
 PredictionService.$inject = ['$rootScope', '$http', '$q'];
 
+/**
+* Angular Service -> RankingService
+* Expose method to get ranks of user
+* get() -> Return all ranks of community user
+* getYourRanking(login) -> Return ranks of current user
+**/
 var RankingService = function($rootScope, $http, $q){
 	return {
 		get: function(){

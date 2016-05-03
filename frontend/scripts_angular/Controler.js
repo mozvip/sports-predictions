@@ -25,11 +25,11 @@ var LoginController = function($scope, $route, $routeParams, $location, UserServ
 LoginController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService'];
 
 /**
-* Angular Controller -> LoginController  
-* Login user in euro2016 Predictor
-* login()  https://www.google.com/recaptcha/admin#site/320777337
+* Angular Controller -> SignupController  
+* Sign up new user in euro2016 Predictor
+* save()  
 **/
-var SignupController = function($scope, $route, $routeParams, $location, UserService, $uibModal, vcRecaptchaService, RankingService) {
+var SignupController = function($scope, $route, $routeParams, $location, UserService, $uibModal, vcRecaptchaService) {
     
 	// Implementation recaptcha
 	$scope.response = null;
@@ -42,10 +42,8 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 	$scope.newuser = {
         Login: '',
 		Name: '',
-        Password: '', 
-		ConfirmPassword: '',
-		login_available: null,
-		same_password: null
+        Password: '',
+		login_available: null
     };
 
     $scope.setResponse = function (response) {
@@ -70,12 +68,21 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 	}	
 	
 	$scope.loginChanged = function(){
-		// TODO : Verifier que c'est bien une adresse mail via regex
+		   
 		if($scope.newuser.Login != undefined && $scope.newuser.Login != ''){
-			var res = UserService.loginAvailable($scope.newuser.Login);
-			 res.then(function (result) {
-				$scope.newuser.login_available = result.Result;
-			});
+			var regEmail = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
+			if(regEmail.test($scope.newuser.Login))
+			{
+				var res = UserService.loginAvailable($scope.newuser.Login);
+				 res.then(function (result) {
+					$scope.newuser.login_available = result.Result;
+				});
+			}
+			else{
+				$scope.newuser.login_available = false;
+				$scope.returnRequest = 'Le login doit être une adresse mail valide !';
+				return ;
+			}
 		}
 		else
 			$scope.newuser.login_available = true;
@@ -85,25 +92,27 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 		else
 			$scope.returnRequest = 'Cette adresse mail est déjà utilisée !';
 	}
-		
-	$scope.init = function(){
-	}
-		
+				
     $scope.save = function() {
-		var res = UserService.signup($scope.newuser.Login, $scope.newuser.Name, $scope.newuser.Password);
-		
-		 res.then(function (result) {
-            if (result.User != null  && result.User.status === 500) 
-				$scope.returnRequest = result.User.message;
-			else if(result.User != null  && result.User.status === 204)
-			{
-				$location.path('/');
-				openModal();
-			}
-        });
+		if($scope.newuser.login_available)
+		{
+			var res = UserService.signup($scope.newuser.Login, $scope.newuser.Name, $scope.newuser.Password);
+			
+			 res.then(function (result) {
+				if (result.User != null  && result.User.status === 500) 
+					$scope.returnRequest = result.User.message;
+				else if(result.User != null  && result.User.status === 204)
+				{
+					$location.path('/');
+					openModal();
+				}
+			});
+		}
+		else
+			alert('Cette adresse mail est incorrecte !');
     }
 }
-SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal', 'vcRecaptchaService', 'RankingService'];
+SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal', 'vcRecaptchaService'];
 
 /**
 * Angular Controller -> HomeController  
@@ -211,3 +220,17 @@ var TestController = function($scope){
 	});
 }
 TestController.$inject = ['$scope'];
+
+
+
+/**
+* Angular Controller -> HomeController  
+* Contains global data in application.
+* logOut()
+**/
+var PronosticController = function($scope, $location, UserService, PredictionService){
+	$scope.init = function(){
+		//var res = PredictionService.get(UserService.getToken());
+	}
+}
+PronosticController.$inject = ['$scope','$location', 'UserService', 'PredictionService'];

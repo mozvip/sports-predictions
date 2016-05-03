@@ -9,6 +9,7 @@ euro2016Predictions.controller('LoginController', LoginController);
 euro2016Predictions.controller('HomeController', HomeController);
 euro2016Predictions.controller('SignupController', SignupController);
 euro2016Predictions.controller('TestController', TestController);
+euro2016Predictions.controller('PronosticController', PronosticController);
 
 /*  Interceptor des réponses HTTP  pour l'auth  */
 euro2016Predictions.factory('AuthInterceptor', AuthInterceptor);
@@ -60,9 +61,8 @@ euro2016Predictions.config(config);
 
 euro2016Predictions.run(['$rootScope', '$location', 'UserService', function($rootScope, $location, UserService) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
-			if (next.authorized  && !UserService.isConnected()) {
+			if (next.authorized  && !UserService.isConnected())
 				$location.url('login');
-        }
     });
 }]);
 
