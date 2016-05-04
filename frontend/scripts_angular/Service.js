@@ -13,7 +13,6 @@
 * changePassword() -> Can change password for current user : TODO
 **/
 var UserService = function($rootScope, $http, $q, $cookies){
-	var currentLogin = null;
 	return {
 		isConnected: function(){
 			return this.getToken() != null;
@@ -21,9 +20,6 @@ var UserService = function($rootScope, $http, $q, $cookies){
 		getToken: function(){
 			return $cookies.get('SESSION_ID');
 		},
-		getCurrentLogin: function(){
-			return this.currentLogin;
-		}
 		login: function(login, password){
 			var deferredObject = $q.defer();
 			var userResult ={
