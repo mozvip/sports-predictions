@@ -11,3 +11,11 @@
         margin-top: 30px;
     }
 }
+
+.currentUser {
+	font-weight: bold;
+}
+
+.notCurrentUser{
+	font-weight: normal;
+}

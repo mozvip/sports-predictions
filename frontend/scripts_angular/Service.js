@@ -20,6 +20,9 @@ var UserService = function($rootScope, $http, $q, $cookies){
 		getToken: function(){
 			return $cookies.get('SESSION_ID');
 		},
+		getCurrentLogin: function(){
+			return $cookies.get('SESSION_CURRENT_LOGIN');
+		},
 		login: function(login, password){
 			var deferredObject = $q.defer();
 			var userResult ={
@@ -36,7 +39,7 @@ var UserService = function($rootScope, $http, $q, $cookies){
 				userResult.status = data.status;
 				if(data.status === 200){
 					$cookies.put('SESSION_ID', data.data.authToken);
-					currentLogin = login;
+					$cookies.put('SESSION_CURRENT_LOGIN', login);
 				}
 				else
 					userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
@@ -110,11 +113,11 @@ var UserService = function($rootScope, $http, $q, $cookies){
 					message = 'Un email vous a été envoyé permettant de réinitialiser votre mot de passe !';
 				else
 					message = 'Cette adresse mail est inconnue !';
+				deferredObject.resolve({ Return: message });
 			}, function(data){
 				message = 'Erreur : identifiant incorrect !';
+				deferredObject.resolve({ Return: message });
 			});
-			
-			deferredObject.resolve({ Return: message });
 			return deferredObject.promise;
 		},
 		changePassword: function(login, newPassword, token){
@@ -164,7 +167,7 @@ var RankingService = function($rootScope, $http, $q){
 	return {
 		get: function(){
 			var deferredObject = $q.defer();
-			var result;
+			var result= {};
 			var config = {
 				headers : { 'Accept' : 'application/json'}
 			};
@@ -174,15 +177,14 @@ var RankingService = function($rootScope, $http, $q){
 			.then(function(data){
 				result.status = data.status;
 				if(data.status === 200)
-					result = data.data;
+					result.RanksData = data.data.data;
 				else
 					result.message = 'Erreur dans la récupération des résultats !';
-				deferredObject.resolve({ Ranks:  result });
+				deferredObject.resolve({ Ranks: result });
 			}, function(data){
 				result.message = 'Erreur dans la récupération des résultats !';
-				deferredObject.resolve({ User: userResult });
+				deferredObject.resolve({ Ranks: result });
 			});
-			
 			return deferredObject.promise;
 		}
 	};

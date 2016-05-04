@@ -228,9 +228,26 @@ TestController.$inject = ['$scope'];
 * Contains global data in application.
 * logOut()
 **/
-var PronosticController = function($scope, $location, UserService, PredictionService){
+var PronosticController = function($scope, $location, UserService, RankingService){
+
+	$scope.Ranks = [];
+	$scope.currentUser = UserService.getCurrentLogin();
+
 	$scope.init = function(){
-		//var res = PredictionService.get(UserService.getToken());
+		var res = RankingService.get();
+		res.then(function (result) {	
+			if (result.Ranks.RanksData != undefined)
+				$scope.Ranks = result.Ranks.RanksData;
+			//else
+				// Fenetre modale d'erreur dans laquelle on affiche le message result.Ranks.message
+        });
 	}
+	
+	 $scope.classCurrentUser= function(email){
+		if(email === $scope.currentUser)
+			return "currentUser";
+		else 
+			return "notCurrentUser";
+    }
 }
-PronosticController.$inject = ['$scope','$location', 'UserService', 'PredictionService'];
+PronosticController.$inject = ['$scope','$location', 'UserService', 'RankingService'];

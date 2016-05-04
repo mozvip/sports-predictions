@@ -66,37 +66,8 @@ euro2016Predictions.run(['$rootScope', '$location', 'UserService', function($roo
     });
 }]);
 
-euro2016Predictions.directive('showWhenConnected', ['UserService', function (UserService) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            var showIfConnected = function() {
-                if(UserService.isConnected()) {
-                    $(element).show();
-                } else {
-                    $(element).hide();
-                }
-            };
-            showIfConnected();
-            scope.$on('connectionStateChanged', showIfConnected);
-        }
-    };
-}]);
-
-euro2016Predictions.directive('hideWhenConnected', ['UserService', function (UserService) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            var hideIfConnected = function() {
-                if(UserService.isConnected()) {
-                    $(element).hide();
-                } else {
-                    $(element).show();
-                }
-            };
-            hideIfConnected();
-            scope.$on('connectionStateChanged', hideIfConnected);
-        }
-    };
-}]);
+/* Définition des directives */ 
+euro2016Predictions.directive('showWhenConnected', showWhenConnected);
+euro2016Predictions.directive('hideWhenConnected', hideWhenConnected);
+euro2016Predictions.directive('userRank', userRank);
 

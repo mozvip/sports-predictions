@@ -1,4 +1,4 @@
-<div class="row" ng-controller="PronosticController">
+<div class="row" ng-controller="PronosticController" ng-init="init()">
 	<div class="col-sm-2">
 		<nav class="navbar navbar-light bg-faded">
 		  <a class="navbar-brand" href="#ranks">Votre classement <span class="badge">12</span></a>
@@ -18,5 +18,7 @@
 		</nav>
 	</div>
 	<div class="row">
+	<h2>Classement de la communauté</h2><br/><br/>
+		<user-rank ng-repeat="user in Ranks" user="user"></user-rank>
 	</div>
  </div>
