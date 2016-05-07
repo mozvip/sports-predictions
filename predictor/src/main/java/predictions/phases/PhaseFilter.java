@@ -32,13 +32,14 @@ public class PhaseFilter implements Filter {
 		String requestURI = servletRequest.getRequestURI();
 		
 		String community = (String) request.getAttribute("community");
-		if (community.equals("test")) {
+		if (community.equals("test") || requestURI.startsWith("/swagger/")) {
 			chain.doFilter(request, response);
 			return;
 		}
 		
 		if ((requestURI.endsWith("/") || requestURI.endsWith(".html")) && ! ( requestURI.startsWith( currentPhase.getWelcomePage() ))) {
 			HttpServletResponse servletResponse = (HttpServletResponse) response;
+			logger.info("Redirecting request {} to {}", requestURI, currentPhase.getWelcomePage() );
 			servletResponse.sendRedirect( currentPhase.getWelcomePage());
 		} else {
 			chain.doFilter(request, response);
