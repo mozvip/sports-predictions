@@ -1,8 +1,6 @@
 package predictions.phases;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -10,12 +8,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class PhaseFilter implements Filter {
 	
@@ -31,7 +28,15 @@ public class PhaseFilter implements Filter {
 		// get current phase
 		Phase currentPhase = PhaseManager.getInstance().getCurrentPhase();
 		
-		chain.doFilter(request, response);
+		HttpServletRequest servletRequest = (HttpServletRequest) request;
+		String requestURI = servletRequest.getRequestURI();
+		
+		if ((requestURI.endsWith("/") || requestURI.endsWith(".html")) && ! ( requestURI.startsWith( currentPhase.getWelcomePage() ))) {
+			HttpServletResponse servletResponse = (HttpServletResponse) response;
+			servletResponse.sendRedirect( currentPhase.getWelcomePage());
+		} else {
+			chain.doFilter(request, response);
+		}
 	}
 
 	public void destroy() {

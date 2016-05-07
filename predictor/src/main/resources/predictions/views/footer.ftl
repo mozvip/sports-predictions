@@ -3,7 +3,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/jquery-backstretch/jquery.backstretch.min.js"></script>
+    <script src="/bower_components/backstretch/jquery.backstretch.min.js"></script>
     <script>
     	$("body").backstretch("/images/header-background.jpg");
     </script>
