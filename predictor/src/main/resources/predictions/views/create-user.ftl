@@ -40,6 +40,7 @@
 		  	<label for="confirm-password" class="control-label">Confirm Password</label>
 		    <input type="password" class="form-control" required id="confirm-password" placeholder="Confirm password">
 		  </div>
+		  <div class="g-recaptcha" data-sitekey="6LdiSh8TAAAAADLasplj5tGB390M6qBzH24vmXED"></div>
 		  <button type="submit" class="btn btn-primary" id="createUserButton">Create User</button>
 		</form>
 

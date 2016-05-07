@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration.Dynamic;
 
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.skife.jdbi.v2.DBI;
@@ -84,7 +85,9 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().register(new ApiListingResource());
 		environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		
-		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO));
+		DefaultHttpClient client = new DefaultHttpClient();
+		
+		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, client, configuration.getGoogleReCaptchaSecretKey()));
 		environment.jersey().register(new UserListResource(userDAO, matchPredictionDAO));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new RankingsResource(userDAO));

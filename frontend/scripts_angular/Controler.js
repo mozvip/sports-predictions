@@ -36,7 +36,7 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
     $scope.widgetId = null;
 
     $scope.model = {
-        key: '6Ld5rB4TAAAAAAiWW8cilATzl6uOo8fP8hf9efti'
+        key: '6LdiSh8TAAAAADLasplj5tGB390M6qBzH24vmXED'
     };
 	
 	$scope.newuser = {

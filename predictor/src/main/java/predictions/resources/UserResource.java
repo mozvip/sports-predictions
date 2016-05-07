@@ -1,5 +1,8 @@
 package predictions.resources;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
@@ -18,10 +21,20 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.ApiOperation;
@@ -47,14 +60,17 @@ public class UserResource {
 	private UserDAO userDAO;
 	private MatchPredictionDAO matchPredictionDAO;
 	private ActualResultDAO actualResultDAO;
+	private HttpClient client;
+	private String googleReCaptchaSecretKey;
 
 	@Context private HttpServletRequest httpRequest;
 
-	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO ) {
+	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, HttpClient client, String googleReCaptchaSecretKey ) {
 		this.userDAO = dao;
 		this.matchPredictionDAO = matchPredictionDAO;
 		this.actualResultDAO = actualResultDAO;
-		this.matchPredictionDAO.createTable();
+		this.client = client;
+		this.googleReCaptchaSecretKey = googleReCaptchaSecretKey;
 	}
 
 	@RolesAllowed("ADMIN")
@@ -90,9 +106,37 @@ public class UserResource {
 	@POST
 	@Path("/create")
 	@ApiOperation("Create a new regular user")
-	public void createUser(@FormParam("email") String email, @FormParam("name") String name, @FormParam("password") String password) {
+	public void createUser(@FormParam("email") String email, @FormParam("name") String name, @FormParam("password") String password, @FormParam("g-recaptcha-response") String recaptcha) throws IOException {
+		
+		recaptcha(recaptcha);
+		
 		String community = (String) httpRequest.getAttribute("community");
-		userDAO.insert(email, name, community, password );
+		
+		User user = userDAO.findExistingUser(community, email );
+		if (user == null) {
+			userDAO.insert(email, name, community, password );
+		} else {
+			logger.warn("Attempt to create an already existing user : {} on community {}", email, community);
+		}
+	}
+
+	public void recaptcha(String recaptcha) throws UnsupportedEncodingException, IOException, ClientProtocolException,
+			JsonParseException, JsonMappingException {
+		// google recaptcha verification
+		HttpPost post = new HttpPost("https://www.google.com/recaptcha/api/siteverify");
+		List<NameValuePair> postParams = new ArrayList<>();
+		postParams.add( new BasicNameValuePair("secret", googleReCaptchaSecretKey) );
+		postParams.add( new BasicNameValuePair("response", recaptcha) );
+		postParams.add( new BasicNameValuePair("remoteip", httpRequest.getRemoteAddr()) );
+		post.setEntity( new UrlEncodedFormEntity(postParams));
+
+		String string = EntityUtils.toString( client.execute( post ).getEntity() );
+		
+		ObjectMapper mapper = new ObjectMapper();
+		GoogleReCaptchaResponse response = mapper.readValue( string, GoogleReCaptchaResponse.class );
+		if (!response.isSuccess()) {
+			throw new IOException("reCAPTCHA check failed");
+		}
 	}
 	
 	@RolesAllowed("ADMIN")
@@ -188,13 +232,14 @@ public class UserResource {
 	@Path("/forget-password")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value="Declares a forgotten password and send the relevant email")
-	public void forgetPassword( @FormParam("email") String email ) {
+	public void forgetPassword( @FormParam("email") String email, @FormParam("g-recaptcha-response") String recaptcha ) throws IOException {
+		recaptcha(recaptcha);
+		
 		String community = (String) httpRequest.getAttribute("community");
 		UUID uuid = UUID.randomUUID();
 		userDAO.setChangePasswordToken(community, email, uuid);
 		
 		// TODO : send email
-		
 	}
 
 	@POST
