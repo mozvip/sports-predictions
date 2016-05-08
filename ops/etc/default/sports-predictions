@@ -20,14 +20,8 @@ SPORTS_PREDICTIONS_GROUP=$NAME
 SPORTS_PREDICTIONS_HOME=/var/lib/$NAME
 
 # log location.  this may be a syslog facility.priority
-SPORTS_PREDICTIONS_LOG=/var/log/$NAME/$NAME.log
-#SPORTS_PREDICTIONS_LOG=daemon.info
+SPORTS_PREDICTIONS_LOG=/var/log/$NAME/$NAME-daemon.log
 
-# OS LIMITS SETUP
-#   comment this out to observe /etc/security/limits.conf
-#   this is on by default because http://github.com/jenkinsci/jenkins/commit/2fb288474e980d0e7ff9c4a3b768874835a3e92e
-#   reported that Ubuntu's PAM configuration doesn't include pam_limits.so, and as a result the # of file
-#   descriptors are forced to 1024 regardless of /etc/security/limits.conf
-MAXOPENFILES=8192
+SPORTS_PREDICTIONS_JAR=$SPORTS_PREDICTIONS_HOME/predictor-backend-0.0.1-SNAPSHOT.jar
 
 SPORTS_PREDICTIONS_ARGS="server /etc/sports-predictions/config.yml"
