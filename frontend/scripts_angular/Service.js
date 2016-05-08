@@ -12,7 +12,7 @@
 * forgetPassword() ->  User forgot password : TO TEST
 * changePassword() -> Can change password for current user : TODO
 **/
-var UserService = function($rootScope, $http, $q, $cookies){
+var UserService = function($rootScope, $http, $q, $cookies, $location){
 	return {
 		isConnected: function(){
 			return this.getToken() != null;
@@ -34,7 +34,7 @@ var UserService = function($rootScope, $http, $q, $cookies){
 			};
 			
 			$http
-            .post('https://www.pronostics2016.com/api/user/signin', data, config)
+            .post($location.protocol() + '://' + $location.host() + '/api/user/signin', data, config)
 			.then(function(data){
 				userResult.status = data.status;
 				if(data.status === 200){
@@ -66,7 +66,7 @@ var UserService = function($rootScope, $http, $q, $cookies){
 			};
 			
 			$http
-            .post('https://www.pronostics2016.com/api/user/create', data, config)
+            .post($location.protocol() + '://' + $location.host() + '/api/user/create', data, config)
 			.then(function(data){
 				userResult.status = data.status;
 				if(data.status === 500)
@@ -87,7 +87,7 @@ var UserService = function($rootScope, $http, $q, $cookies){
 			};
 			
 			$http
-            .get('https://www.pronostics2016.com/api/user/availability?email='+login,config)
+            .get($location.protocol() + '://' + $location.host() + '/api/user/availability?email='+login,config)
 			.then(function(data){
 				deferredObject.resolve({ Result:  data.data });
 			}, function(data){
@@ -106,7 +106,7 @@ var UserService = function($rootScope, $http, $q, $cookies){
 			};
 			
 			$http
-            .post('https://www.pronostics2016.com/api/user/forget-password', data, config)
+            .post($location.protocol() + '://' + $location.host() + '/api/user/forget-password', data, config)
 			.then(function(data){
 				userResult.status = data.status;
 				if(data.status === 200)
@@ -125,9 +125,9 @@ var UserService = function($rootScope, $http, $q, $cookies){
 		}
 	};
 }
-UserService.$inject = ['$rootScope', '$http', '$q', '$cookies'];
+UserService.$inject = ['$rootScope', '$http', '$q', '$cookies', '$location'];
 
-var PredictionService = function($rootScope, $http, $q){
+var PredictionService = function($rootScope, $http, $q, $location){
 	return {
 		save: function(){
 			// TODO : TO BE IMPLEMENT
@@ -141,7 +141,7 @@ var PredictionService = function($rootScope, $http, $q){
 			};
 			
 			$http
-            .get('https://www.pronostics2016.com/api/user/predictions', config)
+            .get($location.protocol() + '://' + $location.host() + '/api/user/predictions', config)
 			.then(function(data){
 				result.status = data.status;
 				if(data.status === 200)
@@ -155,7 +155,7 @@ var PredictionService = function($rootScope, $http, $q){
 		}
 	};
 }
-PredictionService.$inject = ['$rootScope', '$http', '$q'];
+PredictionService.$inject = ['$rootScope', '$http', '$q', '$location'];
 
 /**
 * Angular Service -> RankingService
@@ -163,7 +163,7 @@ PredictionService.$inject = ['$rootScope', '$http', '$q'];
 * get() -> Return all ranks of community user
 * getYourRanking(login) -> Return ranks of current user
 **/
-var RankingService = function($rootScope, $http, $q){
+var RankingService = function($rootScope, $http, $q, $location){
 	return {
 		get: function(){
 			var deferredObject = $q.defer();
@@ -173,7 +173,7 @@ var RankingService = function($rootScope, $http, $q){
 			};
 			
 			$http
-            .get('https://www.pronostics2016.com/api/user/rankings', config)
+            .get($location.protocol() + '://' + $location.host() + '/api/user/rankings', config)
 			.then(function(data){
 				result.status = data.status;
 				if(data.status === 200)
@@ -189,4 +189,4 @@ var RankingService = function($rootScope, $http, $q){
 		}
 	};
 }
-RankingService.$inject = ['$rootScope', '$http', '$q'];
+RankingService.$inject = ['$rootScope', '$http', '$q', '$location'];
