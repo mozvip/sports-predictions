@@ -1,0 +1,33 @@
+# defaults for sports-predictions server
+
+# pulled in from the init script; makes things easier.
+NAME=sports-predictions
+
+# location of java
+JAVA=/usr/bin/java
+
+# arguments to pass to java
+JAVA_ARGS="-Djava.awt.headless=true -Xmx512m"
+#JAVA_ARGS="-Djava.net.preferIPv4Stack=true" # make sports-predictions listen on IPv4 address
+
+PIDFILE=/var/run/$NAME/$NAME.pid
+
+# user and group to be invoked as (default to sports-predictions)
+SPORTS_PREDICTIONS_USER=$NAME
+SPORTS_PREDICTIONS_GROUP=$NAME
+
+# sports-predictions home location
+SPORTS_PREDICTIONS_HOME=/var/lib/$NAME
+
+# log location.  this may be a syslog facility.priority
+SPORTS_PREDICTIONS_LOG=/var/log/$NAME/$NAME.log
+#SPORTS_PREDICTIONS_LOG=daemon.info
+
+# OS LIMITS SETUP
+#   comment this out to observe /etc/security/limits.conf
+#   this is on by default because http://github.com/jenkinsci/jenkins/commit/2fb288474e980d0e7ff9c4a3b768874835a3e92e
+#   reported that Ubuntu's PAM configuration doesn't include pam_limits.so, and as a result the # of file
+#   descriptors are forced to 1024 regardless of /etc/security/limits.conf
+MAXOPENFILES=8192
+
+SPORTS_PREDICTIONS_ARGS="server /etc/sports-predictions/config.yml"
