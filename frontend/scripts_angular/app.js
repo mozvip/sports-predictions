@@ -86,4 +86,5 @@ euro2016Predictions.run(['$rootScope', '$location', 'UserService', function($roo
 euro2016Predictions.directive('showWhenConnected', showWhenConnected);
 euro2016Predictions.directive('hideWhenConnected', hideWhenConnected);
 euro2016Predictions.directive('userRank', userRank);
+euro2016Predictions.directive('pronostic', pronostic);
 

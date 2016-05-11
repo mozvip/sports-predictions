@@ -119,6 +119,11 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 	$scope.games = [];
 
 	$scope.init = function(){
+		/*var r = PredictionService.getPredictions(UserService.getToken());
+		r.then(function(result){
+			alert(result.Predictions);
+		});*/
+		
 		var res = GamesService.getGroupGames();
 		res.then(function (result) {
 			if(result.Games  != null && result.Games != undefined)
@@ -126,7 +131,7 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 			// TODO : 
 			// else : Fenetre Modale d'erreur
 		});
-		//var r = PredictionService.getPredictions(UserService.getToken());
+		
 	}
 }
 PronosticController.$inject = ['$scope','$location', 'UserService', 'PredictionService', 'GamesService'];

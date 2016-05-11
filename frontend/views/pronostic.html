@@ -18,13 +18,7 @@
   </div>
   <div class="col-sm-9">
 	<h2>TODO : Use angular-linq + make directive + implementation savePrediction & getPrediction</h2><br/><br/>
-	<div ng-repeat="match in games">
-	  <div>{{match.dateTime}} - {{match.group}} - {{match.stadium}}</div>
-	  <div>{{match.homeTeam}}</div>
-	  <div>VS</div>
-	  <div>{{match.awayTeam}}</div>
-	  <br/>
-	</div>
+	<pronostic ng-repeat="match in games" match="match"></pronostic>
   </div>
 
  </div>

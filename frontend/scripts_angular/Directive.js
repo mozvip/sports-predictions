@@ -56,3 +56,14 @@ var userRank = function(UserService){
     };
 }
 userRank.$inject = ['UserService'];
+
+var pronostic = function(){
+	// TODO : Faire une partials-view
+	    return {
+        restrict: 'E',
+        template: '	<div>{{match.dateTime}} - {{match.group}} - {{match.stadium}}</div><div>{{match.homeTeam}}</div>	  <div>VS</div>	  <div>{{match.awayTeam}}</div>	  <br/>',
+        scope: {
+            match: "="
+        }
+    };
+}
