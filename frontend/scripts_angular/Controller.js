@@ -9,7 +9,7 @@ var LoginController = function($scope, $route, $routeParams, $location, UserServ
         Login: '',
         Password: ''
     };
-	
+			
     $scope.login = function() {
 		var res = UserService.login($scope.User.Login, $scope.User.Password);
 		
@@ -96,7 +96,7 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
     $scope.save = function() {
 		if($scope.newuser.login_available)
 		{
-			var res = UserService.signup($scope.newuser.Login, $scope.newuser.Name, $scope.newuser.Password);
+			var res = UserService.signup($scope.newuser.Login, $scope.newuser.Name, $scope.newuser.Password, $scope.response);
 			
 			 res.then(function (result) {
 				if (result.User != null  && result.User.status === 500) 
@@ -114,19 +114,22 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 }
 SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal', 'vcRecaptchaService'];
 
-/**
-* Angular Controller -> HomeController  
-* Contains global data in application.
-* logOut()
-**/
-var HomeController = function($scope, $location, UserService){
-	$scope.logOut = function()	{
-		UserService.logout();
-		$location.path('/');
+var PronosticController = function($scope, $location, UserService, PredictionService, GamesService){
+
+	$scope.games = [];
+
+	$scope.init = function(){
+		var res = GamesService.getGroupGames();
+		res.then(function (result) {
+			if(result.Games  != null && result.Games != undefined)
+				$scope.games = result.Games;
+			// TODO : 
+			// else : Fenetre Modale d'erreur
+		});
+		//var r = PredictionService.getPredictions(UserService.getToken());
 	}
 }
-HomeController.$inject = ['$scope','$location', 'UserService'];
-
+PronosticController.$inject = ['$scope','$location', 'UserService', 'PredictionService', 'GamesService'];
 
 var TestController = function($scope){
 	Highcharts.chart('containerRank', {
@@ -224,21 +227,25 @@ TestController.$inject = ['$scope'];
 
 
 /**
-* Angular Controller -> HomeController  
+* Angular Controller -> RanksController  
 * Contains global data in application.
 * logOut()
 **/
-var PronosticController = function($scope, $location, UserService, RankingService){
+var RanksController = function($scope, $location, UserService, RankingService){
 
 	$scope.Ranks = [];
 	$scope.currentUser = UserService.getCurrentLogin();
 
+	$scope.logOut = function()	{
+		UserService.logout();
+		$location.path('/');
+	}
 	$scope.init = function(){
-		var res = RankingService.get();
+		var res = RankingService.getRanks();
 		res.then(function (result) {	
 			if (result.Ranks.RanksData != undefined)
 				$scope.Ranks = result.Ranks.RanksData;
-			//else
+			//TODO : else
 				// Fenetre modale d'erreur dans laquelle on affiche le message result.Ranks.message
         });
 	}
@@ -250,4 +257,4 @@ var PronosticController = function($scope, $location, UserService, RankingServic
 			return "notCurrentUser";
     }
 }
-PronosticController.$inject = ['$scope','$location', 'UserService', 'RankingService'];
+RanksController.$inject = ['$scope','$location', 'UserService', 'RankingService'];

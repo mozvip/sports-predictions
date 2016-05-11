@@ -22,7 +22,8 @@
     "backstretch": "^2.0.4",
     "angular-loading-bar": "^0.9.0",
     "angular-cookies": "^1.5.5",
-    "angular-recaptcha": "^3.0.3"
+    "angular-recaptcha": "^3.0.3",
+    "angular-linq": "^1.0.2"
   },
   "resolutions": {
     "angular": "1.5.5"
