@@ -61,7 +61,7 @@ var pronostic = function(){
 	// TODO : Faire une partials-view
 	    return {
         restrict: 'E',
-        template: '	<div>{{match.dateTime}} - {{match.group}} - {{match.stadium}}</div><div>{{match.homeTeam}}</div>	  <div>VS</div>	  <div>{{match.awayTeam}}</div>	  <br/>',
+        template: '	<div>{{match.dateTime}} - {{match.group}} - {{match.stadium}}</div><div class="team--home"><span class="team--badge flag-FRA"></span> {{match.homeTeam}} <input ng-model="match.homeScore"/></div><div>VS</div><div>{{match.awayTeam}} <input ng-model="match.awayScore"/></div><br/>',
         scope: {
             match: "="
         }
