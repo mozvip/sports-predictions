@@ -1,5 +1,5 @@
 // Application du site euro2016Predictions
-var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypants.loadingBar', 'ngRoute', 'ui.bootstrap', 'ngCookies', 'vcRecaptcha'])
+var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypants.loadingBar', 'ngRoute', 'ui.bootstrap', 'ngCookies', 'vcRecaptcha', 'angular-linq'])
                                     .config(function (cfpLoadingBarProvider) {
                                         cfpLoadingBarProvider.includeSpinner = false;
                                     });

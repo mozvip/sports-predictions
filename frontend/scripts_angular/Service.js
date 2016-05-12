@@ -197,7 +197,7 @@ var RankingService = function($rootScope, $http, $q, $location){
 RankingService.$inject = ['$rootScope', '$http', '$q', '$location'];
 
 
-var GamesService = function($rootScope, $http, $q, $location){
+var GamesService = function($rootScope, $http, $q, $location, $linq){
 	return {
 		getGroupGames: function(){
 			// RAF : Install bower install angular-linq + Faire un filtre sur les phases de poules
@@ -212,7 +212,15 @@ var GamesService = function($rootScope, $http, $q, $location){
             .get($location.protocol() + '://' + $location.host() + ':8080/games.json', config)
 			.then(function(data){
 				if(data.status === 200)
-					result = data.data;
+					result = $linq.Enumerable()
+								.From(data.data)
+								.Where(function(match){
+									return match.group.startsWith("Groupe")
+								})
+								.OrderBy(function(match){
+									return match.matchNum;
+								})
+								.ToArray();
 				deferredObject.resolve({ Games:  result });
 			}, function(data){
 				deferredObject.resolve({ Games: null });
@@ -225,4 +233,4 @@ var GamesService = function($rootScope, $http, $q, $location){
 		}
 	};
 }
-GamesService.$inject = ['$rootScope', '$http', '$q', '$location'];
+GamesService.$inject = ['$rootScope', '$http', '$q', '$location', '$linq'];
