@@ -200,8 +200,6 @@ RankingService.$inject = ['$rootScope', '$http', '$q', '$location'];
 var GamesService = function($rootScope, $http, $q, $location, $linq){
 	return {
 		getGroupGames: function(){
-			// RAF : Install bower install angular-linq + Faire un filtre sur les phases de poules
-			// Faire une directive pour les matchs simples au début
 			var deferredObject = $q.defer();
 			var result;
 			var config = {

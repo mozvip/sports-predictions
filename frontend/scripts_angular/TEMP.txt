@@ -1,0 +1,15 @@
+getYourRanking: function(login){
+			alert(login);
+			var deferredObject = $q.defer();
+			var res = this.get(), find = false;
+			 res.then(function (result) {
+				result.Ranks.forEach(function(element, index, array){
+					alert(element.email  + ':' + login);
+					if(element.email === login && !find){
+						deferredObject.resolve({ YourRanks:  element.currentScore });
+						find = true;
+					}
+				});
+			});
+			return deferredObject.promise;
+		}
