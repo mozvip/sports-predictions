@@ -12,6 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +77,7 @@ public class ScoreResource {
 	
 	@GET
 	@Path("/games")
+	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value="Get the list of all games, along with the final result for the games which have already been played")
 	public List<Game> getGames() {
 		return games;
