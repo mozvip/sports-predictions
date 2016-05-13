@@ -1,1 +1,410 @@
-[{"dateTime":"2016-06-10T21:00+02","group":"Groupe A","stadium":"Saint-Denis","homeTeam":"France","awayTeam":"Roumanie","matchNum":0},{"dateTime":"2016-06-11T15:00+02","group":"Groupe A","stadium":"Lens","homeTeam":"Albanie","awayTeam":"Suisse","matchNum":1},{"dateTime":"2016-06-11T18:00+02","group":"Groupe B","stadium":"Bordeaux","homeTeam":"Galles","awayTeam":"Slovaquie","matchNum":2},{"dateTime":"2016-06-11T21:00+02","group":"Groupe B","stadium":"Marseille","homeTeam":"Angleterre","awayTeam":"Russie","matchNum":3},{"dateTime":"2016-06-12T15:00+02","group":"Groupe D","stadium":"Paris","homeTeam":"Turquie","awayTeam":"Croatie","matchNum":4},{"dateTime":"2016-06-12T18:00+02","group":"Groupe C","stadium":"Nice","homeTeam":"Pologne","awayTeam":"Irlande Du Nord","matchNum":5},{"dateTime":"2016-06-12T21:00+02","group":"Groupe C","stadium":"Lille","homeTeam":"Allemagne","awayTeam":"Ukraine","matchNum":6},{"dateTime":"2016-06-13T15:00+02","group":"Groupe D","stadium":"Toulouse","homeTeam":"Espagne","awayTeam":"Rep. Tcheque","matchNum":7},{"dateTime":"2016-06-13T18:00+02","group":"Groupe E","stadium":"Saint-Denis","homeTeam":"Irlande","awayTeam":"Suede","matchNum":8},{"dateTime":"2016-06-13T21:00+02","group":"Groupe E","stadium":"Lyon","homeTeam":"Belgique","awayTeam":"Italie","matchNum":9},{"dateTime":"2016-06-14T18:00+02","group":"Groupe F","stadium":"Bordeaux","homeTeam":"Autriche","awayTeam":"Hongrie","matchNum":10},{"dateTime":"2016-06-14T21:00+02","group":"Groupe F","stadium":"Saint-Etienne","homeTeam":"Portugal","awayTeam":"Islande","matchNum":11},{"dateTime":"2016-06-15T15:00+02","group":"Groupe B","stadium":"Lille","homeTeam":"Russie","awayTeam":"Slovaquie","matchNum":12},{"dateTime":"2016-06-15T18:00+02","group":"Groupe A","stadium":"Paris","homeTeam":"Roumanie","awayTeam":"Suisse","matchNum":13},{"dateTime":"2016-06-15T21:00+02","group":"Groupe A","stadium":"Marseille","homeTeam":"France","awayTeam":"Albanie","matchNum":14},{"dateTime":"2016-06-16T15:00+02","group":"Groupe B","stadium":"Lens","homeTeam":"Angleterre","awayTeam":"Galles","matchNum":15},{"dateTime":"2016-06-16T18:00+02","group":"Groupe C","stadium":"Lyon","homeTeam":"Ukraine","awayTeam":"Irlande Du Nord","matchNum":16},{"dateTime":"2016-06-16T21:00+02","group":"Groupe C","stadium":"Saint-Denis","homeTeam":"Allemagne","awayTeam":"Pologne","matchNum":17},{"dateTime":"2016-06-17T15:00+02","group":"Groupe E","stadium":"Toulouse","homeTeam":"Italie","awayTeam":"Suede","matchNum":18},{"dateTime":"2016-06-17T18:00+02","group":"Groupe D","stadium":"Saint-Etienne","homeTeam":"Rep. Tcheque","awayTeam":"Croatie","matchNum":19},{"dateTime":"2016-06-17T21:00+02","group":"Groupe D","stadium":"Nice","homeTeam":"Espagne","awayTeam":"Turquie","matchNum":20},{"dateTime":"2016-06-18T15:00+02","group":"Groupe E","stadium":"Bordeaux","homeTeam":"Belgique","awayTeam":"Irlande","matchNum":21},{"dateTime":"2016-06-18T18:00+02","group":"Groupe F","stadium":"Marseille","homeTeam":"Islande","awayTeam":"Hongrie","matchNum":22},{"dateTime":"2016-06-18T21:00+02","group":"Groupe F","stadium":"Paris","homeTeam":"Portugal","awayTeam":"Autriche","matchNum":23},{"dateTime":"2016-06-19T21:00+02","group":"Groupe A","stadium":"Lyon","homeTeam":"Roumanie","awayTeam":"Albanie","matchNum":24},{"dateTime":"2016-06-19T21:00+02","group":"Groupe A","stadium":"Lille","homeTeam":"Suisse","awayTeam":"France","matchNum":25},{"dateTime":"2016-06-20T21:00+02","group":"Groupe B","stadium":"Toulouse","homeTeam":"Russie","awayTeam":"Galles","matchNum":26},{"dateTime":"2016-06-20T21:00+02","group":"Groupe B","stadium":"Saint-Etienne","homeTeam":"Slovaquie","awayTeam":"Angleterre","matchNum":27},{"dateTime":"2016-06-21T18:00+02","group":"Groupe C","stadium":"Marseille","homeTeam":"Ukraine","awayTeam":"Pologne","matchNum":28},{"dateTime":"2016-06-21T18:00+02","group":"Groupe C","stadium":"Paris","homeTeam":"Irlande Du Nord","awayTeam":"Allemagne","matchNum":29},{"dateTime":"2016-06-21T21:00+02","group":"Groupe D","stadium":"Lens","homeTeam":"Rep. Tcheque","awayTeam":"Turquie","matchNum":30},{"dateTime":"2016-06-21T21:00+02","group":"Groupe D","stadium":"Bordeaux","homeTeam":"Croatie","awayTeam":"Espagne","matchNum":31},{"dateTime":"2016-06-22T18:00+02","group":"Groupe F","stadium":"Saint-Denis","homeTeam":"Islande","awayTeam":"Autriche","matchNum":32},{"dateTime":"2016-06-22T18:00+02","group":"Groupe F","stadium":"Lyon","homeTeam":"Hongrie","awayTeam":"Portugal","matchNum":33},{"dateTime":"2016-06-22T21:00+02","group":"Groupe E","stadium":"Lille","homeTeam":"Italie","awayTeam":"Irlande","matchNum":34},{"dateTime":"2016-06-22T21:00+02","group":"Groupe E","stadium":"Nice","homeTeam":"Suede","awayTeam":"Belgique","matchNum":35},{"dateTime":"2016-06-25T15:00+02","group":"8èmes de finale","stadium":"Saint-Etienne","homeTeam":"2eme A","awayTeam":"2eme C","matchNum":36},{"dateTime":"2016-06-25T18:00+02","group":"8èmes de finale","stadium":"Paris","homeTeam":"1er B","awayTeam":"3eme Acd","matchNum":37},{"dateTime":"2016-06-25T21:00+02","group":"8èmes de finale","stadium":"Lens","homeTeam":"1er D","awayTeam":"3eme Bef","matchNum":38},{"dateTime":"2016-06-26T15:00+02","group":"8èmes de finale","stadium":"Lyon","homeTeam":"1er A","awayTeam":"3eme Cde","matchNum":39},{"dateTime":"2016-06-26T18:00+02","group":"8èmes de finale","stadium":"Lille","homeTeam":"1er C","awayTeam":"3eme Abf","matchNum":40},{"dateTime":"2016-06-26T21:00+02","group":"8èmes de finale","stadium":"Toulouse","homeTeam":"1er F","awayTeam":"2eme E","matchNum":41},{"dateTime":"2016-06-27T18:00+02","group":"8èmes de finale","stadium":"Saint-Denis","homeTeam":"1er E","awayTeam":"2eme D","matchNum":42},{"dateTime":"2016-06-27T21:00+02","group":"8èmes de finale","stadium":"Nice","homeTeam":"2eme B","awayTeam":"2eme F","matchNum":43},{"dateTime":"2016-06-30T21:00+02","group":"Quarts de finale","stadium":"Marseille","homeTeam":"2eme A Ou 2eme C","awayTeam":"1er D Ou 3eme Bef","matchNum":44},{"dateTime":"2016-07-01T21:00+02","group":"Quarts de finale","stadium":"Lille","homeTeam":"1er B Ou 3eme Acd","awayTeam":"1er F Ou 2eme E","matchNum":45},{"dateTime":"2016-07-02T21:00+02","group":"Quarts de finale","stadium":"Bordeaux","homeTeam":"1er C Ou 3eme Abf","awayTeam":"1er E Ou 2eme D","matchNum":46},{"dateTime":"2016-07-03T21:00+02","group":"Quarts de finale","stadium":"Saint-Denis","homeTeam":"1er A Ou 3eme Bef","awayTeam":"2eme B Ou 2eme F","matchNum":47},{"dateTime":"2016-07-06T21:00+02","group":"Demi-finales","stadium":"Lyon","homeTeam":"Vq1","awayTeam":"Vq2","matchNum":48},{"dateTime":"2016-07-07T21:00+02","group":"Demi-finales","stadium":"Marseille","homeTeam":"Vq3","awayTeam":"Vq4","matchNum":49},{"dateTime":"2016-07-10T21:00+02","group":"Finale","stadium":"Saint-Denis","homeTeam":"","awayTeam":"","matchNum":50}]
+[
+    {
+        "dateTime": "2016-06-10T21:00+02",
+        "group": "Groupe A",
+        "stadium": "Saint-Denis",
+        "homeTeam": "France",
+        "awayTeam": "Roumanie",
+        "matchNum": 0
+    },
+    {
+        "dateTime": "2016-06-11T15:00+02",
+        "group": "Groupe A",
+        "stadium": "Lens",
+        "homeTeam": "Albanie",
+        "awayTeam": "Suisse",
+        "matchNum": 1
+    },
+    {
+        "dateTime": "2016-06-11T18:00+02",
+        "group": "Groupe B",
+        "stadium": "Bordeaux",
+        "homeTeam": "Galles",
+        "awayTeam": "Slovaquie",
+        "matchNum": 2
+    },
+    {
+        "dateTime": "2016-06-11T21:00+02",
+        "group": "Groupe B",
+        "stadium": "Marseille",
+        "homeTeam": "Angleterre",
+        "awayTeam": "Russie",
+        "matchNum": 3
+    },
+    {
+        "dateTime": "2016-06-12T15:00+02",
+        "group": "Groupe D",
+        "stadium": "Paris",
+        "homeTeam": "Turquie",
+        "awayTeam": "Croatie",
+        "matchNum": 4
+    },
+    {
+        "dateTime": "2016-06-12T18:00+02",
+        "group": "Groupe C",
+        "stadium": "Nice",
+        "homeTeam": "Pologne",
+        "awayTeam": "Irlande Du Nord",
+        "matchNum": 5
+    },
+    {
+        "dateTime": "2016-06-12T21:00+02",
+        "group": "Groupe C",
+        "stadium": "Lille",
+        "homeTeam": "Allemagne",
+        "awayTeam": "Ukraine",
+        "matchNum": 6
+    },
+    {
+        "dateTime": "2016-06-13T15:00+02",
+        "group": "Groupe D",
+        "stadium": "Toulouse",
+        "homeTeam": "Espagne",
+        "awayTeam": "Rep. Tcheque",
+        "matchNum": 7
+    },
+    {
+        "dateTime": "2016-06-13T18:00+02",
+        "group": "Groupe E",
+        "stadium": "Saint-Denis",
+        "homeTeam": "Irlande",
+        "awayTeam": "Suede",
+        "matchNum": 8
+    },
+    {
+        "dateTime": "2016-06-13T21:00+02",
+        "group": "Groupe E",
+        "stadium": "Lyon",
+        "homeTeam": "Belgique",
+        "awayTeam": "Italie",
+        "matchNum": 9
+    },
+    {
+        "dateTime": "2016-06-14T18:00+02",
+        "group": "Groupe F",
+        "stadium": "Bordeaux",
+        "homeTeam": "Autriche",
+        "awayTeam": "Hongrie",
+        "matchNum": 10
+    },
+    {
+        "dateTime": "2016-06-14T21:00+02",
+        "group": "Groupe F",
+        "stadium": "Saint-Etienne",
+        "homeTeam": "Portugal",
+        "awayTeam": "Islande",
+        "matchNum": 11
+    },
+    {
+        "dateTime": "2016-06-15T15:00+02",
+        "group": "Groupe B",
+        "stadium": "Lille",
+        "homeTeam": "Russie",
+        "awayTeam": "Slovaquie",
+        "matchNum": 12
+    },
+    {
+        "dateTime": "2016-06-15T18:00+02",
+        "group": "Groupe A",
+        "stadium": "Paris",
+        "homeTeam": "Roumanie",
+        "awayTeam": "Suisse",
+        "matchNum": 13
+    },
+    {
+        "dateTime": "2016-06-15T21:00+02",
+        "group": "Groupe A",
+        "stadium": "Marseille",
+        "homeTeam": "France",
+        "awayTeam": "Albanie",
+        "matchNum": 14
+    },
+    {
+        "dateTime": "2016-06-16T15:00+02",
+        "group": "Groupe B",
+        "stadium": "Lens",
+        "homeTeam": "Angleterre",
+        "awayTeam": "Galles",
+        "matchNum": 15
+    },
+    {
+        "dateTime": "2016-06-16T18:00+02",
+        "group": "Groupe C",
+        "stadium": "Lyon",
+        "homeTeam": "Ukraine",
+        "awayTeam": "Irlande Du Nord",
+        "matchNum": 16
+    },
+    {
+        "dateTime": "2016-06-16T21:00+02",
+        "group": "Groupe C",
+        "stadium": "Saint-Denis",
+        "homeTeam": "Allemagne",
+        "awayTeam": "Pologne",
+        "matchNum": 17
+    },
+    {
+        "dateTime": "2016-06-17T15:00+02",
+        "group": "Groupe E",
+        "stadium": "Toulouse",
+        "homeTeam": "Italie",
+        "awayTeam": "Suede",
+        "matchNum": 18
+    },
+    {
+        "dateTime": "2016-06-17T18:00+02",
+        "group": "Groupe D",
+        "stadium": "Saint-Etienne",
+        "homeTeam": "Rep. Tcheque",
+        "awayTeam": "Croatie",
+        "matchNum": 19
+    },
+    {
+        "dateTime": "2016-06-17T21:00+02",
+        "group": "Groupe D",
+        "stadium": "Nice",
+        "homeTeam": "Espagne",
+        "awayTeam": "Turquie",
+        "matchNum": 20
+    },
+    {
+        "dateTime": "2016-06-18T15:00+02",
+        "group": "Groupe E",
+        "stadium": "Bordeaux",
+        "homeTeam": "Belgique",
+        "awayTeam": "Irlande",
+        "matchNum": 21
+    },
+    {
+        "dateTime": "2016-06-18T18:00+02",
+        "group": "Groupe F",
+        "stadium": "Marseille",
+        "homeTeam": "Islande",
+        "awayTeam": "Hongrie",
+        "matchNum": 22
+    },
+    {
+        "dateTime": "2016-06-18T21:00+02",
+        "group": "Groupe F",
+        "stadium": "Paris",
+        "homeTeam": "Portugal",
+        "awayTeam": "Autriche",
+        "matchNum": 23
+    },
+    {
+        "dateTime": "2016-06-19T21:00+02",
+        "group": "Groupe A",
+        "stadium": "Lyon",
+        "homeTeam": "Roumanie",
+        "awayTeam": "Albanie",
+        "matchNum": 24
+    },
+    {
+        "dateTime": "2016-06-19T21:00+02",
+        "group": "Groupe A",
+        "stadium": "Lille",
+        "homeTeam": "Suisse",
+        "awayTeam": "France",
+        "matchNum": 25
+    },
+    {
+        "dateTime": "2016-06-20T21:00+02",
+        "group": "Groupe B",
+        "stadium": "Toulouse",
+        "homeTeam": "Russie",
+        "awayTeam": "Galles",
+        "matchNum": 26
+    },
+    {
+        "dateTime": "2016-06-20T21:00+02",
+        "group": "Groupe B",
+        "stadium": "Saint-Etienne",
+        "homeTeam": "Slovaquie",
+        "awayTeam": "Angleterre",
+        "matchNum": 27
+    },
+    {
+        "dateTime": "2016-06-21T18:00+02",
+        "group": "Groupe C",
+        "stadium": "Marseille",
+        "homeTeam": "Ukraine",
+        "awayTeam": "Pologne",
+        "matchNum": 28
+    },
+    {
+        "dateTime": "2016-06-21T18:00+02",
+        "group": "Groupe C",
+        "stadium": "Paris",
+        "homeTeam": "Irlande Du Nord",
+        "awayTeam": "Allemagne",
+        "matchNum": 29
+    },
+    {
+        "dateTime": "2016-06-21T21:00+02",
+        "group": "Groupe D",
+        "stadium": "Lens",
+        "homeTeam": "Rep. Tcheque",
+        "awayTeam": "Turquie",
+        "matchNum": 30
+    },
+    {
+        "dateTime": "2016-06-21T21:00+02",
+        "group": "Groupe D",
+        "stadium": "Bordeaux",
+        "homeTeam": "Croatie",
+        "awayTeam": "Espagne",
+        "matchNum": 31
+    },
+    {
+        "dateTime": "2016-06-22T18:00+02",
+        "group": "Groupe F",
+        "stadium": "Saint-Denis",
+        "homeTeam": "Islande",
+        "awayTeam": "Autriche",
+        "matchNum": 32
+    },
+    {
+        "dateTime": "2016-06-22T18:00+02",
+        "group": "Groupe F",
+        "stadium": "Lyon",
+        "homeTeam": "Hongrie",
+        "awayTeam": "Portugal",
+        "matchNum": 33
+    },
+    {
+        "dateTime": "2016-06-22T21:00+02",
+        "group": "Groupe E",
+        "stadium": "Lille",
+        "homeTeam": "Italie",
+        "awayTeam": "Irlande",
+        "matchNum": 34
+    },
+    {
+        "dateTime": "2016-06-22T21:00+02",
+        "group": "Groupe E",
+        "stadium": "Nice",
+        "homeTeam": "Suede",
+        "awayTeam": "Belgique",
+        "matchNum": 35
+    },
+    {
+        "dateTime": "2016-06-25T15:00+02",
+        "group": "8èmes de finale",
+        "stadium": "Saint-Etienne",
+        "homeTeam": "2eme A",
+        "awayTeam": "2eme C",
+        "matchNum": 36
+    },
+    {
+        "dateTime": "2016-06-25T18:00+02",
+        "group": "8èmes de finale",
+        "stadium": "Paris",
+        "homeTeam": "1er B",
+        "awayTeam": "3eme Acd",
+        "matchNum": 37
+    },
+    {
+        "dateTime": "2016-06-25T21:00+02",
+        "group": "8èmes de finale",
+        "stadium": "Lens",
+        "homeTeam": "1er D",
+        "awayTeam": "3eme Bef",
+        "matchNum": 38
+    },
+    {
+        "dateTime": "2016-06-26T15:00+02",
+        "group": "8èmes de finale",
+        "stadium": "Lyon",
+        "homeTeam": "1er A",
+        "awayTeam": "3eme Cde",
+        "matchNum": 39
+    },
+    {
+        "dateTime": "2016-06-26T18:00+02",
+        "group": "8èmes de finale",
+        "stadium": "Lille",
+        "homeTeam": "1er C",
+        "awayTeam": "3eme Abf",
+        "matchNum": 40
+    },
+    {
+        "dateTime": "2016-06-26T21:00+02",
+        "group": "8èmes de finale",
+        "stadium": "Toulouse",
+        "homeTeam": "1er F",
+        "awayTeam": "2eme E",
+        "matchNum": 41
+    },
+    {
+        "dateTime": "2016-06-27T18:00+02",
+        "group": "8èmes de finale",
+        "stadium": "Saint-Denis",
+        "homeTeam": "1er E",
+        "awayTeam": "2eme D",
+        "matchNum": 42
+    },
+    {
+        "dateTime": "2016-06-27T21:00+02",
+        "group": "8èmes de finale",
+        "stadium": "Nice",
+        "homeTeam": "2eme B",
+        "awayTeam": "2eme F",
+        "matchNum": 43
+    },
+    {
+        "dateTime": "2016-06-30T21:00+02",
+        "group": "Quarts de finale",
+        "stadium": "Marseille",
+        "homeTeam": "2eme A Ou 2eme C",
+        "awayTeam": "1er D Ou 3eme Bef",
+        "matchNum": 44
+    },
+    {
+        "dateTime": "2016-07-01T21:00+02",
+        "group": "Quarts de finale",
+        "stadium": "Lille",
+        "homeTeam": "1er B Ou 3eme Acd",
+        "awayTeam": "1er F Ou 2eme E",
+        "matchNum": 45
+    },
+    {
+        "dateTime": "2016-07-02T21:00+02",
+        "group": "Quarts de finale",
+        "stadium": "Bordeaux",
+        "homeTeam": "1er C Ou 3eme Abf",
+        "awayTeam": "1er E Ou 2eme D",
+        "matchNum": 46
+    },
+    {
+        "dateTime": "2016-07-03T21:00+02",
+        "group": "Quarts de finale",
+        "stadium": "Saint-Denis",
+        "homeTeam": "1er A Ou 3eme Bef",
+        "awayTeam": "2eme B Ou 2eme F",
+        "matchNum": 47
+    },
+    {
+        "dateTime": "2016-07-06T21:00+02",
+        "group": "Demi-finales",
+        "stadium": "Lyon",
+        "homeTeam": "Vq1",
+        "awayTeam": "Vq2",
+        "matchNum": 48
+    },
+    {
+        "dateTime": "2016-07-07T21:00+02",
+        "group": "Demi-finales",
+        "stadium": "Marseille",
+        "homeTeam": "Vq3",
+        "awayTeam": "Vq4",
+        "matchNum": 49
+    },
+    {
+        "dateTime": "2016-07-10T21:00+02",
+        "group": "Finale",
+        "stadium": "Saint-Denis",
+        "homeTeam": "",
+        "awayTeam": "",
+        "matchNum": 50
+    }
+]

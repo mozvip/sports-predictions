@@ -10,6 +10,9 @@ public class Game {
 	private String stadium;
 	private String homeTeam;
 	private String awayTeam;
+	private int homeScore;
+	private int awayScore;
+	private String winningTeam;
 
 	public Date getDateTime() {
 		return dateTime;
@@ -46,6 +49,24 @@ public class Game {
 	}
 	public void setMatchNum(int matchNum) {
 		this.matchNum = matchNum;
+	}
+	public int getHomeScore() {
+		return homeScore;
+	}
+	public void setHomeScore(int homeScore) {
+		this.homeScore = homeScore;
+	}
+	public int getAwayScore() {
+		return awayScore;
+	}
+	public void setAwayScore(int awayScore) {
+		this.awayScore = awayScore;
+	}
+	public String getWinningTeam() {
+		return winningTeam;
+	}
+	public void setWinningTeam(String winningTeam) {
+		this.winningTeam = winningTeam;
 	}
 	
 

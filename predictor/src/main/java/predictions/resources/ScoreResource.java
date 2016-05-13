@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -40,6 +41,7 @@ public class ScoreResource {
 	UserDAO userDAO;
 	
 	private List<Game> games;
+	private Map<Integer, Game> gamesById = new HashMap<>();
 	
 	public ScoreResource(ActualResultDAO actualResultDAO, MatchPredictionDAO matchPredictionDAO, UserDAO userDAO ) {
 		this.actualResultDAO = actualResultDAO;
@@ -50,10 +52,33 @@ public class ScoreResource {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			games = mapper.readValue(input, new TypeReference<List<Game>>(){});
+			for (Game game : games) {
+				gamesById.put(game.getMatchNum(), game);
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
 		
+		associateScores();
+		
+	}
+	
+	private void associateScores() {
+		List<ActualResult> allResults = actualResultDAO.findAll();
+		for (ActualResult actualResult : allResults) {
+			int gameId = actualResult.getMatch_id();
+			Game game = gamesById.get( gameId );
+			game.setHomeScore( actualResult.getHome_score());
+			game.setAwayScore( actualResult.getAway_score());
+			game.setWinningTeam( actualResult.isHome_winner() ? actualResult.getHome_team_name() : actualResult.getAway_team_name() );
+		}
+	}
+	
+	@GET
+	@Path("/games")
+	@ApiOperation(value="Get the list of all games, along with the final result for the games which have already been played")
+	public List<Game> getGames() {
+		return games;
 	}
 	
 	private void recalculateScores() {
@@ -112,17 +137,19 @@ public class ScoreResource {
 		}
 		
 	}
-
+	
 	@RolesAllowed("ADMIN")
 	@Path("/submit")
 	@POST
-	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate all scores")
-	public void postScore( @Auth User user, @FormParam("gameNum") int gameNum, @FormParam("homeScore") int homeScore, @FormParam("awayScore") int awayScore) {
+	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate all scores, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)")
+	public void postScore( @Auth User user, @FormParam("gameNum") int gameNum, @FormParam("homeScore") int homeScore, @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
 		ActualResult result = actualResultDAO.find(gameNum);
-		actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeScore > awayScore ? true : false );
+		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( result.getHome_team_name()) : homeScore > awayScore;
+		actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeWinning );
 		recalculateScores();
+		associateScores();
 	}
-	
+
 	@RolesAllowed("ADMIN")
 	@Path("/submit")
 	@Produces("text/html; charset=UTF-8")
