@@ -1,55 +1,27 @@
 <div class="row" ng-controller="PronosticController" ng-init="init()">
-  <div class="col-sm-2">
-<nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#ranks">Votre classement <span class="badge">12</span></a>
-</nav>
+	<div class="col-sm-2">
+		<nav class="navbar navbar-light bg-faded">
+		  <a class="navbar-brand" href="#ranks">Votre classement <span class="badge">{{yourRank}}</span></a>
+		</nav>
 
-<nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#pronostic">Sousmission pronostique </a>
-</nav>
+		<nav class="navbar navbar-light bg-faded">
+		  <a class="navbar-brand" href="#pronostic">Sousmission pronostique </a>
+		</nav>
 
-<nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#statComm">Statistiques de la communautée </a>
-</nav>
+		<nav class="navbar navbar-light bg-faded">
+		  <a class="navbar-brand" href="#statComm">Statistiques de la communautée </a>
+		</nav>
 
-<nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#yourStats">Vos statistiques </a>
-</nav>
-  </div>
-  <div class="col-sm-9">
-	
-<div class="group-container">
-          <a href="/uefaeuro/season=2016/teams/team=39/index.html" class="group-item" title="Angleterre">
-            <div class="group-inner-container team_39">
-              <span class="group-item-logo flag-ENG"></span>
-              <span class="group-item-name">Angleterre</span>
-            </div>
-          </a>
-          <a href="/uefaeuro/season=2016/teams/team=57451/index.html" class="group-item" title="Russie">
-            <div class="group-inner-container team_57451">
-              <span class="group-item-logo flag-RUS"></span>
-              <span class="group-item-name">Russie</span>
-            </div>
-          </a>
-          <a href="/uefaeuro/season=2016/teams/team=58836/index.html" class="group-item" title="Slovaquie">
-            <div class="group-inner-container team_58836">
-              <span class="group-item-logo flag-SVK"></span>
-              <span class="group-item-name">Slovaquie</span>
-            </div>
-          </a>
-          <a href="/uefaeuro/season=2016/teams/team=144/index.html" class="group-item" title="Pays de Galles">
-            <div class="group-inner-container team_144">
-              <span class="group-item-logo flag-WAL"></span>
-              <span class="group-item-name">Pays de Galles</span>
-            </div>
-          </a>
-      </div>
-      
-          
-	<h2>make directive + implementation savePrediction & getPrediction</h2><br/><br/>
-	<pronostic ng-repeat="match in games" match="match"></pronostic>
-	<button class="btn btn-success btn btn-success">Valider</button>
-	<br/>
-  </div>
-
+		<nav class="navbar navbar-light bg-faded">
+		  <a class="navbar-brand" href="#yourStats">Vos statistiques </a>
+		</nav>
+	</div>
+	<div class="col-sm-9">  
+		<h2>TODO : CSS + implementation savePrediction & getPrediction</h2><br/><br/>
+		<div class="group-container">
+			<pronostic ng-repeat="match in games" match="match"></pronostic>
+		</div>
+		<button class="btn btn-success btn btn-success">Valider</button>
+		<br/>
+	</div>
  </div>

@@ -240,12 +240,22 @@ var RanksController = function($scope, $location, UserService, RankingService){
 
 	$scope.Ranks = [];
 	$scope.currentUser = UserService.getCurrentLogin();
+	$scope.yourRank = 0;
 
 	$scope.logOut = function()	{
 		UserService.logout();
 		$location.path('/');
 	}
 	$scope.init = function(){
+		
+		/*var rankRes = RankingService.getYourRanking();
+		rankRes.then(function (result) {	
+			if (result.YourRanks != undefined)
+				$scope.yourRank = result.YourRanks;
+			//TODO : else
+				// Fenetre modale d'erreur dans laquelle on affiche le message result.Ranks.message
+        });*/
+		
 		var res = RankingService.getRanks();
 		res.then(function (result) {	
 			if (result.Ranks.RanksData != undefined)
@@ -263,3 +273,9 @@ var RanksController = function($scope, $location, UserService, RankingService){
     }
 }
 RanksController.$inject = ['$scope','$location', 'UserService', 'RankingService'];
+
+
+var DetailController = function($scope, $routeParams){
+	alert($routeParams.matchNumber);
+}
+DetailController.$inject = ['$scope', '$routeParams'];

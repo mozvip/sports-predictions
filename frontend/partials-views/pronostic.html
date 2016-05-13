@@ -1,0 +1,17 @@
+ <a ng-click="linkMatch(match)" href class="group-item">DETAIL</a>
+<div class="group-item" >{{match.dateTime}} - {{match.group}} - {{match.stadium}}            
+	<div class="group-inner-container">              
+		<span class="group-item-logo" ng-class="classFlagTeam(match.homeTeam)"></span>              
+		<span class=group-item-name>{{match.homeTeam}}</span>			  
+		<input ng-model="match.homeScore"/>            
+		<input type="radio" name="{{match.matchNum}}" ng-show="matchNul(match)">
+	</div>			
+	<div>VS</div>			
+	<div class="group-inner-container">              
+		<span class="group-item-logo" ng-class="classFlagTeam(match.awayTeam)"></span>              
+		<span class="group-item-name">{{match.awayTeam}}</span>			  
+		<input ng-model="match.awayScore"/>           
+		<input type="radio" name="{{match.matchNum}}" ng-show="matchNul(match)">
+	</div>          
+ </div>
+ 

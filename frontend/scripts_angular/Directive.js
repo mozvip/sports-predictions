@@ -16,8 +16,6 @@ var showWhenConnected = function (UserService) {
 }
 showWhenConnected.$inject = ['UserService'];
 
-
-
 var hideWhenConnected = function (UserService) {
     return {
         restrict: 'A',
@@ -36,13 +34,11 @@ var hideWhenConnected = function (UserService) {
 }
 hideWhenConnected.$inject = ['UserService'];
 
-
 var userRank = function(UserService){
-// TODO : Faire un dossier partials-view afin de mettre les directives dedans : EX : templateUrl: "partials-view/user-rank.html",
     return {
         restrict: 'E',
-        template: '<p ng-class="classCurrentUser(user.email)">{{user.name}} : {{user.email}}</p><h4>Score : {{user.currentScore}}</h4><br/>',
-        scope: {
+        templateUrl: '/partials-views/user-rank.html',
+		scope: {
             user: "="
         },
 		controller: function($scope, UserService) {
@@ -58,12 +54,62 @@ var userRank = function(UserService){
 userRank.$inject = ['UserService'];
 
 var pronostic = function(){
-	// TODO : Faire une partials-view
-	    return {
-        restrict: 'E',
-        template: '	<div>{{match.dateTime}} - {{match.group}} - {{match.stadium}}</div><div class="team--home"><span class="team--badge flag-FRA"></span> {{match.homeTeam}} <input ng-model="match.homeScore"/></div><div>VS</div><div>{{match.awayTeam}} <input ng-model="match.awayScore"/></div><br/>',
-        scope: {
-            match: "="
+	return {
+		restrict: 'E',
+		templateUrl: '/partials-views/pronostic.html',
+		scope: {
+			match: "="
+		},
+		controller: function($scope, $location) {
+			
+			$scope.linkMatch = function(match){
+				$location.path('detail/'+match.matchNum);
+			}
+			
+			$scope.matchNul = function(match){
+				return match.homeScore == match.awayScore;
+			}
+			
+			$scope.$watch('match.homeScore', function( newValue, oldValue ){
+			   if(newValue == "")
+				   $scope.match.homeScore = 0;
+			  }, true);
+			  
+			$scope.$watch('match.awayScore', function( newValue, oldValue ){
+			   if(newValue == "")
+				   $scope.match.awayScore = 0;
+			  }, true);
+			
+			$scope.classFlagTeam = function(nameTeam) {
+				var linking = {
+					"France" : "FRA",
+					"Allemagne" : "GER",
+					"Albanie" : "ALB",
+					"Autriche" : "AUT",
+					"Belgique" : "BEL", 
+					"Roumanie" : "ROU",
+					"Suisse" : "SUI", 
+					"Angleterre" : "ENG", 
+					"Russie" : "RUS", 
+					"Slovaquie" : "SVK",
+					"Galles" : "WAL",
+					"Irlande Du Nord" : "NIR", 
+					"Pologne" : "POL", 
+					"Ukraine" : "UKR",
+					"Croatie" :  "CRO",
+					"Rep. Tcheque"  : "CZE",
+					"Espagne" : "ESP",
+					"Turquie" : "TUR",
+					"Italie" : "ITA", 
+					"Irlande" : "IRL", 
+					"Suede" : "SWE", 
+					"Autriche" : "AUT",
+					"Hongrie" : "HUN", 
+					"Islande" : "ISL",
+					"Portugal" : "POR"
+				}
+				return "flag-"+linking[nameTeam];
+			};
         }
     };
 }

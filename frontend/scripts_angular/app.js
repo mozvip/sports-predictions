@@ -11,6 +11,7 @@ euro2016Predictions.controller('SignupController', SignupController);
 euro2016Predictions.controller('TestController', TestController);
 euro2016Predictions.controller('RanksController', RanksController);
 euro2016Predictions.controller('PronosticController', PronosticController);
+euro2016Predictions.controller('DetailController', DetailController);
 
 /*  Interceptor des réponses HTTP  pour l'auth  */
 euro2016Predictions.factory('AuthInterceptor', AuthInterceptor);
@@ -24,9 +25,6 @@ euro2016Predictions.factory('GamesService', GamesService);
 
 var config = function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider
-
-
-
 
 
 	.when('/ranks', {
@@ -44,25 +42,27 @@ var config = function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl:'/views/login.html',
 		authorized: false
     })
-
-
-
 	.when('/signup', {
 		controller: 'SignupController',
 		templateUrl:'/views/signup.html',
 		authorized: false
 	})
-	.when('profil', {
+	.when('/profil', {
 		templateUrl:'/views/profil.html',
 		authorized: false
 	})
-	.when('forgetPassword', {
+	.when('/forgetPassword', {
 		templateUrl:'/views/forgetPassword.html',
 		authorized: false
 	})
 	.when('/yourStats', {
 		templateUrl:'/views/yourStats.html',
 		authorized: true	
+	})
+	.when('/detail/:matchNumber', {
+		templateUrl:'/views/detail.html',
+		authorized: true,
+		controller: 'DetailController'
 	})
     .otherwise({
       redirectTo:'/ranks'

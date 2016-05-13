@@ -167,9 +167,31 @@ PredictionService.$inject = ['$rootScope', '$http', '$q', '$location'];
 * get() -> Return all ranks of community user
 * getYourRanking(login) -> Return ranks of current user
 **/
-var RankingService = function($rootScope, $http, $q, $location){
-	return {
-		getRanks: function(){
+var RankingService = function($rootScope, $http, $q, $location, $linq){
+	
+	var yourRank = function(login){
+			/*var deferredObject = $q.defer();
+			var res = this.get(), find = false;
+			
+			res.then(function (result) {
+				var element = 0;
+				if(result.Ranks.RanksData !== undefined)
+					element = $linq.Enumerable()
+								.From(result.Ranks.RanksData)
+								.OrderByDescending(function(ranks){
+									return ranks.currentScore;
+								})
+								.Select(function(ranks){
+									return ranks.email;
+								})
+								.IndexOf(login);
+				deferredObject.resolve({ YourRanks:  element });
+			});
+			return deferredObject.promise;*/
+			return null;
+	};
+	
+	var get = function(){
 			var deferredObject = $q.defer();
 			var result= {};
 			var config = {
@@ -191,10 +213,14 @@ var RankingService = function($rootScope, $http, $q, $location){
 				deferredObject.resolve({ Ranks: result });
 			});
 			return deferredObject.promise;
-		}
+	};
+	
+	return {
+		getRanks: get,
+		getYourRanking: yourRank
 	};
 }
-RankingService.$inject = ['$rootScope', '$http', '$q', '$location'];
+RankingService.$inject = ['$rootScope', '$http', '$q', '$location', '$linq'];
 
 
 var GamesService = function($rootScope, $http, $q, $location, $linq){
