@@ -1,4 +1,10 @@
  googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ 
+ smtpHost: mail.google.com
+ 
+ smtpLogin: XXXXXXXXXXXX
+ 
+ smtpPassword: XXXXXXXXXXXX
 
  database:
   # the name of your JDBC driver
