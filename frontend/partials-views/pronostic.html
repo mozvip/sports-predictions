@@ -1,15 +1,15 @@
- <a ng-click="linkMatch(match)" href class="group-item">DETAIL</a>
+<a ng-click="linkMatch(match)" href class="group-item">DETAIL</a>
 <div class="group-item" >{{match.dateTime}} - {{match.group}} - {{match.stadium}}            
-	<div class="group-inner-container">              
-		<span class="group-item-logo" ng-class="classFlagTeam(match.homeTeam)"></span>              
-		<span class=group-item-name>{{match.homeTeam}}</span>			  
-		<input ng-model="match.homeScore" ng-disabled="isPronosticable(match)"/>            
-	</div>			
-	<div>VS</div>			
-	<div class="group-inner-container">              
+	<div class="group-inner-container">             
+		<span class="group-item-name"><input ng-model="match.homeScore" ng-disabled="isPronosticable(match)"/></span>	             
+		<span class="group-item-name">{{match.homeTeam}} </span>		
+		<span class="group-item-logo" ng-class="classFlagTeam(match.homeTeam)"></span> 
+				
+		<span class="group-item-name"> VS </span>
+		
 		<span class="group-item-logo" ng-class="classFlagTeam(match.awayTeam)"></span>              
 		<span class="group-item-name">{{match.awayTeam}}</span>			  
-		<input ng-model="match.awayScore" ng-disabled="isPronosticable(match)"/>           
-	</div>          
+		<span class="group-item-name"><input ng-model="match.awayScore" ng-disabled="isPronosticable(match)"/></span>
+	</div>			        
  </div>
  

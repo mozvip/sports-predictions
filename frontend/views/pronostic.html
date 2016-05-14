@@ -19,7 +19,8 @@
 	<div class="col-sm-9">  
 		<h2>TODO : CSS + implementation savePrediction & getPrediction</h2><br/><br/>
 		<div class="group-container">
-			<pronostic ng-repeat="match in games" match="match"></pronostic>
+			<!-- FILTER FOR TEST : AFTER DO A TABCONTROL WITH TABITEM PER GROUP -->
+			<pronostic ng-repeat="match in games | filter:'Groupe A'" match="match"></pronostic>
 		</div>
 		<button class="btn btn-success btn btn-success">Valider</button>
 		<br/>
