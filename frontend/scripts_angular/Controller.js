@@ -305,7 +305,7 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 	
 	
 	$scope.forget = function(){
-		var res = UserService.loginAvailable($scope.newuser.Login);
+		var res = UserService.loginAvailable($scope.email);
 		res.then(function (result) {
 			$scope.login_exist = !result.Result;
 		});
