@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.security.RolesAllowed;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -69,6 +68,7 @@ public class ScoreResource {
 		for (ActualResult actualResult : allResults) {
 			int gameId = actualResult.getMatch_id();
 			Game game = gamesById.get( gameId );
+			game.setDone( true );
 			game.setHomeScore( actualResult.getHome_score());
 			game.setAwayScore( actualResult.getAway_score());
 			game.setWinningTeam( actualResult.isHome_winner() ? actualResult.getHome_team_name() : actualResult.getAway_team_name() );
