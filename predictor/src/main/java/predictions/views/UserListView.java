@@ -1,10 +1,10 @@
 package predictions.views;
 
+import java.util.List;
+
 import io.dropwizard.views.View;
 import predictions.model.User;
 import predictions.model.UserDAO;
-
-import java.util.List;
 
 public class UserListView extends View {
 	

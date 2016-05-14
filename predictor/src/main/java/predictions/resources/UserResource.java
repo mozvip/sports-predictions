@@ -42,6 +42,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.ApiOperation;
+import predictions.PredictionsConfiguration;
 import predictions.model.ActualResult;
 import predictions.model.ActualResultDAO;
 import predictions.model.AuthenticationResult;
@@ -65,16 +66,16 @@ public class UserResource {
 	private MatchPredictionDAO matchPredictionDAO;
 	private ActualResultDAO actualResultDAO;
 	private HttpClient client;
-	private String googleReCaptchaSecretKey;
+	private PredictionsConfiguration configuration;
 
 	@Context private HttpServletRequest httpRequest;
 
-	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, HttpClient client, String googleReCaptchaSecretKey ) {
+	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, HttpClient client, PredictionsConfiguration configuration ) {
 		this.userDAO = dao;
 		this.matchPredictionDAO = matchPredictionDAO;
 		this.actualResultDAO = actualResultDAO;
 		this.client = client;
-		this.googleReCaptchaSecretKey = googleReCaptchaSecretKey;
+		this.configuration = configuration;
 	}
 
 	@RolesAllowed("ADMIN")
@@ -129,7 +130,7 @@ public class UserResource {
 		// google recaptcha verification
 		HttpPost post = new HttpPost("https://www.google.com/recaptcha/api/siteverify");
 		List<NameValuePair> postParams = new ArrayList<>();
-		postParams.add( new BasicNameValuePair("secret", googleReCaptchaSecretKey) );
+		postParams.add( new BasicNameValuePair("secret", configuration.getGoogleReCaptchaSecretKey()) );
 		postParams.add( new BasicNameValuePair("response", recaptcha) );
 		postParams.add( new BasicNameValuePair("remoteip", httpRequest.getRemoteAddr()) );
 		post.setEntity( new UrlEncodedFormEntity(postParams));
@@ -247,9 +248,13 @@ public class UserResource {
 
 		try {
 			Email mailToSend = new SimpleEmail();
-			mailToSend.setHostName("smtp.googlemail.com");
+			mailToSend.setHostName( configuration.getSmtpHost() );
 			mailToSend.setSmtpPort(465);
-			mailToSend.setAuthenticator(new DefaultAuthenticator("username", "password"));
+			
+			if (configuration.getSmtpLogin() != null && configuration.getSmtpPassword() != null) {
+				mailToSend.setAuthenticator(new DefaultAuthenticator( configuration.getSmtpLogin(), configuration.getSmtpPassword() ));
+			}
+			
 			mailToSend.setSSLOnConnect(true);
 			mailToSend.setFrom( mailFrom );
 			String subject = String.format( "Mot de passe oublié pour https://%s.pronostics2016.com", community);

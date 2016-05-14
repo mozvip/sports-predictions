@@ -8,10 +8,7 @@ import javax.annotation.Nullable;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
-
-import org.glassfish.jersey.server.ContainerRequest;
 
 import com.google.common.io.BaseEncoding;
 

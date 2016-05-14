@@ -87,7 +87,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		
 		DefaultHttpClient client = new DefaultHttpClient();
 		
-		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, client, configuration.getGoogleReCaptchaSecretKey()));
+		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, client, configuration));
 		environment.jersey().register(new UserListResource(userDAO, matchPredictionDAO));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new RankingsResource(userDAO));
