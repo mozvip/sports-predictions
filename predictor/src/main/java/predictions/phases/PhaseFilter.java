@@ -32,7 +32,7 @@ public class PhaseFilter implements Filter {
 		String requestURI = servletRequest.getRequestURI();
 		
 		String community = (String) request.getAttribute("community");
-		if (community.equals("test")) {
+		if (community.equals("test")||  community.equals("localhost")) {
 			chain.doFilter(request, response);
 			return;
 		}
