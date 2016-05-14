@@ -3,15 +3,13 @@
 	<div class="group-inner-container">              
 		<span class="group-item-logo" ng-class="classFlagTeam(match.homeTeam)"></span>              
 		<span class=group-item-name>{{match.homeTeam}}</span>			  
-		<input ng-model="match.homeScore"/>            
-		<input type="radio" name="{{match.matchNum}}" ng-show="matchNul(match)">
+		<input ng-model="match.homeScore" ng-disabled="isPronosticable(match)"/>            
 	</div>			
 	<div>VS</div>			
 	<div class="group-inner-container">              
 		<span class="group-item-logo" ng-class="classFlagTeam(match.awayTeam)"></span>              
 		<span class="group-item-name">{{match.awayTeam}}</span>			  
-		<input ng-model="match.awayScore"/>           
-		<input type="radio" name="{{match.matchNum}}" ng-show="matchNul(match)">
+		<input ng-model="match.awayScore" ng-disabled="isPronosticable(match)"/>           
 	</div>          
  </div>
  

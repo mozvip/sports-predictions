@@ -1,3 +1,6 @@
+/**
+* TO COMMENT
+**/
 var showWhenConnected = function (UserService) {
     return {
         restrict: 'A',
@@ -16,6 +19,9 @@ var showWhenConnected = function (UserService) {
 }
 showWhenConnected.$inject = ['UserService'];
 
+/**
+* TO COMMENT
+**/
 var hideWhenConnected = function (UserService) {
     return {
         restrict: 'A',
@@ -34,6 +40,9 @@ var hideWhenConnected = function (UserService) {
 }
 hideWhenConnected.$inject = ['UserService'];
 
+/**
+* TO COMMENT
+**/
 var userRank = function(UserService){
     return {
         restrict: 'E',
@@ -53,6 +62,9 @@ var userRank = function(UserService){
 }
 userRank.$inject = ['UserService'];
 
+/**
+* TO COMMENT
+**/
 var pronostic = function(){
 	return {
 		restrict: 'E',
@@ -65,19 +77,23 @@ var pronostic = function(){
 			$scope.linkMatch = function(match){
 				$location.path('detail/'+match.matchNum);
 			}
-			
-			$scope.matchNul = function(match){
-				return match.homeScore == match.awayScore;
+						
+			$scope.isPronosticable = function(match){
+				return (match.dateTime <= new Date());
 			}
 			
 			$scope.$watch('match.homeScore', function( newValue, oldValue ){
 			   if(newValue == "")
 				   $scope.match.homeScore = 0;
+			   else
+				   $scope.match.homeScore = parseInt(newValue);
 			  }, true);
 			  
 			$scope.$watch('match.awayScore', function( newValue, oldValue ){
 			   if(newValue == "")
 				   $scope.match.awayScore = 0;
+			   else
+				   $scope.match.awayScore = parseInt(newValue);
 			  }, true);
 			
 			$scope.classFlagTeam = function(nameTeam) {

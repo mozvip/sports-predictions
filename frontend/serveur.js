@@ -17,12 +17,5 @@ app.get('/', function(req, res) {
     });
 });
 
-app.get('/games.json', function(req, res) {
-	fs.readFile("games.json", 'utf8', function(err, text){
-		console.log("RENDER GAMES.JSON");
-        res.send(text);
-    });
-});
-
 app.listen(8080, '127.0.0.1');
 console.log('Serveur Predictor EURO 2016 Front-End : START');

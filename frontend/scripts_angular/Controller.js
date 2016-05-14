@@ -29,7 +29,7 @@ LoginController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Use
 * Sign up new user in euro2016 Predictor
 * save()  
 **/
-var SignupController = function($scope, $route, $routeParams, $location, UserService, $uibModal, vcRecaptchaService) {
+var SignupController = function($scope, $route, $routeParams, $location, UserService, $uibModal, vcRecaptchaService, Notification) {
     
 	// Implementation recaptcha
 	$scope.response = null;
@@ -62,7 +62,7 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 	var openModal = function(){
 		var modalInstance = $uibModal.open({
 			  animation: true,
-			  templateUrl: '/views/signupOK.html',
+			  templateUrl: '/partials-views/signupOK.html',
 			  size: 'lg'
 		});
 	}	
@@ -100,9 +100,10 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 			
 			 res.then(function (result) {
 				if (result.User != null  && result.User.status === 500) 
-					$scope.returnRequest = result.User.message;
+					Notification.error({message: result.User.message, title: 'Erreur lors de l\'enregistrement'});
 				else if(result.User != null  && result.User.status === 204)
 				{
+					Notification.success({message: 'Merci de vous connecter à l\'application afin d\'accèder au concours de pronostique.', title: 'Enregistrement effectué'});
 					$location.path('/');
 					openModal();
 				}
@@ -112,29 +113,69 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 			alert('Cette adresse mail est incorrecte !');
     }
 }
-SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal', 'vcRecaptchaService'];
+SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal', 'vcRecaptchaService', 'Notification'];
 
-var PronosticController = function($scope, $location, UserService, PredictionService, GamesService){
+var PronosticController = function($scope, $location, $uibModal, UserService, PredictionService, GamesService, Notification, $linq){
 
 	$scope.games = [];
 
 	$scope.init = function(){
+		var games, error = false;
+		
+		var res = GamesService.getGroupGames();
+		res.then(function (result) {
+			if(result.Games  != null && result.Games != undefined)
+				games = result.Games;
+			else{
+				Notification.error({message: 'Vos pronostics n\'ont pu être récupéré. Un problème technique est à l\'origine du problème.', title: 'Erreur'});
+				error = true;
+			}
+		});
+		
+		if(error){
+			return ;
+		}
+		
 		/*var r = PredictionService.getPredictions(UserService.getToken());
 		r.then(function(result){
 			alert(result.Predictions);
 		});*/
 		
-		var res = GamesService.getGroupGames();
+		// TODO : Faire un merge avec les pronostics déjà saisis.
+		// + Ajouter un boolean home_winner qui va servir pour départager les deux équipes.
+								
+		res = GamesService.getReallyGames();
 		res.then(function (result) {
-			if(result.Games  != null && result.Games != undefined)
-				$scope.games = result.Games;
-			// TODO : 
-			// else : Fenetre Modale d'erreur
+			if((result.Games  != null && result.Games != undefined) || result.status != 200)
+			{
+				var gamesReal = result.Games;
+					$linq.Enumerable()
+						.From(games)
+						.ForEach(function(element){
+							var gReal = $linq.Enumerable()
+								.From(gamesReal)
+								.FirstOrDefault(null, function(gameReal){
+									return element.matchNum === gameReal.matchNum;
+								});
+								
+							if(gReal != null)
+								element.games_real = gReal;
+						});
+			}	
+			else{
+				Notification.error({message: 'Erreur dans la récupération des résultats finaux !', title: 'Erreur'});
+				error = true;
+			}
 		});
 		
+		if(error){
+			return ;
+		}
+		else
+			$scope.games = games;
 	}
 }
-PronosticController.$inject = ['$scope','$location', 'UserService', 'PredictionService', 'GamesService'];
+PronosticController.$inject = ['$scope','$location', '$uibModal', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq'];
 
 var TestController = function($scope){
 	Highcharts.chart('containerRank', {
@@ -229,14 +270,12 @@ var TestController = function($scope){
 }
 TestController.$inject = ['$scope'];
 
-
-
 /**
 * Angular Controller -> RanksController  
 * Contains global data in application.
 * logOut()
 **/
-var RanksController = function($scope, $location, UserService, RankingService){
+var RanksController = function($scope, $location, UserService, RankingService, Notification, $linq){
 
 	$scope.Ranks = [];
 	$scope.currentUser = UserService.getCurrentLogin();
@@ -246,33 +285,34 @@ var RanksController = function($scope, $location, UserService, RankingService){
 		UserService.logout();
 		$location.path('/');
 	}
-	$scope.init = function(){
+	
 		
-		/*var rankRes = RankingService.getYourRanking();
-		rankRes.then(function (result) {	
-			if (result.YourRanks != undefined)
-				$scope.yourRank = result.YourRanks;
-			//TODO : else
-				// Fenetre modale d'erreur dans laquelle on affiche le message result.Ranks.message
-        });*/
+	var getYourRank = function(){
+		$scope.yourRank = $linq.Enumerable()
+						.From($scope.Ranks)
+						.Select(function(rank){
+							return {'SCORE' : rank.currentScore, 'LOGIN': rank.email}
+						})
+						.First(function(rank){
+							return rank.LOGIN === $scope.currentUser;
+						});
+	}
+	
+	$scope.init = function(){
 		
 		var res = RankingService.getRanks();
 		res.then(function (result) {	
 			if (result.Ranks.RanksData != undefined)
 				$scope.Ranks = result.Ranks.RanksData;
-			//TODO : else
-				// Fenetre modale d'erreur dans laquelle on affiche le message result.Ranks.message
+			else
+				Notification.error({message: result.Ranks.message, title: 'Erreur lors de la récupération du classement'});
         });
+		
+		getYourRank();
 	}
-	
-	 $scope.classCurrentUser= function(email){
-		if(email === $scope.currentUser)
-			return "currentUser";
-		else 
-			return "notCurrentUser";
-    }
+
 }
-RanksController.$inject = ['$scope','$location', 'UserService', 'RankingService'];
+RanksController.$inject = ['$scope','$location', 'UserService', 'RankingService', 'Notification', '$linq'];
 
 
 var DetailController = function($scope, $routeParams){
