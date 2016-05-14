@@ -12,7 +12,7 @@
 * forgetPassword() ->  User forgot password : TO TEST
 * changePassword() -> Can change password for current user : TODO
 **/
-var UserService = function($rootScope, $http, $q, $cookies, $location){
+var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 	return {
 		isConnected: function(){
 			return this.getToken() != null;
@@ -34,8 +34,7 @@ var UserService = function($rootScope, $http, $q, $cookies, $location){
 			};
 			
 			$http
-            //.post($location.protocol() + '://' + $location.host() + '/api/user/signin', data, config)
-			.post('https://www.pronostics2016.com/api/user/signin', data, config)
+			.post(BackendService.getBackEndURL() + 'user/signin', data, config)
 			.then(function(data){
 				userResult.status = data.status;
 				if(data.status === 200){
@@ -67,8 +66,7 @@ var UserService = function($rootScope, $http, $q, $cookies, $location){
 			};
 			
 			$http
-            //.post($location.protocol() + '://' + $location.host() + '/api/user/create', data, config)
-			.post('https://www.pronostics2016.com/api/user/create', data, config)
+			.post(BackendService.getBackEndURL() + 'user/create', data, config)
 			.then(function(data){
 				userResult.status = data.status;
 				if(data.status === 500)
@@ -89,8 +87,7 @@ var UserService = function($rootScope, $http, $q, $cookies, $location){
 			};
 			
 			$http
-            //.get($location.protocol() + '://' + $location.host() + '/api/user/availability?email='+login,config)
-			.get('https://www.pronostics2016.com/api/user/availability?email='+login,config)
+			.get(BackendService.getBackEndURL() + 'user/availability?email='+login,config)
 			.then(function(data){
 				deferredObject.resolve({ Result:  data.data });
 			}, function(data){
@@ -109,8 +106,7 @@ var UserService = function($rootScope, $http, $q, $cookies, $location){
 			};
 			
 			$http
-            //.post($location.protocol() + '://' + $location.host() + '/api/user/forget-password', data, config)
-			.post('https://www.pronostics2016.com/api/user/forget-password', data, config)
+			.post(BackendService.getBackEndURL() + '/user/forget-password', data, config)
 			.then(function(data){
 				userResult.status = data.status;
 				if(data.status === 200)
@@ -129,9 +125,9 @@ var UserService = function($rootScope, $http, $q, $cookies, $location){
 		}
 	};
 }
-UserService.$inject = ['$rootScope', '$http', '$q', '$cookies', '$location'];
+UserService.$inject = ['$rootScope', '$http', '$q', '$cookies', 'BackendService'];
 
-var PredictionService = function($rootScope, $http, $q, $location){
+var PredictionService = function($rootScope, $http, $q, BackendService){
 	return {
 		savePredictions: function(){
 			// TODO : TO BE IMPLEMENT
@@ -144,8 +140,7 @@ var PredictionService = function($rootScope, $http, $q, $location){
 				'Authorization': 'Basic ' + token}
 			};
 			$http
-            //.get($location.protocol() + '://' + $location.host() + '/api/user/predictions', config)
-			.get('https://www.pronostics2016.com/api/user/predictions', config)
+			.get(BackendService.getBackEndURL() + 'user/predictions', config)
 			.then(function(data){
 				result.status = data.status;
 				if(data.status === 200)
@@ -159,7 +154,7 @@ var PredictionService = function($rootScope, $http, $q, $location){
 		}
 	};
 }
-PredictionService.$inject = ['$rootScope', '$http', '$q', '$location'];
+PredictionService.$inject = ['$rootScope', '$http', '$q', 'BackendService'];
 
 /**
 * Angular Service -> RankingService
@@ -167,7 +162,7 @@ PredictionService.$inject = ['$rootScope', '$http', '$q', '$location'];
 * get() -> Return all ranks of community user
 * getYourRanking(login) -> Return ranks of current user
 **/
-var RankingService = function($rootScope, $http, $q, $location){
+var RankingService = function($rootScope, $http, $q, BackendService){
 	
 	var get = function(){
 			var deferredObject = $q.defer();
@@ -177,8 +172,7 @@ var RankingService = function($rootScope, $http, $q, $location){
 			};
 			
 			$http
-            //.get($location.protocol() + '://' + $location.host() + '/api/user/rankings', config)
-			.get('https://www.pronostics2016.com/api/user/rankings', config)
+			.get(BackendService.getBackEndURL() + 'user/rankings', config)
 			.then(function(data){
 				result.status = data.status;
 				if(data.status === 200)
@@ -197,10 +191,10 @@ var RankingService = function($rootScope, $http, $q, $location){
 		getRanks: get
 	};
 }
-RankingService.$inject = ['$rootScope', '$http', '$q', '$location'];
+RankingService.$inject = ['$rootScope', '$http', '$q', 'BackendService'];
 
 
-var GamesService = function($rootScope, $http, $q, $location, $linq){
+var GamesService = function($rootScope, $http, $q, $linq, BackendService){
 	return {
 		getGroupGames: function(){
 			var deferredObject = $q.defer();
@@ -210,8 +204,7 @@ var GamesService = function($rootScope, $http, $q, $location, $linq){
 			};
 			
 			$http
-            //.get($location.protocol() + '://' + $location.host() + '/api/score/games', config)
-			.get('https://www.pronostics2016.com/api/score/games', config)
+			.get(BackendService.getBackEndURL() + 'score/games', config)
 			.then(function(data){
 				if(data.status === 200)
 					result = $linq.Enumerable()
@@ -238,8 +231,7 @@ var GamesService = function($rootScope, $http, $q, $location, $linq){
 			};
 			
 			$http
-            //.get($location.protocol() + '://' + $location.host() + '/api/score/games', config)
-			.get('https://www.pronostics2016.com/api/score/games', config)
+            .get(BackendService.getBackEndURL() + 'score/games', config)
 			.then(function(data){
 				if(data.status === 200)
 					result = $linq.Enumerable()
@@ -260,4 +252,4 @@ var GamesService = function($rootScope, $http, $q, $location, $linq){
 		}
 	};
 }
-GamesService.$inject = ['$rootScope', '$http', '$q', '$location', '$linq'];
+GamesService.$inject = ['$rootScope', '$http', '$q', '$linq', 'BackendService'];
