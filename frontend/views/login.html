@@ -2,28 +2,28 @@
 	<div ng-controller="LoginController">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h1>Connexion</h1>
+				<h3>Connexion</h3>
 			</div>
 			<div class="panel-body">
-				<form name="myForm" ng-submit="login()">
-					<div name="login" role="form" class="form">
-						<div class="form-group">
-							<input name="username" placeholder="Email" class="form-control" type="email" id="UserUsername" ng-model="User.Login" />
-						</div>
+				<form name="myForm" role="form" class="form" ng-submit="login()">
+					<div class="form-group">
+						<input name="username" placeholder="Email" class="form-control" type="email" id="UserUsername" ng-model="User.Login" />
+					</div>
 
-						<div class="form-group">
-							<input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword" ng-model="User.Password" />
-						</div>
+					<div class="form-group">
+						<input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword" ng-model="User.Password" />
+						<span id="helpBlock">
+							<a href="#forget-password">Mot de passe oublié ?</a>
+						</span>
+					</div>
 
-						<div class="form-group">
-							<div class="col-md-8" style="color: red">{{returnRequest}}</div>
-						</div>
+					<div class="form-group">
+						<div class="col-md-8" style="color: red">{{returnRequest}}</div>
+					</div>
 
-						<div class="btn-group" role="group">
-							<button class="btn btn-primary" type="submit">Connexion</button>
-							<a href="#sign-up" class="btn btn-default">Inscription</a>
-							<a href="#forget-password" class="btn btn-default">Mot de passe oublié ?</a>
-						</div>
+					<div class="btn-group" role="group">
+						<button class="btn btn-primary" type="submit">Connexion</button>
+						<a href="#sign-up" class="btn btn-default">Inscription</a>
 					</div>
 				</form>
 			</div>
