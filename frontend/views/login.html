@@ -1,35 +1,32 @@
 <div class="container">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="main_connexion" ng-controller="LoginController">
-				<div class="row">
-					<div class="col-xs-12 col-sm-6 col-sm-offset-1">	
-						<br/>
-						<h1>Connexion</h1>
-						<br/>
-						<form name="myForm" ng-submit="login()">
-							<div name="login" role="form" class="form-horizontal"> 
-								<div class="form-group">
-									<div class="col-md-8"><input name="username" placeholder="Idenfiant" class="form-control" type="text" id="UserUsername" ng-model="User.Login"/></div>
-								</div> 
-								
-								<div class="form-group">
-									<div class="col-md-8"><input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword" ng-model="User.Password"/></div>
-								</div> 
-								
-								<div class="form-group">
-									<div class="col-md-8" style="color: red">{{returnRequest}}</div>
-								</div>
-								
-								<div class="form-group">
-									<div class="col-md-offset-0 col-md-8"><button class="btn btn-success btn btn-success"  type="submit">Connexion</button></div>
-									<a href="#signup"><input  class="btn btn-success btn btn-success" value="Inscription"/></a>
-								</div>
-							</div>
-						</form>
+	<div ng-controller="LoginController">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1>Connexion</h1>
+			</div>
+			<div class="panel-body">
+				<form name="myForm" ng-submit="login()">
+					<div name="login" role="form" class="form">
+						<div class="form-group">
+							<input name="username" placeholder="Email" class="form-control" type="email" id="UserUsername" ng-model="User.Login" />
+						</div>
+
+						<div class="form-group">
+							<input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword" ng-model="User.Password" />
+						</div>
+
+						<div class="form-group">
+							<div class="col-md-8" style="color: red">{{returnRequest}}</div>
+						</div>
+
+						<div class="btn-group" role="group">
+							<button class="btn btn-primary" type="submit">Connexion</button>
+							<a href="#sign-up" class="btn btn-default">Inscription</a>
+							<a href="#forget-password" class="btn btn-default">Mot de passe oublié ?</a>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
-</div>
+</div></div>

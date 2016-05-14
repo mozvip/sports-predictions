@@ -1,3 +1,5 @@
+ googleReCaptchaSecretKey: 6LdiSh8TAAAAALavOLjbeZ3YMs4fedx7T2UcrcKl
+
  database:
   # the name of your JDBC driver
   driverClass: org.h2.Driver

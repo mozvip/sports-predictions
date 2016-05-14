@@ -12,6 +12,7 @@ euro2016Predictions.controller('TestController', TestController);
 euro2016Predictions.controller('RanksController', RanksController);
 euro2016Predictions.controller('PronosticController', PronosticController);
 euro2016Predictions.controller('DetailController', DetailController);
+euro2016Predictions.controller('ForgetController', ForgetController);
 
 /*  Interceptor des réponses HTTP  pour l'auth  */
 euro2016Predictions.factory('AuthInterceptor', AuthInterceptor);
@@ -42,7 +43,7 @@ var config = function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl:'/views/login.html',
 		authorized: false
     })
-	.when('/signup', {
+	.when('/sign-up', {
 		controller: 'SignupController',
 		templateUrl:'/views/signup.html',
 		authorized: false
@@ -51,11 +52,11 @@ var config = function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl:'/views/profil.html',
 		authorized: false
 	})
-	.when('/forgetPassword', {
+	.when('/forget-password', {
 		templateUrl:'/views/forgetPassword.html',
 		authorized: false
 	})
-	.when('/yourStats', {
+	.when('/your-stats', {
 		templateUrl:'/views/yourStats.html',
 		authorized: true	
 	})

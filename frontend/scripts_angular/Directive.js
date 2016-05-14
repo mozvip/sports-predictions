@@ -79,7 +79,7 @@ var pronostic = function(){
 			}
 						
 			$scope.isPronosticable = function(match){
-				return (match.dateTime <= new Date());
+				return (match.dateTime <= new Date() && !match.done);
 			}
 			
 			$scope.$watch('match.homeScore', function( newValue, oldValue ){

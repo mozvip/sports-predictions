@@ -58,15 +58,7 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 		vcRecaptchaService.reload($scope.widgetId);
 		$scope.response = null;
     };
-				 			 	
-	var openModal = function(){
-		var modalInstance = $uibModal.open({
-			  animation: true,
-			  templateUrl: '/partials-views/signupOK.html',
-			  size: 'lg'
-		});
-	}	
-	
+				 			 		
 	$scope.loginChanged = function(){
 		   
 		if($scope.newuser.Login != undefined && $scope.newuser.Login != ''){
@@ -120,21 +112,17 @@ var PronosticController = function($scope, $location, $uibModal, UserService, Pr
 	$scope.games = [];
 
 	$scope.init = function(){
-		var games, error = false;
+		var game, error = false;
 		
 		var res = GamesService.getGroupGames();
 		res.then(function (result) {
 			if(result.Games  != null && result.Games != undefined)
-				games = result.Games;
+				$scope.games = result.Games;
 			else{
-				Notification.error({message: 'Vos pronostics n\'ont pu être récupéré. Un problème technique est à l\'origine du problème.', title: 'Erreur'});
+				Notification.error({message: 'Les scores des matches n\'ont pu être récupérés. Un problème technique est à l\'origine du problème.', title: 'Erreur'});
 				error = true;
 			}
 		});
-		
-		if(error){
-			return ;
-		}
 		
 		/*var r = PredictionService.getPredictions(UserService.getToken());
 		r.then(function(result){
@@ -143,36 +131,7 @@ var PronosticController = function($scope, $location, $uibModal, UserService, Pr
 		
 		// TODO : Faire un merge avec les pronostics déjà saisis.
 		// + Ajouter un boolean home_winner qui va servir pour départager les deux équipes.
-								
-		res = GamesService.getReallyGames();
-		res.then(function (result) {
-			if((result.Games  != null && result.Games != undefined) || result.status != 200)
-			{
-				var gamesReal = result.Games;
-					$linq.Enumerable()
-						.From(games)
-						.ForEach(function(element){
-							var gReal = $linq.Enumerable()
-								.From(gamesReal)
-								.FirstOrDefault(null, function(gameReal){
-									return element.matchNum === gameReal.matchNum;
-								});
-								
-							if(gReal != null)
-								element.games_real = gReal;
-						});
-			}	
-			else{
-				Notification.error({message: 'Erreur dans la récupération des résultats finaux !', title: 'Erreur'});
-				error = true;
-			}
-		});
-		
-		if(error){
-			return ;
-		}
-		else
-			$scope.games = games;
+		//Vos pronostics n\'ont pu être récupéré. Un problème technique est à l\'origine du problème
 	}
 }
 PronosticController.$inject = ['$scope','$location', '$uibModal', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq'];
@@ -279,7 +238,7 @@ var RanksController = function($scope, $location, UserService, RankingService, N
 
 	$scope.Ranks = [];
 	$scope.currentUser = UserService.getCurrentLogin();
-	$scope.yourRank = 0;
+	$scope.yourScore = 0;
 
 	$scope.logOut = function()	{
 		UserService.logout();
@@ -287,13 +246,13 @@ var RanksController = function($scope, $location, UserService, RankingService, N
 	}
 	
 		
-	var getYourRank = function(){
-		$scope.yourRank = $linq.Enumerable()
+	var getYourScore = function(){
+		$scope.yourScore = $linq.Enumerable()
 						.From($scope.Ranks)
 						.Select(function(rank){
 							return {'SCORE' : rank.currentScore, 'LOGIN': rank.email}
 						})
-						.First(function(rank){
+						.FirstOrDefault(0, function(rank){
 							return rank.LOGIN === $scope.currentUser;
 						});
 	}
@@ -308,7 +267,7 @@ var RanksController = function($scope, $location, UserService, RankingService, N
 				Notification.error({message: result.Ranks.message, title: 'Erreur lors de la récupération du classement'});
         });
 		
-		getYourRank();
+		getYourScore();
 	}
 
 }
@@ -316,6 +275,49 @@ RanksController.$inject = ['$scope','$location', 'UserService', 'RankingService'
 
 
 var DetailController = function($scope, $routeParams){
-	alert($routeParams.matchNumber);
 }
 DetailController.$inject = ['$scope', '$routeParams'];
+
+
+var ForgetController =   function($scope, $location, UserService, Notification){
+	
+	$scope.email;
+	// Implementation recaptcha
+	$scope.response = null;
+    $scope.widgetId = null;
+
+    $scope.model = {
+        key: '6LdiSh8TAAAAADLasplj5tGB390M6qBzH24vmXED'
+    };
+	
+	$scope.setResponse = function (response) {
+        $scope.response = response;
+    };
+
+    $scope.setWidgetId = function (widgetId) {
+        $scope.widgetId = widgetId;
+    };
+	
+	$scope.cbExpiration = function() {
+		vcRecaptchaService.reload($scope.widgetId);
+		$scope.response = null;
+    };
+	
+	
+	$scope.forget = function(){
+		var res = UserService.loginAvailable($scope.newuser.Login);
+		res.then(function (result) {
+			$scope.login_exist = !result.Result;
+		});
+		
+		if(!$scope.login_exist)
+		{
+			Notification.warning({message: 'Cette adresse mail est inconnue !', title: 'Login inconnu'});
+			return ;
+		}
+		else{
+			// CALL API and MESSAGE SUCCESS
+		}
+	}
+}
+ForgetController.$inject = ['$scope', '$location', 'UserService', 'Notification'];

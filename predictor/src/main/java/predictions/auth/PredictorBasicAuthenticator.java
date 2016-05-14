@@ -8,9 +8,7 @@ import predictions.model.User;
 import predictions.model.UserDAO;
 
 public class PredictorBasicAuthenticator implements Authenticator<CommunityBasicCredentials, User> {
-	
-	public final static String COMMUNITY_EMAIL_SEPARATOR = "$$_$$";
-	
+
 	private UserDAO dao = null;
 	
 	public PredictorBasicAuthenticator( UserDAO dao ) {

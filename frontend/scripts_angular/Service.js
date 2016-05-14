@@ -210,7 +210,8 @@ var GamesService = function($rootScope, $http, $q, $location, $linq){
 			};
 			
 			$http
-            .get($location.protocol() + '://' + $location.host() + ':8080/games.json', config)
+            //.get($location.protocol() + '://' + $location.host() + '/api/score/games', config)
+			.get('https://www.pronostics2016.com/api/score/games', config)
 			.then(function(data){
 				if(data.status === 200)
 					result = $linq.Enumerable()
@@ -230,27 +231,29 @@ var GamesService = function($rootScope, $http, $q, $location, $linq){
 			return deferredObject.promise;
 		},
 		getFinalGames: function(){
-			// TODO : TO BE IMPLEMENT
-		},
-		getReallyGames: function(){
 			var deferredObject = $q.defer();
-			var result = {};
+			var result;
 			var config = {
 				headers : { 'Accept' : 'application/json'}
 			};
 			
 			$http
-			//.get($location.protocol() + '://' + $location.host() + '/api/score/games', config)
-			//.get('https://www.pronostics2016.com/api/score/games', config)
-			// FOR IMPLEMENTATION TEST
-			.get($location.protocol() + '://' + $location.host() + ':8080/score_games_json', config)
+            //.get($location.protocol() + '://' + $location.host() + '/api/score/games', config)
+			.get('https://www.pronostics2016.com/api/score/games', config)
 			.then(function(data){
-				result.status = data.status;
 				if(data.status === 200)
-					result.Games = data.data;
-				deferredObject.resolve({ Games: result });
+					result = $linq.Enumerable()
+								.From(data.data)
+								.Where(function(match){
+									return (match.group.indexOf("Groupe") == -1);
+								})
+								.OrderBy(function(match){
+									return match.matchNum;
+								})
+								.ToArray();
+				deferredObject.resolve({ Games:  result });
 			}, function(data){
-				deferredObject.resolve({ Games: result });
+				deferredObject.resolve({ Games: null });
 			});
 			
 			return deferredObject.promise;
