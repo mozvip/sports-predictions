@@ -1,4 +1,4 @@
- googleReCaptchaSecretKey: 6LdiSh8TAAAAALavOLjbeZ3YMs4fedx7T2UcrcKl
+ googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
  database:
   # the name of your JDBC driver
