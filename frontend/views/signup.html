@@ -1,49 +1,37 @@
 <div class="container">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="main_connexion" ng-controller="SignupController">
-					
-				<div class="row">
-				<div class="col-xs-12 col-sm-6 col-sm-offset-1">
-							
-					<br/>
+		<div ng-controller="SignupController">
+
+			<div class="panel panel-default">
+
+				<div class="panel-heading">
 					<h1>Inscription</h1>
-					<br/>
-					
-					<form name="login" role="form" class="form-horizontal" method="post" accept-charset="utf-8">
+				</div>
+				<div class="panel-body">
+
+					<form name="login" role="form" class="form" method="post" accept-charset="utf-8">
 						<div class="form-group">
-							<div class="col-md-8"><input name="email" placeholder="Email" class="form-control" type="email" id="email" ng-model="newuser.Login" ng-blur="loginChanged()"/></div>
-						</div> 
-						
-						<div class="form-group">
-							<div class="col-md-8"><input name="nom" placeholder="Nom" class="form-control" type="text" id="Name"/></div>
-						</div> 
-						
-						<div class="form-group">
-							<div class="col-md-8"><input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword"/></div>
-						</div> 
-						
-						<div class="form-group">
-							<div class="col-md-8" style="color: red">{{returnRequest}}</div>
+							<input name="email" placeholder="Email" class="form-control" type="email" id="email" ng-model="newuser.Login" required ng-blur="loginChanged()" />
+							<span id="helpBlock" class="help-block">{{returnRequest}}</span>
 						</div>
-						<br/>
-						<div
-							vc-recaptcha
-							theme="'light'"
-							key="model.key"
-							on-create="setWidgetId(widgetId)"
-							on-success="setResponse(response)"
-							on-expire="cbExpiration()"></div>
-						<br/>
+
 						<div class="form-group">
-							<div class="col-md-offset-0 col-md-8"><input  class="btn btn-success btn btn-success" type="submit" value="Inscription"/></div>
+							<input name="nom" placeholder="Nom" required class="form-control" type="text" id="Name" />
 						</div>
-					
+
+						<div class="form-group">
+							<input name="password" placeholder="Mot de passe" class="form-control" type="password" required id="UserPassword" />
+						</div>
+
+						<div class="form-group">
+							<div vc-recaptcha key="model.key" on-create="setWidgetId(widgetId)" on-success="setResponse(response)" on-expire="cbExpiration()"></div>
+						</div>
+
+						<div class="btn-group" role="group">
+							<input class="btn btn-primary" type="submit" value="Inscription" />
+						</div>
+
 					</form>
 				</div>
-				</div>
-				
 			</div>
 		</div>
-	</div>
 </div>

@@ -1381,26 +1381,6 @@ input[type=file]:focus,input[type=checkbox]:focus,input[type=radio]:focus {
 output {
 	padding-top:15px}
 
-.form-control {
-	width:100%;
-	height:46px;
-	padding:14px 20px;
-	background-color:transparent;
-	background-image:none;
-	border:1px solid #999daf;
-	border-radius:0;
-	box-shadow:none!important;
-	-webkit-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-	-moz-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-	-ms-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-	-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-	transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}
-
-.form-control:focus {
-	border:3px solid #65beec;
-	padding:12px 18px;
-	outline:0}
-
 .form-control::-moz-placeholder {
 	color:#999daf;
 	opacity:1}
@@ -3693,25 +3673,6 @@ caption,th {
 
 a.btn.disabled,fieldset[disabled] a.btn {
 	pointer-events:none}
-
-.btn-primary,.btn-primary-small {
-	padding:16px 32px;
-	font-size:16.38px;
-	line-height:1;
-	border-radius:2px;
-	color:#08315c;
-	background-color:#feba3d;
-	border-color:#feba3d;
-	font-weight:700;
-	font-weight:500;
-	font-style:normal;
-	text-transform:uppercase}
-
-.btn-primary-small,.btn-secondary {
-	padding:11px 22px;
-	font-size:16.38px;
-	border-radius:2px;
-	line-height:1}
 
 .btn-primary.active.focus,.btn-primary.active:focus,.btn-primary.active:hover,.btn-primary.focus,.btn-primary:active.focus,.btn-primary:active:focus,.btn-primary:active:hover,.btn-primary:focus,.btn-primary:hover,.open>.dropdown-toggle.btn-primary.focus,.open>.dropdown-toggle.btn-primary:focus,.open>.dropdown-toggle.btn-primary:hover {
 	color:#08315c;
