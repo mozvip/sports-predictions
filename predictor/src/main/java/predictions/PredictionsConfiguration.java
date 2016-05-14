@@ -9,21 +9,45 @@ import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
 
 public class PredictionsConfiguration extends Configuration {
-	
-    @Valid
-    @NotNull
+
+	@Valid
+	@NotNull
 	private String googleReCaptchaSecretKey;
-    
-    public String getGoogleReCaptchaSecretKey() {
+
+	@Valid
+	@NotNull
+	private String smtpHost;
+
+	@Valid
+	@NotNull
+	private String smtpLogin;
+
+	@Valid
+	@NotNull
+	private String smtpPassword;
+
+	public String getGoogleReCaptchaSecretKey() {
 		return googleReCaptchaSecretKey;
 	}
-	
-    @Valid
-    @NotNull
-    @JsonProperty
-    private DataSourceFactory database = new DataSourceFactory();
-    
-    public DataSourceFactory getDataSourceFactory() {
+
+	public String getSmtpHost() {
+		return smtpHost;
+	}
+
+	public String getSmtpLogin() {
+		return smtpLogin;
+	}
+
+	public String getSmtpPassword() {
+		return smtpPassword;
+	}
+
+	@Valid
+	@NotNull
+	@JsonProperty
+	private DataSourceFactory database = new DataSourceFactory();
+
+	public DataSourceFactory getDataSourceFactory() {
 		return database;
 	}
 

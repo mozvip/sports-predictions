@@ -21,6 +21,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -120,7 +124,7 @@ public class UserResource {
 		}
 	}
 
-	public void recaptcha(String recaptcha) throws UnsupportedEncodingException, IOException, ClientProtocolException,
+	private void recaptcha(String recaptcha) throws UnsupportedEncodingException, IOException, ClientProtocolException,
 			JsonParseException, JsonMappingException {
 		// google recaptcha verification
 		HttpPost post = new HttpPost("https://www.google.com/recaptcha/api/siteverify");
@@ -234,12 +238,42 @@ public class UserResource {
 	@ApiOperation(value="Declares a forgotten password and send the relevant email")
 	public void forgetPassword( @FormParam("email") String email, @FormParam("g-recaptcha-response") String recaptcha ) throws IOException {
 		recaptcha(recaptcha);
-		
+
 		String community = (String) httpRequest.getAttribute("community");
 		UUID uuid = UUID.randomUUID();
 		userDAO.setChangePasswordToken(community, email, uuid);
 		
-		// TODO : send email
+		String mailFrom = getAdminEmail(community);
+
+		try {
+			Email mailToSend = new SimpleEmail();
+			mailToSend.setHostName("smtp.googlemail.com");
+			mailToSend.setSmtpPort(465);
+			mailToSend.setAuthenticator(new DefaultAuthenticator("username", "password"));
+			mailToSend.setSSLOnConnect(true);
+			mailToSend.setFrom( mailFrom );
+			String subject = String.format( "Mot de passe oublié pour https://%s.pronostics2016.com", community);
+			mailToSend.setSubject(subject);
+
+			String resetPasswordLink = String.format("https://%s.pronostics2016.com/#/forget-password/%s", community, uuid.toString());			
+			String msg = String.format( "Cliquez ce lien pour choisir un nouveau mot de passe : %s", resetPasswordLink );
+			
+			mailToSend.setMsg( msg );
+			mailToSend.addTo( email );
+			mailToSend.send();
+		} catch (EmailException e) {
+			logger.error(e.getMessage(), e);
+		}
+
+	}
+
+	public String getAdminEmail(String community) {
+		List<User> communityAdmins = userDAO.findAdmins( community );
+		String mailFrom = "guillaume.serre@gmail.com";
+		if (communityAdmins != null) {
+			mailFrom = communityAdmins.get(0).getEmail();
+		}
+		return mailFrom;
 	}
 
 	@POST

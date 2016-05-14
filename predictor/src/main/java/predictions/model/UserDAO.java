@@ -24,6 +24,10 @@ public interface UserDAO {
 	@Mapper(UserResultSetMapper.class)
 	List<User> findUsersOrderedByScore(@Bind("community") String community);
 
+	@SqlQuery("select * from user where community = :community AND admin = true")
+	@Mapper(UserResultSetMapper.class)
+	List<User> findAdmins(@Bind("community") String community);
+	
 	@SqlQuery("select * from user where community=:community and email=:email and password=HASH('SHA256', STRINGTOUTF8(:password),1000)")
 	@Mapper(UserResultSetMapper.class)
 	User authentify(@Bind("community") String community, @Bind("email") String email,
