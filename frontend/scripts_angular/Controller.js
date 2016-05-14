@@ -29,7 +29,7 @@ LoginController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Use
 * Sign up new user in euro2016 Predictor
 * save()  
 **/
-var SignupController = function($scope, $route, $routeParams, $location, UserService, $uibModal, vcRecaptchaService, Notification) {
+var SignupController = function($scope, $route, $routeParams, $location, UserService, vcRecaptchaService, Notification) {
     
 	// Implementation recaptcha
 	$scope.response = null;
@@ -105,9 +105,9 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 			alert('Cette adresse mail est incorrecte !');
     }
 }
-SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', '$uibModal', 'vcRecaptchaService', 'Notification'];
+SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', 'vcRecaptchaService', 'Notification'];
 
-var PronosticController = function($scope, $location, $uibModal, UserService, PredictionService, GamesService, Notification, $linq){
+var PronosticController = function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq){
 
 	$scope.games = [];
 
@@ -134,7 +134,7 @@ var PronosticController = function($scope, $location, $uibModal, UserService, Pr
 		//Vos pronostics n\'ont pu être récupéré. Un problème technique est à l\'origine du problème
 	}
 }
-PronosticController.$inject = ['$scope','$location', '$uibModal', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq'];
+PronosticController.$inject = ['$scope','$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq'];
 
 var TestController = function($scope){
 	Highcharts.chart('containerRank', {
@@ -234,7 +234,7 @@ TestController.$inject = ['$scope'];
 * Contains global data in application.
 * logOut()
 **/
-var RanksController = function($scope, $location, UserService, RankingService, Notification, $linq){
+var RanksController = function($scope, $filter, $location, UserService, RankingService, Notification, $linq, NgTableParams){
 
 	$scope.Ranks = [];
 	$scope.currentUser = UserService.getCurrentLogin();
@@ -244,8 +244,7 @@ var RanksController = function($scope, $location, UserService, RankingService, N
 		UserService.logout();
 		$location.path('/');
 	}
-	
-		
+			
 	var getYourScore = function(){
 		$scope.yourScore = $linq.Enumerable()
 						.From($scope.Ranks)
@@ -261,17 +260,35 @@ var RanksController = function($scope, $location, UserService, RankingService, N
 		
 		var res = RankingService.getRanks();
 		res.then(function (result) {	
-			if (result.Ranks.RanksData != undefined)
+			if (result.Ranks.RanksData != undefined){
 				$scope.Ranks = result.Ranks.RanksData;
+				$scope.RanksParams = new NgTableParams({
+						page: 1,            // show first page
+						count: 10,           // count per page
+					}, {
+						total: $scope.Ranks.length, // length of data
+						getData: function($defer, params) {
+							
+						// use build-in angular filter
+						var filteredData = params.filter() ?
+							$filter('filter')($scope.Ranks, params.filter()) :
+								$scope.Ranks;
+						var orderedData = params.sorting() ?
+							$filter('orderBy')(filteredData, params.orderBy()) :
+								$scope.Ranks;
+						params.total(orderedData.length); // set total for recalc pagination
+						$defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+						}
+				});
+			}
 			else
 				Notification.error({message: result.Ranks.message, title: 'Erreur lors de la récupération du classement'});
         });
 		
 		getYourScore();
-	}
-
+	}	
 }
-RanksController.$inject = ['$scope','$location', 'UserService', 'RankingService', 'Notification', '$linq'];
+RanksController.$inject = ['$scope', '$filter', '$location', 'UserService', 'RankingService', 'Notification', '$linq', 'NgTableParams'];
 
 
 var DetailController = function($scope, $routeParams){

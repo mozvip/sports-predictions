@@ -18,7 +18,17 @@
 		</nav>
 	</div>
 	<div class="col-sm-9">  
-	<h2>Classement de la communautée</h2><br/><br/>
-		<user-rank ng-repeat="user in Ranks" user="user"></user-rank>
+		<h2>Classement de la communautée</h2><br/><br/>
+		<!-- <user-rank ng-repeat="user in Ranks" user="user"></user-rank> -->
+		<table ng-table="RanksParams" class="table" show-filter="true">
+			<tr ng-repeat="rank in $data">
+				<td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+					{{rank.name}}</td>
+				<td title="'Email'" filter="{ email: 'text'}" sortable="'email'">
+					{{rank.email}}</td>
+				<td title="'Score'" filter="{ currentScore: 'number'}" sortable="'currentScore'">
+					{{rank.currentScore}}</td>
+			</tr>
+		</table>
 	</div>
  </div>

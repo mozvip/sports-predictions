@@ -41,14 +41,15 @@ var hideWhenConnected = function (UserService) {
 hideWhenConnected.$inject = ['UserService'];
 
 /**
-* TO COMMENT
+* TO COMMENT:
+WAITING TO ERASE THIS
 **/
 var userRank = function(UserService){
     return {
         restrict: 'E',
         templateUrl: '/partials-views/user-rank.html',
 		scope: {
-            user: "="
+            rank: "="
         },
 		controller: function($scope, UserService) {
             $scope.classCurrentUser = function(email) {

@@ -24,7 +24,8 @@
     "angular-cookies": "^1.5.5",
     "angular-recaptcha": "^3.0.3",
     "angular-linq": "^1.0.2",
-    "angular-ui-notification": "^0.2.0"
+    "angular-ui-notification": "^0.2.0",
+    "ng-table": "^0.8.3"
   },
   "resolutions": {
     "angular": "1.5.5"
