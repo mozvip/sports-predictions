@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
@@ -237,10 +238,16 @@ public class UserResource {
 	@Path("/forget-password")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value="Declares a forgotten password and send the relevant email")
-	public void forgetPassword( @FormParam("email") String email, @FormParam("g-recaptcha-response") String recaptcha ) throws IOException {
+	public Response forgetPassword( @FormParam("email") String email, @FormParam("g-recaptcha-response") String recaptcha ) throws IOException {
 		recaptcha(recaptcha);
 
 		String community = (String) httpRequest.getAttribute("community");
+		
+		User existingUser = userDAO.findExistingUser(community, email);
+		if (existingUser == null) {
+			return Response.status(404).build();
+		}
+		
 		UUID uuid = UUID.randomUUID();
 		userDAO.setChangePasswordToken(community, email, uuid);
 		
@@ -269,13 +276,14 @@ public class UserResource {
 		} catch (EmailException e) {
 			logger.error(e.getMessage(), e);
 		}
-
+		
+		return Response.ok().build();
 	}
 
 	public String getAdminEmail(String community) {
 		List<User> communityAdmins = userDAO.findAdmins( community );
 		String mailFrom = "guillaume.serre@gmail.com";
-		if (communityAdmins != null) {
+		if (communityAdmins != null && communityAdmins.size() > 0) {
 			mailFrom = communityAdmins.get(0).getEmail();
 		}
 		return mailFrom;

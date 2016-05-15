@@ -96,23 +96,23 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			
 			return deferredObject.promise;
 		},
-		forgetPassword: function(login){
-			// A TESTER LORSQUE TOUT EST OK
+		forgetPassword: function(email, recaptcha){
 			var deferredObject = $q.defer();
-			var data = 'email='+login;
+			var data = 'email='+email + '&g-recaptcha-response=' + recaptcha;
 			var message = '';
 			var config = {
 				headers : { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
 			};
-			
 			$http
-			.post(BackendService.getBackEndURL() + '/user/forget-password', data, config)
+			.post(BackendService.getBackEndURL() + 'user/forget-password', data, config)
 			.then(function(data){
 				userResult.status = data.status;
 				if(data.status === 200)
-					message = 'Un email vous a été envoyé permettant de réinitialiser votre mot de passe !';
-				else
+					message = 'Un email vous permettant de réinitialiser votre mot de passe vient de vous être envoyé ';
+				else if (data.status === 404)
 					message = 'Cette adresse mail est inconnue !';
+				else	
+					message = 'Une erreur est survenue';
 				deferredObject.resolve({ Return: message });
 			}, function(data){
 				message = 'Erreur : identifiant incorrect !';

@@ -298,7 +298,8 @@ DetailController.$inject = ['$scope', '$routeParams'];
 
 var ForgetController =   function($scope, $location, UserService, Notification){
 	
-	$scope.email;
+	$scope.email = '';
+	
 	// Implementation recaptcha
 	$scope.response = null;
     $scope.widgetId = null;
@@ -320,21 +321,9 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 		$scope.response = null;
     };
 	
-	
 	$scope.forget = function(){
-		var res = UserService.loginAvailable($scope.email);
-		res.then(function (result) {
-			$scope.login_exist = !result.Result;
-		});
-		
-		if(!$scope.login_exist)
-		{
-			Notification.warning({message: 'Cette adresse mail est inconnue !', title: 'Login inconnu'});
-			return ;
-		}
-		else{
-			// CALL API and MESSAGE SUCCESS
-		}
+		UserService.forgetPassword($scope.email, $scope.response);
 	}
+
 }
 ForgetController.$inject = ['$scope', '$location', 'UserService', 'Notification'];

@@ -39,5 +39,4 @@
   checkConnectionWhileIdle: false
 
 server:
-	applicationContextPath: /app
-	rootPath: /api/*
+ rootPath: /api/*

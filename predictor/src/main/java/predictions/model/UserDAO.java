@@ -37,7 +37,7 @@ public interface UserDAO {
 	@Mapper(UserResultSetMapper.class)
 	User findExistingUser(@Bind("community") String community, @Bind("email") String email);
 
-	@SqlUpdate("delete from user where community = :community and email = :email")
+	@SqlUpdate("delete from user where community = :community and email=LOWER(:email)")
 	void delete(@Bind("community") String community, @Bind("email") String email);
 
 	@SqlQuery("select * from user")
