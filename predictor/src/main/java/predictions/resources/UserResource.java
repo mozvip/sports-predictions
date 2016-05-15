@@ -298,9 +298,10 @@ public class UserResource {
 	public MatchPredictions signIn( @FormParam("email") String email, @FormParam("password") String password ) {
 
 		String community = (String) httpRequest.getAttribute("community");
+		email = email.toLowerCase().trim();
 		
 		MatchPredictions predictions = null;
-		if( userDAO.authentify(community, email.toLowerCase().trim(), password) != null ) {
+		if( userDAO.authentify(community, email, password) != null ) {
 			predictions = buildPredictions( community, email );
 			predictions.setAuthToken( generateAuthToken(community, email, password) );
 		}

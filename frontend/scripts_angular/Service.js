@@ -120,8 +120,7 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			});
 			return deferredObject.promise;
 		},
-		changePassword: function(login, token, newPassword){
-			var deferredObject = $q.defer();
+		changePassword: function(email, token, newPassword){
 			var data = 'email='+email + '&changePasswordToken=' + token + '&password='+newPassword;
 			var config = {
 				headers : { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
@@ -129,7 +128,7 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			
 			var response;
 			$http
-			.post(BackendService.getBackEndURL() + 'user/forget-password/reset', data, config)
+			.post(BackendService.getBackEndURL() + 'change-password/reset', data, config)
 			.then(function(data){
 				userResult.status = data.status;
 				if(data.status === 200) {
@@ -140,8 +139,7 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			}, function(data){
 				response = {status:'error', message:'Erreur : identifiant incorrect !'};
 			});
-			deferredObject.resolve({ Return: response });
-			return deferredObject.promise;
+			return response;
 		}
 	};
 }

@@ -29,6 +29,7 @@ euro2016Predictions.controller('RanksController', RanksController);
 euro2016Predictions.controller('PronosticController', PronosticController);
 euro2016Predictions.controller('DetailController', DetailController);
 euro2016Predictions.controller('ForgetController', ForgetController);
+euro2016Predictions.controller('ChangePasswordController', ChangePasswordController);
 
 /*  Interceptor des réponses HTTP  pour l'auth  */
 euro2016Predictions.factory('AuthInterceptor', AuthInterceptor);

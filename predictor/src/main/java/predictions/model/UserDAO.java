@@ -11,14 +11,13 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 public interface UserDAO {
 
 	@SqlUpdate("insert into user (email, name, community, password, admin, EMAIL_VALID) values (:email, :name, :community, HASH('SHA256', STRINGTOUTF8(:password),1000), false, false)")
-	void insert(@Bind("email") String email, @Bind("name") String name, @Bind("community") String community, @Bind("password") String password);
+	long insert(@Bind("email") String email, @Bind("name") String name, @Bind("community") String community, @Bind("password") String password);
 
 	@SqlUpdate("update user set CURRENT_SCORE=:score where community=:community AND email=LOWER(:email)")
-	void updateScore(@Bind("email") String email, @Bind("community") String community, @Bind("score") int score);
+	long updateScore(@Bind("email") String email, @Bind("community") String community, @Bind("score") int score);
 
 	@SqlUpdate("update user set password = HASH('SHA256', STRINGTOUTF8(:password),1000) where email=:email and community=:community")
-	void updatePassword(@Bind("email") String email, @Bind("community") String community,
-			@Bind("password") String password);
+	long updatePassword(@Bind("email") String email, @Bind("community") String community, @Bind("password") String password);
 
 	@SqlQuery("select * from user where community = :community ORDER BY CURRENT_SCORE DESC")
 	@Mapper(UserResultSetMapper.class)
@@ -30,8 +29,7 @@ public interface UserDAO {
 	
 	@SqlQuery("select * from user where community=:community and email=:email and password=HASH('SHA256', STRINGTOUTF8(:password),1000)")
 	@Mapper(UserResultSetMapper.class)
-	User authentify(@Bind("community") String community, @Bind("email") String email,
-			@Bind("password") String password);
+	User authentify(@Bind("community") String community, @Bind("email") String email, @Bind("password") String password);
 
 	@SqlQuery("select * from user where community=:community and email=:email")
 	@Mapper(UserResultSetMapper.class)
