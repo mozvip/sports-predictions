@@ -326,7 +326,7 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 			function( response ){
 				if (response.status == 'success') {
 					Notification.success( response.message );
-					$location('#/login');
+					$location.path('/login');
 				} else {
 					Notification.error( response.message );
 				}
@@ -349,7 +349,7 @@ var ChangePasswordController = function($scope, $location, $routeParams, UserSer
 				function( response ){
 					if (response.status == 'success') {
 						Notification.success( response.message );
-						$location('#/login');
+						$location.path('/login');
 					} else {
 						Notification.error( response.message );
 					}
