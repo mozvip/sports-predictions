@@ -120,7 +120,6 @@ var pronostic = function(){
 					"Italie" : "ITA", 
 					"Irlande" : "IRL", 
 					"Suede" : "SWE", 
-					"Autriche" : "AUT",
 					"Hongrie" : "HUN", 
 					"Islande" : "ISL",
 					"Portugal" : "POR"

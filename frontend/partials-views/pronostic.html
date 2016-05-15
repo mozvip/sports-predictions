@@ -1,15 +1,25 @@
-<a ng-click="linkMatch(match)" href class="group-item">DETAIL</a>
-<div class="group-item" >{{match.dateTime}} - {{match.group}} - {{match.stadium}}            
-	<div class="group-inner-container">             
-		<span class="group-item-name"><input ng-model="match.homeScore" ng-disabled="isPronosticable(match)"/></span>	             
-		<span class="group-item-name">{{match.homeTeam}} </span>		
-		<span class="group-item-logo" ng-class="classFlagTeam(match.homeTeam)"></span> 
-				
-		<span class="group-item-name"> VS </span>
-		
-		<span class="group-item-logo" ng-class="classFlagTeam(match.awayTeam)"></span>              
-		<span class="group-item-name">{{match.awayTeam}}</span>			  
-		<span class="group-item-name"><input ng-model="match.awayScore" ng-disabled="isPronosticable(match)"/></span>
-	</div>			        
- </div>
- 
+<div class="well">
+	<div class="row">
+		<div class="col-md-3">
+			<h3 class="teamName" style="float: right">{{match.homeTeam}}</h3>
+		</div>
+		<div class="col-md-2">
+			<span ng-class="classFlagTeam(match.homeTeam)" style="float: right"></span>
+		</div>
+		<div class="col-md-1">
+			<input class="scoreInput" ng-model="match.homeScore" ng-disabled="isPronosticable(match)" size="2" maxlength="2" />
+		</div>
+		<div class="col-md-1">
+			<input class="scoreInput" ng-model="match.awayScore" ng-disabled="isPronosticable(match)" size="2" maxlength="2" />
+		</div>
+		<div class="col-md-2">
+			<span ng-class="classFlagTeam(match.awayTeam)"></span>
+		</div>
+		<div class="col-md-3">
+			<h3 class="teamName">{{match.awayTeam}}</h3>
+		</div>
+	</div>
+	<span class="help-block" style="float: right">
+		 Le {{match.dateTime}} à {{match.stadium}}
+	</span>
+</div>

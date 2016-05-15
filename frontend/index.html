@@ -30,11 +30,11 @@
 	<script src="scripts_angular/Directive.js"></script>
 	<script src="scripts_angular/app.js"></script>
 
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/base-max.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/teams.css" />
     <link rel="stylesheet" href="css/flags.css" />
-	<link rel="stylesheet" href="css/base-max.css" />
 	<link rel="stylesheet" href="css/hp-max.css" />
 	<link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css"/>
 	<link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.min.css"/>
@@ -50,15 +50,16 @@
 
 	<nav role="navigation" class="navbar navbar-inverse navbar-lv0 nav-minimized">
 	  <div class="container-fluid">
-		  <img alt="UEFA.COM logo" src="images/uefa-logo.png" style="margin: 5px">
 		  <ul class="nav navbar-nav navbar-right">
-		  <!--Profil / Log Out-->
-			<li id="uefa-profil" class="dropdown nav-login" style="display: block;" show-when-connected>
-				<a href="#profil" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profil <span class="glyphicon glyphicon-home" aria-hidden="true"> </span></a>
-				<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off" aria-hidden="true"> </span></a>
-			</li>
+				<!--Profil / Log Out-->
+				<li show-when-connected>
+					<a href="#profil">Profil <span class="glyphicon glyphicon-home"> </span></a>
+				</li>
+				<li show-when-connected>
+					<a ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off"> </span></a>
+				</li>
 		  </ul>
-      </div>
+    </div>
 	</nav>
 
     </header>

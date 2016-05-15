@@ -19,3 +19,14 @@
 .notCurrentUser{
 	font-weight: normal;
 }
+
+.teamName {
+    margin-top: 20px;
+}
+
+.scoreInput {
+    font-size: 20.63px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin-top: 20px;
+}

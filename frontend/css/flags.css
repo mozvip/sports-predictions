@@ -3,7 +3,9 @@
     display: inline-block;
     margin: 0;
     background-repeat: no-repeat;
-    background-image: url(../images/flags_sprite_empty_64x64.png)
+    background-image: url(../images/flags_sprite_empty_64x64.png);
+    width: 64px;
+    height: 64px;
 }
 
 .flag-ALB {
