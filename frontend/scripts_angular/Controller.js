@@ -322,7 +322,16 @@ var ForgetController =   function($scope, $location, UserService, Notification){
     };
 	
 	$scope.forget = function(){
-		UserService.forgetPassword($scope.email, $scope.response);
+		UserService.forgetPassword($scope.email, $scope.response).then(
+			function( response ){
+				if (response.status == 'success') {
+					Notification.success( response.message );
+					$location('#/login');
+				} else {
+					Notification.error( response.message );
+				}
+			}
+		)
 	}
 
 }
@@ -335,13 +344,18 @@ var ChangePasswordController = function($scope, $location, $routeParams, UserSer
 	
 	$scope.changePassword = function(){
 		if ($scope.password1 === $scope.password2) {
-			var response = UserService.changePassword($routeParams.email, $routeParams.token, $scope.password1);
-			if (response.status == 'success') {
-				Notification.success( response.message );
-				$location('#/login');
-			} else {
-				Notification.error( response.message );
-			}
+			
+			UserService.changePassword($routeParams.email, $routeParams.token, $scope.password1).then(
+				function( response ){
+					if (response.status == 'success') {
+						Notification.success( response.message );
+						$location('#/login');
+					} else {
+						Notification.error( response.message );
+					}
+				}
+			)
+
 		} else {
 			Notification.error("Les mots de passe ne concordent pas");
 		}

@@ -99,47 +99,43 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 		forgetPassword: function(email, recaptcha){
 			var deferredObject = $q.defer();
 			var data = 'email='+email + '&g-recaptcha-response=' + recaptcha;
-			var message = '';
 			var config = {
 				headers : { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
 			};
+			
 			$http
 			.post(BackendService.getBackEndURL() + 'user/forget-password', data, config)
 			.then(function(data){
-				userResult.status = data.status;
 				if(data.status === 200)
-					message = 'Un email vous permettant de réinitialiser votre mot de passe vient de vous être envoyé ';
+					deferredObject.resolve({status:'success', message:'Un email vous permettant de réinitialiser votre mot de passe vient de vous être envoyé'});
 				else if (data.status === 404)
-					message = 'Cette adresse mail est inconnue !';
+					deferredObject.resolve({status:'error', message:'Cette adresse mail est inconnue !'});
 				else	
-					message = 'Une erreur est survenue';
-				deferredObject.resolve({ Return: message });
+					deferredObject.resolve({status:'error', message:'Une erreur est survenue'});
 			}, function(data){
-				message = 'Erreur : identifiant incorrect !';
-				deferredObject.resolve({ Return: message });
+				deferredObject.resolve({status:'error', message:'Une erreur est survenue'});
 			});
 			return deferredObject.promise;
 		},
 		changePassword: function(email, token, newPassword){
+			var deferredObject = $q.defer();
 			var data = 'email='+email + '&changePasswordToken=' + token + '&password='+newPassword;
 			var config = {
 				headers : { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
 			};
 			
-			var response;
 			$http
 			.post(BackendService.getBackEndURL() + 'change-password/reset', data, config)
 			.then(function(data){
-				userResult.status = data.status;
 				if(data.status === 200) {
-					reponse = {status:'success', message:"Votre mot de passe vient d'être modifié avec succès"};
+					deferredObject.resolve({status:'success', message:"Votre mot de passe vient d'être modifié avec succès"});
 				} else {
-					response = {status:'error', message:'Une erreur est survenue'};
+					deferredObject.resolve({status:'error', message:'Une erreur est survenue'});
 				}
 			}, function(data){
-				response = {status:'error', message:'Erreur : identifiant incorrect !'};
+				deferredObject.resolve({status:'error', message:'Erreur : identifiant incorrect !'});
 			});
-			return response;
+			return deferredObject.promise;
 		}
 	};
 }
