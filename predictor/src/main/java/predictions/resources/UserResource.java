@@ -256,20 +256,23 @@ public class UserResource {
 		try {
 			Email mailToSend = new SimpleEmail();
 			mailToSend.setHostName( configuration.getSmtpHost() );
-			mailToSend.setSmtpPort(465);
+			mailToSend.setSmtpPort( configuration.getSmtpPort() );
 			
 			if (configuration.getSmtpLogin() != null && configuration.getSmtpPassword() != null) {
 				mailToSend.setAuthenticator(new DefaultAuthenticator( configuration.getSmtpLogin(), configuration.getSmtpPassword() ));
 			}
-			
-			mailToSend.setSSLOnConnect(true);
+
+			// hack
+			if (configuration.getSmtpPort() != 25) {
+				mailToSend.setSSLOnConnect(true);
+			}
 			mailToSend.setFrom( mailFrom );
 			String subject = String.format( "Mot de passe oublié pour https://%s.pronostics2016.com", community);
 			mailToSend.setSubject(subject);
 
 			String resetPasswordLink = String.format("https://%s.pronostics2016.com/#/forget-password/%s", community, uuid.toString());			
 			String msg = String.format( "Cliquez ce lien pour choisir un nouveau mot de passe : %s", resetPasswordLink );
-			
+
 			mailToSend.setMsg( msg );
 			mailToSend.addTo( email );
 			mailToSend.send();

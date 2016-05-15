@@ -20,10 +20,12 @@ public class PredictionsConfiguration extends Configuration {
 
 	@Valid
 	@NotNull
+	private Integer smtpPort;
+
+	@Valid
 	private String smtpLogin;
 
 	@Valid
-	@NotNull
 	private String smtpPassword;
 
 	public String getGoogleReCaptchaSecretKey() {
@@ -32,6 +34,10 @@ public class PredictionsConfiguration extends Configuration {
 
 	public String getSmtpHost() {
 		return smtpHost;
+	}
+	
+	public Integer getSmtpPort() {
+		return smtpPort;
 	}
 
 	public String getSmtpLogin() {

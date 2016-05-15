@@ -1,4 +1,8 @@
- googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+smtpHost: localhost
+
+smtpPort: 25
 
  database:
   # the name of your JDBC driver
@@ -11,7 +15,7 @@
   password: iAMs00perSecrEET
 
   # the JDBC URL
-  url: jdbc:h2:/home/predictor/predictor
+  url: jdbc:h2:./predictor
 
   # any properties specific to your JDBC driver:
   properties:
@@ -33,5 +37,4 @@
   checkConnectionWhileIdle: false
 
 server:
-	applicationContextPath: /app
-	rootPath: /api/*
+ rootPath: /api/*
