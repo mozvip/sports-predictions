@@ -116,5 +116,11 @@
     		<column name="EMAIL_VALID" type="BOOLEAN" defaultValueBoolean="false" />
     	</addColumn>
     </changeSet>
+    <changeSet id="13" author="Guillaume Serre">
+    	<addColumn catalogName="PREDICTOR" tableName="USER">
+    		<column name="RANKING" type="INTEGER" />
+    		<column name="PREVIOUS_RANKING" type="INTEGER" />
+    	</addColumn>
+    </changeSet>
 
 </databaseChangeLog>
