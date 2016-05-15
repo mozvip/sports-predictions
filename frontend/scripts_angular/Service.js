@@ -120,8 +120,28 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			});
 			return deferredObject.promise;
 		},
-		changePassword: function(login, newPassword, token){
-			// TODO : TO BE IMPLEMENT
+		changePassword: function(login, token, newPassword){
+			var deferredObject = $q.defer();
+			var data = 'email='+email + '&changePasswordToken=' + token + '&password='+newPassword;
+			var config = {
+				headers : { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
+			};
+			
+			var response;
+			$http
+			.post(BackendService.getBackEndURL() + 'user/forget-password/reset', data, config)
+			.then(function(data){
+				userResult.status = data.status;
+				if(data.status === 200) {
+					reponse = {status:'success', message:"Votre mot de passe vient d'être modifié avec succès"};
+				} else {
+					response = {status:'error', message:'Une erreur est survenue'};
+				}
+			}, function(data){
+				response = {status:'error', message:'Erreur : identifiant incorrect !'};
+			});
+			deferredObject.resolve({ Return: response });
+			return deferredObject.promise;
 		}
 	};
 }

@@ -327,3 +327,21 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 
 }
 ForgetController.$inject = ['$scope', '$location', 'UserService', 'Notification'];
+
+var ChangePasswordController =   function($scope, $location, $routeParams, UserService, Notification){
+	
+	$scope.password1 = '';
+	$scope.password2 = '';
+	
+	$scope.changePassword = function(){
+		if ($scope.password1 === $scope.password2) {
+			UserService.changePassword($routeParams.email, $routeParams.token, $scope.password1);
+			$location('#/login');
+			Notification.error("Votre mot de passe a été changé");
+		} else {
+			Notification.error("Les mots de passes ne concordent pas");
+		}
+	}
+
+}
+ChangePasswordController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];

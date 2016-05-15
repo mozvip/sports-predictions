@@ -72,6 +72,11 @@ var config = function ($routeProvider, $locationProvider, $httpProvider) {
 			templateUrl: '/views/forgetPassword.html',
 			authorized: false
 		})
+		.when('/forget-password/:email/:token', {
+			templateUrl: '/views/changePassword.html',
+			controller: 'ChangePasswordController',
+			authorized: false
+		})
 		.when('/your-stats', {
 			templateUrl: '/views/yourStats.html',
 			authorized: true

@@ -270,7 +270,7 @@ public class UserResource {
 			String subject = String.format( "Mot de passe oublié pour https://%s.pronostics2016.com", community);
 			mailToSend.setSubject(subject);
 
-			String resetPasswordLink = String.format("https://%s.pronostics2016.com/#/forget-password/%s", community, uuid.toString());			
+			String resetPasswordLink = String.format("https://%s.pronostics2016.com/#/forget-password/%s/%s", community, email, uuid.toString());			
 			String msg = String.format( "Cliquez ce lien pour choisir un nouveau mot de passe : %s", resetPasswordLink );
 
 			mailToSend.setMsg( msg );
