@@ -53,7 +53,10 @@
 		  <ul class="nav navbar-nav navbar-right">
 				<!--Profil / Log Out-->
 				<li show-when-connected>
-					<a href="#profil">Profil <span class="glyphicon glyphicon-home"> </span></a>
+					<a href="#pronostic">Accueil <span class="glyphicon glyphicon-home"> </span></a>
+				</li>
+				<li show-when-connected>
+					<a href="#user-profile">Profil <span class="glyphicon glyphicon-user"> </span></a>
 				</li>
 				<li show-when-connected>
 					<a ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off"> </span></a>
@@ -70,13 +73,6 @@
       <div style="" class="navigation">
         
 		<nav class="navbar-lv2 d3-plugin" role="navigation" data-plugin="navigation" data-options="{&quot;disableStickyHeader&quot;: &quot;False&quot;}">
-		  
-		  <div class="competition-favourite-team d3-plugin" data-plugin="favouriteloader" data-script="/CompiledAssets/js/plugins/favourite.loader.source.js" data-options="{&quot;baseUrl&quot;:&quot;/teams/[TEAMID]/libraries/_team-favourite&quot;,&quot;emptyValue&quot;:true}">
-		  </div>
-		  <!-- Logo -->
-		  <div class="competition-logo">
-			<a class="logolink" title="UEFA EURO 2016" href="#">UEFA EURO 2016</a>
-		  </div>
 
 		  <!-- Navigation -->
 		  <div class="navbar-lv2-wrap js-nav-wrap navbar-lv2-only">

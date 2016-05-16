@@ -10,7 +10,7 @@ var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypant
 				var port = $location.protocol() == 'https' ? '443' : '80';
 				if ($location.host() == 'localhost') {
 					// hack for local development without backend
-					// return 'https://test.pronostics.com/api/';
+					//return 'https://test.pronostics2016.com/api/';
 					// hack for development with local backend
 					return 'http://localhost:8080/api/';
 				} else {
@@ -29,7 +29,7 @@ euro2016Predictions.controller('RanksController', RanksController);
 euro2016Predictions.controller('PronosticController', PronosticController);
 euro2016Predictions.controller('DetailController', DetailController);
 euro2016Predictions.controller('ForgetController', ForgetController);
-euro2016Predictions.controller('ChangePasswordController', ChangePasswordController);
+euro2016Predictions.controller('ResetPasswordController', ResetPasswordController);
 
 /*  Interceptor des réponses HTTP  pour l'auth  */
 euro2016Predictions.factory('AuthInterceptor', AuthInterceptor);
@@ -65,9 +65,10 @@ var config = function ($routeProvider, $locationProvider, $httpProvider) {
 			templateUrl: '/views/signup.html',
 			authorized: false
 		})
-		.when('/profil', {
-			templateUrl: '/views/profil.html',
-			authorized: false
+		.when('/user-profile', {
+			templateUrl: '/views/user-profile.html',
+			authorized: true,
+			controller: UserProfileController
 		})
 		.when('/forget-password', {
 			templateUrl: '/views/forgetPassword.html',
@@ -75,7 +76,7 @@ var config = function ($routeProvider, $locationProvider, $httpProvider) {
 		})
 		.when('/forget-password/:email/:token', {
 			templateUrl: '/views/changePassword.html',
-			controller: 'ChangePasswordController',
+			controller: 'ResetPasswordController',
 			authorized: false
 		})
 		.when('/your-stats', {

@@ -337,7 +337,7 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 }
 ForgetController.$inject = ['$scope', '$location', 'UserService', 'Notification'];
 
-var ChangePasswordController = function($scope, $location, $routeParams, UserService, Notification){
+var ResetPasswordController = function($scope, $location, $routeParams, UserService, Notification){
 	
 	$scope.password1 = '';
 	$scope.password2 = '';
@@ -362,4 +362,31 @@ var ChangePasswordController = function($scope, $location, $routeParams, UserSer
 	}
 
 }
-ChangePasswordController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];
+ResetPasswordController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];
+
+var UserProfileController = function($scope, $location, $routeParams, UserService, Notification){
+	
+	$scope.password1 = '';
+	$scope.password2 = '';
+	
+	$scope.changePassword = function(){
+		if ($scope.password1 === $scope.password2) {
+			
+			UserService.changePassword($routeParams.email, $routeParams.token, $scope.password1).then(
+				function( response ){
+					if (response.status == 'success') {
+						Notification.success( response.message );
+						$location.path('/login');
+					} else {
+						Notification.error( response.message );
+					}
+				}
+			)
+
+		} else {
+			Notification.error("Les mots de passe ne concordent pas");
+		}
+	}
+
+}
+UserProfileController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];
