@@ -1,7 +1,26 @@
 <div class="container">
     <div class="panel panel-default">
-    <div class="panel-heading">
-        <h3>Votre profil</h3>
+        <div class="panel-heading">
+            <h3>Votre profil</h3>
+        </div>
+
+        <div class="panel-body">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Adresse mail</label>
+                    <p class="form-control-static">{{currentUser.email}}</p>
+                </div>
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" class="form-control" ng-model="currentUser.name" />
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-primary" ng-click="save()">Sauvegarder</button>
+                </div>
+                
+            </form>
+        </div>
+
     </div>
-</div>
 </div>

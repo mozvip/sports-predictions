@@ -44,7 +44,6 @@ import predictions.PredictionsConfiguration;
 import predictions.gmail.GmailService;
 import predictions.model.ActualResult;
 import predictions.model.ActualResultDAO;
-import predictions.model.AuthenticationResult;
 import predictions.model.MatchPrediction;
 import predictions.model.MatchPredictionDAO;
 import predictions.model.MatchPredictions;
@@ -90,23 +89,9 @@ public class UserResource {
 	@POST
 	@Path("/savePredictions")
 	@Timed
-	public AuthenticationResult createUser( MatchPredictions predictions ) {
-
-		AuthenticationResult result = new AuthenticationResult();
-		
+	public void savePredictions( @Auth User user, MatchPredictions predictions ) {
 		String community = (String) httpRequest.getAttribute("community");
-
-		User user = userDAO.findExistingUser(community, predictions.getEmail() );
-		if (user == null) {
-			userDAO.insert( predictions.getEmail(), predictions.getName(), community, predictions.getPassword() );
-			savePredictions( community, predictions.getEmail(), predictions );
-			String authToken = generateAuthToken(community, predictions.getEmail(), predictions.getPassword());
-			result.setAuthToken( authToken );
-		} else {
-			result.setMessage("Cet email est déjà utilisé par un utilisateur");
-		}
-
-		return result;
+		savePredictions( community, predictions.getEmail(), predictions );
 	}
 
 	@POST
@@ -207,12 +192,15 @@ public class UserResource {
 	@Path("/predictions")
 	@ApiOperation("Get the current predictions for the connected user")
 	public MatchPredictions getPredictions( @Auth User user ) {
-		return buildPredictions( user.getCommunity(), user.getEmail() );
+		return buildPredictions( user );
 	}
 	
-	private MatchPredictions buildPredictions( String community, String email ) {
+	private MatchPredictions buildPredictions( User user ) {
 		MatchPredictions predictions = new MatchPredictions();
-		List<MatchPrediction> matchPredictions = matchPredictionDAO.findForUser(community, email);
+		List<MatchPrediction> matchPredictions = matchPredictionDAO.findForUser( user.getCommunity(), user.getEmail() );
+		predictions.setCommunity( user.getCommunity() );
+		predictions.setEmail( user.getEmail() );
+		predictions.setName( user.getName() );
 		predictions.setMatch_predictions_attributes( matchPredictions );
 		return predictions;
 		
@@ -287,8 +275,9 @@ public class UserResource {
 		email = email.toLowerCase().trim();
 		
 		MatchPredictions predictions = null;
-		if( userDAO.authentify(community, email, password) != null ) {
-			predictions = buildPredictions( community, email );
+		User user = userDAO.authentify(community, email, password);
+		if( user != null ) {
+			predictions = buildPredictions( user );
 			predictions.setAuthToken( generateAuthToken(community, email, password) );
 		}
 

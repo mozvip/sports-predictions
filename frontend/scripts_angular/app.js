@@ -1,5 +1,5 @@
 // Application du site euro2016Predictions
-var euro2016Predictions = angular.module('euro2016Predictions', ['ngAnimate', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'angular-linq', 'ui-notification', 'ngTable'])
+var euro2016Predictions = angular.module('sports-predictions', ['ngAnimate', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'angular-linq', 'ui-notification', 'ngTable'])
 	.config(function (cfpLoadingBarProvider) {
 		cfpLoadingBarProvider.includeSpinner = false;
 	})
@@ -65,7 +65,7 @@ var config = function ($routeProvider, $locationProvider, $httpProvider) {
 		.when('/user-profile', {
 			templateUrl: '/views/user-profile.html',
 			authorized: true,
-			controller: UserProfileController
+			controller: 'UserProfileController'
 		})
 		.when('/forget-password', {
 			templateUrl: '/views/forgetPassword.html',

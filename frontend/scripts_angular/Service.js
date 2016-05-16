@@ -13,6 +13,9 @@
 * changePassword() -> Can change password for current user
 **/
 var UserService = function($rootScope, $http, $q, $cookies, BackendService){
+	
+	var currentUser;
+	
 	return {
 		isConnected: function(){
 			return this.getToken() != null;
@@ -22,6 +25,9 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 		},
 		getCurrentLogin: function(){
 			return $cookies.get('SESSION_CURRENT_LOGIN');
+		},
+		currentUser: function() {
+			return currentUser;
 		},
 		login: function(login, password){
 			var deferredObject = $q.defer();
@@ -35,18 +41,14 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			
 			$http
 			.post(BackendService.getBackEndURL() + 'user/signin', data, config)
-			.then(function(data){
-				userResult.status = data.status;
-				if(data.status === 200){
-					$cookies.put('SESSION_ID', data.data.authToken);
-					$cookies.put('SESSION_CURRENT_LOGIN', login);
-				}
-				else
-					userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
-				
+			.then(function(response){
+				userResult.status = response.status;
+				currentUser = response.data;
+				$cookies.put('SESSION_ID', response.data.authToken);
+				$cookies.put('SESSION_CURRENT_LOGIN', login);
 				deferredObject.resolve({ User:  userResult });
 				$rootScope.$broadcast("connectionStateChanged");
-			}, function(data){
+			}, function(response){
 				userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
 				deferredObject.resolve({ User: userResult });
 			});
