@@ -34,7 +34,7 @@ euro2016Predictions.controller('TestController', TestController);
 euro2016Predictions.controller('RanksController', RanksController);
 euro2016Predictions.controller('PronosticController', PronosticController);
 euro2016Predictions.controller('ForgetController', ForgetController);
-euro2016Predictions.controller('ChangePasswordController', ChangePasswordController);
+euro2016Predictions.controller('ResetPasswordController', ResetPasswordController);
 
 /*  Interceptor des réponses HTTP  pour l'auth  */
 euro2016Predictions.factory('AuthInterceptor', AuthInterceptor);
@@ -70,9 +70,10 @@ var config = function ($routeProvider, $locationProvider, $httpProvider) {
 			templateUrl: '/views/signup.html',
 			authorized: false
 		})
-		.when('/profil', {
-			templateUrl: '/views/profil.html',
-			authorized: false
+		.when('/user-profile', {
+			templateUrl: '/views/user-profile.html',
+			authorized: true,
+			controller: UserProfileController
 		})
 		.when('/forget-password', {
 			templateUrl: '/views/forgetPassword.html',
@@ -80,7 +81,7 @@ var config = function ($routeProvider, $locationProvider, $httpProvider) {
 		})
 		.when('/forget-password/:email/:token', {
 			templateUrl: '/views/changePassword.html',
-			controller: 'ChangePasswordController',
+			controller: 'ResetPasswordController',
 			authorized: false
 		})
 		.when('/your-stats', {
