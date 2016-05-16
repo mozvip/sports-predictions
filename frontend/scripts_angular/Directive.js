@@ -1,5 +1,6 @@
 /**
-* TO COMMENT
+* Angular Directive -> showWhenConnected
+* Attribute Directive for display element when user is connected
 **/
 var showWhenConnected = function (UserService) {
     return {
@@ -20,7 +21,8 @@ var showWhenConnected = function (UserService) {
 showWhenConnected.$inject = ['UserService'];
 
 /**
-* TO COMMENT
+* Angular Directive -> hideWhenConnected
+* Attribute Directive for display element when user is disconnected
 **/
 var hideWhenConnected = function (UserService) {
     return {
@@ -41,30 +43,8 @@ var hideWhenConnected = function (UserService) {
 hideWhenConnected.$inject = ['UserService'];
 
 /**
-* TO COMMENT:
-WAITING TO ERASE THIS
-**/
-var userRank = function(UserService){
-    return {
-        restrict: 'E',
-        templateUrl: '/partials-views/user-rank.html',
-		scope: {
-            rank: "="
-        },
-		controller: function($scope, UserService) {
-            $scope.classCurrentUser = function(email) {
-				if(email === UserService.getCurrentLogin())
-					return 'currentUser';
-				else 
-					return 'notCurrentUser';
-            };
-        }
-    };
-}
-userRank.$inject = ['UserService'];
-
-/**
-* TO COMMENT
+* Angular Directive -> pronostic
+* Element Directive for display a match
 **/
 var pronostic = function(){
 	return {
@@ -134,7 +114,10 @@ var pronostic = function(){
     };
 }
 
-
+/**
+* Angular Directive -> pronostic
+* Attribute Directive for compile tab content in pronostic view
+**/
 var compileHtml = function($sce, $parse, $compile) {
     return {
       restrict: 'A',

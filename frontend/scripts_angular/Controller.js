@@ -381,7 +381,13 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 			}
 		)
 	}
-
+	
+	$scope.classCurrentUser = function(email) {
+		if(email === UserService.getCurrentLogin())
+			return 'currentUser';
+		else 
+			return 'notCurrentUser';
+    };
 }
 ForgetController.$inject = ['$scope', '$location', 'UserService', 'Notification'];
 
