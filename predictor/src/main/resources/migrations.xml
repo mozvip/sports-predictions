@@ -122,5 +122,8 @@
     		<column name="PREVIOUS_RANKING" type="INTEGER" />
     	</addColumn>
     </changeSet>
-
+    <changeSet id="14" author="Guillaume Serre">
+    	<modifyDataType tableName="MATCH_PREDICTION" columnName="HOME_TEAM_ID" newDataType="VARCHAR(50)"/>
+    	<modifyDataType tableName="MATCH_PREDICTION" columnName="AWAY_TEAM_ID" newDataType="VARCHAR(50)"/>
+    </changeSet>
 </databaseChangeLog>
