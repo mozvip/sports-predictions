@@ -128,10 +128,8 @@ public class UserResource {
 
 	private void recaptcha(String recaptcha) throws UnsupportedEncodingException, IOException, ClientProtocolException,
 			JsonParseException, JsonMappingException {
-		// google recaptcha verification, disabled for localhost
 		
-		String remoteHost = httpRequest.getRemoteHost();
-		if (remoteHost.equals("localhost") || remoteHost.equals("0:0:0:0:0:0:0:1")) {
+		if (!configuration.isGoogleReCaptchaEnabled()) {
 			return;
 		}
 		

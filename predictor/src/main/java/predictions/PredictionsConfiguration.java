@@ -15,6 +15,9 @@ public class PredictionsConfiguration extends Configuration {
 	private String googleReCaptchaSecretKey;
 
 	@Valid
+	private boolean googleReCaptchaEnabled = true;
+
+	@Valid
 	@NotNull
 	private String smtpHost;
 
@@ -30,6 +33,10 @@ public class PredictionsConfiguration extends Configuration {
 
 	public String getGoogleReCaptchaSecretKey() {
 		return googleReCaptchaSecretKey;
+	}
+	
+	public boolean isGoogleReCaptchaEnabled() {
+		return googleReCaptchaEnabled;
 	}
 
 	public String getSmtpHost() {
