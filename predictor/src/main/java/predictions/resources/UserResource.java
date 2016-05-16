@@ -215,7 +215,7 @@ public class UserResource {
 	}
 	
 	private String generateAuthToken( String community, String email, String password ) {
-		return new String( Base64.getEncoder().encode( String.format("%s$$_$$%s:%s", community, email, password).getBytes() ) );		
+		return new String( Base64.getEncoder().encode( String.format("%s:%s", email, password).getBytes() ) );		
 	}
 
 	@GET
