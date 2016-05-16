@@ -43,11 +43,16 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			.post(BackendService.getBackEndURL() + 'user/signin', data, config)
 			.then(function(response){
 				userResult.status = response.status;
-				currentUser = response.data;
-				$cookies.put('SESSION_ID', response.data.authToken);
-				$cookies.put('SESSION_CURRENT_LOGIN', login);
-				deferredObject.resolve({ User:  userResult });
-				$rootScope.$broadcast("connectionStateChanged");
+				if (response.status === 200) {
+					currentUser = response.data;
+					$cookies.put('SESSION_ID', response.data.authToken);
+					$cookies.put('SESSION_CURRENT_LOGIN', login);
+					deferredObject.resolve({ User:  userResult });
+					$rootScope.$broadcast("connectionStateChanged");
+				} else {
+					userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
+					deferredObject.resolve({ User: userResult });
+				}
 			}, function(response){
 				userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
 				deferredObject.resolve({ User: userResult });
