@@ -1,28 +1,59 @@
-<div class="row" ng-controller="PronosticController" ng-init="init()">
-	<div class="col-sm-2">
-		<nav class="navbar navbar-light bg-faded">
-		  <a class="navbar-brand" href="#ranks">Votre classement <span class="badge">{{yourScore}}</span></a>
-		</nav>
-
-		<nav class="navbar navbar-light bg-faded">
-		  <a class="navbar-brand" href="#pronostic">Sousmission pronostics</a>
-		</nav>
-
-		<nav class="navbar navbar-light bg-faded">
-		  <a class="navbar-brand" href="#statComm">Statistiques de la communauté</a>
-		</nav>
-
-		<nav class="navbar navbar-light bg-faded">
-		  <a class="navbar-brand" href="#your-stats">Vos statistiques </a>
-		</nav>
-	</div>
-	<div class="col-sm-9">  
-		<h2>TODO : Implementation savePrediction & getPrediction</h2><br/><br/>
-		<div class="group-container">
-			<!-- FILTER FOR TEST : AFTER DO A TABCONTROL WITH TABITEM PER GROUP -->
-			<pronostic ng-repeat="match in games | filter:'Groupe A'" match="match"></pronostic>
+<div ng-init="init()">
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#pronostic" role="tab" data-toggle="tab">Soumettre vos pronostics</a></li>
+		<li role="presentation"><a href="#ranks" role="tab" data-toggle="tab">Classement<span class="badge">{{yourScore}}</span></a></li>
+		<li role="presentation"><a href="#statComm" role="tab" data-toggle="tab">Statistiques de la communauté</a></li>
+		<li role="presentation"><a href="#your-stats" role="tab" data-toggle="tab">Vos statistiques </a></li>
+	</ul>
+</div>
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane active" id="group-tabs">
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#group-a" role="tab" data-toggle="tab">Groupe A</a></li>
+			<li role="presentation"><a href="#group-b" role="tab" data-toggle="tab">Groupe B</a></li>
+			<li role="presentation"><a href="#group-c" role="tab" data-toggle="tab">Groupe C</a></li>
+			<li role="presentation"><a href="#group-d" role="tab" data-toggle="tab">Groupe D</a></li>
+			<li role="presentation"><a href="#group-e" role="tab" data-toggle="tab">Groupe E</a></li>
+			<li role="presentation"><a href="#group-f" role="tab" data-toggle="tab">Groupe F</a></li>
+		</ul>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="group-a">
+				<div class="group-container">
+					<h3 class="groupName">Groupe A</h3>
+					<pronostic ng-repeat="match in games | filter:'Groupe A'" match="match"></pronostic>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="group-b">
+				<div class="group-container">
+					<h3 class="groupName">Groupe B</h3>
+					<pronostic ng-repeat="match in games | filter:'Groupe B'" match="match"></pronostic>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="group-c">
+				<div class="group-container">
+					<h3 class="groupName">Groupe C</h3>
+					<pronostic ng-repeat="match in games | filter:'Groupe C'" match="match"></pronostic>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="group-d">
+				<div class="group-container">
+					<h3 class="groupName">Groupe D</h3>
+					<pronostic ng-repeat="match in games | filter:'Groupe D'" match="match"></pronostic>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="group-e">
+				<div class="group-container">
+					<h3 class="groupName">Groupe E</h3>
+					<pronostic ng-repeat="match in games | filter:'Groupe E'" match="match"></pronostic>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="group-f">
+				<div class="group-container">
+					<h3 class="groupName">Groupe F</h3>
+					<pronostic ng-repeat="match in games | filter:'Groupe F'" match="match"></pronostic>
+				</div>
+			</div>
 		</div>
-		<button class="btn btn-success btn btn-success">Valider</button>
-		<br/>
+		<button class="btn btn-primary">Valider</button>
 	</div>
- </div>
+</div>
