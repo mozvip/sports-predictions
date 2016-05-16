@@ -19,6 +19,7 @@ public class PredictorBasicAuthenticator implements Authenticator<CommunityBasic
 			throws AuthenticationException {
 		User user = dao.authentify( credentials.getCommunity(), credentials.getUsername(), credentials.getPassword() );
 		if (user != null) {
+			dao.updateLastLoginDate( credentials.getCommunity(), credentials.getUsername() );
 			return Optional.of( user );
 		}
         return Optional.empty();

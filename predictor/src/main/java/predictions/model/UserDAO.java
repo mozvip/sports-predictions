@@ -30,6 +30,9 @@ public interface UserDAO {
 	@SqlQuery("select * from user where community=:community and email=:email and password=HASH('SHA256', STRINGTOUTF8(:password),1000)")
 	@Mapper(UserResultSetMapper.class)
 	User authentify(@Bind("community") String community, @Bind("email") String email, @Bind("password") String password);
+	
+	@SqlUpdate("update user set LAST_LOGIN_DATE = CURRENT_TIMESTAMP() where community=:community and email=:email")
+	void updateLastLoginDate(@Bind("community") String community, @Bind("email") String email);
 
 	@SqlQuery("select * from user where community=:community and email=LOWER(:email)")
 	@Mapper(UserResultSetMapper.class)

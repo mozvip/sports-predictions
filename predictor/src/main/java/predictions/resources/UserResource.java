@@ -277,6 +277,7 @@ public class UserResource {
 		MatchPredictions predictions = null;
 		User user = userDAO.authentify(community, email, password);
 		if( user != null ) {
+			userDAO.updateLastLoginDate(community, email);
 			predictions = buildPredictions( user );
 			predictions.setAuthToken( generateAuthToken(community, email, password) );
 		}
