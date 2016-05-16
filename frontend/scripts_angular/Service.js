@@ -144,8 +144,24 @@ UserService.$inject = ['$rootScope', '$http', '$q', '$cookies', 'BackendService'
 **/
 var PredictionService = function($rootScope, $http, $q, BackendService){
 	return {
-		savePredictions: function(){
-			// TODO : TO BE IMPLEMENT
+		savePredictions: function(token, predictions){
+			var deferredObject = $q.defer();
+			var result = {};
+			var config = {
+				headers : { 'Accept' : 'application/json',
+				'Authorization': 'Basic ' + token}
+			};
+			$http
+			.post(BackendService.getBackEndURL() + 'user/save', predictions, config)
+			.then(function(data){
+				result.status = data.status;
+				deferredObject.resolve({ Result:  result });
+			}, function(response){
+				result.status = response.status
+				deferredObject.resolve({ Result: result });
+			});
+			
+			return deferredObject.promise;
 		},
 		getPredictions: function(token){
 			var deferredObject = $q.defer();

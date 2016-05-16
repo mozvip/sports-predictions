@@ -185,9 +185,21 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 	}
 	
 	$scope.submitPronostic = function(){
-		var community = $location.host();
+		var community = $location.host() == 'localhost' ? 'test' : $location.host();
 		var predictions = [];
-	}
+		
+		$linq.Enumerable()
+			.From($scope.games)
+			.ForEach(function(element){
+				predictions.push(createPrediction(community, element));
+		});
+		
+		PredictionService.savePredictions(UserService.getToken(), {match_predictions_attributes: predictions})
+		.then(function(result){
+			if(result.status != 200)
+				Notification.error('ERROR');
+		});
+	}  
 	
 	var createPrediction = function(host, game){
 		return {
@@ -335,6 +347,13 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 				Notification.error({message: result.Ranks.message, title: 'Erreur lors de la récupération du classement'});
         });
 	}	
+	
+	$scope.classCurentUser = function(rank){
+		if(rank.email == UserService.getCurrentLogin())
+			return "currentUser";
+		else
+			return "notCurrentUser";
+	}
 }
 RanksController.$inject = ['$scope', '$filter', '$location', 'UserService', 'RankingService', 'Notification', '$linq', 'NgTableParams'];
 
@@ -383,6 +402,7 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 	}
 	
 	$scope.classCurrentUser = function(email) {
+	// TO FINISH
 		if(email === UserService.getCurrentLogin())
 			return 'currentUser';
 		else 

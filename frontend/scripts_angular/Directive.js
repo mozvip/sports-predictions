@@ -68,17 +68,18 @@ var pronostic = function(){
 			}
 			
 			$scope.$watch('match.predictionHome_Score', function( newValue, oldValue ){
-			   if(newValue == "")
-				   $scope.match.homeScore = 0;
+				
+			   if(newValue == "" || newValue == undefined)
+				   $scope.match.predictionHome_Score = 0;
 			   else
-				   $scope.match.homeScore = parseInt(newValue);
+				   $scope.match.predictionHome_Score = parseInt(newValue);
 			  }, true);
 			  
 			$scope.$watch('match.predictionAway_Score', function( newValue, oldValue ){
-			   if(newValue == "")
-				   $scope.match.awayScore = 0;
+			   if(newValue == "" || newValue == undefined)
+				   $scope.match.predictionAway_Score = 0;
 			   else
-				   $scope.match.awayScore = parseInt(newValue);
+				   $scope.match.predictionAway_Score = parseInt(newValue);
 			  }, true);
 			
 			$scope.classFlagTeam = function(nameTeam) {

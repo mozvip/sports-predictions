@@ -13,6 +13,7 @@
 }
 
 .currentUser {
+	color: red;
 	font-weight: bold;
 }
 
