@@ -27,6 +27,10 @@ public class PhaseFilter implements Filter {
 		
 		// get current phase
 		Phase currentPhase = PhaseManager.getInstance().getCurrentPhase();
+		if (currentPhase.getWelcomePage() == null) {
+			chain.doFilter(request, response);
+			return;
+		}
 		
 		HttpServletRequest servletRequest = (HttpServletRequest) request;
 		String requestURI = servletRequest.getRequestURI();
