@@ -8,52 +8,11 @@
 </div>
 <div class="tab-content">
 	<div role="tabpanel" class="tab-pane active" id="group-tabs">
-		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#group-a" role="tab" data-toggle="tab">Groupe A</a></li>
-			<li role="presentation"><a href="#group-b" role="tab" data-toggle="tab">Groupe B</a></li>
-			<li role="presentation"><a href="#group-c" role="tab" data-toggle="tab">Groupe C</a></li>
-			<li role="presentation"><a href="#group-d" role="tab" data-toggle="tab">Groupe D</a></li>
-			<li role="presentation"><a href="#group-e" role="tab" data-toggle="tab">Groupe E</a></li>
-			<li role="presentation"><a href="#group-f" role="tab" data-toggle="tab">Groupe F</a></li>
-		</ul>
-		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="group-a">
-				<div class="group-container">
-					<h3 class="groupName">Groupe A</h3>
-					<pronostic ng-repeat="match in games | filter:'Groupe A'" match="match"></pronostic>
-				</div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="group-b">
-				<div class="group-container">
-					<h3 class="groupName">Groupe B</h3>
-					<pronostic ng-repeat="match in games | filter:'Groupe B'" match="match"></pronostic>
-				</div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="group-c">
-				<div class="group-container">
-					<h3 class="groupName">Groupe C</h3>
-					<pronostic ng-repeat="match in games | filter:'Groupe C'" match="match"></pronostic>
-				</div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="group-d">
-				<div class="group-container">
-					<h3 class="groupName">Groupe D</h3>
-					<pronostic ng-repeat="match in games | filter:'Groupe D'" match="match"></pronostic>
-				</div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="group-e">
-				<div class="group-container">
-					<h3 class="groupName">Groupe E</h3>
-					<pronostic ng-repeat="match in games | filter:'Groupe E'" match="match"></pronostic>
-				</div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="group-f">
-				<div class="group-container">
-					<h3 class="groupName">Groupe F</h3>
-					<pronostic ng-repeat="match in games | filter:'Groupe F'" match="match"></pronostic>
-				</div>
-			</div>
-		</div>
-		<button class="btn btn-primary">Valider</button>
+		 <uib-tabset vertical="false" type="pills">
+			<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+			  <div compile-html="tab.content"></div>
+			</uib-tab>
+		  </uib-tabset>
 	</div>
+	<button class="btn btn-primary">Valider</button>
 </div>

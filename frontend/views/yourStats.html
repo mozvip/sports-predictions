@@ -1,23 +1,12 @@
-<div class="row" ng-controller="TestController">
-  <div class="col-sm-2">
-<nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#ranks">Votre classement <span class="badge">{{yourScore}}</span></a>
-</nav>
-
-<nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#pronostic">Sousmission pronostique </a>
-</nav>
-
-<nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#statComm">Statistiques de la communautée </a>
-</nav>
-
-<nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#your-stats">Vos statistiques </a>
-</nav>
-  </div>
-  <div class="col-sm-9">
+<div ng-controller="TestController">
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation"><a href="#pronostic" role="tab" data-toggle="tab">Soumettre vos pronostics</a></li>
+		<li role="presentation"><a href="#ranks" role="tab" data-toggle="tab">Classement<span class="badge">{{yourScore}}</span></a></li>
+		<li role="presentation"><a href="#statComm" role="tab" data-toggle="tab">Statistiques de la communauté</a></li>
+		<li role="presentation" class="active"><a href="#your-stats" role="tab" data-toggle="tab">Vos statistiques </a></li>
+	</ul>
+	<div class="tab-content">
 		<div id="containerRank" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 		<div id="containerStat" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-  </div>
+	</div>
 </div>

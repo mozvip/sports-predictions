@@ -239,6 +239,13 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 	$scope.Ranks = [];
 	$scope.currentUser = UserService.getCurrentLogin();
 	$scope.yourScore = 0;
+	
+	$scope.tabs = [{ title:'Groupe A', content:'<div role="tabpanel" class="tab-pane active" id="group-a"><div class="group-container"><h3 class="groupName">Groupe A</h3><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe B', content:'<div role="tabpanel" class="tab-pane active" id="group-b"><div class="group-container"><h3 class="groupName">Groupe B</h3><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe C', content:'<div role="tabpanel" class="tab-pane active" id="group-c"><div class="group-container"><h3 class="groupName">Groupe C</h3><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe D', content:'<div role="tabpanel" class="tab-pane active" id="group-d"><div class="group-container"><h3 class="groupName">Groupe D</h3><pronostic ng-repeat="match in games | filter:\'Groupe D\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe E', content:'<div role="tabpanel" class="tab-pane active" id="group-e"><div class="group-container"><h3 class="groupName">Groupe E</h3><pronostic ng-repeat="match in games | filter:\'Groupe E\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe F', content:'<div role="tabpanel" class="tab-pane active" id="group-f"><div class="group-container"><h3 class="groupName">Groupe F</h3><pronostic ng-repeat="match in games | filter:\'Groupe F\'" match="match"></pronostic></div>	</div>' }];
 
 	$scope.logOut = function()	{
 		UserService.logout();
@@ -264,7 +271,7 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 				$scope.Ranks = result.Ranks.RanksData;
 				$scope.RanksParams = new NgTableParams({
 						page: 1,            // show first page
-						count: 10,           // count per page
+						count: 20,           // count per page
 					}, {
 						total: $scope.Ranks.length, // length of data
 						getData: function($defer, params) {
@@ -289,11 +296,6 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 	}	
 }
 RanksController.$inject = ['$scope', '$filter', '$location', 'UserService', 'RankingService', 'Notification', '$linq', 'NgTableParams'];
-
-
-var DetailController = function($scope, $routeParams){
-}
-DetailController.$inject = ['$scope', '$routeParams'];
 
 
 var ForgetController =   function($scope, $location, UserService, Notification){

@@ -9,8 +9,8 @@
 * logout() -> Log out current user
 * signup() -> Sign up new user
 * loginAvailable() -> Can know if login is available for sign up
-* forgetPassword() ->  User forgot password : TO TEST
-* changePassword() -> Can change password for current user : TODO
+* forgetPassword() ->  User forgot password
+* changePassword() -> Can change password for current user
 **/
 var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 	return {

@@ -1,5 +1,5 @@
 // Application du site euro2016Predictions
-var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypants.loadingBar', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'angular-linq', 'ui-notification', 'ngTable'])
+var euro2016Predictions = angular.module('euro2016Predictions', ['ngAnimate', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'angular-linq', 'ui-notification', 'ngTable'])
 	.config(function (cfpLoadingBarProvider) {
 		cfpLoadingBarProvider.includeSpinner = false;
 	})
@@ -10,14 +10,20 @@ var euro2016Predictions = angular.module('euro2016Predictions', ['chieffancypant
 				var port = $location.protocol() == 'https' ? '443' : '80';
 				if ($location.host() == 'localhost') {
 					// hack for local development without backend
-					// return 'https://test.pronostics.com/api/';
+					return 'https://test.pronostics2016.com/api/';
 					// hack for development with local backend
-					return 'http://localhost:8080/api/';
+					//return 'http://localhost:8080/api/';
 				} else {
 					return $location.protocol() + '://' + $location.host() + ':' + port + '/api/';
 				}
 			}
 		}
+	})
+	.controller('TabsDemoCtrl', function ($scope, $window) {
+	  $scope.tabs = [
+		{ title:'Dynamic Title 1', content:'Dynamic content 1' },
+		{ title:'Dynamic Title 2', content:'Dynamic content 2'}
+	  ];
 	});
 
 /* Définition des controllers à l'application */
@@ -27,7 +33,6 @@ euro2016Predictions.controller('SignupController', SignupController);
 euro2016Predictions.controller('TestController', TestController);
 euro2016Predictions.controller('RanksController', RanksController);
 euro2016Predictions.controller('PronosticController', PronosticController);
-euro2016Predictions.controller('DetailController', DetailController);
 euro2016Predictions.controller('ForgetController', ForgetController);
 euro2016Predictions.controller('ChangePasswordController', ChangePasswordController);
 
@@ -82,11 +87,6 @@ var config = function ($routeProvider, $locationProvider, $httpProvider) {
 			templateUrl: '/views/yourStats.html',
 			authorized: true
 		})
-		.when('/detail/:matchNumber', {
-			templateUrl: '/views/detail.html',
-			authorized: true,
-			controller: 'DetailController'
-		})
 		.otherwise({
 			redirectTo: '/ranks'
 		});
@@ -110,4 +110,4 @@ euro2016Predictions.directive('showWhenConnected', showWhenConnected);
 euro2016Predictions.directive('hideWhenConnected', hideWhenConnected);
 euro2016Predictions.directive('userRank', userRank);
 euro2016Predictions.directive('pronostic', pronostic);
-
+euro2016Predictions.directive('compileHtml', compileHtml);
