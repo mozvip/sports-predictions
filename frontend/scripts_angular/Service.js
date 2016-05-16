@@ -142,17 +142,17 @@ var PredictionService = function($rootScope, $http, $q, BackendService){
 		},
 		getPredictions: function(token){
 			var deferredObject = $q.defer();
-			var result;
+			var result = {};
 			var config = {
 				headers : { 'Accept' : 'application/json',
 				'Authorization': 'Basic ' + token}
 			};
 			$http
 			.get(BackendService.getBackEndURL() + 'user/predictions', config)
-			.then(function(response){
-				result.status = response.status;
-				if(response.status === 200)
-					result = response.match_predictions_attributes;
+			.then(function(data){
+				result.status = data.status;
+				if(data.status === 200)
+					result.Predictions = data.data.match_predictions_attributes;
 				deferredObject.resolve({ Predictions:  result });
 			}, function(response){
 				deferredObject.resolve({ Predictions: null });

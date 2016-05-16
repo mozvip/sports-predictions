@@ -110,6 +110,14 @@ SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Us
 var PronosticController = function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq){
 
 	$scope.games = [];
+	
+	$scope.tabs = [{ title:'Groupe A', content:'<div role="tabpanel" class="tab-pane active" id="group-a"><div class="group-container"><h3 class="groupName">Groupe A</h3><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe B', content:'<div role="tabpanel" class="tab-pane active" id="group-b"><div class="group-container"><h3 class="groupName">Groupe B</h3><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe C', content:'<div role="tabpanel" class="tab-pane active" id="group-c"><div class="group-container"><h3 class="groupName">Groupe C</h3><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe D', content:'<div role="tabpanel" class="tab-pane active" id="group-d"><div class="group-container"><h3 class="groupName">Groupe D</h3><pronostic ng-repeat="match in games | filter:\'Groupe D\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe E', content:'<div role="tabpanel" class="tab-pane active" id="group-e"><div class="group-container"><h3 class="groupName">Groupe E</h3><pronostic ng-repeat="match in games | filter:\'Groupe E\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe F', content:'<div role="tabpanel" class="tab-pane active" id="group-f"><div class="group-container"><h3 class="groupName">Groupe F</h3><pronostic ng-repeat="match in games | filter:\'Groupe F\'" match="match"></pronostic></div>	</div>' }];
+
 
 	$scope.init = function(){
 		var game, error = false;
@@ -124,10 +132,37 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 			}
 		});
 		
-		/*var r = PredictionService.getPredictions(UserService.getToken());
-		r.then(function(result){
-			alert(result.Predictions);
-		});*/
+		if(error){
+			$scope.games = [];
+			return ;
+		}
+			
+		PredictionService.getPredictions(UserService.getToken())
+		.then(function(result){
+			if(result.Predictions.status === 200 && result.Predictions.Predictions != undefined)
+			{
+				$linq.Enumerable()
+					.From(result.Predictions.Predictions)
+					.ForEach(function(element){
+						var predictionID = element.match_id;
+						var game = $linq.Enumerable()
+							.From($scope.games)
+							.FirstOrDefault(null, function(match){
+								return match.matchNum === predictionID;
+							});
+							
+						if(game != null)
+						{
+							game.homeScore = element.home_score;
+							game.awayScore = element.away_score;
+						}
+					});
+			}
+			else{
+				Notification.error({message: 'Les scores des matches n\'ont pu être récupérés. Un problème technique est à l\'origine du problème.', title: 'Erreur'});
+				error = true;
+			}
+		});
 		
 		// TODO : Faire un merge avec les pronostics déjà saisis.
 		// + Ajouter un boolean home_winner qui va servir pour départager les deux équipes.
@@ -240,13 +275,6 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 	$scope.currentUser = UserService.getCurrentLogin();
 	$scope.yourScore = 0;
 	
-	$scope.tabs = [{ title:'Groupe A', content:'<div role="tabpanel" class="tab-pane active" id="group-a"><div class="group-container"><h3 class="groupName">Groupe A</h3><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe B', content:'<div role="tabpanel" class="tab-pane active" id="group-b"><div class="group-container"><h3 class="groupName">Groupe B</h3><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe C', content:'<div role="tabpanel" class="tab-pane active" id="group-c"><div class="group-container"><h3 class="groupName">Groupe C</h3><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe D', content:'<div role="tabpanel" class="tab-pane active" id="group-d"><div class="group-container"><h3 class="groupName">Groupe D</h3><pronostic ng-repeat="match in games | filter:\'Groupe D\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe E', content:'<div role="tabpanel" class="tab-pane active" id="group-e"><div class="group-container"><h3 class="groupName">Groupe E</h3><pronostic ng-repeat="match in games | filter:\'Groupe E\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe F', content:'<div role="tabpanel" class="tab-pane active" id="group-f"><div class="group-container"><h3 class="groupName">Groupe F</h3><pronostic ng-repeat="match in games | filter:\'Groupe F\'" match="match"></pronostic></div>	</div>' }];
-
 	$scope.logOut = function()	{
 		UserService.logout();
 		$location.path('/');

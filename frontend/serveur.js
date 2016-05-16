@@ -9,6 +9,7 @@ app.use('/images', express.static(__dirname + '/images'));
 app.use('/scripts_angular', express.static(__dirname + '/scripts_angular'));
 app.use('/views', express.static(__dirname + '/views'));
 app.use('/partials-views', express.static(__dirname + '/partials-views'));
+app.use('/Content', express.static(__dirname + '/Content'));
 
 app.get('/', function(req, res) {
 	fs.readFile("index.html", 'utf8', function(err, text){
