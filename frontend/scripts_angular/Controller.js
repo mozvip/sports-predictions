@@ -132,9 +132,36 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 			}
 		});
 		
-		var r = PredictionService.getPredictions(UserService.getToken());
-		r.then(function(result){
-			var a  = 1;
+		if(error){
+			$scope.games = [];
+			return ;
+		}
+			
+		PredictionService.getPredictions(UserService.getToken())
+		.then(function(result){
+			if(result.Predictions.status === 200 && result.Predictions.Predictions != undefined)
+			{
+				$linq.Enumerable()
+					.From(result.Predictions.Predictions)
+					.ForEach(function(element){
+						var predictionID = element.match_id;
+						var game = $linq.Enumerable()
+							.From($scope.games)
+							.FirstOrDefault(null, function(match){
+								return match.matchNum === predictionID;
+							});
+							
+						if(game != null)
+						{
+							game.homeScore = element.home_score;
+							game.awayScore = element.away_score;
+						}
+					});
+			}
+			else{
+				Notification.error({message: 'Les scores des matches n\'ont pu être récupérés. Un problème technique est à l\'origine du problème.', title: 'Erreur'});
+				error = true;
+			}
 		});
 		
 		// TODO : Faire un merge avec les pronostics déjà saisis.

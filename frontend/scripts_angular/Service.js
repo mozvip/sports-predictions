@@ -158,7 +158,7 @@ var PredictionService = function($rootScope, $http, $q, BackendService){
 			.then(function(data){
 				result.status = data.status;
 				if(data.status === 200)
-					result = data.match_predictions_attributes;
+					result.Predictions = data.data.match_predictions_attributes;
 				deferredObject.resolve({ Predictions:  result });
 			}, function(data){
 				deferredObject.resolve({ Predictions: null });
