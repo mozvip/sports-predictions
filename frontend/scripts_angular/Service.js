@@ -1,7 +1,7 @@
 /**
 * Angular Service -> UserService
 * Expose method to login, logout user,to know if user is connected and to sign up a new user.
-* Controler which use this service : HeaderController (TO IMPLEMENT), LoginController, SignupController(TO IMPLEMENT)
+* Controler which use this service : HomeController, LoginController, SignupController, PronosticController, RanksController, ForgetController, UserProfileController
 * isConnected() -> Can get is user is connected
 * getToken() -> Return user access token
 * getCurrentLogin() -> Return current user login
@@ -135,10 +135,33 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 }
 UserService.$inject = ['$rootScope', '$http', '$q', '$cookies', 'BackendService'];
 
+/**
+* Angular Service -> PredictionService
+* Expose method to save and get predictions for one user
+* Controler which use this service : PronosticController
+* savePredictions() -> Save predictions to user connected
+* getPredictions() -> Get predictions to user connected
+**/
 var PredictionService = function($rootScope, $http, $q, BackendService){
 	return {
-		savePredictions: function(){
-			// TODO : TO BE IMPLEMENT
+		savePredictions: function(token, predictions){
+			var deferredObject = $q.defer();
+			var result = {};
+			var config = {
+				headers : { 'Accept' : 'application/json',
+				'Authorization': 'Basic ' + token}
+			};
+			$http
+			.post(BackendService.getBackEndURL() + 'user/save', predictions, config)
+			.then(function(data){
+				result.status = data.status;
+				deferredObject.resolve({ Result:  result });
+			}, function(response){
+				result.status = response.status
+				deferredObject.resolve({ Result: result });
+			});
+			
+			return deferredObject.promise;
 		},
 		getPredictions: function(token){
 			var deferredObject = $q.defer();
@@ -167,12 +190,12 @@ PredictionService.$inject = ['$rootScope', '$http', '$q', 'BackendService'];
 /**
 * Angular Service -> RankingService
 * Expose method to get ranks of user
-* get() -> Return all ranks of community user
-* getYourRanking(login) -> Return ranks of current user
+* getRanks() -> Return all ranks of community user
 **/
 var RankingService = function($rootScope, $http, $q, BackendService){
 	
-	var get = function(){
+	return {
+		getRanks : function(){
 			var deferredObject = $q.defer();
 			var result= {};
 			var config = {
@@ -193,15 +216,17 @@ var RankingService = function($rootScope, $http, $q, BackendService){
 				deferredObject.resolve({ Ranks: result });
 			});
 			return deferredObject.promise;
-	};
-	
-	return {
-		getRanks: get
+		}
 	};
 }
 RankingService.$inject = ['$rootScope', '$http', '$q', 'BackendService'];
 
-
+/**
+* Angular Service -> GamesService
+* Expose method to get all games with real result, information stadium, date and teams
+* getGroupGames() -> Return all games of group phase
+* getFinalGames() -> Return all games of final phase
+**/
 var GamesService = function($rootScope, $http, $q, $linq, BackendService){
 	return {
 		getGroupGames: function(){

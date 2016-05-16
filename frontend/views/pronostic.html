@@ -1,7 +1,7 @@
 <div ng-init="init()">
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#pronostic" role="tab" data-toggle="tab">Soumettre vos pronostics</a></li>
-		<li role="presentation"><a href="#ranks" role="tab" data-toggle="tab">Classement<span class="badge">{{yourScore}}</span></a></li>
+		<li role="presentation"><a href="#ranks" role="tab" data-toggle="tab">Classement</a></li>
 		<li role="presentation"><a href="#statComm" role="tab" data-toggle="tab">Statistiques de la communauté</a></li>
 		<li role="presentation"><a href="#your-stats" role="tab" data-toggle="tab">Vos statistiques </a></li>
 	</ul>
@@ -14,5 +14,5 @@
 			</uib-tab>
 		  </uib-tabset>
 	</div>
-	<button class="btn btn-primary">Valider</button>
+	<button class="btn btn-primary" ng-click="submitPronostic()">Valider</button>
 </div>

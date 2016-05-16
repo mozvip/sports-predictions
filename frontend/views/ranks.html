@@ -1,7 +1,7 @@
 <div ng-controller="RanksController" ng-init="init()">
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation"><a href="#pronostic" role="tab" data-toggle="tab">Soumettre vos pronostics</a></li>
-		<li role="presentation" class="active"><a href="#ranks" role="tab" data-toggle="tab">Classement<span class="badge">{{yourScore}}</span></a></li>
+		<li role="presentation" class="active"><a href="#ranks" role="tab" data-toggle="tab">Classement</a></li>
 		<li role="presentation"><a href="#statComm" role="tab" data-toggle="tab">Statistiques de la communauté</a></li>
 		<li role="presentation"><a href="#your-stats" role="tab" data-toggle="tab">Vos statistiques </a></li>
 	</ul>
@@ -9,7 +9,7 @@
 		<h2>Classement de la communautée</h2><br/><br/>
 		<!-- <user-rank ng-repeat="user in Ranks" user="user"></user-rank> -->
 		<table ng-table="RanksParams" class="table" show-filter="true">
-			<tr ng-repeat="rank in $data">
+			<tr ng-repeat="rank in $data" ng-class="classCurentUser(rank)">
 				<td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
 					{{rank.name}}</td>
 				<td title="'Email'" filter="{ email: 'text'}" sortable="'email'">

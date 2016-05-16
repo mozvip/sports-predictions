@@ -7,10 +7,12 @@
 			<span ng-class="classFlagTeam(match.homeTeam)" style="float: right"></span>
 		</div>
 		<div class="col-md-1">
-			<input class="scoreInput" ng-model="match.homeScore" ng-disabled="isPronosticable(match)" size="2" maxlength="2" />
+			<input class="scoreInput" ng-model="match.predictionHome_Score" ng-disabled="isPronosticable(match)" size="2" maxlength="2" />
+			<span ng-show="isPronosticable(match)" ng-class="realScore(match.predictionHome_Score, match.homeScore)">{{match.homeScore}}</span>
 		</div>
 		<div class="col-md-1">
-			<input class="scoreInput" ng-model="match.awayScore" ng-disabled="isPronosticable(match)" size="2" maxlength="2" />
+			<span ng-show="isPronosticable(match)" ng-class="realScore(match.predictionAway_Score, match.awayScore)">{{match.awayScore}}</span>
+			<input class="scoreInput" ng-model="match.predictionAway_Score" ng-disabled="isPronosticable(match)" size="2" maxlength="2" />
 		</div>
 		<div class="col-md-2">
 			<span ng-class="classFlagTeam(match.awayTeam)"></span>

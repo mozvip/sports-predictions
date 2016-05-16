@@ -1,7 +1,7 @@
 /**
 * Angular Controller -> LoginController  
 * Login user in euro2016 Predictor
-* login()
+* login() * Try to log in user input
 **/
 var LoginController = function($scope, $route, $routeParams, $location, UserService) {
     
@@ -27,7 +27,9 @@ LoginController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Use
 /**
 * Angular Controller -> SignupController  
 * Sign up new user in euro2016 Predictor
-* save()  
+* save() * Try to create a new user
+* loginChanged() * Use this method to control email availability
+* setResponse(), setWidgetId() et cbExpiration() * Recaptcha implementation
 **/
 var SignupController = function($scope, $route, $routeParams, $location, UserService, vcRecaptchaService, Notification) {
     
@@ -107,6 +109,12 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 }
 SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', 'vcRecaptchaService', 'Notification'];
 
+/**
+* Angular Controller -> PronosticController  
+* Save and Get prediction data in euro2016 Predictor
+* init() * Get data prediction with games data
+* submitPronostic() * Save predictions
+**/
 var PronosticController = function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq){
 
 	$scope.games = [];
@@ -120,8 +128,8 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 
 
 	$scope.init = function(){
-		var game, error = false;
-		
+		var error = false;
+		$scope.games = [];
 		var res = GamesService.getGroupGames();
 		res.then(function (result) {
 			if(result.Games  != null && result.Games != undefined)
@@ -142,20 +150,26 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 			if(result.Predictions.status === 200 && result.Predictions.Predictions != undefined)
 			{
 				$linq.Enumerable()
-					.From(result.Predictions.Predictions)
+					.From($scope.games)
 					.ForEach(function(element){
-						var predictionID = element.match_id;
-						var game = $linq.Enumerable()
-							.From($scope.games)
-							.FirstOrDefault(null, function(match){
-								return match.matchNum === predictionID;
+						var gameID = element.matchNum;
+						var prediction = $linq.Enumerable()
+							.From(result.Predictions.Predictions)
+							.FirstOrDefault(null, function(prediction){
+								return prediction.match_id === gameID;
 							});
 							
-						if(game != null)
+						if(prediction != null)
 						{
-							game.homeScore = element.home_score;
-							game.awayScore = element.away_score;
+							element.predictionHome_Score = prediction.home_score;
+							element.predictionAway_Score = prediction.away_score;
 						}
+						else
+						{
+							element.predictionHome_Score = 0;
+							element.predictionAway_Score = 0;
+						}
+						element.home_winner = false;
 					});
 			}
 			else{
@@ -164,9 +178,39 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 			}
 		});
 		
-		// TODO : Faire un merge avec les pronostics déjà saisis.
-		// + Ajouter un boolean home_winner qui va servir pour départager les deux équipes.
-		//Vos pronostics n\'ont pu être récupéré. Un problème technique est à l\'origine du problème
+		if(error){
+			$scope.games = [];
+			return ;
+		}
+	}
+	
+	$scope.submitPronostic = function(){
+		var community = $location.host() == 'localhost' ? 'test' : $location.host();
+		var predictions = [];
+		
+		$linq.Enumerable()
+			.From($scope.games)
+			.ForEach(function(element){
+				predictions.push(createPrediction(community, element));
+		});
+		
+		PredictionService.savePredictions(UserService.getToken(), {match_predictions_attributes: predictions})
+		.then(function(result){
+			if(result.status != 200)
+				Notification.error('ERROR');
+		});
+	}  
+	
+	var createPrediction = function(host, game){
+		return {
+			community : host, 
+			email: UserService.getCurrentLogin(), 
+			match_id: game.matchNum, 
+			away_score: game.predictionAway_Score, 
+			away_team_id: game.awayTeam,
+			home_score: game.predictionHome_Score, 
+			home_tean_id: game.homeTeam,
+			home_winner: game.home_winner ? game.homeTeam : game.awayTeam };
 	}
 }
 PronosticController.$inject = ['$scope','$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq'];
@@ -266,30 +310,13 @@ TestController.$inject = ['$scope'];
 
 /**
 * Angular Controller -> RanksController  
-* Contains global data in application.
-* logOut()
+* Contains ranking data in application.
+* init() * Get rankings for this community
 **/
 var RanksController = function($scope, $filter, $location, UserService, RankingService, Notification, $linq, NgTableParams){
 
 	$scope.Ranks = [];
 	$scope.currentUser = UserService.getCurrentLogin();
-	$scope.yourScore = 0;
-	
-	$scope.logOut = function()	{
-		UserService.logout();
-		$location.path('/');
-	}
-			
-	var getYourScore = function(){
-		$scope.yourScore = $linq.Enumerable()
-						.From($scope.Ranks)
-						.Select(function(rank){
-							return {'SCORE' : rank.currentScore, 'LOGIN': rank.email}
-						})
-						.FirstOrDefault(0, function(rank){
-							return rank.LOGIN === $scope.currentUser;
-						});
-	}
 	
 	$scope.init = function(){
 		
@@ -319,13 +346,23 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 			else
 				Notification.error({message: result.Ranks.message, title: 'Erreur lors de la récupération du classement'});
         });
-		
-		getYourScore();
 	}	
+	
+	$scope.classCurentUser = function(rank){
+		if(rank.email == UserService.getCurrentLogin())
+			return "currentUser";
+		else
+			return "notCurrentUser";
+	}
 }
 RanksController.$inject = ['$scope', '$filter', '$location', 'UserService', 'RankingService', 'Notification', '$linq', 'NgTableParams'];
 
-
+/**
+* Angular Controller -> ForgetController  
+* Forget password in application.
+* forget() * Call UserService.forgetPassword() to send email
+* setResponse(), setWidgetId() et cbExpiration() * Recaptcha implementation
+**/
 var ForgetController =   function($scope, $location, UserService, Notification){
 	
 	$scope.email = '';
@@ -363,10 +400,22 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 			}
 		)
 	}
-
+	
+	$scope.classCurrentUser = function(email) {
+	// TO FINISH
+		if(email === UserService.getCurrentLogin())
+			return 'currentUser';
+		else 
+			return 'notCurrentUser';
+    };
 }
 ForgetController.$inject = ['$scope', '$location', 'UserService', 'Notification'];
 
+/**
+* Angular Controller -> ResetPasswordController  
+* Forget password in application.
+* changePassword() * Change password to user connected
+**/
 var ResetPasswordController = function($scope, $location, $routeParams, UserService, Notification){
 	
 	$scope.password1 = '';
@@ -420,3 +469,18 @@ var UserProfileController = function($scope, $location, $routeParams, UserServic
 
 }
 UserProfileController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];
+
+/**
+* Angular Controller -> HomeController  
+* First controller
+* logOut() * Log out user connected
+**/
+var HomeController = function($scope, $location, UserService, Notification){
+
+	$scope.logOut = function()	{
+		UserService.logout();
+		$location.path('/');
+		Notification.info({message: 'Vous êtes maintenant déconnecté!', title: 'Déconnexion'});
+	}
+}
+HomeController.$inject = ['$scope', '$location', 'UserService', 'Notification'];
