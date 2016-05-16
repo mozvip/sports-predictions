@@ -1,5 +1,5 @@
 // Application du site euro2016Predictions
-var euro2016Predictions = angular.module('sports-predictions', ['ngAnimate', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'angular-linq', 'ui-notification', 'ngTable'])
+var euro2016Predictions = angular.module('sports-predictions', ['ng-backstretch', 'ngAnimate', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'angular-linq', 'ui-notification', 'ngTable'])
 	.config(function (cfpLoadingBarProvider) {
 		cfpLoadingBarProvider.includeSpinner = false;
 	})
@@ -10,9 +10,9 @@ var euro2016Predictions = angular.module('sports-predictions', ['ngAnimate', 'ui
 				var port = $location.protocol() == 'https' ? '443' : '80';
 				if ($location.host() == 'localhost') {
 					// hack for local development without backend
-					return 'https://test.pronostics2016.com/api/';
+					//return 'https://test.pronostics2016.com/api/';
 					// hack for development with local backend
-					//return 'http://localhost:8080/api/';
+					return 'http://localhost:8080/api/';
 				} else {
 					return $location.protocol() + '://' + $location.host() + ':' + port + '/api/';
 				}

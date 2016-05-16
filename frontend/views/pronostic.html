@@ -1,4 +1,5 @@
 <div ng-init="init()">
+	<!--
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#pronostic" role="tab" data-toggle="tab">Soumettre vos pronostics</a></li>
 		<li role="presentation"><a href="#ranks" role="tab" data-toggle="tab">Classement</a></li>
@@ -14,5 +15,14 @@
 			</uib-tab>
 		  </uib-tabset>
 	</div>
-	<button class="btn btn-primary" ng-click="submitPronostic()">Valider</button>
+-->
+	<uib-tabset id="tab-groups" vertical="false" type="pills">
+		<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+			<div compile-html="tab.content"></div>
+		</uib-tab>
+	</uib-tabset>
+	<div class="row">
+		<p class="text-center"><button class="btn btn-success btn-lg" ng-click="submitPronostic()">Sauvegarder mes pronostics</button></p>
+		
+	</div>
 </div>

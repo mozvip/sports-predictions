@@ -1,4 +1,12 @@
 <div class="container">
+	
+		<div class="jumbotron">
+			<img src="images/logo.png" />
+			<h1>Pronostics Euro 2016</h1>
+			<p class="lead">Bienvenue sur notre application de pronostics pour l'Euro 2016. Connectez vous à l'aide du formulaire ci-dessous.</p>
+			<p><a href="#sign-up" class="btn btn-lg btn-success">Pas de compte ? Créer un nouveau compte</a></p>			
+		</div>
+		
 	<div ng-controller="LoginController">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -7,11 +15,11 @@
 			<div class="panel-body">
 				<form name="myForm" role="form" class="form" ng-submit="login()">
 					<div class="form-group">
-						<input name="username" placeholder="Email" class="form-control" type="email" id="UserUsername" ng-model="User.Login" />
+						<input name="username" placeholder="Email" class="form-control" type="email" id="UserUsername" ng-required="true" ng-model="User.Login" />
 					</div>
 
 					<div class="form-group">
-						<input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword" ng-model="User.Password" />
+						<input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword" ng-required="true" ng-model="User.Password" />
 						<span class="help-block">
 							<a href="#forget-password">Mot de passe oublié ?</a>
 						</span>
@@ -21,11 +29,10 @@
 						<div class="col-md-8" style="color: red">{{returnRequest}}</div>
 					</div>
 
-					<div class="btn-group" role="group">
-						<button class="btn btn-primary" type="submit">Connexion</button>
-						<a href="#sign-up" class="btn btn-default">Créer un nouveau compte</a>
-					</div>
+					<button class="btn btn-lg btn-primary" type="submit">Se Connecter</button>
 				</form>
+				
+
 			</div>
 		</div>
 	</div>

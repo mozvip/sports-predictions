@@ -2,16 +2,16 @@
 <html ng-app="sports-predictions">
 
 <head>
-    <base href="/">
+	<base href="/">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
 
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
-    <script src="bower_components/jquery/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/jquery/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
 	<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
 	<script src="bower_components/angular-linq/angular-linq.min.js"></script>
@@ -20,11 +20,12 @@
 	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
 	<script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=vcRecaptchaApiLoaded" async defer></script>
 	<script src="bower_components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
-	
+	<script src="bower_components/ng-backstretch/dist/ng-backstretch.min.js"></script>
+
 	<!-- FOR TEST -->
 	<script src="https://code.highcharts.com/highcharts.js"></script>
-	
-	<!-- APP -->	
+
+	<!-- APP -->
 	<script src="scripts_angular/Service.js"></script>
 	<script src="scripts_angular/Controller.js"></script>
 	<script src="scripts_angular/Interceptor.js"></script>
@@ -32,84 +33,74 @@
 	<script src="scripts_angular/app.js"></script>
 	<script src="scripts_angular/UserProfileController.js"></script>
 
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/base-max.css" />
-    <link rel="stylesheet" href="css/app.css" />
-    <link rel="stylesheet" href="css/teams.css" />
-    <link rel="stylesheet" href="css/flags.css" />
+	<link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="css/teams.css" />
+	<link rel="stylesheet" href="css/flags.css" />
 	<link rel="stylesheet" href="css/hp-max.css" />
-	<link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css"/>
-	<link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.min.css"/>
-	<link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css"/>
-	
-	<title>Euro 2016 Prédictions</title>
+	<link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css" />
+	<link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.min.css" />
+	<link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" />
+
+	<title>Pronostics Euro 2016</title>
 </head>
 
 <body>
 
-<div class="container-fluid main-wrap" ng-controller="HomeController">
-    <header class="row header-wrap">
+	<div ng-controller="HomeController">
+		<div backstretch backstretch-images="images">
+			<header class="row header-wrap">
 
-	<nav role="navigation" class="navbar navbar-inverse navbar-lv0 nav-minimized">
-	  <div class="container-fluid">
-		  <ul class="nav navbar-nav navbar-right">
-				<!--Profil / Log Out-->
-				<li show-when-connected>
-					<a href="#pronostic">Accueil <span class="glyphicon glyphicon-home"> </span></a>
-				</li>
+				<nav role="navigation" class="navbar navbar-inverse navbar-lv0 nav-minimized">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav navbar-right">
+							<!--Profil / Log Out-->
+							<li show-when-connected>
+								<a href="#pronostic">Accueil <span class="glyphicon glyphicon-home"> </span></a>
+							</li>
+							<!--
 				<li show-when-connected>
 					<a href="#user-profile">Profil <span class="glyphicon glyphicon-user"> </span></a>
 				</li>
-				<li show-when-connected>
-					<a href ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off"> </span></a>
-				</li>
-		  </ul>
-    </div>
-	</nav>
+				-->
+							<li show-when-connected>
+								<a href ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off"> </span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
 
-    </header>
-  <!-- Content wrapper -->
-  <div class="body row">
-    <div class="content-wrap">
-      <!-- Navigation -->
-      <div style="" class="navigation">
-        
-		<nav class="navbar-lv2 d3-plugin" role="navigation" data-plugin="navigation" data-options="{&quot;disableStickyHeader&quot;: &quot;False&quot;}">
-
-		  <!-- Navigation -->
-		  <div class="navbar-lv2-wrap js-nav-wrap navbar-lv2-only">
-			<div class="container-fluid">
-			  <ul class="navbar-lv2-nav js-nav">
-			  </ul>
+			</header>
+			<!-- Content wrapper -->
+			<div class="body row">
+				<div class="content-wrap">
+					<!-- Main content -->
+					<div class="content">
+						<div ng-view>
+						</div>
+					</div>
+				</div>
 			</div>
-		  </div>
-		</nav>
-		
-      </div>
-      <!-- Main content -->
-      <div class="content">
-		<div ng-view>
+
 		</div>
-      </div>
-		<!-- Footer -->
-        <footer xtcz="Footer" class="footer-wrap" style="height: 320px">
-			<div  class="watermark-footer">
-			</div>
-        </footer>
-    </div>
-  </div>
-</div>
 
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		<script>
+			(function(i, s, o, g, r, a, m) {
+				i['GoogleAnalyticsObject'] = r;
+				i[r] = i[r] || function() {
+					(i[r].q = i[r].q || []).push(arguments)
+				}, i[r].l = 1 * new Date();
+				a = s.createElement(o),
+					m = s.getElementsByTagName(o)[0];
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m)
+			})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-		ga('create', 'UA-76288240-1', 'auto');
-		ga('send', 'pageview');
-
-	</script>    
+			ga('create', 'UA-76288240-1', 'auto');
+			ga('send', 'pageview');
+		</script>
 
 </body>
 

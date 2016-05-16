@@ -119,12 +119,12 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 
 	$scope.games = [];
 	
-	$scope.tabs = [{ title:'Groupe A', content:'<div role="tabpanel" class="tab-pane active" id="group-a"><div class="group-container"><h3 class="groupName">Groupe A</h3><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe B', content:'<div role="tabpanel" class="tab-pane active" id="group-b"><div class="group-container"><h3 class="groupName">Groupe B</h3><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe C', content:'<div role="tabpanel" class="tab-pane active" id="group-c"><div class="group-container"><h3 class="groupName">Groupe C</h3><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe D', content:'<div role="tabpanel" class="tab-pane active" id="group-d"><div class="group-container"><h3 class="groupName">Groupe D</h3><pronostic ng-repeat="match in games | filter:\'Groupe D\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe E', content:'<div role="tabpanel" class="tab-pane active" id="group-e"><div class="group-container"><h3 class="groupName">Groupe E</h3><pronostic ng-repeat="match in games | filter:\'Groupe E\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe F', content:'<div role="tabpanel" class="tab-pane active" id="group-f"><div class="group-container"><h3 class="groupName">Groupe F</h3><pronostic ng-repeat="match in games | filter:\'Groupe F\'" match="match"></pronostic></div>	</div>' }];
+	$scope.tabs = [{ title:'Groupe A', content:'<div role="tabpanel" class="tab-pane active" id="group-a"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe B', content:'<div role="tabpanel" class="tab-pane active" id="group-b"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe C', content:'<div role="tabpanel" class="tab-pane active" id="group-c"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe D', content:'<div role="tabpanel" class="tab-pane active" id="group-d"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe D\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe E', content:'<div role="tabpanel" class="tab-pane active" id="group-e"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe E\'" match="match"></pronostic></div>	</div>' },
+		{ title:'Groupe F', content:'<div role="tabpanel" class="tab-pane active" id="group-f"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe F\'" match="match"></pronostic></div>	</div>' }];
 
 
 	$scope.init = function(){
@@ -448,33 +448,6 @@ var ResetPasswordController = function($scope, $location, $routeParams, UserServ
 }
 ResetPasswordController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];
 
-var UserProfileController = function($scope, $location, $routeParams, UserService, Notification){
-	
-	$scope.password1 = '';
-	$scope.password2 = '';
-	
-	$scope.changePassword = function(){
-		if ($scope.password1 === $scope.password2) {
-			
-			UserService.changePassword($routeParams.email, $routeParams.token, $scope.password1).then(
-				function( response ){
-					if (response.status == 'success') {
-						Notification.success( response.message );
-						$location.path('/login');
-					} else {
-						Notification.error( response.message );
-					}
-				}
-			)
-
-		} else {
-			Notification.error("Les mots de passe ne concordent pas");
-		}
-	}
-
-}
-UserProfileController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];
-
 /**
 * Angular Controller -> HomeController  
 * First controller
@@ -487,5 +460,12 @@ var HomeController = function($scope, $location, UserService, Notification){
 		$location.path('/');
 		Notification.info({message: 'Vous êtes maintenant déconnecté!', title: 'Déconnexion'});
 	}
+	
+	$scope.images = [
+    	'images/background-1.jpg',
+    	'images/background-2.jpg',
+    	'images/background-3.jpg',
+		'images/background-4.jpg'
+  	];
 }
 HomeController.$inject = ['$scope', '$location', 'UserService', 'Notification'];

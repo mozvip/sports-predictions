@@ -26,7 +26,8 @@
     "angular-linq": "^1.0.2",
     "angular-ui-notification": "^0.2.0",
     "ng-table": "^0.8.3",
-    "angular-animate": "^1.5.5"
+    "angular-animate": "^1.5.5",
+    "ng-backstretch": "~0.1.2-beta"
   },
   "resolutions": {
     "angular": "1.5.5"
