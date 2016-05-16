@@ -84,7 +84,7 @@ public class UserResource {
 	@ApiOperation(value="Deletes a user from the application")
 	public void deleteUser( @Auth User user, @QueryParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
-		this.userDAO.delete( community, email.toLowerCase() );
+		userDAO.delete( community, email );
 	}
 
 	@POST
@@ -242,6 +242,7 @@ public class UserResource {
 		recaptcha(recaptcha);
 
 		String community = (String) httpRequest.getAttribute("community");
+		email = email.trim();
 		
 		User existingUser = userDAO.findExistingUser(community, email);
 		if (existingUser == null) {

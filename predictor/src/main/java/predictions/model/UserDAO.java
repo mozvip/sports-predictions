@@ -31,7 +31,7 @@ public interface UserDAO {
 	@Mapper(UserResultSetMapper.class)
 	User authentify(@Bind("community") String community, @Bind("email") String email, @Bind("password") String password);
 
-	@SqlQuery("select * from user where community=:community and email=:email")
+	@SqlQuery("select * from user where community=:community and email=LOWER(:email)")
 	@Mapper(UserResultSetMapper.class)
 	User findExistingUser(@Bind("community") String community, @Bind("email") String email);
 
