@@ -128,7 +128,13 @@ public class UserResource {
 
 	private void recaptcha(String recaptcha) throws UnsupportedEncodingException, IOException, ClientProtocolException,
 			JsonParseException, JsonMappingException {
-		// google recaptcha verification
+		// google recaptcha verification, disabled for localhost
+		
+		String remoteHost = httpRequest.getRemoteHost();
+		if (remoteHost.equals("localhost") || remoteHost.equals("0:0:0:0:0:0:0:1")) {
+			return;
+		}
+		
 		HttpPost post = new HttpPost("https://www.google.com/recaptcha/api/siteverify");
 		List<NameValuePair> postParams = new ArrayList<>();
 		postParams.add( new BasicNameValuePair("secret", configuration.getGoogleReCaptchaSecretKey()) );

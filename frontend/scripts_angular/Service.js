@@ -105,15 +105,13 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			
 			$http
 			.post(BackendService.getBackEndURL() + 'user/forget-password', data, config)
-			.then(function(data){
-				if(data.status === 200)
-					deferredObject.resolve({status:'success', message:'Un email vous permettant de réinitialiser votre mot de passe vient de vous être envoyé'});
-				else if (data.status === 404)
+			.then(function(result){
+				deferredObject.resolve({status:'success', message:'Un email vous permettant de réinitialiser votre mot de passe vient de vous être envoyé'});
+			}, function(result){
+				if (result.status === 404)
 					deferredObject.resolve({status:'error', message:'Cette adresse mail est inconnue !'});
 				else	
 					deferredObject.resolve({status:'error', message:'Une erreur est survenue'});
-			}, function(data){
-				deferredObject.resolve({status:'error', message:'Une erreur est survenue'});
 			});
 			return deferredObject.promise;
 		},
@@ -126,14 +124,10 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			
 			$http
 			.post(BackendService.getBackEndURL() + 'change-password/reset', data, config)
-			.then(function(data){
-				if(data.status === 200) {
-					deferredObject.resolve({status:'success', message:"Votre mot de passe vient d'être modifié avec succès"});
-				} else {
-					deferredObject.resolve({status:'error', message:'Une erreur est survenue'});
-				}
-			}, function(data){
-				deferredObject.resolve({status:'error', message:'Erreur : identifiant incorrect !'});
+			.then(function(response){
+				deferredObject.resolve({status:'success', message:"Votre mot de passe vient d'être modifié avec succès"});
+			}, function(response){
+				deferredObject.resolve({status:'error', message:'Une erreur est survenue'});
 			});
 			return deferredObject.promise;
 		}
@@ -155,12 +149,12 @@ var PredictionService = function($rootScope, $http, $q, BackendService){
 			};
 			$http
 			.get(BackendService.getBackEndURL() + 'user/predictions', config)
-			.then(function(data){
-				result.status = data.status;
-				if(data.status === 200)
-					result = data.match_predictions_attributes;
+			.then(function(response){
+				result.status = response.status;
+				if(response.status === 200)
+					result = response.match_predictions_attributes;
 				deferredObject.resolve({ Predictions:  result });
-			}, function(data){
+			}, function(response){
 				deferredObject.resolve({ Predictions: null });
 			});
 			
