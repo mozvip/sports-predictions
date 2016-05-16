@@ -148,7 +148,7 @@ var PredictionService = function($rootScope, $http, $q, BackendService){
 		},
 		getPredictions: function(token){
 			var deferredObject = $q.defer();
-			var result;
+			var result = {};
 			var config = {
 				headers : { 'Accept' : 'application/json',
 				'Authorization': 'Basic ' + token}
