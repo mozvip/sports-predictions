@@ -194,10 +194,12 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 				predictions.push(createPrediction(community, element));
 		});
 		
-		PredictionService.savePredictions(UserService.getToken(), {match_predictions_attributes: predictions})
+		PredictionService.savePredictions(UserService.getToken(), {
+		  match_predictions_attributes: predictions
+		})
 		.then(function(result){
 			if(result.status != 200)
-				Notification.error('ERROR');
+				Notification.error({title: 'Erreur technique', message: result.message});
 		});
 	}  
 	
@@ -209,8 +211,9 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 			away_score: game.predictionAway_Score, 
 			away_team_id: game.awayTeam,
 			home_score: game.predictionHome_Score, 
-			home_tean_id: game.homeTeam,
-			home_winner: game.home_winner ? game.homeTeam : game.awayTeam };
+			home_team_id: game.homeTeam,
+			home_winner: game.home_winner
+		};
 	}
 }
 PronosticController.$inject = ['$scope','$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq'];
