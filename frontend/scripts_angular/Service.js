@@ -155,14 +155,12 @@ var PredictionService = function($rootScope, $http, $q, BackendService){
 			$http
 			.post(BackendService.getBackEndURL() + 'user/save', predictions, config)
 			.then(function(data){
-				result.status = data.status;
-				if(data.status != 200)
-					result.message = 'Une erreur est survenue lors de la sauvegarde des pronostiques.';
-				deferredObject.resolve({ Result:  result });
+				if (data.status === 204)
+					deferredObject.resolve({status:'success', message:'Sauvegarde réalisée avec succès'});
+				else	
+					deferredObject.resolve({status:'error', message:'Une erreur est survenue lors de la sauvegarde des pronostiques'});
 			}, function(response){
-				result.status = response.status
-				result.message = 'Une erreur est survenue lors de la sauvegarde des pronostiques.';
-				deferredObject.resolve({ Result: result });
+				deferredObject.resolve({status:'error', message:'Une erreur est survenue lors de la sauvegarde des pronostiques'});
 			});
 			
 			return deferredObject.promise;

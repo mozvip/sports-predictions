@@ -198,8 +198,10 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 		  match_predictions_attributes: predictions
 		})
 		.then(function(result){
-			if(result.status != 200)
-				Notification.error({title: 'Erreur technique', message: result.message});
+			if (result.status == 'success')
+				Notification.success( result.message );
+			else
+				Notification.error( result.message );
 		});
 	}  
 	
