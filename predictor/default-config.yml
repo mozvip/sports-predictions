@@ -1,8 +1,7 @@
+ googleReCaptchaEnabled : false
  googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-smtpHost: localhost
-
-smtpPort: 25
+oAuth2CredentialsFolder: ./credentials
 
  database:
   # the name of your JDBC driver
