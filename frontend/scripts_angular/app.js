@@ -10,20 +10,14 @@ var euro2016Predictions = angular.module('euro2016Predictions', ['ngAnimate', 'u
 				var port = $location.protocol() == 'https' ? '443' : '80';
 				if ($location.host() == 'localhost') {
 					// hack for local development without backend
-					// return 'https://test.pronostics2016.com/api/';
+					return 'https://test.pronostics2016.com/api/';
 					// hack for development with local backend
-					return 'http://localhost:8080/api/';
+					//return 'http://localhost:8080/api/';
 				} else {
 					return $location.protocol() + '://' + $location.host() + ':' + port + '/api/';
 				}
 			}
 		}
-	})
-	.controller('TabsDemoCtrl', function ($scope, $window) {
-	  $scope.tabs = [
-		{ title:'Dynamic Title 1', content:'Dynamic content 1' },
-		{ title:'Dynamic Title 2', content:'Dynamic content 2'}
-	  ];
 	});
 
 /* Définition des controllers à l'application */

@@ -83,14 +83,18 @@ var pronostic = function(){
 				return (match.dateTime <= new Date() && !match.done);
 			}
 			
-			$scope.$watch('match.homeScore', function( newValue, oldValue ){
+			$scope.realScore = function(predictionScore, realScore){
+				return predictionScore == realScore ? "realScoreGood" : "realScoreBad";
+			}
+			
+			$scope.$watch('match.predictionHome_Score', function( newValue, oldValue ){
 			   if(newValue == "")
 				   $scope.match.homeScore = 0;
 			   else
 				   $scope.match.homeScore = parseInt(newValue);
 			  }, true);
 			  
-			$scope.$watch('match.awayScore', function( newValue, oldValue ){
+			$scope.$watch('match.predictionAway_Score', function( newValue, oldValue ){
 			   if(newValue == "")
 				   $scope.match.awayScore = 0;
 			   else

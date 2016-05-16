@@ -120,8 +120,8 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 
 
 	$scope.init = function(){
-		var game, error = false;
-		
+		var error = false;
+		$scope.games = [];
 		var res = GamesService.getGroupGames();
 		res.then(function (result) {
 			if(result.Games  != null && result.Games != undefined)
@@ -142,20 +142,26 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 			if(result.Predictions.status === 200 && result.Predictions.Predictions != undefined)
 			{
 				$linq.Enumerable()
-					.From(result.Predictions.Predictions)
+					.From($scope.games)
 					.ForEach(function(element){
-						var predictionID = element.match_id;
-						var game = $linq.Enumerable()
-							.From($scope.games)
-							.FirstOrDefault(null, function(match){
-								return match.matchNum === predictionID;
+						var gameID = element.matchNum;
+						var prediction = $linq.Enumerable()
+							.From(result.Predictions.Predictions)
+							.FirstOrDefault(null, function(prediction){
+								return prediction.match_id === gameID;
 							});
 							
-						if(game != null)
+						if(prediction != null)
 						{
-							game.homeScore = element.home_score;
-							game.awayScore = element.away_score;
+							element.predictionHome_Score = prediction.home_score;
+							element.predictionAway_Score = prediction.away_score;
 						}
+						else
+						{
+							element.predictionHome_Score = 0;
+							element.predictionAway_Score = 0;
+						}
+						element.home_winner = false;
 					});
 			}
 			else{
@@ -164,9 +170,27 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 			}
 		});
 		
-		// TODO : Faire un merge avec les pronostics déjà saisis.
-		// + Ajouter un boolean home_winner qui va servir pour départager les deux équipes.
-		//Vos pronostics n\'ont pu être récupéré. Un problème technique est à l\'origine du problème
+		if(error){
+			$scope.games = [];
+			return ;
+		}
+	}
+	
+	$scope.submitPronostic = function(){
+		var community = $location.host();
+		var predictions = [];
+	}
+	
+	var createPrediction = function(host, game){
+		return {
+			community : host, 
+			email: UserService.getCurrentLogin(), 
+			match_id: game.matchNum, 
+			away_score: game.predictionAway_Score, 
+			away_team_id: game.awayTeam,
+			home_score: game.predictionHome_Score, 
+			home_tean_id: game.homeTeam,
+			home_winner: game.home_winner ? game.homeTeam : game.awayTeam };
 	}
 }
 PronosticController.$inject = ['$scope','$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq'];
@@ -283,11 +307,11 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 	var getYourScore = function(){
 		$scope.yourScore = $linq.Enumerable()
 						.From($scope.Ranks)
-						.Select(function(rank){
-							return {'SCORE' : rank.currentScore, 'LOGIN': rank.email}
+						.Where(function(rank){
+							rank.email === $scope.currentUser;
 						})
-						.FirstOrDefault(0, function(rank){
-							return rank.LOGIN === $scope.currentUser;
+						.Select(function(rank){
+							return rank.currentScore;
 						});
 	}
 	

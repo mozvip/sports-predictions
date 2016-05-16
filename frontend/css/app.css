@@ -29,6 +29,15 @@
     font-weight: 500;
     border-radius: 4px;
     margin-top: 20px;
+	text-align: center;
+}
+
+.realScoreGood{
+	color : green;
+}
+
+.realScoreBad{
+	color : red;
 }
 
 .gameWell {
