@@ -1,7 +1,7 @@
 /**
 * Angular Controller -> LoginController  
 * Login user in euro2016 Predictor
-* login()
+* login() * Try to log in user input
 **/
 var LoginController = function($scope, $route, $routeParams, $location, UserService) {
     
@@ -27,7 +27,9 @@ LoginController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Use
 /**
 * Angular Controller -> SignupController  
 * Sign up new user in euro2016 Predictor
-* save()  
+* save() * Try to create a new user
+* loginChanged() * Use this method to control email availability
+* setResponse(), setWidgetId() et cbExpiration() * Recaptcha implementation
 **/
 var SignupController = function($scope, $route, $routeParams, $location, UserService, vcRecaptchaService, Notification) {
     
@@ -107,6 +109,12 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 }
 SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', 'vcRecaptchaService', 'Notification'];
 
+/**
+* Angular Controller -> PronosticController  
+* Save and Get prediction data in euro2016 Predictor
+* init() * Get data prediction with games data
+* submitPronostic() * Save predictions
+**/
 var PronosticController = function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq){
 
 	$scope.games = [];
@@ -290,30 +298,13 @@ TestController.$inject = ['$scope'];
 
 /**
 * Angular Controller -> RanksController  
-* Contains global data in application.
-* logOut()
+* Contains ranking data in application.
+* init() * Get rankings for this community
 **/
 var RanksController = function($scope, $filter, $location, UserService, RankingService, Notification, $linq, NgTableParams){
 
 	$scope.Ranks = [];
 	$scope.currentUser = UserService.getCurrentLogin();
-	$scope.yourScore = 0;
-	
-	$scope.logOut = function()	{
-		UserService.logout();
-		$location.path('/');
-	}
-			
-	var getYourScore = function(){
-		$scope.yourScore = $linq.Enumerable()
-						.From($scope.Ranks)
-						.Where(function(rank){
-							rank.email === $scope.currentUser;
-						})
-						.Select(function(rank){
-							return rank.currentScore;
-						});
-	}
 	
 	$scope.init = function(){
 		
@@ -343,13 +334,16 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 			else
 				Notification.error({message: result.Ranks.message, title: 'Erreur lors de la récupération du classement'});
         });
-		
-		getYourScore();
 	}	
 }
 RanksController.$inject = ['$scope', '$filter', '$location', 'UserService', 'RankingService', 'Notification', '$linq', 'NgTableParams'];
 
-
+/**
+* Angular Controller -> ForgetController  
+* Forget password in application.
+* forget() * Call UserService.forgetPassword() to send email
+* setResponse(), setWidgetId() et cbExpiration() * Recaptcha implementation
+**/
 var ForgetController =   function($scope, $location, UserService, Notification){
 	
 	$scope.email = '';
@@ -391,6 +385,11 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 }
 ForgetController.$inject = ['$scope', '$location', 'UserService', 'Notification'];
 
+/**
+* Angular Controller -> ResetPasswordController  
+* Forget password in application.
+* changePassword() * Change password to user connected
+**/
 var ResetPasswordController = function($scope, $location, $routeParams, UserService, Notification){
 	
 	$scope.password1 = '';
@@ -444,3 +443,18 @@ var UserProfileController = function($scope, $location, $routeParams, UserServic
 
 }
 UserProfileController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];
+
+/**
+* Angular Controller -> HomeController  
+* First controller
+* logOut() * Log out user connected
+**/
+var HomeController = function($scope, $location, UserService, Notification){
+
+	$scope.logOut = function()	{
+		UserService.logout();
+		$location.path('/');
+		Notification.info({message: 'Vous êtes maintenant déconnecté!', title: 'Déconnexion'});
+	}
+}
+HomeController.$inject = ['$scope', '$location', 'UserService', 'Notification'];

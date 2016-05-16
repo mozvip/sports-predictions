@@ -29,6 +29,7 @@ euro2016Predictions.controller('RanksController', RanksController);
 euro2016Predictions.controller('PronosticController', PronosticController);
 euro2016Predictions.controller('ForgetController', ForgetController);
 euro2016Predictions.controller('ResetPasswordController', ResetPasswordController);
+euro2016Predictions.controller('HomeController', HomeController);
 
 /* Définition des factory */
 euro2016Predictions.factory('UserService', UserService);
