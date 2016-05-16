@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.security.RolesAllowed;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -22,10 +23,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -44,6 +41,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.ApiOperation;
 import predictions.PredictionsConfiguration;
+import predictions.gmail.GmailService;
 import predictions.model.ActualResult;
 import predictions.model.ActualResultDAO;
 import predictions.model.AuthenticationResult;
@@ -68,15 +66,17 @@ public class UserResource {
 	private ActualResultDAO actualResultDAO;
 	private HttpClient client;
 	private PredictionsConfiguration configuration;
+	private GmailService gmail;
 
 	@Context private HttpServletRequest httpRequest;
 
-	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, HttpClient client, PredictionsConfiguration configuration ) {
+	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, HttpClient client, PredictionsConfiguration configuration, GmailService gmail ) {
 		this.userDAO = dao;
 		this.matchPredictionDAO = matchPredictionDAO;
 		this.actualResultDAO = actualResultDAO;
 		this.client = client;
 		this.configuration = configuration;
+		this.gmail = gmail;
 	}
 
 	@RolesAllowed("ADMIN")
@@ -242,7 +242,7 @@ public class UserResource {
 	@Path("/forget-password")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value="Declares a forgotten password and send the relevant email")
-	public Response forgetPassword( @FormParam("email") String email, @FormParam("g-recaptcha-response") String recaptcha ) throws IOException {
+	public Response forgetPassword( @FormParam("email") String email, @FormParam("g-recaptcha-response") String recaptcha ) throws IOException, MessagingException {
 		recaptcha(recaptcha);
 
 		String community = (String) httpRequest.getAttribute("community");
@@ -257,33 +257,14 @@ public class UserResource {
 		userDAO.setChangePasswordToken(community, email, uuid);
 		
 		String mailFrom = getAdminEmail(community);
+		
+		String subject = String.format( "Mot de passe oublié pour https://%s.pronostics2016.com", community);
+		
+		String resetPasswordLink = String.format("https://%s.pronostics2016.com/#/forget-password/%s/%s", community, email, uuid.toString());			
+		String htmlMessage = String.format( "<p>Cliquez <a href='%s'>ce lien</a> pour choisir un nouveau mot de passe</p>", resetPasswordLink );
 
-		try {
-			Email mailToSend = new SimpleEmail();
-			mailToSend.setHostName( configuration.getSmtpHost() );
-			mailToSend.setSmtpPort( configuration.getSmtpPort() );
-			
-			if (configuration.getSmtpLogin() != null && configuration.getSmtpPassword() != null) {
-				mailToSend.setAuthenticator(new DefaultAuthenticator( configuration.getSmtpLogin(), configuration.getSmtpPassword() ));
-			}
+		gmail.sendEmail( existingUser.getEmail(), subject, htmlMessage );
 
-			// hack
-			if (configuration.getSmtpPort() != 25) {
-				mailToSend.setSSLOnConnect(true);
-			}
-			mailToSend.setFrom( mailFrom );
-			String subject = String.format( "Mot de passe oublié pour https://%s.pronostics2016.com", community);
-			mailToSend.setSubject(subject);
-
-			String resetPasswordLink = String.format("https://%s.pronostics2016.com/#/forget-password/%s/%s", community, email, uuid.toString());			
-			String msg = String.format( "Cliquez ce lien pour choisir un nouveau mot de passe : %s", resetPasswordLink );
-
-			mailToSend.setMsg( msg );
-			mailToSend.addTo( email );
-			mailToSend.send();
-		} catch (EmailException e) {
-			logger.error(e.getMessage(), e);
-		}
 		
 		return Response.ok().build();
 	}

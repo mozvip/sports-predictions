@@ -16,20 +16,10 @@ public class PredictionsConfiguration extends Configuration {
 
 	@Valid
 	private boolean googleReCaptchaEnabled = true;
-
+	
 	@Valid
 	@NotNull
-	private String smtpHost;
-
-	@Valid
-	@NotNull
-	private Integer smtpPort;
-
-	@Valid
-	private String smtpLogin;
-
-	@Valid
-	private String smtpPassword;
+	private String oAuth2CredentialsFolder;
 
 	public String getGoogleReCaptchaSecretKey() {
 		return googleReCaptchaSecretKey;
@@ -38,21 +28,9 @@ public class PredictionsConfiguration extends Configuration {
 	public boolean isGoogleReCaptchaEnabled() {
 		return googleReCaptchaEnabled;
 	}
-
-	public String getSmtpHost() {
-		return smtpHost;
-	}
 	
-	public Integer getSmtpPort() {
-		return smtpPort;
-	}
-
-	public String getSmtpLogin() {
-		return smtpLogin;
-	}
-
-	public String getSmtpPassword() {
-		return smtpPassword;
+	public String getoAuth2CredentialsFolder() {
+		return oAuth2CredentialsFolder;
 	}
 
 	@Valid

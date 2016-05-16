@@ -34,6 +34,7 @@ import predictions.auth.CommunityFilter;
 import predictions.auth.PredictorAuthorizer;
 import predictions.auth.PredictorBasicAuthenticator;
 import predictions.auth.PredictorOAuthAuthenticator;
+import predictions.gmail.GmailService;
 import predictions.model.ActualResultDAO;
 import predictions.model.MatchPredictionDAO;
 import predictions.model.User;
@@ -87,7 +88,9 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		
 		DefaultHttpClient client = new DefaultHttpClient();
 		
-		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, client, configuration));
+		GmailService gmail = new GmailService(getName(), configuration);
+		
+		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, client, configuration, gmail));
 		environment.jersey().register(new UserListResource(userDAO, matchPredictionDAO));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new RankingsResource(userDAO));
