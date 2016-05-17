@@ -10,9 +10,9 @@ var euro2016Predictions = angular.module('sports-predictions', ['ng-backstretch'
 				var port = $location.protocol() == 'https' ? '443' : '80';
 				if ($location.host() == 'localhost') {
 					// hack for local development without backend
-					//return 'https://test.pronostics2016.com/api/';
+					return 'https://test.pronostics2016.com/api/';
 					// hack for development with local backend
-					return 'http://localhost:8080/api/';
+					//return 'http://localhost:8080/api/';
 				} else {
 					return $location.protocol() + '://' + $location.host() + ':' + port + '/api/';
 				}
@@ -30,6 +30,7 @@ euro2016Predictions.controller('PronosticController', PronosticController);
 euro2016Predictions.controller('ForgetController', ForgetController);
 euro2016Predictions.controller('ResetPasswordController', ResetPasswordController);
 euro2016Predictions.controller('HomeController', HomeController);
+euro2016Predictions.controller('PronosticFinalController', PronosticFinalController);
 
 /* Définition des factory */
 euro2016Predictions.factory('UserService', UserService);
@@ -51,6 +52,11 @@ var config = function ($routeProvider, $locationProvider, $httpProvider) {
 			controller: 'PronosticController',
 			authorized: true,
 			templateUrl: '/views/pronostic.html'
+		})
+		.when('/pronosticFinal', {
+			controller: 'PronosticFinalController',
+			authorized: true,
+			templateUrl: '/views/pronosticFinal.html'
 		})
 		.when('/login', {
 			controller: 'LoginController',
@@ -102,3 +108,4 @@ euro2016Predictions.directive('showWhenConnected', showWhenConnected);
 euro2016Predictions.directive('hideWhenConnected', hideWhenConnected);
 euro2016Predictions.directive('pronostic', pronostic);
 euro2016Predictions.directive('compileHtml', compileHtml);
+euro2016Predictions.directive('pronosticFinal', pronosticFinal);
