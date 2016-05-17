@@ -63,28 +63,16 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 				 			 		
 	$scope.loginChanged = function(){
 		   
-		if($scope.newuser.Login != undefined && $scope.newuser.Login != ''){
-			var regEmail = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
-			if(regEmail.test($scope.newuser.Login))
-			{
-				var res = UserService.loginAvailable($scope.newuser.Login);
-				 res.then(function (result) {
-					$scope.newuser.login_available = result.Result;
-				});
+		$scope.returnRequest = '';
+		$scope.newuser.login_available = true;
+		var res = UserService.loginAvailable($scope.newuser.Login);
+		res.then(function (result) {
+			if (!result.Result) {
+				$scope.returnRequest = 'Cette adresse mail est déjà utilisée !';
+				$scope.newuser.login_available = false;	
 			}
-			else{
-				$scope.newuser.login_available = false;
-				$scope.returnRequest = 'Le login doit être une adresse mail valide !';
-				return ;
-			}
-		}
-		else
-			$scope.newuser.login_available = true;
-		
-		if($scope.newuser.login_available)
-			$scope.returnRequest = '';
-		else
-			$scope.returnRequest = 'Cette adresse mail est déjà utilisée !';
+		});
+
 	}
 				
     $scope.save = function() {

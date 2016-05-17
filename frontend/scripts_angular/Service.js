@@ -88,7 +88,6 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 		},
 		loginAvailable: function(login){	
 			var deferredObject = $q.defer();
-			var result = true;
 			var config = {
 				headers : { 'Accept' : 'application/json'}
 			};
