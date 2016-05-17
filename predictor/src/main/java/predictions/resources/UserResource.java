@@ -23,6 +23,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -125,7 +126,9 @@ public class UserResource {
 		postParams.add( new BasicNameValuePair("remoteip", httpRequest.getRemoteAddr()) );
 		post.setEntity( new UrlEncodedFormEntity(postParams));
 
-		String string = EntityUtils.toString( client.execute( post ).getEntity() );
+		String string = null;
+		HttpResponse clientResponse = client.execute( post );
+		string = EntityUtils.toString( clientResponse.getEntity() );
 		
 		ObjectMapper mapper = new ObjectMapper();
 		GoogleReCaptchaResponse response = mapper.readValue( string, GoogleReCaptchaResponse.class );

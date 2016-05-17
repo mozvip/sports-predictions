@@ -14,3 +14,5 @@ predictor/target/
 predictor/predictor.trace.db
 frontend/node_modules/
 frontend/bower_components/
+db/predictor.trace.db
+db/predictor.mv.db
