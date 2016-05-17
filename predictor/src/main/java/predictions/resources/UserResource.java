@@ -104,6 +104,8 @@ public class UserResource {
 		
 		String community = (String) httpRequest.getAttribute("community");
 		
+		password = password.trim();
+		
 		User user = userDAO.findExistingUser(community, email );
 		if (user == null) {
 			userDAO.insert(email, name, community, password );
@@ -276,6 +278,7 @@ public class UserResource {
 
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.toLowerCase().trim();
+		password = password.trim();
 		
 		MatchPredictions predictions = null;
 		User user = userDAO.authentify(community, email, password);
