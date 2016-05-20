@@ -436,32 +436,6 @@ var ResetPasswordController = function($scope, $location, $routeParams, UserServ
 }
 ResetPasswordController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];
 
-/**
-* Angular Controller -> HomeController  
-* First controller
-* logOut() * Log out user connected
-**/
-var HomeController = function($scope, $location, UserService, Notification){
-
-	$scope.logOut = function()	{
-		UserService.logout();
-		$location.path('/');
-		Notification.info({message: 'Vous êtes maintenant déconnecté!', title: 'Déconnexion'});
-	}
-	
-	$scope.images = [
-    	'images/background-1.jpg',
-    	'images/background-2.jpg',
-    	'images/background-3.jpg',
-		'images/background-4.jpg',
-		'images/background-5.jpg',
-		'images/background-6.jpg',
-		'images/background-7.jpg'
-  	];
-}
-HomeController.$inject = ['$scope', '$location', 'UserService', 'Notification'];
-
-
 var PronosticFinalController = function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq){
 
 	// JUST FOR TEST
