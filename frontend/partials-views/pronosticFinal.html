@@ -1,0 +1,29 @@
+<div class="well gameWell">
+	<span class="info-block">
+		Le {{match.dateTime}} à {{match.stadium}}
+	</span>
+	<div class="row">
+		<div class="col-xs-3 col-md-3">
+			<h3 class="teamName" style="float: right" ng-if="match.trueHomeTeam != undefined">{{match.trueHomeTeam}}</h3>
+			<h3 class="teamName" style="float: right" ng-if="match.trueHomeTeam == undefined">{{match.homeTeam}}</h3>
+		</div>
+		<div class="col-xs-2 col-md-2">
+			<span ng-class="classFlagTeam(match.trueHomeTeam)" style="float: right"></span>
+		</div>
+		<div class="col-xs-1 col-md-1">
+			<input class="scoreInput" ng-model="match.predictionHome_Score" ng-disabled="isPronosticable(match)" size="2" maxlength="2" />
+			<span ng-show="isPronosticable(match)" ng-class="realScore(match.predictionHome_Score, match.homeScore)">{{match.homeScore}}</span>
+		</div>
+		<div class="col-xs-1 col-md-1">
+			<span ng-show="isPronosticable(match)" ng-class="realScore(match.predictionAway_Score, match.awayScore)">{{match.awayScore}}</span>
+			<input class="scoreInput" ng-model="match.predictionAway_Score" ng-disabled="isPronosticable(match)" size="2" maxlength="2" />
+		</div>
+		<div class="col-xs-2 col-md-2">
+			<span ng-class="classFlagTeam(match.trueAwayTeam)"></span>
+		</div>
+		<div class="col-xs-3 col-md-3">
+			<h3 class="teamName" ng-if="match.trueAwayTeam != undefined">{{match.trueAwayTeam}}</h3>
+			<h3 class="teamName" ng-if="match.trueAwayTeam == undefined">{{match.awayTeam}}</h3>
+		</div>	
+	</div>
+</div>

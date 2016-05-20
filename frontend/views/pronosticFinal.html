@@ -1,0 +1,11 @@
+<div ng-init="init()">
+	<uib-tabset id="tab-groups" vertical="false" type="pills">
+		<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+			<div compile-html="tab.content"></div>
+		</uib-tab>
+	</uib-tabset>
+	<div class="row">
+		<p class="text-center"><button class="btn btn-success btn-lg" ng-click="submitPronostic()">Sauvegarder mes pronostics</button></p>
+		
+	</div>
+</div>

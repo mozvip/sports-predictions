@@ -54,11 +54,7 @@ var pronostic = function(){
 			match: "="
 		},
 		controller: function($scope, $location) {
-			
-			$scope.linkMatch = function(match){
-				$location.path('detail/'+match.matchNum);
-			}
-						
+									
 			$scope.isPronosticable = function(match){
 				return (match.dateTime <= new Date() && !match.done);
 			}
@@ -142,3 +138,80 @@ var compileHtml = function($sce, $parse, $compile) {
     };
  }
 compileHtml.$inject = ['$sce', '$parse', '$compile'];
+
+
+/**
+* Angular Directive -> pronosticFinal
+* Element Directive for display a final match
+**/
+var pronosticFinal = function(){
+	return {
+		restrict: 'E',
+		templateUrl: '/partials-views/pronosticFinal.html',
+		scope: {
+			match: "="
+		},
+		controller: function($scope, $location) {
+									
+			$scope.isPronosticable = function(match){
+				return (match.dateTime <= new Date() && !match.done);
+			}
+			
+			$scope.realScore = function(predictionScore, realScore){
+				return predictionScore == realScore ? "realScoreGood" : "realScoreBad";
+			}
+			
+			$scope.$watch('match.predictionHome_Score', function( newValue, oldValue ){
+				if(newValue != undefined)
+				{
+				   if(newValue == "")
+						$scope.match.predictionHome_Score = 0;
+				   else
+						$scope.match.predictionHome_Score = parseInt(newValue);
+					$scope.$parent.watchMatch($scope.match);
+				}
+			  }, true);
+			  
+			$scope.$watch('match.predictionAway_Score', function( newValue, oldValue ){
+				if(newValue != undefined)
+				{
+				   if(newValue == "")
+					   $scope.match.predictionAway_Score = 0;
+				   else
+					   $scope.match.predictionAway_Score = parseInt(newValue);
+					$scope.$parent.watchMatch($scope.match);
+				}
+			  }, true);
+			
+			$scope.classFlagTeam = function(nameTeam) {
+				var linking = {
+					"France" : "FRA",
+					"Allemagne" : "GER",
+					"Albanie" : "ALB",
+					"Autriche" : "AUT",
+					"Belgique" : "BEL", 
+					"Roumanie" : "ROU",
+					"Suisse" : "SUI", 
+					"Angleterre" : "ENG", 
+					"Russie" : "RUS", 
+					"Slovaquie" : "SVK",
+					"Galles" : "WAL",
+					"Irlande Du Nord" : "NIR", 
+					"Pologne" : "POL", 
+					"Ukraine" : "UKR",
+					"Croatie" :  "CRO",
+					"Rep. Tcheque"  : "CZE",
+					"Espagne" : "ESP",
+					"Turquie" : "TUR",
+					"Italie" : "ITA", 
+					"Irlande" : "IRL", 
+					"Suede" : "SWE", 
+					"Hongrie" : "HUN", 
+					"Islande" : "ISL",
+					"Portugal" : "POR"
+				}
+				return nameTeam != undefined ? "flag-"+linking[nameTeam] : "flag-";
+			};
+        }
+    };
+}
