@@ -106,16 +106,16 @@ SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Us
 var PronosticController = function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq){
 
 	$scope.games = [];
-	
-	$scope.tabs = [{ title:'Groupe A', content:'<div role="tabpanel" class="tab-pane active" id="group-a"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe B', content:'<div role="tabpanel" class="tab-pane active" id="group-b"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe C', content:'<div role="tabpanel" class="tab-pane active" id="group-c"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe D', content:'<div role="tabpanel" class="tab-pane active" id="group-d"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe D\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe E', content:'<div role="tabpanel" class="tab-pane active" id="group-e"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe E\'" match="match"></pronostic></div>	</div>' },
-		{ title:'Groupe F', content:'<div role="tabpanel" class="tab-pane active" id="group-f"><div class="group-container"><pronostic ng-repeat="match in games | filter:\'Groupe F\'" match="match"></pronostic></div>	</div>' }];
-
+		
+	$scope.tabs = [{ title:'Groupe A', content:'<div class="item active"><h3 class="group-name">Groupe A</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>'},
+		{ title:'Groupe B', content:'<div class="item"><h3 class="group-name">Groupe B</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>'},
+		{ title:'Groupe C', content:'<div class="item"><h3 class="group-name">Groupe C</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>'},
+		{ title:'Groupe D', content:'<div class="item"><h3 class="group-name">Groupe D</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe D\'" match="match"></pronostic></div>'},
+		{ title:'Groupe E', content:'<div class="item"><h3 class="group-name">Groupe E</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe E\'" match="match"></pronostic></div>'},
+		{ title:'Groupe F', content:'<div class="item"><h3 class="group-name">Groupe F</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe F\'" match="match"></pronostic></div>'}];
 
 	$scope.init = function(){
+		
 		var error = false;
 		$scope.games = [];
 		var res = GamesService.getGroupGames();
@@ -483,12 +483,11 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 	{"matchNum":50,"dateTime":"2016-07-10T21:00","done":false,"group":"Finale","stadium":"Saint-Denis","homeTeam":"","awayTeam":"","homeScore":0,"awayScore":0}
 	];
 	
-	$scope.tabs = [{ title:'8èmes de finale', content:'<div role="tabpanel" class="tab-pane active" id="group-a"><div class="group-container"><pronostic-final ng-repeat="match in games | filter:{group:\'8èmes de finale\'}:true" match="match"></pronostic-final></div>	</div>' },
-		{ title:'Quarts de finale', content:'<div role="tabpanel" class="tab-pane active" id="group-b"><div class="group-container"><pronostic-final ng-repeat="match in games | filter:{group:\'Quarts de finale\'}:true" match="match"></pronostic-final></div>	</div>' },
-		{ title:'Demi-finales', content:'<div role="tabpanel" class="tab-pane active" id="group-e"><div class="group-container"><pronostic-final ng-repeat="match in games | filter:{group:\'Demi-finales\'}:true" match="match"></pronostic-final></div>	</div>' },
-		{ title:'Finale', content:'<div role="tabpanel" class="tab-pane active" id="group-f"><div class="group-container"><pronostic-final ng-repeat="match in games | filter:{group:\'Finale\'}:true" match="match"></pronostic-final></div>	</div>' }];
-
-
+	$scope.tabs = [
+		{ title:'8èmes de finale', content:'<div class="item active"><h3 class="group-name">8èmes de finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'8èmes de finale\'}:true" match="match"></pronostic-final></div>'},
+		{ title:'Quarts de finale', content:'<div class="item"><h3 class="group-name">Quarts de finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Quarts de finale\'}:true" match="match"></pronostic-final></div>'},
+		{ title:'Demi-finales', content:'<div class="item"><h3 class="group-name">Demi-finales</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Demi-finales\'}:true" match="match"></pronostic-final></div>'},
+		{ title:'Finale', content:'<div class="item"><h3 class="group-name">Finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Finale\'}:true" match="match"></pronostic-final></div>'}];
 		
 	$scope.init = function(){}	
 	$scope.submitPronostic = function(){} 
@@ -513,6 +512,7 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 				else
 					matchQuart.trueAwayTeam = winnerTeam;
 			}
+			// TODO : Faire la récursivité pour  les quarts
 		}
 		else if(match.group == 'Quarts de finale')
 		{
@@ -546,7 +546,9 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 						matchDemie.trueAwayTeam = winnerTeam;
 				}
 			}
+			// TODO : Faire la récursivité pour  les demies
 		}
+		// TODO : Faire demies-finale + Récursivités finale
 	}
 	
 	

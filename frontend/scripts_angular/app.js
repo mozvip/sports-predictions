@@ -53,7 +53,7 @@ var config = function ($routeProvider, $locationProvider, $httpProvider) {
 			authorized: true,
 			templateUrl: '/views/pronostic.html'
 		})
-		.when('/pronosticFinal', {
+		.when('/pronostic-final', {
 			controller: 'PronosticFinalController',
 			authorized: true,
 			templateUrl: '/views/pronosticFinal.html'
