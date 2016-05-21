@@ -1,30 +1,4 @@
 /**
-* Angular Controller -> LoginController  
-* Login user in euro2016 Predictor
-* login() * Try to log in user input
-**/
-var LoginController = function($scope, $route, $routeParams, $location, UserService) {
-    
-	$scope.User = {
-        Login: '',
-        Password: ''
-    };
-			
-    $scope.login = function() {
-		var res = UserService.login($scope.User.Login, $scope.User.Password);
-		
-		 res.then(function (result) {
-            if (result.User != null  && result.User.status != 200) {
-				$scope.returnRequest = result.User.message;
-            }
-			else
-				$location.path('pronostic');
-        });
-    }   
-}
-LoginController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService'];
-
-/**
 * Angular Controller -> SignupController  
 * Sign up new user in euro2016 Predictor
 * save() * Try to create a new user
@@ -435,32 +409,6 @@ var ResetPasswordController = function($scope, $location, $routeParams, UserServ
 
 }
 ResetPasswordController.$inject = ['$scope', '$location', '$routeParams', 'UserService', 'Notification'];
-
-/**
-* Angular Controller -> HomeController  
-* First controller
-* logOut() * Log out user connected
-**/
-var HomeController = function($scope, $location, UserService, Notification){
-
-	$scope.logOut = function()	{
-		UserService.logout();
-		$location.path('/');
-		Notification.info({message: 'Vous êtes maintenant déconnecté!', title: 'Déconnexion'});
-	}
-	
-	$scope.images = [
-    	'images/background-1.jpg',
-    	'images/background-2.jpg',
-    	'images/background-3.jpg',
-		'images/background-4.jpg',
-		'images/background-5.jpg',
-		'images/background-6.jpg',
-		'images/background-7.jpg'
-  	];
-}
-HomeController.$inject = ['$scope', '$location', 'UserService', 'Notification'];
-
 
 var PronosticFinalController = function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq){
 

@@ -21,7 +21,8 @@
 	<script src="bower_components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
 	<script src="bower_components/ng-backstretch/dist/ng-backstretch.min.js"></script>
 	<script src="bower_components/v-tabs/dist/v-tabs.min.js"></script>
-	
+	<script src="bower_components/angular-ui-grid/ui-grid.min.js"></script>
+
 	<!-- FOR TEST -->
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 
@@ -31,7 +32,11 @@
 	<script src="scripts_angular/Interceptor.js"></script>
 	<script src="scripts_angular/Directive.js"></script>
 	<script src="scripts_angular/app.js"></script>
+	<script src="scripts_angular/LoginController.js"></script>
+	<script src="scripts_angular/HomeController.js"></script>
 	<script src="scripts_angular/UserProfileController.js"></script>
+	<script src="scripts_angular/AdminController.js"></script>
+	<script src="scripts_angular/AdminService.js"></script>
 
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />	
@@ -48,6 +53,7 @@
 	<link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.min.css" />
 	<link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" />
 	<link rel="stylesheet" href="bower_components/v-tabs/dist/v-tabs.min.css"/>
+	<link rel="styleSheet" href="bower_components/angular-ui-grid/ui-grid.min.css"/>
 
 	<title>Pronostics Euro 2016</title>
 </head>
@@ -69,11 +75,22 @@
 
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						  <ul class="nav navbar-nav navbar-right">
-							<li show-when-connected><a href="#pronostic">Accueil <span class="glyphicon glyphicon-home"> </span></a></li>
-							<li show-when-connected>
-								<a href="" ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off"> </span></a>
-							</li>
+							<ul class="nav navbar-nav navbar-right">
+								<!--Profil / Log Out-->
+								<li show-when-connected>
+									<a href="#pronostic">Accueil <span class="glyphicon glyphicon-home"> </span></a>
+								</li>
+								<li ng-show="isConnected() && isAdmin()">
+									<a href="#admin">Administration <span class="glyphicon glyphicon-cog"> </span></a>
+								</li>
+								<!--
+								<li show-when-connected>
+									<a href="#user-profile">Profil <span class="glyphicon glyphicon-user"> </span></a>
+								</li>
+								-->
+								<li show-when-connected>
+									<a href="" ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off"> </span></a>
+								</li>
 						  </ul>
 						</div><!-- /.navbar-collapse -->
 					</div><!-- /.container-fluid -->

@@ -29,13 +29,21 @@ public class User implements Principal {
 	@Min(value = 0)
 	private int currentScore = 0;
 	
-	private boolean admin;
+	@Min(value = 1)
+	private int currentRanking = 1;
+	
+	@Min(value = 1)
+	private int previousRanking = 1;
+	
+	private boolean admin = false;
+	
+	private boolean active = true;
 	
 	public User() {
 	}
 
 	public User(String community, String name, String email, String password, String changePasswordToken,
-			Date lastLoginDate, int currentScore, boolean admin) {
+			Date lastLoginDate, int currentScore, int currentRanking, int previousRanking, boolean admin, boolean active) {
 		super();
 		this.community = community;
 		this.name = name;
@@ -45,6 +53,7 @@ public class User implements Principal {
 		this.lastLoginDate = lastLoginDate;
 		this.currentScore = currentScore;
 		this.admin = admin;
+		this.active = active;
 	}
 
 	@JsonProperty
@@ -77,6 +86,11 @@ public class User implements Principal {
 		return lastLoginDate;
 	}
 	
+	@JsonProperty
+	public boolean isActive() {
+		return active;
+	}
+
 	public String getChangePasswordToken() {
 		return changePasswordToken;
 	}
