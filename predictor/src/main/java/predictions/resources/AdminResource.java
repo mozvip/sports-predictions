@@ -2,6 +2,7 @@ package predictions.resources;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,6 +27,7 @@ public class AdminResource {
 
 	@GET
 	@Path("/users")
+	@RolesAllowed("ADMIN")
 	public List<User> getUsers() {
 		String community = (String) httpRequest.getAttribute("community");
 		return userDAO.findAll( community );
