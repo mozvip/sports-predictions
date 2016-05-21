@@ -1,12 +1,5 @@
 <!-- <div class="container">
 	
-		<div class="jumbotron">
-			<img src="images/logo.png" />
-			<h1>Pronostics Euro 2016</h1>
-			<p class="lead">Bienvenue sur notre application de pronostics pour l'Euro 2016. Connectez vous à l'aide du formulaire ci-dessous.</p>
-			<p><a href="#sign-up" class="btn btn-lg btn-success">Pas de compte ? Créer un nouveau compte</a></p>			
-		</div>
-		
 	<div ng-controller="LoginController">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -37,10 +30,16 @@
 		</div>
 	</div>
 </div> -->
+<div class="jumbotron">
+	<p class="lead">Bienvenue sur notre application de pronostics pour l'Euro 2016. Connectez vous à votre compte à l'aide du formulaire ci-dessous</p>
+	<p><a href="#sign-up" class="btn btn-lg btn-success">Pas encore de compte ? Créez en un nouveau !</a></p>			
+</div>
+
 <div class="col-xs-12 col-md-6 col-md-offset-3" data-wow-delay="0.2s">
+
 	<div class="box">
 		<h3>Connexion</h3>
-		
+
 		<form name="myForm" role="form" class="form" ng-submit="login()">
 			<div class="form-group has-feedback">
 				<input name="username" placeholder="Email" class="form-control" type="email" id="UserUsername" required="required" ng-model="User.Login">
@@ -59,14 +58,7 @@
 				<div class="col-md-8" style="color: red">{{returnRequest}}</div>
 			</div>
 					
-			<div class="row">
-				<div class="col-xs-12 col-md-6">
-					<a class="btn btn-block btn-default" href="#sign-up" role="button">Inscription</a>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<button class="btn btn-block btn-primary" type="submit">Se Connecter</button>
-				</div>
-			</div>
+			<button class="btn btn-block btn-primary" type="submit">Se Connecter</button>
 		</form>
 	</div>
 </div>
