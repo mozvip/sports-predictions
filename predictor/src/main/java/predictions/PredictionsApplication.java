@@ -43,6 +43,7 @@ import predictions.model.MatchPredictionDAO;
 import predictions.model.User;
 import predictions.model.UserDAO;
 import predictions.phases.PhaseFilter;
+import predictions.resources.AdminResource;
 import predictions.resources.ChangePasswordResource;
 import predictions.resources.RankingsResource;
 import predictions.resources.ScoreResource;
@@ -100,6 +101,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().register(new UserListResource(userDAO, matchPredictionDAO));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new RankingsResource(userDAO));
+		environment.jersey().register(new AdminResource(userDAO));
 		environment.jersey().register(new ScoreResource(actualResultDAO, matchPredictionDAO, userDAO));
 		
 		Dynamic corsFilter = environment.servlets().addFilter("CrossOriginFilter", CrossOriginFilter.class);

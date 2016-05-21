@@ -126,4 +126,10 @@
     	<modifyDataType tableName="MATCH_PREDICTION" columnName="HOME_TEAM_ID" newDataType="VARCHAR(50)"/>
     	<modifyDataType tableName="MATCH_PREDICTION" columnName="AWAY_TEAM_ID" newDataType="VARCHAR(50)"/>
     </changeSet>
+    <changeSet id="15" author="Guillaume Serre">
+    	<addColumn catalogName="PREDICTOR" tableName="USER">
+    		<column name="ACTIVE" type="BOOLEAN" />
+    	</addColumn>
+    	<update tableName="USER"><column name="ACTIVE" value="true"></column></update>
+    </changeSet>
 </databaseChangeLog>

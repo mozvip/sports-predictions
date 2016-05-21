@@ -87,7 +87,7 @@ public class ScoreResource {
 		
 		Map<String, Integer> scores = new HashMap<String, Integer>();
 		
-		List<User> allUsers = userDAO.findUsers();
+		List<User> allUsers = userDAO.findAllActive();
 		for (User user : allUsers) {
 			scores.put( String.format("%s:%s", user.getCommunity(), user.getEmail().toLowerCase()), 0 );
 		}

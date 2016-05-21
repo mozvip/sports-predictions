@@ -105,6 +105,7 @@ public class UserResource {
 		String community = (String) httpRequest.getAttribute("community");
 		
 		password = password.trim();
+		email = email.trim().toLowerCase();
 		
 		User user = userDAO.findExistingUser(community, email );
 		if (user == null) {
@@ -206,6 +207,7 @@ public class UserResource {
 		predictions.setCommunity( user.getCommunity() );
 		predictions.setEmail( user.getEmail() );
 		predictions.setName( user.getName() );
+		predictions.setAdmin( user.isAdmin() );
 		predictions.setMatch_predictions_attributes( matchPredictions );
 		return predictions;
 		

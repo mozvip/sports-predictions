@@ -12,11 +12,24 @@
 * forgetPassword() ->  User forgot password
 * changePassword() -> Can change password for current user
 **/
-var UserService = function($rootScope, $http, $q, $cookies, BackendService){
+var UserService = function($rootScope, $http, $q, $cookies, BackendService, Notification){
 	
-	var currentUser;
+	var connectedUser;
 	
 	return {
+		
+		init : function() {
+			if (connectedUser == undefined && this.isConnected()) {
+				$http.get(BackendService.getBackEndURL() + "user/predictions", { headers : {'Authorization' : 'Basic ' + this.getToken()} }).then(
+					function( response ) {
+						connectedUser = response.data;
+					}, function( response ) {
+						Notification.error('Error');
+					}
+				)
+			}
+		},
+		
 		isConnected: function(){
 			return this.getToken() != null;
 		},
@@ -27,7 +40,7 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 			return $cookies.get('SESSION_CURRENT_LOGIN');
 		},
 		currentUser: function() {
-			return currentUser;
+			return connectedUser;
 		},
 		login: function(login, password){
 			var deferredObject = $q.defer();
@@ -139,7 +152,7 @@ var UserService = function($rootScope, $http, $q, $cookies, BackendService){
 		}
 	};
 }
-UserService.$inject = ['$rootScope', '$http', '$q', '$cookies', 'BackendService'];
+UserService.$inject = ['$rootScope', '$http', '$q', '$cookies', 'BackendService', 'Notification'];
 
 /**
 * Angular Service -> PredictionService

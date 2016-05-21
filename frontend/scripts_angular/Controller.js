@@ -1,30 +1,4 @@
 /**
-* Angular Controller -> LoginController  
-* Login user in euro2016 Predictor
-* login() * Try to log in user input
-**/
-var LoginController = function($scope, $route, $routeParams, $location, UserService) {
-    
-	$scope.User = {
-        Login: '',
-        Password: ''
-    };
-			
-    $scope.login = function() {
-		var res = UserService.login($scope.User.Login, $scope.User.Password);
-		
-		 res.then(function (result) {
-            if (result.User != null  && result.User.status != 200) {
-				$scope.returnRequest = result.User.message;
-            }
-			else
-				$location.path('pronostic');
-        });
-    }   
-}
-LoginController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService'];
-
-/**
 * Angular Controller -> SignupController  
 * Sign up new user in euro2016 Predictor
 * save() * Try to create a new user

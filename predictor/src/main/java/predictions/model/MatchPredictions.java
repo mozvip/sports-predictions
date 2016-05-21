@@ -16,6 +16,9 @@ public class MatchPredictions {
 	private String name;
 
 	@JsonProperty
+	private boolean admin;
+
+	@JsonProperty
 	private String authToken;
 
 	@JsonProperty
@@ -43,6 +46,14 @@ public class MatchPredictions {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	public String getCommunity() {
