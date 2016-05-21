@@ -56,6 +56,12 @@ h1#main-title::first-letter {
 	padding: 20px 20px;
 }
 
+ul[rn-carousel] {
+	/*width: 500px;*/
+	height: 800px;
+	margin: 0 auto;
+}
+
 #logo-row{
 	padding-top: 15px;
 	margin-bottom:0px;

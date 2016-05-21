@@ -106,7 +106,7 @@ SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Us
 var PronosticController = function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq){
 
 	$scope.games = [];
-		
+
 	$scope.tabs = [{ title:'Groupe A', content:'<div class="item active"><h3 class="group-name">Groupe A</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>'},
 		{ title:'Groupe B', content:'<div class="item"><h3 class="group-name">Groupe B</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>'},
 		{ title:'Groupe C', content:'<div class="item"><h3 class="group-name">Groupe C</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>'},

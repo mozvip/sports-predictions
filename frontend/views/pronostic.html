@@ -1,34 +1,12 @@
-<div ng-init="init()">
-	<!--
-	<ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#pronostic" role="tab" data-toggle="tab">Soumettre vos pronostics</a></li>
-		<li role="presentation"><a href="#ranks" role="tab" data-toggle="tab">Classement</a></li>
-		<li role="presentation"><a href="#statComm" role="tab" data-toggle="tab">Statistiques de la communauté</a></li>
-		<li role="presentation"><a href="#your-stats" role="tab" data-toggle="tab">Vos statistiques </a></li>
-	</ul>
-</div>
-<div class="tab-content">
-	<div role="tabpanel" class="tab-pane active" id="group-tabs">
-		 <uib-tabset vertical="false" type="pills">
-			<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
-			  <div compile-html="tab.content"></div>
-			</uib-tab>
-		  </uib-tabset>
-	</div>
--->				
+<div ng-init="init()">			
 	<div class="col-md-12" data-wow-delay="0.2s">
-		<div class="box">
-			<div class="carousel slide" data-interval="false" id="quote-carousel">
-				<!-- Carousel Slides / Quotes -->
-				<div class="carousel-inner text-center">
-					<div ng-repeat="tab in tabs">
-						<div compile-html="tab.content"></div>
-					</div>
-				</div>
-				<!-- Carousel Buttons Next/Prev -->
-				<a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
-				<a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
-			</div>
+		<div class="box">		
+			 <section class="u-paddingBl">
+				<v-tabs class="vTabs--default" id="tebs" horizontal control="currentTab" active="currentTab.active">
+					<v-tab ng-repeat="tab in tabs" ng-bind="tab.title"></v-tab>
+				</v-tabs>
+				<div class="u-marginVm" compile-html="tabs[currentTab.active].content"></div>
+			</section>
 		</div>
 	</div>
 	<br/>

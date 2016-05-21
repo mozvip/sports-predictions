@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
 	<div ng-controller="SignupController">
 
 		<div class="panel panel-default">
@@ -35,4 +35,41 @@
 				</div>
 			</div>
 		</div>
-</div></div>
+</div></div> -->
+
+<div class="col-xs-12 col-md-6 col-md-offset-3" data-wow-delay="0.2s">
+	<div class="box">
+		<h3>Inscription</h3>
+		
+		<form name="myForm" role="form" class="form" ng-submit="save()">
+			<div class="form-group has-feedback">
+				<input name="username" placeholder="Email" class="form-control" type="email" id="UserUsername" required="required" ng-model="newuser.Login" ng-blur="loginChanged()">
+				<span class="form-control-feedback" aria-hidden="true">@</span>
+				<span id="helpBlock" class="help-block">{{returnRequest}}</span>
+			</div>
+			
+			<div class="form-group has-feedback">
+				<input name="nom" placeholder="Nom" ng-required="true" class="form-control" type="text" id="Name" ng-model="newuser.Name" />
+				<span class="glyphicon glyphicon-cog form-control-feedback" aria-hidden="true"></span>
+			</div>
+			
+			<div class="form-group has-feedback">
+				<input name="password" placeholder="Mot de passe" ng-required="true" class="form-control" type="password" required="required" ng-model="newuser.Password" />
+				<span class="glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
+			</div>
+			
+			<div class="form-group has-feedback">
+				<div vc-recaptcha key="model.key" on-create="setWidgetId(widgetId)" on-success="setResponse(response)" on-expire="cbExpiration()"></div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-md-6">
+					<button class="btn btn-block btn-primary" type="submit">Inscription</button>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<a class="btn btn-block btn-default" href="#login" role="button">Se Connecter</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
