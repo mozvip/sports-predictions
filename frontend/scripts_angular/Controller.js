@@ -441,10 +441,9 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 	$scope.submitPronostic = function(){} 
 
 			
-	$scope.watchMatch= function(match){
+	$scope.watchMatch = function(match){
 		// TODO : implémenter avec le bool homeWinner
-		if(match.group === '8èmes de finale')
-		{
+		if(match.group === '8èmes de finale'){
 			var matchQuart = $linq.Enumerable()
 									.From($scope.games)
 									.Where(function(m){
@@ -460,12 +459,11 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 				else
 					matchQuart.trueAwayTeam = winnerTeam;
 			}
-			// TODO : Faire la récursivité pour  les quarts
+			$scope.watchMatch(matchQuart);
 		}
-		else if(match.group == 'Quarts de finale')
-		{
-			var indexDemie, matchDemie;
-			indexDemie = $linq.Enumerable()
+		else if(match.group == 'Quarts de finale'){
+			var indexQuart, matchDemie;
+			indexQuart = $linq.Enumerable()
 							.From($scope.games)
 							.Where(function(m){
 								return m.group == 'Quarts de finale';
@@ -477,26 +475,40 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 								return m.matchNum;
 							})
 							.IndexOf(match.matchNum) + 1;				
-			if(indexDemie != -1)
+			if(indexQuart != -1)
 			{
 				matchDemie = $linq.Enumerable()
 							.From($scope.games)
 							.Where(function(m){
-								return m.homeTeam === 'Vq'+indexDemie || 
-										m.awayTeam === 'Vq'+indexDemie;
+								return m.homeTeam === 'Vq'+indexQuart || 
+										m.awayTeam === 'Vq'+indexQuart;
 							}).First();			
 				var winnerTeam = $scope.winnerMatch(match);
 				if(winnerTeam != false)
 				{
-					if(matchDemie.homeTeam === 'Vq'+indexDemie)
+					if(matchDemie.homeTeam === 'Vq'+indexQuart)
 						matchDemie.trueHomeTeam = winnerTeam;
 					else
 						matchDemie.trueAwayTeam = winnerTeam;
 				}
 			}
-			// TODO : Faire la récursivité pour  les demies
+			$scope.watchMatch(matchDemie);
 		}
-		// TODO : Faire demies-finale + Récursivités finale
+		else if(match.group == 'Demi-finales'){
+				var  matchFinale = $linq.Enumerable()
+							.From($scope.games)
+							.Where(function(m){
+								return m.group === 'Finale';
+							}).First();			
+				var winnerTeam = $scope.winnerMatch(match);
+				if(winnerTeam != false && matchFinale != null)
+				{
+					if(match.homeTeam === 'Vq1')
+						matchFinale.trueHomeTeam = winnerTeam;
+					else
+						matchFinale.trueAwayTeam = winnerTeam;
+				}
+		}
 	}
 	
 	
