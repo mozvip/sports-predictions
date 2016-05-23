@@ -34,20 +34,6 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 		vcRecaptchaService.reload($scope.widgetId);
 		$scope.response = null;
     };
-				 			 		
-	$scope.loginChanged = function(){
-		   
-		$scope.returnRequest = '';
-		$scope.newuser.login_available = true;
-		var res = UserService.loginAvailable($scope.newuser.Login);
-		res.then(function (result) {
-			if (!result.Result) {
-				$scope.returnRequest = 'Cette adresse mail est déjà utilisée !';
-				$scope.newuser.login_available = false;	
-			}
-		});
-
-	}
 				
     $scope.save = function() {
 		if($scope.newuser.login_available)
