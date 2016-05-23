@@ -153,6 +153,11 @@ var pronosticFinal = function(){
 		},
 		controller: function($scope, $location) {
 									
+			$scope.matchNul = function(match){
+				return match.predictionHome_Score != undefined && match.predictionAway_Score != undefined &&
+				match.predictionHome_Score == match.predictionAway_Score;
+			}
+			
 			$scope.isPronosticable = function(match){
 				return (match.dateTime <= new Date() && !match.done);
 			}

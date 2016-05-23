@@ -1,22 +1,24 @@
-<div ng-controller="RanksController" ng-init="init()">
-	<ul class="nav nav-tabs" role="tablist">
+<div ng-init="init()">
+<!-- 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation"><a href="#pronostic" role="tab" data-toggle="tab">Soumettre vos pronostics</a></li>
 		<li role="presentation" class="active"><a href="#ranks" role="tab" data-toggle="tab">Classement</a></li>
 		<li role="presentation"><a href="#statComm" role="tab" data-toggle="tab">Statistiques de la communauté</a></li>
 		<li role="presentation"><a href="#your-stats" role="tab" data-toggle="tab">Vos statistiques </a></li>
-	</ul>
-	<div class="tab-content">
-		<h2>Classement de la communautée</h2><br/><br/>
-		<!-- <user-rank ng-repeat="user in Ranks" user="user"></user-rank> -->
-		<table ng-table="RanksParams" class="table" show-filter="true">
-			<tr ng-repeat="rank in $data" ng-class="classCurentUser(rank)">
-				<td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
-					{{rank.name}}</td>
-				<td title="'Email'" filter="{ email: 'text'}" sortable="'email'">
-					{{rank.email}}</td>
-				<td title="'Score'" filter="{ currentScore: 'number'}" sortable="'currentScore'">
-					{{rank.currentScore}}</td>
-			</tr>
-		</table>
+	</ul> -->
+	<div class="col-md-12" data-wow-delay="0.2s">
+		<div class="box">		
+			<h2>Classement de la communautée</h2><br/><br/>
+			<!-- <user-rank ng-repeat="user in Ranks" user="user"></user-rank> -->
+			<table ng-table="RanksParams" class="table" show-filter="true">
+				<tr ng-repeat="rank in $data" ng-class="classCurentUser(rank)">
+					<td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+						{{rank.name}}</td>
+					<td title="'Email'" filter="{ email: 'text'}" sortable="'email'">
+						{{rank.email}}</td>
+					<td title="'Score'" filter="{ currentScore: 'number'}" sortable="'currentScore'">
+						{{rank.currentScore}}</td>
+				</tr>
+			</table>
+		</div>
 	</div>
  </div>
