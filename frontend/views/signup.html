@@ -47,12 +47,12 @@
 				<span class="form-control-feedback" aria-hidden="true">@</span>
 				<p ng-show="signupForm.email.$error.required && !signupForm.email.$pristine" class="help-block">Une adresse mail est requise</p>
 				<!-- FIXME <p ng-show="signupForm.email.$pending.emailAvailable" class="help-block">Nous vérifions si cette adresse est disponible...</span> -->
-				<p ng-show="signupForm.email.$error.emailAvailable" class="help-block">Cet adresse mail est déjà utilisée!</span>				
+				<p ng-show="signupForm.email.$error.emailAvailable" class="help-block">Cet adresse mail est déjà utilisée!</p>
 			</div>
 			
 			<div class="form-group has-feedback">
 				<input name="name" placeholder="Nom" ng-required="true" class="form-control" type="text" ng-model="newuser.Name" />
-				<span class="glyphicon glyphicon-cog form-control-feedback" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></span>
 				<p ng-show="signupForm.name.$error.required && !signupForm.name.$pristine" class="help-block">Un nom est requis</p>
 			</div>
 			
