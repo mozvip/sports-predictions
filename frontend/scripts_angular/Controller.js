@@ -44,7 +44,6 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 			{
 				Notification.success({message: 'Merci de vous connecter à l\'application afin d\'accèder au concours de pronostique.', title: 'Enregistrement effectué'});
 				$location.path('/');
-				openModal();
 			}
 		});
     }

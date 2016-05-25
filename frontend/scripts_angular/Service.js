@@ -57,7 +57,7 @@ PredictionService.$inject = ['$rootScope', '$http', '$q', 'BackendService'];
 * Expose method to get ranks of user
 * getRanks() -> Return all ranks of community user
 **/
-var RankingService = function($rootScope, $http, $q, BackendService){
+var RankingService = function($rootScope, $http, $q, $linq, BackendService){
 	
 	return {
 		getRanks : function(){
@@ -71,8 +71,15 @@ var RankingService = function($rootScope, $http, $q, BackendService){
 			.get(BackendService.getBackEndURL() + 'user/rankings', config)
 			.then(function(data){
 				result.status = data.status;
-				if(data.status === 200)
-					result.RanksData = data.data.data;
+				if(data.status === 200){
+					var dataOrder = $linq.Enumerable()
+									.From(data.data.data)
+									.OrderByDescending(function(rank){
+										return rank.currentScore;
+									})
+									.ToArray();
+					result.RanksData = dataOrder;
+				}
 				else
 					result.message = 'Erreur dans la récupération des résultats !';
 				deferredObject.resolve({ Ranks: result });
@@ -84,7 +91,7 @@ var RankingService = function($rootScope, $http, $q, BackendService){
 		}
 	};
 }
-RankingService.$inject = ['$rootScope', '$http', '$q', 'BackendService'];
+RankingService.$inject = ['$rootScope', '$http', '$q', '$linq', 'BackendService'];
 
 /**
 * Angular Service -> GamesService
