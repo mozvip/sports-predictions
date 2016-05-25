@@ -18,8 +18,7 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 	$scope.newuser = {
         Login: '',
 		Name: '',
-        Password: '',
-		login_available: null
+        Password: ''
     };
 
     $scope.setResponse = function (response) {
@@ -36,23 +35,18 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
     };
 				
     $scope.save = function() {
-		if($scope.newuser.login_available)
-		{
-			var res = UserService.signup($scope.newuser.Login, $scope.newuser.Name, $scope.newuser.Password, $scope.response);
-			
-			 res.then(function (result) {
-				if (result.User != null  && result.User.status === 500) 
-					Notification.error({message: result.User.message, title: 'Erreur lors de l\'enregistrement'});
-				else if(result.User != null  && result.User.status === 204)
-				{
-					Notification.success({message: 'Merci de vous connecter à l\'application afin d\'accèder au concours de pronostique.', title: 'Enregistrement effectué'});
-					$location.path('/');
-					openModal();
-				}
-			});
-		}
-		else
-			alert('Cette adresse mail est incorrecte !');
+		var res = UserService.signup($scope.newuser.Login, $scope.newuser.Name, $scope.newuser.Password, $scope.response);
+		
+			res.then(function (result) {
+			if (result.User != null  && result.User.status === 500) 
+				Notification.error({message: result.User.message, title: 'Erreur lors de l\'enregistrement'});
+			else if(result.User != null  && result.User.status === 204)
+			{
+				Notification.success({message: 'Merci de vous connecter à l\'application afin d\'accèder au concours de pronostique.', title: 'Enregistrement effectué'});
+				$location.path('/');
+				openModal();
+			}
+		});
     }
 }
 SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', 'vcRecaptchaService', 'Notification'];
