@@ -166,6 +166,12 @@ var pronosticFinal = function(){
 				return predictionScore == realScore ? "realScoreGood" : "realScoreBad";
 			}
 			
+			$scope.$watch('match.home_winner', function( newValue, oldValue ){
+				if(newValue != undefined){
+					$scope.$parent.watchMatch($scope.match);
+				}
+			  }, true);
+			
 			$scope.$watch('match.predictionHome_Score', function( newValue, oldValue ){
 				if(newValue != undefined)
 				{

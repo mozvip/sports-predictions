@@ -394,21 +394,21 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 
 	// JUST FOR TEST
 	$scope.games = [
-	{"matchNum":36,"dateTime":"2016-06-25T15:00","done":false,"group":"8èmes de finale","stadium":"Saint-Etienne","homeTeam":"2eme A","trueHomeTeam":"Suisse","trueAwayTeam":"Pologne", "awayTeam":"2eme C","homeScore":0,"awayScore":0},
-	{"matchNum":37,"dateTime":"2016-06-25T18:00","done":false,"group":"8èmes de finale","stadium":"Paris","homeTeam":"1er B","trueHomeTeam":"Angleterre","trueAwayTeam":"Croatie","awayTeam":"3eme Acd","homeScore":0,"awayScore":0},
-	{"matchNum":38,"dateTime":"2016-06-25T21:00","done":false,"group":"8èmes de finale","stadium":"Lens","homeTeam":"1er D","trueHomeTeam":"Espagne","trueAwayTeam":"Hongrie","awayTeam":"3eme Bef","homeScore":0,"awayScore":0},
-	{"matchNum":39,"dateTime":"2016-06-26T15:00","done":false,"group":"8èmes de finale","stadium":"Lyon","homeTeam":"1er A","trueHomeTeam":"France","trueAwayTeam":"Suede","awayTeam":"3eme Cde","homeScore":0,"awayScore":0},
-	{"matchNum":40,"dateTime":"2016-06-26T18:00","done":false,"group":"8èmes de finale","stadium":"Lille","homeTeam":"1er C","trueHomeTeam":"Allemagne","trueAwayTeam":"Slovaquie","awayTeam":"3eme Abf","homeScore":0,"awayScore":0},
-	{"matchNum":41,"dateTime":"2016-06-26T21:00","done":false,"group":"8èmes de finale","stadium":"Toulouse","homeTeam":"1er F","trueHomeTeam":"Portugal","trueAwayTeam":"Italie","awayTeam":"2eme E","homeScore":0,"awayScore":0},
-	{"matchNum":42,"dateTime":"2016-06-27T18:00","done":false,"group":"8èmes de finale","stadium":"Saint-Denis","homeTeam":"1er E","trueHomeTeam":"Belgique","trueAwayTeam":"Rep. Tcheque","awayTeam":"2eme D","homeScore":0,"awayScore":0},
-	{"matchNum":43,"dateTime":"2016-06-27T21:00","done":false,"group":"8èmes de finale","stadium":"Nice","homeTeam":"2eme B","trueHomeTeam":"Russie","trueAwayTeam":"Autriche","awayTeam":"2eme F","homeScore":0,"awayScore":0},
-	{"matchNum":44,"dateTime":"2016-06-30T21:00","done":false,"group":"Quarts de finale","stadium":"Marseille","homeTeam":"2eme A Ou 2eme C","awayTeam":"1er D Ou 3eme Bef","homeScore":0,"awayScore":0},
-	{"matchNum":45,"dateTime":"2016-07-01T21:00","done":false,"group":"Quarts de finale","stadium":"Lille","homeTeam":"1er B Ou 3eme Acd","awayTeam":"1er F Ou 2eme E","homeScore":0,"awayScore":0},
-	{"matchNum":46,"dateTime":"2016-07-02T21:00","done":false,"group":"Quarts de finale","stadium":"Bordeaux","homeTeam":"1er C Ou 3eme Abf","awayTeam":"1er E Ou 2eme D","homeScore":0,"awayScore":0},
-	{"matchNum":47,"dateTime":"2016-07-03T21:00","done":false,"group":"Quarts de finale","stadium":"Saint-Denis","homeTeam":"1er A Ou 3eme Cde","awayTeam":"2eme B Ou 2eme F","homeScore":0,"awayScore":0},
-	{"matchNum":48,"dateTime":"2016-07-06T21:00","done":false,"group":"Demi-finales","stadium":"Lyon","homeTeam":"Vq1","awayTeam":"Vq2","homeScore":0,"awayScore":0},
-	{"matchNum":49,"dateTime":"2016-07-07T21:00","done":false,"group":"Demi-finales","stadium":"Marseille","homeTeam":"Vq3","awayTeam":"Vq4","homeScore":0,"awayScore":0},
-	{"matchNum":50,"dateTime":"2016-07-10T21:00","done":false,"group":"Finale","stadium":"Saint-Denis","homeTeam":"","awayTeam":"","homeScore":0,"awayScore":0}
+	{"matchNum":36,"dateTime":"2016-06-25T15:00","done":false,"home_winner": false, "group":"8èmes de finale","stadium":"Saint-Etienne","homeTeam":"2eme A","trueHomeTeam":"Suisse","trueAwayTeam":"Pologne", "awayTeam":"2eme C","homeScore":0,"awayScore":0},
+	{"matchNum":37,"dateTime":"2016-06-25T18:00","done":false,"home_winner": false, "group":"8èmes de finale","stadium":"Paris","homeTeam":"1er B","trueHomeTeam":"Angleterre","trueAwayTeam":"Croatie","awayTeam":"3eme Acd","homeScore":0,"awayScore":0},
+	{"matchNum":38,"dateTime":"2016-06-25T21:00","done":false,"home_winner": false, "group":"8èmes de finale","stadium":"Lens","homeTeam":"1er D","trueHomeTeam":"Espagne","trueAwayTeam":"Hongrie","awayTeam":"3eme Bef","homeScore":0,"awayScore":0},
+	{"matchNum":39,"dateTime":"2016-06-26T15:00","done":false,"home_winner": false, "group":"8èmes de finale","stadium":"Lyon","homeTeam":"1er A","trueHomeTeam":"France","trueAwayTeam":"Suede","awayTeam":"3eme Cde","homeScore":0,"awayScore":0},
+	{"matchNum":40,"dateTime":"2016-06-26T18:00","done":false,"home_winner": false, "group":"8èmes de finale","stadium":"Lille","homeTeam":"1er C","trueHomeTeam":"Allemagne","trueAwayTeam":"Slovaquie","awayTeam":"3eme Abf","homeScore":0,"awayScore":0},
+	{"matchNum":41,"dateTime":"2016-06-26T21:00","done":false,"home_winner": false, "group":"8èmes de finale","stadium":"Toulouse","homeTeam":"1er F","trueHomeTeam":"Portugal","trueAwayTeam":"Italie","awayTeam":"2eme E","homeScore":0,"awayScore":0},
+	{"matchNum":42,"dateTime":"2016-06-27T18:00","done":false,"home_winner": false, "group":"8èmes de finale","stadium":"Saint-Denis","homeTeam":"1er E","trueHomeTeam":"Belgique","trueAwayTeam":"Rep. Tcheque","awayTeam":"2eme D","homeScore":0,"awayScore":0},
+	{"matchNum":43,"dateTime":"2016-06-27T21:00","done":false,"home_winner": false, "group":"8èmes de finale","stadium":"Nice","homeTeam":"2eme B","trueHomeTeam":"Russie","trueAwayTeam":"Autriche","awayTeam":"2eme F","homeScore":0,"awayScore":0},
+	{"matchNum":44,"dateTime":"2016-06-30T21:00","done":false,"home_winner": false, "group":"Quarts de finale","stadium":"Marseille","homeTeam":"2eme A Ou 2eme C","awayTeam":"1er D Ou 3eme Bef","homeScore":0,"awayScore":0},
+	{"matchNum":45,"dateTime":"2016-07-01T21:00","done":false,"home_winner": false, "group":"Quarts de finale","stadium":"Lille","homeTeam":"1er B Ou 3eme Acd","awayTeam":"1er F Ou 2eme E","homeScore":0,"awayScore":0},
+	{"matchNum":46,"dateTime":"2016-07-02T21:00","done":false,"home_winner": false, "group":"Quarts de finale","stadium":"Bordeaux","homeTeam":"1er C Ou 3eme Abf","awayTeam":"1er E Ou 2eme D","homeScore":0,"awayScore":0},
+	{"matchNum":47,"dateTime":"2016-07-03T21:00","done":false,"home_winner": false, "group":"Quarts de finale","stadium":"Saint-Denis","homeTeam":"1er A Ou 3eme Cde","awayTeam":"2eme B Ou 2eme F","homeScore":0,"awayScore":0},
+	{"matchNum":48,"dateTime":"2016-07-06T21:00","done":false,"home_winner": false, "group":"Demi-finales","stadium":"Lyon","homeTeam":"Vq1","awayTeam":"Vq2","homeScore":0,"awayScore":0},
+	{"matchNum":49,"dateTime":"2016-07-07T21:00","done":false,"home_winner": false, "group":"Demi-finales","stadium":"Marseille","homeTeam":"Vq3","awayTeam":"Vq4","homeScore":0,"awayScore":0},
+	{"matchNum":50,"dateTime":"2016-07-10T21:00","done":false,"home_winner": false, "group":"Finale","stadium":"Saint-Denis","homeTeam":"","awayTeam":"","homeScore":0,"awayScore":0}
 	];
 	
 	$scope.tabs = [
@@ -493,9 +493,10 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 	
 	
 	$scope.winnerMatch = function(match){
-		// TODO : implémenter avec le bool homeWinner
-		if(match.predictionHome_Score != undefined && match.predictionAway_Score != undefined)
-			return match.predictionHome_Score > match.predictionAway_Score ? match.trueHomeTeam : match.trueAwayTeam;
+		if(match.predictionHome_Score != undefined && match.predictionAway_Score != undefined){
+			var win = (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && match.home_winner)) ? match.trueHomeTeam : match.trueAwayTeam;
+			return win;
+		}
 		else
 			return false;
 	}
