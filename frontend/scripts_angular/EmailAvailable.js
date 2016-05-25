@@ -21,7 +21,7 @@ angular.module('sports-predictions').directive('emailAvailable', function ($q, $
                     .get(BackendService.getBackEndURL() + 'user/availability?email='+modelValue,config)
                     .then(function(response){
                         if (response.data) {
-                            def.resolve;
+                            def.resolve();
                         } else {
                             def.reject();
                         }

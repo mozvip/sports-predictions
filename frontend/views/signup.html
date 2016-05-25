@@ -46,7 +46,7 @@
 				<input name="email" placeholder="Email" class="form-control" type="email" ng-required="true" ng-model="newuser.Login" email-available>
 				<span class="form-control-feedback" aria-hidden="true">@</span>
 				<p ng-show="signupForm.email.$error.required && !signupForm.email.$pristine" class="help-block">Une adresse mail est requise</p>
-				<!-- FIXME <p ng-show="signupForm.email.$pending.emailAvailable" class="help-block">Nous vérifions si cette adresse est disponible...</span> -->
+				<p ng-show="signupForm.email.$pending.emailAvailable" class="help-block">Nous vérifions si cette adresse est disponible...</p>
 				<p ng-show="signupForm.email.$error.emailAvailable" class="help-block">Cet adresse mail est déjà utilisée!</p>
 			</div>
 			
@@ -62,9 +62,7 @@
 				<p ng-show="signupForm.password.$error.required && !signupForm.password.$pristine" class="help-block">Un mot de passe est requis</p>
 			</div>
 			
-			<div class="form-group has-feedback">
-				<div vc-recaptcha key="model.key" on-create="setWidgetId(widgetId)" on-success="setResponse(response)" on-expire="cbExpiration()"></div>
-			</div>
+			<div vc-recaptcha ng-model="response" key="model.key"></div>
 
 			<div class="row">
 				<div class="col-xs-12 col-md-6">

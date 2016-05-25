@@ -5,11 +5,10 @@
 * loginChanged() * Use this method to control email availability
 * setResponse(), setWidgetId() et cbExpiration() * Recaptcha implementation
 **/
-var SignupController = function($scope, $route, $routeParams, $location, UserService, vcRecaptchaService, Notification) {
+var SignupController = function($scope, $route, $routeParams, $location, UserService, Notification) {
     
 	// Implementation recaptcha
 	$scope.response = null;
-    $scope.widgetId = null;
 
     $scope.model = {
         key: '6LdiSh8TAAAAADLasplj5tGB390M6qBzH24vmXED'
@@ -20,19 +19,6 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 		Name: '',
         Password: ''
     };
-
-    $scope.setResponse = function (response) {
-        $scope.response = response;
-    };
-
-    $scope.setWidgetId = function (widgetId) {
-        $scope.widgetId = widgetId;
-    };
-	
-	$scope.cbExpiration = function() {
-		vcRecaptchaService.reload($scope.widgetId);
-		$scope.response = null;
-    };
 				
     $scope.save = function() {
 		var res = UserService.signup($scope.newuser.Login, $scope.newuser.Name, $scope.newuser.Password, $scope.response);
@@ -42,13 +28,13 @@ var SignupController = function($scope, $route, $routeParams, $location, UserSer
 				Notification.error({message: result.User.message, title: 'Erreur lors de l\'enregistrement'});
 			else if(result.User != null  && result.User.status === 204)
 			{
-				Notification.success({message: 'Merci de vous connecter à l\'application afin d\'accèder au concours de pronostique.', title: 'Enregistrement effectué'});
+				Notification.success({message: 'Merci de vous connecter à l\'application afin d\'accèder au concours de pronostics.', title: 'Enregistrement effectué'});
 				$location.path('/');
 			}
 		});
     }
 }
-SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', 'vcRecaptchaService', 'Notification'];
+SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'UserService', 'Notification'];
 
 /**
 * Angular Controller -> PronosticController  
