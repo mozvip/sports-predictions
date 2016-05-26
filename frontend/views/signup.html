@@ -42,7 +42,7 @@
 		<h3>Inscription</h3>
 		
 		<form name="signupForm" role="form" class="form" novalidate ng-submit="save()">
-			<div class="form-group has-feedback">
+			<div class="form-group has-feedback" ng-class="{'has-error' : !signupForm.email.$pristine && signupForm.email.$invalid, 'has-success' : !signupForm.email.$invalid}">
 				<input name="email" placeholder="Email" class="form-control" type="email" ng-required="true" ng-model="newuser.Login" email-available>
 				<span class="form-control-feedback" aria-hidden="true">@</span>
 				<p ng-show="signupForm.email.$error.required && !signupForm.email.$pristine" class="help-block">Une adresse mail est requise</p>
@@ -50,13 +50,13 @@
 				<p ng-show="signupForm.email.$error.emailAvailable" class="help-block">Cet adresse mail est déjà utilisée!</p>
 			</div>
 			
-			<div class="form-group has-feedback">
+			<div class="form-group has-feedback" ng-class="{'has-error' : !signupForm.name.$pristine && signupForm.name.$invalid, 'has-success' : !signupForm.name.$invalid}">
 				<input name="name" placeholder="Nom" ng-required="true" class="form-control" type="text" ng-model="newuser.Name" />
 				<span class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></span>
 				<p ng-show="signupForm.name.$error.required && !signupForm.name.$pristine" class="help-block">Un nom est requis</p>
 			</div>
 			
-			<div class="form-group has-feedback">
+			<div class="form-group has-feedback" ng-class="{'has-error' : !signupForm.password.$pristine && signupForm.password.$invalid, 'has-success' : !signupForm.password.$invalid}">
 				<input name="password" placeholder="Mot de passe" ng-required="true" class="form-control" type="password" ng-model="newuser.Password" />
 				<span class="glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
 				<p ng-show="signupForm.password.$error.required && !signupForm.password.$pristine" class="help-block">Un mot de passe est requis</p>
@@ -69,7 +69,7 @@
 					<button class="btn btn-block btn-primary" ng-disabled="signupForm.$invalid" type="submit">Inscription</button>
 				</div>
 				<div class="col-xs-12 col-md-6">
-					<a class="btn btn-block btn-default" href="#login" role="button">Se Connecter</a>
+					<a class="btn btn-block btn-default" href="#login" role="button"><span class="glyphicon glyphicon-log-in"></span> Se Connecter</a>
 				</div>
 			</div>
 		</form>
