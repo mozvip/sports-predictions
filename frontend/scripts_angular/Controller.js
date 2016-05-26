@@ -301,23 +301,9 @@ var ForgetController =   function($scope, $location, UserService, Notification){
 	
 	// Implementation recaptcha
 	$scope.response = null;
-    $scope.widgetId = null;
 
     $scope.model = {
         key: '6LdiSh8TAAAAADLasplj5tGB390M6qBzH24vmXED'
-    };
-	
-	$scope.setResponse = function (response) {
-        $scope.response = response;
-    };
-
-    $scope.setWidgetId = function (widgetId) {
-        $scope.widgetId = widgetId;
-    };
-	
-	$scope.cbExpiration = function() {
-		vcRecaptchaService.reload($scope.widgetId);
-		$scope.response = null;
     };
 	
 	$scope.forget = function(){

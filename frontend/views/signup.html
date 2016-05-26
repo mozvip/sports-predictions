@@ -1,42 +1,3 @@
-<!-- <div class="container">
-	<div ng-controller="SignupController">
-
-		<div class="panel panel-default">
-
-			<div class="panel-heading">
-				<h3>Inscription</h3>
-			</div>
-			<div class="panel-body">
-
-				<form name="login" role="form" class="form" method="post" ng-submit="save()" accept-charset="utf-8">
-					<div class="form-group">
-						<input name="email" placeholder="Email" class="form-control" type="email" id="email" ng-model="newuser.Login" ng-required="true" ng-blur="loginChanged()" />
-						<span id="helpBlock" class="help-block">{{returnRequest}}</span>
-					</div>
-
-					<div class="form-group">
-						<input name="nom" placeholder="Nom" ng-required="true" class="form-control" type="text" id="Name" ng-model="newuser.Name" />
-					</div>
-
-					<div class="form-group">
-						<input name="password" placeholder="Mot de passe" class="form-control" type="password" ng-required="true" id="UserPassword" ng-model="newuser.Password" />
-					</div>
-
-					<div class="form-group">
-						<div vc-recaptcha key="model.key" on-create="setWidgetId(widgetId)" on-success="setResponse(response)" on-expire="cbExpiration()"></div>
-					</div>
-
-					<div class="btn-group" role="group">
-						<input class="btn btn-primary" type="submit" value="Inscription" />
-						<a href="#login" class="btn btn-default">Connexion</a>
-					</div>
-
-					</form>
-				</div>
-			</div>
-		</div>
-</div></div> -->
-
 <div class="col-xs-12 col-md-6 col-md-offset-3" data-wow-delay="0.2s">
 	<div class="box">
 		<h3>Inscription</h3>
@@ -46,6 +7,7 @@
 				<input name="email" placeholder="Email" class="form-control" type="email" ng-required="true" ng-model="newuser.Login" email-available>
 				<span class="form-control-feedback" aria-hidden="true">@</span>
 				<p ng-show="signupForm.email.$error.required && !signupForm.email.$pristine" class="help-block">Une adresse mail est requise</p>
+				<p ng-show="signupForm.email.$error.email && !signupForm.email.$pristine" class="help-block">Cette adresse mail est incorrecte</p>
 				<p ng-show="signupForm.email.$pending.emailAvailable" class="help-block">Nous vérifions si cette adresse est disponible...</p>
 				<p ng-show="signupForm.email.$error.emailAvailable" class="help-block">Cet adresse mail est déjà utilisée!</p>
 			</div>
