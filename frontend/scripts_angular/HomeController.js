@@ -21,13 +21,4 @@ angular.module('sports-predictions').controller('HomeController', ['$scope', '$l
         return UserService.isConnected() && UserService.currentUser().admin;
     }
 	
-	$scope.images = [
-    	'images/background-1.jpg',
-    	'images/background-2.jpg',
-    	'images/background-3.jpg',
-		'images/background-4.jpg',
-		'images/background-5.jpg',
-		'images/background-6.jpg',
-		'images/background-7.jpg'
-  	];
 }]);
