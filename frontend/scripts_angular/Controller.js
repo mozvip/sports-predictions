@@ -141,7 +141,7 @@ var PronosticController = function($scope, $location, UserService, PredictionSer
 			away_team_id: game.awayTeam,
 			home_score: game.predictionHome_Score, 
 			home_team_id: game.homeTeam,
-			home_winner: game.home_winner
+			home_winner: (game.predictionHome_Score  > game.predictionAway_Score)
 		};
 	}
 }
@@ -388,12 +388,47 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 		{ title:'Demi-finales', content:'<div class="item"><h3 class="group-name">Demi-finales</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Demi-finales\'}:true" match="match"></pronostic-final></div>'},
 		{ title:'Finale', content:'<div class="item"><h3 class="group-name">Finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Finale\'}:true" match="match"></pronostic-final></div>'}];
 		
-	$scope.init = function(){}	
-	$scope.submitPronostic = function(){} 
+	$scope.init = function(){
+		// TODO :
+	}	
+	
+	
+	$scope.submitPronostic = function(){
+		var community = $location.host() == 'localhost' ? 'test' : $location.host();
+		var predictions = [];
+		
+		$linq.Enumerable()
+			.From($scope.games)
+			.ForEach(function(element){
+				predictions.push(createPrediction(community, element));
+		});
+		
+		PredictionService.savePredictions(UserService.getToken(), {
+		  match_predictions_attributes: predictions
+		})
+		.then(function(result){
+			if (result.status == 'success')
+				Notification.success( result.message );
+			else
+				Notification.error( result.message );
+		});
+	} 
+	
+	var createPrediction = function(host, game){
+		return {
+			community : host, 
+			email: UserService.getCurrentLogin(), 
+			match_id: game.matchNum, 
+			away_score: game.predictionAway_Score, 
+			away_team_id: game.awayTeam,
+			home_score: game.predictionHome_Score, 
+			home_team_id: game.homeTeam,
+			home_winner: game.home_winner
+		};
+	}
 
 			
 	$scope.watchMatch = function(match){
-		// TODO : implémenter avec le bool homeWinner
 		if(match.group === '8èmes de finale'){
 			var matchQuart = $linq.Enumerable()
 									.From($scope.games)
@@ -464,10 +499,8 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 	
 	
 	$scope.winnerMatch = function(match){
-		if(match.predictionHome_Score != undefined && match.predictionAway_Score != undefined){
-			var win = (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && match.home_winner)) ? match.trueHomeTeam : match.trueAwayTeam;
-			return win;
-		}
+		if(match.predictionHome_Score != undefined && match.predictionAway_Score != undefined)
+			return (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && match.home_winner)) ? match.trueHomeTeam : match.trueAwayTeam;
 		else
 			return false;
 	}
