@@ -27,7 +27,6 @@
     "angular-ui-notification": "^0.2.0",
     "ng-table": "^0.8.3",
     "angular-animate": "^1.5.5",
-    "ng-backstretch": "~0.1.2-beta",
     "angular-ui-grid": "~3.1.1",
     "v-tabs": "~0.2.0"
   },

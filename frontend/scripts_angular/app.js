@@ -1,5 +1,5 @@
 // Application du site euro2016Predictions
-var euro2016Predictions = angular.module('sports-predictions', ['ui.grid', 'ng-backstretch', 'ngAnimate', 'vTabs', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'angular-linq', 'ui-notification', 'ngTable'])
+var euro2016Predictions = angular.module('sports-predictions', ['ui.grid', 'ui.grid.selection', 'ngAnimate', 'vTabs', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'angular-linq', 'ui-notification', 'ngTable'])
 	.config(function (cfpLoadingBarProvider) {
 		cfpLoadingBarProvider.includeSpinner = false;
 	})

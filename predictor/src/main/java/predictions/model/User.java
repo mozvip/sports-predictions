@@ -1,11 +1,13 @@
 package predictions.model;
 
 import java.security.Principal;
-import java.util.Date;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User implements Principal {
@@ -24,7 +26,7 @@ public class User implements Principal {
 	
 	private String changePasswordToken;
 	
-	private Date lastLoginDate;
+	private DateTime lastLoginDate;
 
 	@Min(value = 0)
 	private int currentScore = 0;
@@ -43,7 +45,7 @@ public class User implements Principal {
 	}
 
 	public User(String community, String name, String email, String password, String changePasswordToken,
-			Date lastLoginDate, int currentScore, int currentRanking, int previousRanking, boolean admin, boolean active) {
+			DateTime lastLoginDate, int currentScore, int currentRanking, int previousRanking, boolean admin, boolean active) {
 		super();
 		this.community = community;
 		this.name = name;
@@ -82,13 +84,23 @@ public class User implements Principal {
 	}
 
 	@JsonProperty
-	public Date getLastLoginDate() {
+	@JsonFormat(locale = "fr", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+2")
+	public DateTime getLastLoginDate() {
 		return lastLoginDate;
 	}
 	
 	@JsonProperty
 	public boolean isActive() {
 		return active;
+	}
+	
+	@JsonProperty
+	public int getCurrentRanking() {
+		return currentRanking;
+	}
+	
+	public int getPreviousRanking() {
+		return previousRanking;
 	}
 
 	public String getChangePasswordToken() {
