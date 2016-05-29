@@ -70,8 +70,10 @@ angular.module('sports-predictions').controller('PredictionsController', ['$scop
             match_predictions_attributes: predictions
         })
             .then(function (result) {
-                if (result.status == 'success')
+                if (result.status == 'success') {
                     Notification.success(result.message);
+                    UserService.refreshProfile();
+                }
                 else
                     Notification.error(result.message);
             });

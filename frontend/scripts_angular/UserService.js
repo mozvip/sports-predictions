@@ -18,6 +18,10 @@ angular.module('sports-predictions')
 		var connectedUser;
 
 		return {
+			
+			refreshProfile : function() {
+				connectedUser = undefined;
+			},
 
 			getCurrentUser: function () {
 				var deferredObject = $q.defer();
