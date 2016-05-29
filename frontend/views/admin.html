@@ -4,10 +4,10 @@
             <h3>Utilisateurs de la communauté {{community}}</h3>
         </div>
         <div class="panel-body">
-            <div ui-grid="userGridOptions" class="grid"></div>
+            <div ui-grid="userGridOptions" ui-grid-selection class="grid"></div>
         </div>
         <div class="panel-body">
-            <button class="btn btn-default">Activer/Désactiver l'utilisateur sélectionné</button>
+            <button class="btn btn-default" ng-click="disableEnable()">Activer/Désactiver l'utilisateur sélectionné</button>
         </div>
     </div>
     <div class="panel panel-default">
@@ -15,7 +15,9 @@
             <h3>Soumettre un score</h3>
         </div>
         <div class="panel-body">
-            <select />
+            <form name="scoreSubmitForm">
+                <select class="fom-control" ng-options="item as gameLabel(item) for item in games track by item.matchNum" ng-model="selectedGame"></select>
+            </form>
         </div>
     </div>    
 </div>

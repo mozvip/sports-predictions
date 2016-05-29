@@ -19,7 +19,6 @@
 	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
 	<script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=vcRecaptchaApiLoaded" async defer></script>
 	<script src="bower_components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
-	<script src="bower_components/ng-backstretch/dist/ng-backstretch.min.js"></script>
 	<script src="bower_components/v-tabs/dist/v-tabs.min.js"></script>
 	<script src="bower_components/angular-ui-grid/ui-grid.min.js"></script>
 
@@ -36,8 +35,13 @@
 	<script src="scripts_angular/HomeController.js"></script>
 	<script src="scripts_angular/UserProfileController.js"></script>
 	<script src="scripts_angular/AdminController.js"></script>
+	<script src="scripts_angular/PredictionsController.js"></script>
+	
 	<script src="scripts_angular/UserService.js"></script>
 	<script src="scripts_angular/AdminService.js"></script>
+	<script src="scripts_angular/GamesService.js"></script>
+	
+	<script src="scripts_angular/config.js"></script>
 
 	<!-- custom validations -->
 	<script src="scripts_angular/EmailAvailable.js"></script>
@@ -84,9 +88,12 @@
 							<ul class="nav navbar-nav navbar-right">
 								<!--Profil / Log Out-->
 								<li show-when-connected>
-									<a href="#pronostic">Accueil <span class="glyphicon glyphicon-home"> </span></a>
+									<a href="#pronostic">Mes Pronostics <span class="glyphicon glyphicon-home"> </span></a>
 								</li>
-								<li ng-show="isConnected() && isAdmin()">
+								<li show-when-connected>
+									<a href="#user-profile">Profil <span class="glyphicon glyphicon-user"> </span></a>
+								</li>
+								<li ng-show="isConnected() && isAdmin">
 									<a href="#admin">Administration <span class="glyphicon glyphicon-cog"> </span></a>
 								</li>
 								<!--

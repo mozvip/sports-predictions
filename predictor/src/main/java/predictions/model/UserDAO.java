@@ -58,4 +58,7 @@ public interface UserDAO {
 	@SqlUpdate("update user set admin=:admin where community=:community AND email=LOWER(:email)")
 	void setAdmin(@Bind("community") String community, @Bind("email") String email, @Bind("admin") boolean admin);
 
+	@SqlUpdate("update user set active=NOT active where community=:community AND email=:email")
+	void toggleActive(@Bind("community") String community, @Bind("email") String email);
+
 }

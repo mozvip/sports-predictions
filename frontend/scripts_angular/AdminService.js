@@ -3,16 +3,32 @@ angular.module('sports-predictions')
         return {
             getUsers: function () {
                 var deferredObject = $q.defer();
-                var result;
                 var config = {
-                    headers: { 'Accept': 'application/json', 'Authorization' : 'Basic ' + UserService.getToken() }
+                    headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + UserService.getToken() }
                 };
 
                 $http.get(BackendService.getBackEndURL() + 'admin/users', config)
                     .then(function (response) {
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {
-                        Notification.error( {'title':response.statusText, 'message':response.data} );
+                        Notification.error({ 'title': response.statusText, 'message': response.data });
+                    });
+
+                return deferredObject.promise;
+            },
+            toggleActive: function (email) {
+                var deferredObject = $q.defer();
+                var config = {
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Authorization': 'Basic ' + UserService.getToken() }
+                };
+                
+                var data = 'email=' + email;
+
+                $http.post(BackendService.getBackEndURL() + 'admin/toggle-active', data, config)
+                    .then(function (response) {
+                        deferredObject.resolve({ users: response.data });
+                    }, function (response) {
+                        Notification.error({ 'title': response.statusText, 'message': response.data });
                     });
 
                 return deferredObject.promise;

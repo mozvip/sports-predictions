@@ -4,8 +4,6 @@
 * logOut() * Log out user connected
 **/
 angular.module('sports-predictions').controller('HomeController', ['$scope', '$location', 'UserService', 'Notification', function ($scope, $location, UserService, Notification) {
-    
-    UserService.init();
 
 	$scope.logOut = function()	{
 		UserService.logout();
@@ -16,9 +14,10 @@ angular.module('sports-predictions').controller('HomeController', ['$scope', '$l
     $scope.isConnected = function() {
         return UserService.isConnected();
     }
-    
-    $scope.isAdmin = function() {
-        return UserService.isConnected() && UserService.currentUser().admin;
-    }
+
+    $scope.isAdmin = false;    
+    UserService.getCurrentUser().then( function(userProfile) {
+        $scope.isAdmin = userProfile.admin;
+    });
 	
 }]);

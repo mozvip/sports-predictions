@@ -1,6 +1,6 @@
-angular.module('sports-predictions').controller('UserProfileController', ['$scope', '$http', 'UserService', function ($scope, $http, UserService) {
+angular.module('sports-predictions').controller('UserProfileController', ['$scope', '$http', 'UserService', 'currentUser', function ($scope, $http, UserService, currentUser) {
 
-        $scope.currentUser = UserService.currentUser();
+        $scope.currentUser = currentUser;
         $scope.oldPassword = '';
         $scope.password1 = '';
         $scope.password2 = '';
