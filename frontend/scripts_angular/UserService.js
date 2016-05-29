@@ -50,6 +50,9 @@ angular.module('sports-predictions')
 				return $cookies.get('SESSION_CURRENT_LOGIN');
 			},
 			login: function (login, password) {
+
+				connectedUser = undefined;
+				
 				var deferredObject = $q.defer();
 				var userResult = {
 					message: ''
@@ -64,7 +67,7 @@ angular.module('sports-predictions')
 					.then(function (response) {
 						userResult.status = response.status;
 						if (response.status === 200) {
-							currentUser = response.data;
+							connectedUser = response.data;
 							$cookies.put('SESSION_ID', response.data.authToken);
 							$cookies.put('SESSION_CURRENT_LOGIN', login);
 							deferredObject.resolve({ User: userResult });
@@ -83,6 +86,7 @@ angular.module('sports-predictions')
 			logout: function () {
 				$cookies.remove('SESSION_ID');
 				$rootScope.$broadcast("connectionStateChanged");
+				connectedUser = undefined;
 			},
 			signup: function (login, name, password, captcha) {
 				var deferredObject = $q.defer();

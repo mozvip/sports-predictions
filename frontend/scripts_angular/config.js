@@ -62,7 +62,10 @@ angular.module('sports-predictions')
                 authorized: true
             })
             .otherwise({
-                redirectTo: '/pronostic'
+                redirectTo: '/pronostic',
+                resolve: { currentUser: ['UserService', function(UserService) {
+                    return UserService.getCurrentUser();
+                }]}                
             });
 
         $locationProvider.html5Mode(false);

@@ -3,6 +3,7 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         $scope.userGridOptions = {
                 enableSorting: true,
                 enableRowSelection: true,
+                enableFiltering: true,
                 columnDefs: [
                         { field: 'name', displayName: 'Nom' },
                         { field: 'email', displayName: 'Email' },
