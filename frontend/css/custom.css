@@ -23,8 +23,7 @@ h1#main-title::first-letter {
 }
 
 #wrapper:before{
-	background: url("../images/bg_pattern.png") top center #007cba;
-	background-size: 50%;
+	background: repeating-linear-gradient(90deg, #84c8d2, #84c8d2 100px, #75a4aa 100px, #75a4aa 200px);
     opacity: .2;
 	content: "";
     position: absolute;
@@ -106,11 +105,6 @@ ul[rn-carousel] {
 	left: 20px;
 }
 
-footer{
-	z-index: 5;
-    position: relative;
-	padding-top: 50px;
-}
 
 .navbar-transparent{
 	position: absolute;
@@ -255,7 +249,7 @@ html { height: 100%;}
     width: 100%;
 	z-index: 5;
 	position: relative;
-	min-height: 75vh;
+	min-height: 100vh;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -503,4 +497,15 @@ html { height: 100%;}
     bottom: 0;
     background-color: rgba(250,250,250,.8);
     z-index: 10;
+}
+
+#logo-cgi{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+}
+
+#logo-cgi img{
+	height: 75px;
 }
