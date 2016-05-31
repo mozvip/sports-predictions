@@ -3,7 +3,6 @@
 * Expose method to save and get predictions for one user
 * Controler which use this service : PronosticController
 * savePredictions() -> Save predictions to user connected
-* getPredictions() -> Get predictions to user connected
 **/
 var PredictionService = function($rootScope, $http, $q, BackendService){
 	return {

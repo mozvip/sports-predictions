@@ -13,7 +13,6 @@ app.use('/Content', express.static(__dirname + '/Content'));
 
 app.get('/', function(req, res) {
 	fs.readFile("index.html", 'utf8', function(err, text){
-		console.log("RENDER INDEX.HTML");
         res.send(text);
     });
 });
