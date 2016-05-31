@@ -498,14 +498,3 @@ html { height: 100%;}
     background-color: rgba(250,250,250,.8);
     z-index: 10;
 }
-
-#logo-cgi{
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	z-index: 2;
-}
-
-#logo-cgi img{
-	height: 75px;
-}
