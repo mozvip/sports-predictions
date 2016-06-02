@@ -33,6 +33,7 @@ euro2016Predictions.factory('PredictionService', PredictionService);
 euro2016Predictions.factory('RankingService', RankingService);
 
 /* Définition des directives */
+euro2016Predictions.directive('logoCeDisplay', logoCeDisplay);
 euro2016Predictions.directive('showWhenConnected', showWhenConnected);
 euro2016Predictions.directive('hideWhenConnected', hideWhenConnected);
 euro2016Predictions.directive('pronostic', pronostic);

@@ -1,4 +1,27 @@
 /**
+* Angular Directive -> logoCEDisplay
+* Attribute Directive for display logo CE if host is grand-est
+**/
+var logoCeDisplay = function ($location) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+		
+		
+            var showIfGE = function() {
+                if($location.host() == 'grand-est'){
+                    $(element).show();
+                } else {
+                    $(element).hide();
+                }
+            };
+            showIfGE();
+        }
+    };
+}
+logoCeDisplay.$inject = ['$location'];
+
+/**
 * Angular Directive -> showWhenConnected
 * Attribute Directive for display element when user is connected
 **/
