@@ -9,7 +9,7 @@ var logoCeDisplay = function ($location) {
 		
 		
             var showIfGE = function() {
-                if($location.host() == 'grand-est'){
+                if($location.host() == 'grand-est.pronostics2016.com'){
                     $(element).show();
                 } else {
                     $(element).hide();
