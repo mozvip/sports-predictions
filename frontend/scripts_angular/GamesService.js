@@ -28,7 +28,8 @@ angular.module('sports-predictions')
                                                         result = $linq.Enumerable()
                                                                 .From(data.data)
                                                                 .Where(function (match) {
-                                                                        return match.group.startsWith("Groupe")
+                                                                        //return match.group.startsWith("Groupe")
+																		return match.group.indexOf("Groupe") >= 0;
                                                                 })
                                                                 .OrderBy(function (match) {
                                                                         return match.matchNum;
