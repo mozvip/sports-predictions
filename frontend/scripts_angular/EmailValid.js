@@ -1,10 +1,10 @@
-angular.module('sports-predictions').directive('emailExists', function ($q, $http, BackendService) {
+angular.module('sports-predictions').directive('emailValid', function ($q, $http, BackendService) {
 
     return {
         require: 'ngModel',
         link: function (scope, elm, attrs, ctrl) {
 
-            ctrl.$asyncValidators.emailExists = function (modelValue, viewValue) {
+            ctrl.$asyncValidators.emailValid = function (modelValue, viewValue) {
 
                 if (ctrl.$isEmpty(modelValue)) {
                     // consider empty model valid
@@ -18,9 +18,9 @@ angular.module('sports-predictions').directive('emailExists', function ($q, $htt
                 };
 			
                 $http
-                    .get(BackendService.getBackEndURL() + 'email/availability?email='+modelValue,config)
+                    .get(BackendService.getBackEndURL() + 'email/valid?email='+modelValue,config)
                     .then(function(response){
-                        if (!response.data) {
+                        if (response.data) {
                             def.resolve();
                         } else {
                             def.reject();

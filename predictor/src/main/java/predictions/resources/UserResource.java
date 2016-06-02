@@ -150,14 +150,6 @@ public class UserResource {
 	}
 	
 	@GET
-	@Path("/availability")
-	@ApiOperation("Indicates if the email is available for new users")
-	public boolean isAvailable(@QueryParam("email") String email) {
-		String community = (String) httpRequest.getAttribute("community");
-		return userDAO.findExistingUser(community, email) == null;
-	}
-	
-	@GET
 	@Path("/create")
 	@Produces(MediaType.TEXT_HTML)
 	@ApiOperation(value="Display the view to create a new user", hidden=true)
