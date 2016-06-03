@@ -24,6 +24,9 @@ angular.module('sports-predictions')
             .when('/login', {
                 controller: 'LoginController',
                 templateUrl: '/views/login.html',
+                resolve: { count: ['UserService', function(UserService) {
+                    return UserService.getCount();
+                }]},                
                 authorized: false
             })
             .when('/sign-up', {

@@ -7,6 +7,7 @@ import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
+import org.skife.jdbi.v2.util.LongMapper;
 
 public interface UserDAO {
 
@@ -60,5 +61,9 @@ public interface UserDAO {
 
 	@SqlUpdate("update user set active=NOT active where community=:community AND email=:email")
 	void toggleActive(@Bind("community") String community, @Bind("email") String email);
+
+	@SqlQuery("SELECT COUNT(*) FROM USER WHERE ACTIVE=true AND COMMUNITY=:community")
+	@Mapper(LongMapper.class)
+	long getCount(@Bind("community") String community);
 
 }

@@ -3,12 +3,14 @@
  * Login user in euro2016 Predictor
  * login() * Try to log in user input
  **/
-angular.module('sports-predictions').controller('LoginController', ['$scope', '$route', '$routeParams', '$location', 'UserService', function ($scope, $route, $routeParams, $location, UserService) {
+angular.module('sports-predictions').controller('LoginController', ['$scope', '$route', '$routeParams', '$location', 'UserService', 'count', function ($scope, $route, $routeParams, $location, UserService, count) {
     
 	$scope.User = {
         Login: '',
         Password: ''
     };
+    
+    $scope.count = count;
 			
     $scope.login = function() {
 		var res = UserService.login($scope.User.Login, $scope.User.Password);

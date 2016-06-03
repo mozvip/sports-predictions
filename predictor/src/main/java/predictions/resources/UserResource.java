@@ -86,6 +86,13 @@ public class UserResource {
 		String community = (String) httpRequest.getAttribute("community");
 		userDAO.delete( community, email );
 	}
+	
+	@GET
+	@Path("/count")
+	public long getUserCount() {
+		String community = (String) httpRequest.getAttribute("community");
+		return userDAO.getCount(community);
+	}
 
 	@POST
 	@Path("/savePredictions")

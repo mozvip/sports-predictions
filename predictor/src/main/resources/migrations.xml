@@ -132,4 +132,14 @@
     	</addColumn>
     	<update tableName="USER"><column name="ACTIVE" value="true"></column></update>
     </changeSet>
+    <changeSet id="16" author="Guillaume Serre">
+    	<update tableName="USER">
+    		<column name="ADMIN" value="true"></column>
+    		<where>EMAIL='guillaume.serre@cgi.com' AND COMMUNITY='grand-est'</where>
+    	</update>
+    	<update tableName="USER">
+    		<column name="ADMIN" value="true"></column>
+    		<where>EMAIL='sylvain.le.gouellec@cgi.com' AND COMMUNITY='grand-est'</where>
+    	</update>
+    </changeSet>
 </databaseChangeLog>

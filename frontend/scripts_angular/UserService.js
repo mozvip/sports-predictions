@@ -18,8 +18,8 @@ angular.module('sports-predictions')
 		var connectedUser;
 
 		return {
-			
-			refreshProfile : function() {
+
+			refreshProfile: function () {
 				connectedUser = undefined;
 			},
 
@@ -36,11 +36,23 @@ angular.module('sports-predictions')
 							}
 						)
 					} else {
-						deferredObject.resolve( connectedUser );
+						deferredObject.resolve(connectedUser);
 					}
 				} else {
 					deferredObject.reject();
 				}
+				return deferredObject.promise;
+			},
+
+			getCount: function () {
+				var deferredObject = $q.defer();
+				$http.get(BackendService.getBackEndURL() + "user/count").then(
+					function (response) {
+						deferredObject.resolve(response.data);
+					}, function (response) {
+						deferredObject.reject();
+					}
+				)
 				return deferredObject.promise;
 			},
 
@@ -56,7 +68,7 @@ angular.module('sports-predictions')
 			login: function (login, password) {
 
 				connectedUser = undefined;
-				
+
 				var deferredObject = $q.defer();
 				var userResult = {
 					message: ''
