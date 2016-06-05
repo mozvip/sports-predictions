@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -46,7 +47,7 @@ public class ChangePasswordResource {
 	@POST
 	@ApiOperation(value="Used when a connected user changes his own password")
 	@Path("/self")
-	public Response changePassword( @Auth User user, @FormParam("password") String oldPassword, @FormParam("password") String newPassword) {
+	public Response changePassword( @Auth User user, @NotNull @FormParam("oldPassword") String oldPassword, @NotNull @FormParam("newPassword") String newPassword) {
 		oldPassword = oldPassword.trim();
 		newPassword = newPassword.trim();
 		if (userDAO.authentify( user.getCommunity(), user.getEmail(), oldPassword ) != null) {

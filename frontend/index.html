@@ -37,6 +37,7 @@
 	<script src="scripts_angular/AdminController.js"></script>
 	<script src="scripts_angular/PredictionsController.js"></script>
 	
+	<script src="scripts_angular/BackendService.js"></script>
 	<script src="scripts_angular/UserService.js"></script>
 	<script src="scripts_angular/AdminService.js"></script>
 	<script src="scripts_angular/GamesService.js"></script>
@@ -64,8 +65,8 @@
 </head>
 
 <body>
-	<div id="wrapper" ng-controller="HomeController">
-		<div id="page-content-wrapper"><!-- backstretch backstretch-images="images" -->		
+	<div id="wrapper">
+		<div id="page-content-wrapper" ng-controller="HomeController">		
 				<nav class="navbar navbar-transparent">
 					<div class="container-fluid">
 						<!-- Brand and toggle get grouped for better mobile display -->
@@ -82,21 +83,16 @@
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav navbar-right">								
 								<!--Profil / Log Out-->
-								<li show-when-connected>
+								<li ng-show="connected()">
 									<a href="#pronostic">Mes Pronostics <span class="glyphicon glyphicon-home"> </span></a>
 								</li>
-								<li show-when-connected>
+								<li ng-show="connected()">
 									<a href="#user-profile">Profil <span class="glyphicon glyphicon-user"> </span></a>
 								</li>
-								<li show-when-connected ng-show="isAdmin">
+								<li ng-show="admin()">
 									<a href="#admin">Administration <span class="glyphicon glyphicon-cog"> </span></a>
 								</li>
-								<!--
-								<li show-when-connected>
-									<a href="#user-profile">Profil <span class="glyphicon glyphicon-user"> </span></a>
-								</li>
-								-->
-								<li show-when-connected>
+								<li ng-show="connected()">
 									<a href="" ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off"> </span></a>
 								</li>
 						  </ul>

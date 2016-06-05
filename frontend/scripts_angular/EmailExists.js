@@ -18,7 +18,7 @@ angular.module('sports-predictions').directive('emailExists', function ($q, $htt
                 };
 			
                 $http
-                    .get(BackendService.getBackEndURL() + 'email/availability?email='+modelValue,config)
+                    .get(BackendService.getBackEndURL() + 'user/emailAvailable?email='+modelValue,config)
                     .then(function(response){
                         if (!response.data) {
                             def.resolve();

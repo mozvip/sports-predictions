@@ -6,15 +6,25 @@ var euro2016Predictions = angular.module('sports-predictions', ['ui.grid', 'ui.g
 	.factory('BackendService', function ($location) {
 		return {
 			getBackEndURL: function () {
-				
+
 				var port = $location.protocol() == 'https' ? '443' : '80';
 				if ($location.host() == 'localhost') {
 					// hack for local development without backend
-					return 'https://test.pronostics2016.com/api/';
+					//return 'https://test.pronostics2016.com/api/';
 					// hack for development with local backend
-					//return 'http://localhost:8080/api/';
+					return 'http://localhost:8080/api/';
 				} else {
 					return $location.protocol() + '://' + $location.host() + ':' + port + '/api/';
+				}
+			},
+			getToken: function () {
+				return $cookies.get('SESSION_ID');
+			},			
+			getRequestConfig: function () {
+				return {
+					headers: {
+						'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Basic ' + this.getToken()
+					}
 				}
 			}
 		}
@@ -34,8 +44,6 @@ euro2016Predictions.factory('RankingService', RankingService);
 
 /* Définition des directives */
 euro2016Predictions.directive('logoCeDisplay', logoCeDisplay);
-euro2016Predictions.directive('showWhenConnected', showWhenConnected);
-euro2016Predictions.directive('hideWhenConnected', hideWhenConnected);
 euro2016Predictions.directive('pronostic', pronostic);
 euro2016Predictions.directive('compileHtml', compileHtml);
 euro2016Predictions.directive('pronosticFinal', pronosticFinal);

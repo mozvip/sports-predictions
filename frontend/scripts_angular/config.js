@@ -6,6 +6,9 @@ angular.module('sports-predictions')
             .when('/ranks', {
                 templateUrl: '/views/ranks.html',
                 authorized: true,
+                resolve: { currentUser: ['UserService', function(UserService) {
+                    return UserService.getCurrentUser();
+                }]},                      
                 controller: 'RanksController'
             })
             .when('/pronostic', {
@@ -18,6 +21,9 @@ angular.module('sports-predictions')
             })
             .when('/pronostic-final', {
                 controller: 'PronosticFinalController',
+                resolve: { currentUser: ['UserService', function(UserService) {
+                    return UserService.getCurrentUser();
+                }]},               
                 authorized: true,
                 templateUrl: '/views/pronosticFinal.html'
             })

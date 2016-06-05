@@ -21,14 +21,7 @@ public class ValidateEmailResource {
 	public ValidateEmailResource( UserDAO userDAO ) {
 		this.userDAO = userDAO;
 	}
-	
-	@GET
-	@Path("/availability")
-	@ApiOperation("Indicates if the email is available for new users")
-	public boolean isAvailable(@QueryParam("email") String email) {
-		String community = (String) httpRequest.getAttribute("community");
-		return userDAO.findExistingUser(community, email) == null;
-	}
+
 
 	@GET
 	@Path("/valid")
@@ -36,7 +29,7 @@ public class ValidateEmailResource {
 	public Response isAvailableForNewAccount(@QueryParam("email") String email) {
 		String community = (String) httpRequest.getAttribute("community");
 		
-		if (userDAO.findExistingUser(community, email) != null) {
+		if (userDAO.findExistingUserByEmail(community, email) != null) {
 			return Response.status(Status.CONFLICT).build();
 		}
 		

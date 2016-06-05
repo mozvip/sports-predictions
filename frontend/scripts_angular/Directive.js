@@ -22,50 +22,6 @@ var logoCeDisplay = function ($location) {
 logoCeDisplay.$inject = ['$location'];
 
 /**
-* Angular Directive -> showWhenConnected
-* Attribute Directive for display element when user is connected
-**/
-var showWhenConnected = function (UserService) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            var showIfConnected = function() {
-                if(UserService.isConnected()) {
-                    $(element).show();
-                } else {
-                    $(element).hide();
-                }
-            };
-            showIfConnected();
-            scope.$on('connectionStateChanged', showIfConnected);
-        }
-    };
-}
-showWhenConnected.$inject = ['UserService'];
-
-/**
-* Angular Directive -> hideWhenConnected
-* Attribute Directive for display element when user is disconnected
-**/
-var hideWhenConnected = function (UserService) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            var hideIfConnected = function() {
-                if(UserService.isConnected()) {
-                    $(element).hide();
-                } else {
-                    $(element).show();
-                }
-            };
-            hideIfConnected();
-            scope.$on('connectionStateChanged', hideIfConnected);
-        }
-    };
-}
-hideWhenConnected.$inject = ['UserService'];
-
-/**
 * Angular Directive -> pronostic
 * Element Directive for display a match
 **/

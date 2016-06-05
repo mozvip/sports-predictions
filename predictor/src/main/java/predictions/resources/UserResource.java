@@ -78,6 +78,22 @@ public class UserResource {
 		this.configuration = configuration;
 		this.gmail = gmail;
 	}
+	
+	@GET
+	@Path("/emailAvailable")
+	@ApiOperation("Indicates if the email is available for new users")
+	public boolean isEmailAvailable(@QueryParam("email") String email) {
+		String community = (String) httpRequest.getAttribute("community");
+		return userDAO.findExistingUserByEmail(community, email) == null;
+	}
+	
+	@GET
+	@Path("/nameAvailable")
+	@ApiOperation("Indicates if the name is available for new users")
+	public boolean isNameAvailable(@QueryParam("email") String email, @QueryParam("name") String name) {
+		String community = (String) httpRequest.getAttribute("community");
+		return userDAO.findExistingUserByName(community, email, name) == null;
+	}
 
 	@RolesAllowed("ADMIN")
 	@DELETE
@@ -114,7 +130,7 @@ public class UserResource {
 		password = password.trim();
 		email = email.trim().toLowerCase();
 		
-		User user = userDAO.findExistingUser(community, email );
+		User user = userDAO.findExistingUserByEmail(community, email );
 		if (user == null) {
 			userDAO.insert(email, name, community, password );
 		} else {
@@ -176,6 +192,14 @@ public class UserResource {
 			}
 		}
 	}
+	
+	@POST
+	@Path("/saveProfile")
+	@ApiOperation("Save user profile")
+	public void saveProfile( @Auth User user, @FormParam("name") String name ) {
+		name = name.trim();
+		userDAO.setName( user.getCommunity(), user.getEmail(), name );
+	}	
 	
 	@POST
 	@Path("/save")
@@ -242,7 +266,7 @@ public class UserResource {
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.trim();
 		
-		User existingUser = userDAO.findExistingUser(community, email);
+		User existingUser = userDAO.findExistingUserByEmail(community, email);
 		if (existingUser == null) {
 			return Response.status(404).build();
 		}

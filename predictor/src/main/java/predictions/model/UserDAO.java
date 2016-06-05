@@ -44,7 +44,11 @@ public interface UserDAO {
 
 	@SqlQuery("select * from user where community=:community and email=LOWER(:email)")
 	@Mapper(UserResultSetMapper.class)
-	User findExistingUser(@Bind("community") String community, @Bind("email") String email);
+	User findExistingUserByEmail(@Bind("community") String community, @Bind("email") String email);
+
+	@SqlQuery("select * from user where community=:community and name=:name AND ACTIVE=true AND and email!=:email")
+	@Mapper(UserResultSetMapper.class)
+	User findExistingUserByName(@Bind("community") String community, @Bind("email") String email, @Bind("name") String name);
 
 	@SqlUpdate("delete from user where community = :community and email=LOWER(:email)")
 	void delete(@Bind("community") String community, @Bind("email") String email);
@@ -65,5 +69,8 @@ public interface UserDAO {
 	@SqlQuery("SELECT COUNT(*) FROM USER WHERE ACTIVE=true AND COMMUNITY=:community")
 	@Mapper(LongMapper.class)
 	long getCount(@Bind("community") String community);
+
+	@SqlUpdate("update user set name=:name where community=:community AND email=:email")
+	void setName(@Bind("community") String community, @Bind("email") String email, @Bind("name") String name);
 
 }

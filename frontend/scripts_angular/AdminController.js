@@ -45,5 +45,9 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         $scope.gameLabel = function (game) {
                 return game.group + ' ' + game.homeTeam + ' - ' + game.awayTeam;
         }
+        
+        $scope.homeScore = 0;
+        $scope.awayScore = 0;
+        $scope.gameId = 0;
 
 }]);

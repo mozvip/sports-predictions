@@ -3,9 +3,7 @@ angular.module('sports-predictions')
         return {
             getUsers: function () {
                 var deferredObject = $q.defer();
-                var config = {
-                    headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + UserService.getToken() }
-                };
+                var config = BackendService.getRequestConfig();
 
                 $http.get(BackendService.getBackEndURL() + 'admin/users', config)
                     .then(function (response) {

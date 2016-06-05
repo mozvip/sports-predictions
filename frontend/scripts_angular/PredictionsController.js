@@ -66,7 +66,7 @@ angular.module('sports-predictions').controller('PredictionsController', ['$scop
                 predictions.push(createPrediction(community, element));
             });
 
-        PredictionService.savePredictions(UserService.getToken(), {
+        PredictionService.savePredictions({
             match_predictions_attributes: predictions
         })
             .then(function (result) {
