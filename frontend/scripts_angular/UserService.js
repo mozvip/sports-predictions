@@ -166,7 +166,8 @@ angular.module('sports-predictions')
 					.then(function (response) {
 						deferredObject.resolve({ status: 'success', message: "Votre mot de passe vient d'être modifié avec succès" });
 					}, function (response) {
-						deferredObject.resolve({ status: 'error', message: 'Une erreur est survenue' });
+						var message = (response.status == 401 ? 'Le mot de passe actuel que vous avez saisi est incorrect !' : 'Une erreur est survenue' );
+						deferredObject.resolve({ status: 'error', message: message });
 					});
 				return deferredObject.promise;
 			}			

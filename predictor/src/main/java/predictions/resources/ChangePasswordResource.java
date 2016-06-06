@@ -25,7 +25,7 @@ import predictions.model.UserDAO;
 import predictions.views.ChangePasswordView;
 
 @Path("/change-password")
-@Produces(MediaType.TEXT_HTML)
+@Produces(MediaType.APPLICATION_JSON)
 public class ChangePasswordResource {
 	
 	private final static Logger logger = LoggerFactory.getLogger( ChangePasswordResource.class );
