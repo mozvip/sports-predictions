@@ -4,13 +4,14 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                 enableSorting: true,
                 enableRowSelection: true,
                 enableFiltering: true,
+                enableGridMenu: true,
                 columnDefs: [
                         { field: 'name', displayName: 'Nom' },
                         { field: 'email', displayName: 'Email' },
                         { field: 'currentScore', displayName: 'Score' },
-                        { field: 'admin' },
+                        { field: 'admin', type: 'boolean' },
                         { field: 'lastLoginDate', displayName: 'Dernière Activité' },
-                        { field: 'active' }
+                        { field: 'active', type: 'boolean' }
                 ],
                 onRegisterApi: function (gridApi) {
                         $scope.userGridOptionsApi = gridApi;
