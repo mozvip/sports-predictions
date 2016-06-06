@@ -6,7 +6,6 @@ var euro2016Predictions = angular.module('sports-predictions', ['ui.grid', 'ui.g
 	.factory('BackendService', function ($location) {
 		return {
 			getBackEndURL: function () {
-
 				var port = $location.protocol() == 'https' ? '443' : '80';
 				if ($location.host() == 'localhost') {
 					// hack for local development without backend
@@ -19,7 +18,7 @@ var euro2016Predictions = angular.module('sports-predictions', ['ui.grid', 'ui.g
 			},
 			getToken: function () {
 				return $cookies.get('SESSION_ID');
-			},			
+			},
 			getRequestConfig: function () {
 				return {
 					headers: {

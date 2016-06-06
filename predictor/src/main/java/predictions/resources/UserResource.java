@@ -53,7 +53,6 @@ import predictions.model.User;
 import predictions.model.UserDAO;
 import predictions.views.CreateUserView;
 import predictions.views.ForgetPasswordPageView;
-import predictions.views.SigninPageView;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -240,13 +239,6 @@ public class UserResource {
 		return new String( Base64.getEncoder().encode( String.format("%s:%s", email, password).getBytes() ) );		
 	}
 
-	@GET
-	@Path("/signin")
-	@Produces(MediaType.TEXT_HTML)
-	@ApiOperation(value="Display the view to signin", hidden=true)
-	public SigninPageView signIn() {
-		return new SigninPageView();
-	}
 
 	@GET
 	@Path("/forget-password")

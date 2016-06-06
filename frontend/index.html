@@ -81,18 +81,18 @@
 
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav navbar-right">								
+							<ul ng-show="connected()" class="nav navbar-nav navbar-right">								
 								<!--Profil / Log Out-->
-								<li ng-show="connected()">
+								<li>
 									<a href="#pronostic">Mes Pronostics <span class="glyphicon glyphicon-home"> </span></a>
 								</li>
-								<li ng-show="connected()">
+								<li>
 									<a href="#user-profile">Profil <span class="glyphicon glyphicon-user"> </span></a>
 								</li>
 								<li ng-show="admin()">
 									<a href="#admin">Administration <span class="glyphicon glyphicon-cog"> </span></a>
 								</li>
-								<li ng-show="connected()">
+								<li>
 									<a href="" ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off"> </span></a>
 								</li>
 						  </ul>

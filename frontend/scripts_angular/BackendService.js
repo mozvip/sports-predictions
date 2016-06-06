@@ -1,6 +1,7 @@
 angular.module('sports-predictions')
 	.factory('BackendService', ['$location', '$cookies', function ($location, $cookies) {
 		return {
+			
 			getBackEndURL: function () {
 
 				var port = $location.protocol() == 'https' ? '443' : '80';
@@ -16,10 +17,15 @@ angular.module('sports-predictions')
 			getToken: function () {
 				return $cookies.get('SESSION_ID');
 			},
-			connect : function( authToken ) {
-				$cookies.put('SESSION_ID', authToken);	
+			connect : function( profile ) {
+				$cookies.put('SESSION_ID', profile.authToken);
 			},
 			getRequestConfig: function ( contentType ) {
+				
+				if (contentType == undefined) {
+					contentType = 'application/json';
+				}
+				
 				return {
 					headers: {
 						'Accept': 'application/json', 'Content-Type': contentType, 'Authorization': 'Basic ' + this.getToken()
@@ -27,4 +33,4 @@ angular.module('sports-predictions')
 				}
 			}
 		}
-	}]);
+	}]); 

@@ -15,7 +15,7 @@ angular.module('sports-predictions')
     .factory('UserService', ['$rootScope', '$http', '$q', '$cookies', 'BackendService', function ($rootScope, $http, $q, $cookies, BackendService) {
 
 		var connectedUser;
-
+		
 		return {
 			
 			saveProfile : function( userProfile ) {
@@ -31,32 +31,32 @@ angular.module('sports-predictions')
 				)
 				return deferredObject.promise;
 			},
-
-			refreshProfile: function () {
-				connectedUser = undefined;
-			},
 			
 			isConnected: function() {
-				return $cookies.get('SESSION_ID') != undefined;	
+				return connectedUser != undefined;	
+			},
+			
+			isAdmin: function() {
+				return connectedUser != undefined && connectedUser.admin;
 			},
 
 			getCurrentUser: function () {
 				var deferredObject = $q.defer();
-				if (this.isConnected()) {
-					if (connectedUser == undefined) {
-						$http.get(BackendService.getBackEndURL() + "user/predictions", BackendService.getRequestConfig()).then(
-							function (response) {
-								deferredObject.resolve(response.data);
+				if (connectedUser) {
+					deferredObject.resolve(connectedUser);
+				} else {
+					if (BackendService.getToken()) {
+						$http.get(BackendService.getBackEndURL() + 'user/predictions', BackendService.getRequestConfig()).then(
+							function( response ) {
+								deferredObject.resolve( response );
 								connectedUser = response.data;
-							}, function (response) {
+							}, function( response ) {
 								deferredObject.reject();
 							}
-						)
+						);
 					} else {
-						deferredObject.resolve(connectedUser);
+						deferredObject.reject();
 					}
-				} else {
-					deferredObject.reject();
 				}
 				return deferredObject.promise;
 			},
@@ -80,28 +80,22 @@ angular.module('sports-predictions')
 				connectedUser = undefined;
 
 				var deferredObject = $q.defer();
-				var userResult = {
-					message: ''
-				};
 				var data = 'email=' + login + '&password=' + password;
 				var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
 
 				$http
 					.post(BackendService.getBackEndURL() + 'user/signin', data, config)
 					.then(function (response) {
-						userResult.status = response.status;
 						if (response.status === 200) {
 							connectedUser = response.data;
-							BackendService.connect( response.data.authToken );
+							BackendService.connect( response.data );
 							$cookies.put('SESSION_CURRENT_LOGIN', login);
 							deferredObject.resolve( response );
 							$rootScope.$broadcast("connectionStateChanged");
 						} else {
-							userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
 							deferredObject.resolve( response );
 						}
 					}, function (response) {
-						userResult.message = 'Erreur identifiant ou mot de passe incorrect !';
 						deferredObject.resolve( response );
 					});
 
