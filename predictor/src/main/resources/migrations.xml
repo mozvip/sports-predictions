@@ -142,4 +142,11 @@
     		<where>EMAIL='sylvain.le.gouellec@cgi.com' AND COMMUNITY='grand-est'</where>
     	</update>
     </changeSet>
+    <changeSet id="17" author="Guillaume Serre">
+    	<addColumn tableName="MATCH_PREDICTION">
+    		<column name="SCORE" type="INTEGER" defaultValueNumeric="0">
+    			<constraints nullable="false"></constraints>
+    		</column>
+    	</addColumn>
+    </changeSet>
 </databaseChangeLog>
