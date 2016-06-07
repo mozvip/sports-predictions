@@ -93,7 +93,7 @@ public class ScoreResource {
 			scores.put( String.format("%s:%s", user.getCommunity(), user.getEmail().toLowerCase()), 0 );
 		}
 
-		List<MatchPrediction> predictions = matchPredictionDAO.findAll();
+		List<MatchPrediction> predictions = matchPredictionDAO.findNonEvaluated();
 		List<ActualResult> results = actualResultDAO.findValidated();
 		for (ActualResult actualResult : results) {
 			for (MatchPrediction prediction : predictions) {
@@ -109,7 +109,8 @@ public class ScoreResource {
 					int matchScore = 0;
 					
 					if ( prediction.getHome_score() == actualResult.getHome_score() && prediction.getAway_score() == actualResult.getAway_score() ) {
-					
+						
+						// perfect score
 						matchScore = 3;
 					
 					} else if (
@@ -118,7 +119,11 @@ public class ScoreResource {
 							( prediction.getHome_score() < prediction.getAway_score() && actualResult.getHome_score() < actualResult.getAway_score() ) )
 					{
 						
-						matchScore = 2;
+						if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+							matchScore = 2;
+						} else {
+							matchScore = 1;
+						}
 						
 					} else if ( prediction.getHome_score() == actualResult.getHome_score() || prediction.getAway_score() == actualResult.getAway_score() ) {
 						if ( prediction.getCommunity().startsWith("michelin-solutions")) {

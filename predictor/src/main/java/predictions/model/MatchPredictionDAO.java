@@ -23,5 +23,10 @@ public interface MatchPredictionDAO {
 	  @SqlQuery("select * from match_prediction")
 	  @Mapper(MatchPredictionResultSetMapper.class)
 	  List<MatchPrediction> findAll();
+	  
+	  @SqlQuery("select * from match_prediction WHERE score IS NULL")
+	  @Mapper(MatchPredictionResultSetMapper.class)
+	  List<MatchPrediction> findNonEvaluated();
+
 
 }

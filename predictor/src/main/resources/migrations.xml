@@ -149,4 +149,9 @@
     		</column>
     	</addColumn>
     </changeSet>
+    <changeSet id="18" author="Guillaume Serre">
+    	<dropNotNullConstraint tableName="MATCH_PREDICTION" columnName="SCORE" columnDataType="INTEGER"/>
+    	<dropDefaultValue tableName="MATCH_PREDICTION" columnName="SCORE"/>
+    	<sql>update match_prediction set score = NULL</sql>
+    </changeSet>
 </databaseChangeLog>
