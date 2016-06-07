@@ -1,4 +1,4 @@
-package predictions.resources;
+package predictions.model;
 
 import java.util.Date;
 import java.util.List;

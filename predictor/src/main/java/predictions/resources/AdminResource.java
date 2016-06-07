@@ -36,12 +36,21 @@ public class AdminResource {
 	}
 
 	@POST
-	@RolesAllowed("ADMIN")
 	@Path("/toggle-active")
+	@RolesAllowed("ADMIN")
 	public void toggleActive( @FormParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.toLowerCase().trim();
 		userDAO.toggleActive( community, email );
+	}
+
+	@POST
+	@Path("/toggle-admin")
+	@RolesAllowed("ADMIN")
+	public void toggleAdmin( @FormParam("email") String email ) {
+		String community = (String) httpRequest.getAttribute("community");
+		email = email.toLowerCase().trim();
+		userDAO.toggleAdmin( community, email );
 	}
 
 }

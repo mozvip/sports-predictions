@@ -66,6 +66,9 @@ public interface UserDAO {
 	@SqlUpdate("update user set active=NOT active where community=:community AND email=:email")
 	void toggleActive(@Bind("community") String community, @Bind("email") String email);
 
+	@SqlUpdate("update user set admin=NOT admin where community=:community AND email=:email")
+	void toggleAdmin(@Bind("community") String community, @Bind("email") String email);
+
 	@SqlQuery("SELECT COUNT(*) FROM USER WHERE ACTIVE=true AND COMMUNITY=:community")
 	@Mapper(LongMapper.class)
 	long getCount(@Bind("community") String community);
