@@ -17,9 +17,11 @@
         <div class="panel-body">
             <form name="scoreSubmitForm" novalidate>
                 <select class="form-control" ng-required="true" ng-options="item as gameLabel(item) for item in games track by item.matchNum" ng-model="selectedGame"></select>
-                <input class="form-control" ng-required="true" type="number" size="2" maxlength="2" ng-model="homeScore" />
-                <input class="form-control" ng-required="true" type="number" size="2" maxlength="2" ng-model="awayScore" />
-                <select class="form-control" ng-required="true" ng-model="winningTeamName" />
+                <div ng-show="selectedGame">
+                    <input class="form-control" ng-required="true" type="number" size="2" maxlength="2" ng-model="homeScore" />
+                    <input class="form-control" ng-required="true" type="number" size="2" maxlength="2" ng-model="awayScore" />
+                    <select class="form-control" ng-required="true" ng-model="winningTeamName" />
+                </div>
             </form>
         </div>
     </div>    

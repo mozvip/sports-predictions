@@ -149,7 +149,7 @@ public class ScoreResource {
 	@RolesAllowed("ADMIN")
 	@Path("/submit")
 	@POST
-	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate all scores, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)")
+	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate scores and rankings, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)")
 	public Response postScore( @Auth User user, @FormParam("gameNum") int gameNum, @FormParam("homeScore") int homeScore, @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
 		ActualResult result = actualResultDAO.find(gameNum);
 
