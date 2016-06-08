@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.constraints.Min;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -150,7 +151,7 @@ public class ScoreResource {
 	@Path("/submit")
 	@POST
 	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate scores and rankings, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)")
-	public Response postScore( @Auth User user, @FormParam("gameNum") int gameNum, @FormParam("homeScore") int homeScore, @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
+	public Response postScore( @Auth User user, @Min(0) @FormParam("gameNum") int gameNum, @Min(0) @FormParam("homeScore") int homeScore, @Min(0) @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
 		ActualResult result = actualResultDAO.find(gameNum);
 
 		Game game = gamesById.get( gameNum );

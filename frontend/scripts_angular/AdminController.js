@@ -1,4 +1,4 @@
-angular.module('sports-predictions').controller('AdminController', ['$scope', '$http', 'AdminService', 'UserService', 'GamesService', 'currentUser', function ($scope, $http, AdminService, UserService, GamesService, currentUser) {
+angular.module('sports-predictions').controller('AdminController', ['$scope', '$http', 'AdminService', 'UserService', 'GamesService', 'SweetAlert', 'BackendService', 'currentUser', 'Notification', function ($scope, $http, AdminService, UserService, GamesService, SweetAlert, BackendService, currentUser, Notification) {
 
         $scope.userGridOptions = {
                 enableSorting: true,
@@ -28,9 +28,9 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         });
 
         $scope.disableEnable = function () {
-                for(let i=0; i<$scope.userGridOptionsApi.selection.getSelectedCount(); i++) {
+                for (let i = 0; i < $scope.userGridOptionsApi.selection.getSelectedCount(); i++) {
                         var userProfile = $scope.userGridOptionsApi.selection.getSelectedRows()[i];
-                        AdminService.toggleActive( userProfile.email );
+                        AdminService.toggleActive(userProfile.email);
                         userProfile.active = !userProfile.active;
                 }
         }
@@ -44,11 +44,40 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         $scope.community = currentUser.community;
 
         $scope.gameLabel = function (game) {
-                return game.group + ' ' + game.homeTeam + ' - ' + game.awayTeam;
+                return game.group + ' - ' + game.homeTeam + ' - ' + game.awayTeam;
         }
-        
+
         $scope.homeScore = 0;
         $scope.awayScore = 0;
-        $scope.gameId = 0;
+        $scope.winningTeamName = '';
+
+        $scope.selectedGame = undefined;
+
+        $scope.submitScore = function () {
+                SweetAlert.swal({
+                        title: "Etes vous sûr?",
+                        text: "Confirmez-vous la soumission de ce score ?",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: "Annuler",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Je confirme !",
+                        closeOnConfirm: true
+                },
+                        function () {
+				var data = 'gameNum=' + $scope.selectedGame.gameId + '&homeScore=' + $scope.homeScore + '&awayScore=' + $scope.awayScore + '&winningTeamName=' + $scope.winningTeamName;
+				var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
+                                $http.post(BackendService.getBackEndURL() + "score/submit", data, config).then( function(response) {
+                                        Notification.success("Le score a été soumis avec succès");
+                                }, function(response) {
+
+                                        if (response.status == 406) {
+                                                Notification.error("Ce match n'a pas encore eu lieu !");
+                                        } else {
+                                                Notification.error("Une erreur est survenue lors de la soumission du score !");
+                                        }
+                                });
+                        });
+        }
 
 }]);

@@ -1,6 +1,32 @@
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
+            <h3>Soumettre un score</h3>
+        </div>
+        <div class="panel-body">
+            <form name="scoreSubmitForm" novalidate>
+                <select class="form-control" ng-required="true" ng-options="item as gameLabel(item) for item in games" ng-model="selectedGame"></select>
+                <div ng-show="selectedGame" class="row pronostic-row">
+                    <small>Le {{selectedGame.dateTime}} à {{selectedGame.stadium}}</small>
+                    <div class="col-md-5 team-name">
+                        <h3 class="text-right">{{selectedGame.homeTeam}}</h3>
+                    </div>
+                    <div class="col-md-1">
+                        <input class="scoreInput form-control" ng-required="true" ng-model="homeScore" size="2" maxlength="2">
+                    </div>
+                    <div class="col-md-1">
+                        <input class="scoreInput form-control" ng-required="true" ng-model="awayScore" size="2" maxlength="2">
+                    </div>
+                    <div class="col-md-5 team-name">
+                        <h3 class="text-left">{{selectedGame.awayTeam}}</h3>
+                    </div>
+                </div>
+                <button ng-show="selectedGame" ng-disabled="scoreSubmitForm.error" class="btn btn-primary btn-block" ng-click="submitScore()">Soumettre le score</button>
+            </form>
+        </div>
+    </div>    
+    <div class="panel panel-default">
+        <div class="panel-heading">
             <h3>Utilisateurs de la communauté {{community}}</h3>
         </div>
         <div class="panel-body">
@@ -10,19 +36,4 @@
             <button class="btn btn-default" ng-click="disableEnable()">Activer/Désactiver l'utilisateur sélectionné</button>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3>Soumettre un score</h3>
-        </div>
-        <div class="panel-body">
-            <form name="scoreSubmitForm" novalidate>
-                <select class="form-control" ng-required="true" ng-options="item as gameLabel(item) for item in games track by item.matchNum" ng-model="selectedGame"></select>
-                <div ng-show="selectedGame">
-                    <input class="form-control" ng-required="true" type="number" size="2" maxlength="2" ng-model="homeScore" />
-                    <input class="form-control" ng-required="true" type="number" size="2" maxlength="2" ng-model="awayScore" />
-                    <select class="form-control" ng-required="true" ng-model="winningTeamName" />
-                </div>
-            </form>
-        </div>
-    </div>    
 </div>
