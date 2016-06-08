@@ -71,8 +71,8 @@ angular.module('sports-predictions').controller('PredictionsController', ['$scop
         })
             .then(function (result) {
                 if (result.status == 'success') {
-                    Notification.success(result.message);
                     UserService.refreshProfile();
+                    Notification.success(result.message);
                 }
                 else
                     Notification.error(result.message);
