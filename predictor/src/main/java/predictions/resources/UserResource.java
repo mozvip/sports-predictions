@@ -196,7 +196,7 @@ public class UserResource {
 	@Timed
 	@ApiOperation("Save predictions for the connected user")
 	public void save( @Auth User user, MatchPredictions predictions ) {
-		savePredictions( user.getCommunity(), user.getEmail(), predictions );
+		// FIXME savePredictions( user.getCommunity(), user.getEmail(), predictions );
 	}
 
 	@GET
