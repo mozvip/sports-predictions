@@ -85,66 +85,41 @@ public class ScoreResource {
 		return games;
 	}
 	
-	private synchronized void recalculateScores() {
-		
-		Map<String, Integer> scores = new HashMap<String, Integer>();
-		
-		List<User> allUsers = userDAO.findAllActive();
-		for (User user : allUsers) {
-			scores.put( String.format("%s:%s", user.getCommunity(), user.getEmail().toLowerCase()), 0 );
-		}
+	private synchronized void recalculateScores( int gameNum, int homeScore, int awayScore, boolean homeWinning ) {
 
-		List<MatchPrediction> predictions = matchPredictionDAO.findNonEvaluated();
-		List<ActualResult> results = actualResultDAO.findValidated();
-		for (ActualResult actualResult : results) {
-			for (MatchPrediction prediction : predictions) {
+		List<MatchPrediction> predictions = matchPredictionDAO.findPredictions( gameNum );
+		for (MatchPrediction prediction : predictions) {
+			
+			int matchScore = 0;
+			
+			if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore ) {
 				
-				String ident = String.format("%s:%s", prediction.getCommunity(), prediction.getEmail().toLowerCase());
+				// perfect score
+				matchScore = 3;
+			
+			} else if (
+					( prediction.getHome_score() == prediction.getAway_score() && homeScore == awayScore ) ||
+					( prediction.getHome_score() > prediction.getAway_score() && homeScore > awayScore ) ||
+					( prediction.getHome_score() < prediction.getAway_score() && homeScore < awayScore ) )
+			{
 				
-				if (!scores.containsKey( ident )) {
-					continue;
+				if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+					matchScore = 2;
+				} else {
+					matchScore = 1;
 				}
 				
-				if (prediction.getMatch_id() == actualResult.getMatch_id()) {
-					
-					int matchScore = 0;
-					
-					if ( prediction.getHome_score() == actualResult.getHome_score() && prediction.getAway_score() == actualResult.getAway_score() ) {
-						
-						// perfect score
-						matchScore = 3;
-					
-					} else if (
-							( prediction.getHome_score() == prediction.getAway_score() && actualResult.getHome_score() == actualResult.getAway_score() ) ||
-							( prediction.getHome_score() > prediction.getAway_score() && actualResult.getHome_score() > actualResult.getAway_score() ) ||
-							( prediction.getHome_score() < prediction.getAway_score() && actualResult.getHome_score() < actualResult.getAway_score() ) )
-					{
-						
-						if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-							matchScore = 2;
-						} else {
-							matchScore = 1;
-						}
-						
-					} else if ( prediction.getHome_score() == actualResult.getHome_score() || prediction.getAway_score() == actualResult.getAway_score() ) {
-						if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-							matchScore = 1;
-						}
-					}
-					
-					scores.put( ident, scores.get( ident ) + matchScore );
+			} else if ( prediction.getHome_score() == homeScore || prediction.getAway_score() == awayScore ) {
+				if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+					matchScore = 1;
+				} else {
+					matchScore = 0;
 				}
 			}
+			
+			matchPredictionDAO.updateScore( prediction.getCommunity(), prediction.getEmail(), prediction.getMatch_id(), matchScore);
 		}
-		
-		for (Map.Entry<String, Integer> entry : scores.entrySet()) {
-			String ident = entry.getKey();
-			int index = ident.indexOf(':');
-			String community = ident.substring( 0, index );
-			String email = ident.substring( index + 1 );
-			userDAO.updateScore( email, community, entry.getValue() );
-		}
-		
+
 	}
 	
 	@RolesAllowed("ADMIN")
@@ -174,7 +149,7 @@ public class ScoreResource {
 
 		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( result.getHome_team_name()) : homeScore > awayScore;
 		actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeWinning );
-		recalculateScores();
+		recalculateScores( gameNum, homeScore, awayScore, homeWinning );
 		associateScores();
 		
 		return Response.ok().build();

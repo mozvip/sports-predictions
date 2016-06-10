@@ -52,8 +52,6 @@ import predictions.model.MatchPredictions;
 import predictions.model.Rankings;
 import predictions.model.User;
 import predictions.model.UserDAO;
-import predictions.views.CreateUserView;
-import predictions.views.ForgetPasswordPageView;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -171,15 +169,7 @@ public class UserResource {
 		String community = (String) httpRequest.getAttribute("community");
 		userDAO.setAdmin( community, email, admin );
 	}
-	
-	@GET
-	@Path("/create")
-	@Produces(MediaType.TEXT_HTML)
-	@ApiOperation(value="Display the view to create a new user", hidden=true)
-	public CreateUserView createUser() {
-		return new CreateUserView( (String) httpRequest.getAttribute("community") );	
-	}	
-	
+
 	private void savePredictions( String community, String email, MatchPredictions predictions ) {
 		Set<Integer> validatedMatches = new HashSet<Integer>();
 		List<ActualResult> result = actualResultDAO.findValidated();
@@ -238,15 +228,6 @@ public class UserResource {
 	
 	private String generateAuthToken( String community, String email, String password ) {
 		return new String( Base64.getEncoder().encode( String.format("%s:%s", email, password).getBytes() ) );		
-	}
-
-
-	@GET
-	@Path("/forget-password")
-	@Produces(MediaType.TEXT_HTML)
-	@ApiOperation(value="Display the view to declare a lost password", hidden=true)
-	public ForgetPasswordPageView forgetPasswordGetView() {
-		return new ForgetPasswordPageView();
 	}
 
 	@POST

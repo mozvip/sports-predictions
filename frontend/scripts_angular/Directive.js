@@ -35,7 +35,9 @@ var pronostic = function(){
 		controller: function($scope, $location) {
 									
 			$scope.isPronosticable = function(match){
-				return (match.dateTime <= new Date() && !match.done);
+				// return (match.dateTime <= new Date() && !match.done);
+				// FIXME
+				return false;
 			}
 			
 			$scope.realScore = function(predictionScore, realScore){

@@ -64,12 +64,15 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                         confirmButtonText: "Je confirme !",
                         closeOnConfirm: true
                 },
-                        function () {
-				var data = 'gameNum=' + $scope.selectedGame.gameId + '&homeScore=' + $scope.homeScore + '&awayScore=' + $scope.awayScore + '&winningTeamName=' + $scope.winningTeamName;
-				var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
-                                $http.post(BackendService.getBackEndURL() + "score/submit", data, config).then( function(response) {
+                        function (isConfirm) {
+                                if (!isConfirm) {
+                                        return;
+                                }
+                                var data = 'gameNum=' + $scope.selectedGame.gameId + '&homeScore=' + $scope.homeScore + '&awayScore=' + $scope.awayScore + '&winningTeamName=' + $scope.winningTeamName;
+                                var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
+                                $http.post(BackendService.getBackEndURL() + "score/submit", data, config).then(function (response) {
                                         Notification.success("Le score a été soumis avec succès");
-                                }, function(response) {
+                                }, function (response) {
 
                                         if (response.status == 406) {
                                                 Notification.error("Ce match n'a pas encore eu lieu !");
