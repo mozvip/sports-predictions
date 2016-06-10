@@ -11,6 +11,8 @@
 			<!-- <user-rank ng-repeat="user in Ranks" user="user"></user-rank> -->
 			<table ng-table="RanksParams" class="table" show-filter="true">
 				<tr ng-repeat="rank in $data" ng-class="classCurentUser(rank)">
+					<td title="'Rank'" filter="{ currentRanking: 'text'}" sortable="'currentRanking'">
+						{{rank.currentRanking}}<span class="right-arrow"></span></td>
 					<td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
 						{{rank.name}}</td>
 					<td title="'Email'" filter="{ email: 'text'}" sortable="'email'">
