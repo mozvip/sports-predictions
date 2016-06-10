@@ -1,6 +1,7 @@
 package predictions.resources;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -141,6 +142,11 @@ public class ScoreResource {
 		Game game = gamesById.get( gameNum );
 		if (game == null) {
 			return Response.status(Status.NOT_FOUND).build();
+		}
+		
+		if (game.getDateTime().after( new Date())) {
+			// game has not started yet !!
+			return Response.status(Status.NOT_ACCEPTABLE).build();
 		}
 
 		

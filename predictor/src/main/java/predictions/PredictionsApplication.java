@@ -42,7 +42,6 @@ import predictions.model.ActualResultDAO;
 import predictions.model.MatchPredictionDAO;
 import predictions.model.User;
 import predictions.model.UserDAO;
-import predictions.phases.PhaseFilter;
 import predictions.resources.AdminResource;
 import predictions.resources.ChangePasswordResource;
 import predictions.resources.RankingsResource;
@@ -85,7 +84,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().setUrlPattern("/api");
 		
 		environment.servlets().addFilter("CommunityFilter", CommunityFilter.class).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-		environment.servlets().addFilter("SitePhaseFilter", PhaseFilter.class).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+		// environment.servlets().addFilter("SitePhaseFilter", PhaseFilter.class).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
 		// swagger
 		environment.jersey().register(new ApiListingResource());
