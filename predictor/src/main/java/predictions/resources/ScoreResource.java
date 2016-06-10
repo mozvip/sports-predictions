@@ -2,8 +2,10 @@ package predictions.resources;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.Min;
@@ -84,7 +86,9 @@ public class ScoreResource {
 		return games;
 	}
 	
-	private synchronized void recalculateScores( int gameNum, int homeScore, int awayScore, boolean homeWinning ) {
+	private synchronized void updateMatchPredictionScores( int gameNum, int homeScore, int awayScore, boolean homeWinning ) {
+		
+		Set<String> communities = new HashSet<>();
 
 		List<MatchPrediction> predictions = matchPredictionDAO.findPredictions( gameNum );
 		for (MatchPrediction prediction : predictions) {
@@ -117,6 +121,13 @@ public class ScoreResource {
 			}
 			
 			matchPredictionDAO.updateScore( prediction.getCommunity(), prediction.getEmail(), prediction.getMatch_id(), matchScore);
+			
+			communities.add( prediction.getCommunity() );
+		}
+		
+		userDAO.recalculateScores();
+		for (String community : communities) {
+			userDAO.updateRankings( community );
 		}
 
 	}
@@ -142,7 +153,7 @@ public class ScoreResource {
 
 		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeam()) : homeScore > awayScore;
 		actualResultDAO.insert(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
-		recalculateScores( gameNum, homeScore, awayScore, homeWinning );
+		updateMatchPredictionScores( gameNum, homeScore, awayScore, homeWinning );
 		associateScores();
 		
 		return Response.ok().build();

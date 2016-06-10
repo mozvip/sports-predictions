@@ -154,4 +154,9 @@
     	<dropDefaultValue tableName="MATCH_PREDICTION" columnName="SCORE"/>
     	<sql>update match_prediction set score = NULL</sql>
     </changeSet>
+    <changeSet id="19" author="Guillaume Serre">
+    	<modifyDataType tableName="ACTUAL_RESULT" columnName="HOME_TEAM_ID" newDataType="VARCHAR(50)"/>
+    	<modifyDataType tableName="ACTUAL_RESULT" columnName="AWAY_TEAM_ID" newDataType="VARCHAR(50)"/>
+    </changeSet>
+    
 </databaseChangeLog>
