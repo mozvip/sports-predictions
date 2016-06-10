@@ -68,7 +68,7 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                                 if (!isConfirm) {
                                         return;
                                 }
-                                var data = 'gameNum=' + $scope.selectedGame.gameId + '&homeScore=' + $scope.homeScore + '&awayScore=' + $scope.awayScore + '&winningTeamName=' + $scope.winningTeamName;
+                                var data = 'gameNum=' + $scope.selectedGame.matchNum + '&homeScore=' + $scope.homeScore + '&awayScore=' + $scope.awayScore + '&winningTeamName=' + $scope.winningTeamName;
                                 var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
                                 $http.post(BackendService.getBackEndURL() + "score/submit", data, config).then(function (response) {
                                         Notification.success("Le score a été soumis avec succès");

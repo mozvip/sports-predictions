@@ -33,7 +33,7 @@ import predictions.model.User;
 import predictions.model.UserDAO;
 
 @Path("/score")
-@Produces("text/html; charset=UTF-8")
+@Produces(MediaType.APPLICATION_JSON)
 public class ScoreResource {
 	
 	private final static Logger logger = LoggerFactory.getLogger( ScoreResource.class );
@@ -79,7 +79,6 @@ public class ScoreResource {
 	
 	@GET
 	@Path("/games")
-	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value="Get the list of all games, along with the final result for the games which have already been played")
 	public List<Game> getGames() {
 		return games;
@@ -127,18 +126,12 @@ public class ScoreResource {
 	@POST
 	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate scores and rankings, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)")
 	public Response postScore( @Auth User user, @Min(0) @FormParam("gameNum") int gameNum, @Min(0) @FormParam("homeScore") int homeScore, @Min(0) @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
-		ActualResult result = actualResultDAO.find(gameNum);
 
 		Game game = gamesById.get( gameNum );
 		if (game == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 
-		java.util.Date now = new java.util.Date();
-		if (now.before( game.getDateTime())) {
-			// the game has not started yet ...
-			return Response.status(Status.NOT_ACCEPTABLE).build();
-		}
 		
 		if (game.isDone()) {
 			// score was already submitted 
@@ -147,8 +140,8 @@ public class ScoreResource {
 		
 		// FIXME : set to done !
 
-		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( result.getHome_team_name()) : homeScore > awayScore;
-		actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeWinning );
+		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeam()) : homeScore > awayScore;
+		actualResultDAO.insert(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
 		recalculateScores( gameNum, homeScore, awayScore, homeWinning );
 		associateScores();
 		
