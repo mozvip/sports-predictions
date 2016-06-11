@@ -127,9 +127,7 @@ public class ScoreResource {
 		}
 		
 		userDAO.recalculateScores();
-		for (String community : communities) {
-			userDAO.updateRankings( community );
-		}
+		userDAO.updateRankings();
 
 	}
 	
