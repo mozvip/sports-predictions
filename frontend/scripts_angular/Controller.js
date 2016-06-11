@@ -191,7 +191,7 @@ RanksController.$inject = ['$scope', '$filter', '$location', 'UserService', 'Ran
 * Angular Controller -> ForgetController  
 * Forget password in application.
 * forget() * Call UserService.forgetPassword() to send email
-* setResponse(), setWidgetId() et cbExpiration() * Recaptcha implementation
+* setResponse() et cbExpiration() * Recaptcha implementation
 **/
 var ForgetController =   function($scope, $location, UserService, Notification){
 	
