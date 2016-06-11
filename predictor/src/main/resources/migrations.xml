@@ -158,5 +158,7 @@
     	<modifyDataType tableName="ACTUAL_RESULT" columnName="HOME_TEAM_ID" newDataType="VARCHAR(50)"/>
     	<modifyDataType tableName="ACTUAL_RESULT" columnName="AWAY_TEAM_ID" newDataType="VARCHAR(50)"/>
     </changeSet>
-    
+    <changeSet id="20" author="Guillaume Serre">
+    	<addForeignKeyConstraint constraintName="FK_MATCH_PREDICTION_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="MATCH_PREDICTION" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
+    </changeSet>
 </databaseChangeLog>

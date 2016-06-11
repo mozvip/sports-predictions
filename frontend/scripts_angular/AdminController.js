@@ -35,20 +35,14 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                 columnDefs: [
                         { field: 'name', displayName: 'Nom' },
                         { field: 'email', displayName: 'Email' },
-                        { field: 'currentScore', displayName: 'Score' },
                         { field: 'admin', type: 'boolean' },
                         { field: 'lastLoginDate', displayName: 'Dernière Activité' },
                         { field: 'active', type: 'boolean' }
                 ],
                 onRegisterApi: function (gridApi) {
-                        $scope.userGridOptionsApi = gridApi;
+                        $scope.userGridNoPredictionOptionsApi = gridApi;
                 }
         }
-
-        $scope.userNoPredictionGridOptions.isRowSelectable = function (row) {
-                // ensure user does not disable its own account
-                return (row.entity.active == false || row.entity.email != currentUser.email);
-        };
 
         AdminService.getUsersNoPrediction().then(function (response) {
                 $scope.userNoPredictionGridOptions.data = response.users;
@@ -81,9 +75,17 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         $scope.selectedGame = undefined;
 
         $scope.deleteUsers = function() {
+
+                var listOfEmailsToDelete = [];
+
+                for (let i = 0; i < $scope.userGridNoPredictionOptionsApi.selection.getSelectedCount(); i++) {
+                        var userProfile = $scope.userGridNoPredictionOptionsApi.selection.getSelectedRows()[i];
+                        listOfEmailsToDelete.push( userProfile.email );
+                }
+
                 SweetAlert.swal({
                         title: "Etes vous sûr?",
-                        text: "Confirmez-vous la suppression de ces utilisateurs ?",
+                        text: "Confirmez-vous la suppression de ces " + listOfEmailsToDelete.length + " utilisateurs ?",
                         type: "warning",
                         showCancelButton: true,
                         cancelButtonText: "Annuler",
@@ -95,7 +97,9 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                                 if (!isConfirm) {
                                         return;
                                 }
-                                // TODO
+                                for (let email of listOfEmailsToDelete) {
+                                        AdminService.deleteUser(email).then( function() { Notification.success("L'utilisateur " + email + " a été supprimé")}, function() {});
+                                }
                         });
         }
 

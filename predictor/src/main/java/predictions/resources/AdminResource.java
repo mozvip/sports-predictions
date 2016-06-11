@@ -53,6 +53,15 @@ public class AdminResource {
 	}
 
 	@POST
+	@Path("/delete-user")
+	@RolesAllowed("ADMIN")
+	public void deleteUser( @FormParam("email") String email ) {
+		String community = (String) httpRequest.getAttribute("community");
+		email = email.toLowerCase().trim();
+		userDAO.delete( community, email );
+	}
+
+	@POST
 	@Path("/toggle-admin")
 	@RolesAllowed("ADMIN")
 	public void toggleAdmin( @FormParam("email") String email ) {
