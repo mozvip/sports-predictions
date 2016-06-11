@@ -54,6 +54,8 @@ public class User implements Principal {
 		this.changePasswordToken = changePasswordToken;
 		this.lastLoginDate = lastLoginDate;
 		this.currentScore = currentScore;
+		this.currentRanking = currentRanking;
+		this.previousRanking = previousRanking;
 		this.admin = admin;
 		this.active = active;
 	}
