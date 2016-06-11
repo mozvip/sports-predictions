@@ -46,7 +46,6 @@ import predictions.phases.PhaseFilter;
 import predictions.resources.AdminResource;
 import predictions.resources.ChangePasswordResource;
 import predictions.resources.ScoreResource;
-import predictions.resources.UserListResource;
 import predictions.resources.UserResource;
 import predictions.resources.ValidateEmailResource;
 
@@ -98,7 +97,6 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		GmailService gmail = new GmailService(getName(), configuration);
 		
 		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, client, configuration, gmail));
-		environment.jersey().register(new UserListResource(userDAO, matchPredictionDAO));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new ValidateEmailResource(userDAO));
 		environment.jersey().register(new AdminResource(userDAO));

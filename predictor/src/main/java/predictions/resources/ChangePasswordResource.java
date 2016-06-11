@@ -6,7 +6,6 @@ import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,7 +21,6 @@ import io.dropwizard.auth.Auth;
 import io.swagger.annotations.ApiOperation;
 import predictions.model.User;
 import predictions.model.UserDAO;
-import predictions.views.ChangePasswordView;
 
 @Path("/change-password")
 @Produces(MediaType.APPLICATION_JSON)
@@ -37,12 +35,6 @@ public class ChangePasswordResource {
 	}
 	
 	@Context private HttpServletRequest httpRequest;
-
-	@GET
-	@ApiOperation(value="Displays the view to change password", hidden=true)
-	public ChangePasswordView getView() {
-		return new ChangePasswordView( userDAO, (String) httpRequest.getAttribute("community") );
-	}
 
 	@POST
 	@ApiOperation(value="Used when a connected user changes his own password")
