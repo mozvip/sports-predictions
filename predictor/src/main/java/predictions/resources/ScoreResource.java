@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.constraints.Min;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +31,6 @@ import predictions.model.MatchPrediction;
 import predictions.model.MatchPredictionDAO;
 import predictions.model.User;
 import predictions.model.UserDAO;
-import predictions.views.SubmitScoreView;
 
 @Path("/score")
 @Produces("text/html; charset=UTF-8")
@@ -83,7 +85,7 @@ public class ScoreResource {
 		return games;
 	}
 	
-	private void recalculateScores() {
+	private synchronized void recalculateScores() {
 		
 		Map<String, Integer> scores = new HashMap<String, Integer>();
 		
@@ -92,7 +94,7 @@ public class ScoreResource {
 			scores.put( String.format("%s:%s", user.getCommunity(), user.getEmail().toLowerCase()), 0 );
 		}
 
-		List<MatchPrediction> predictions = matchPredictionDAO.findAll();
+		List<MatchPrediction> predictions = matchPredictionDAO.findNonEvaluated();
 		List<ActualResult> results = actualResultDAO.findValidated();
 		for (ActualResult actualResult : results) {
 			for (MatchPrediction prediction : predictions) {
@@ -108,7 +110,8 @@ public class ScoreResource {
 					int matchScore = 0;
 					
 					if ( prediction.getHome_score() == actualResult.getHome_score() && prediction.getAway_score() == actualResult.getAway_score() ) {
-					
+						
+						// perfect score
 						matchScore = 3;
 					
 					} else if (
@@ -117,10 +120,14 @@ public class ScoreResource {
 							( prediction.getHome_score() < prediction.getAway_score() && actualResult.getHome_score() < actualResult.getAway_score() ) )
 					{
 						
-						matchScore = 2;
+						if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+							matchScore = 2;
+						} else {
+							matchScore = 1;
+						}
 						
 					} else if ( prediction.getHome_score() == actualResult.getHome_score() || prediction.getAway_score() == actualResult.getAway_score() ) {
-						if ( prediction.getCommunity().startsWith("michelin")) {
+						if ( prediction.getCommunity().startsWith("michelin-solutions")) {
 							matchScore = 1;
 						}
 					}
@@ -143,22 +150,34 @@ public class ScoreResource {
 	@RolesAllowed("ADMIN")
 	@Path("/submit")
 	@POST
-	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate all scores, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)")
-	public void postScore( @Auth User user, @FormParam("gameNum") int gameNum, @FormParam("homeScore") int homeScore, @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
+	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate scores and rankings, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)")
+	public Response postScore( @Auth User user, @Min(0) @FormParam("gameNum") int gameNum, @Min(0) @FormParam("homeScore") int homeScore, @Min(0) @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
 		ActualResult result = actualResultDAO.find(gameNum);
+
+		Game game = gamesById.get( gameNum );
+		if (game == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+
+		java.util.Date now = new java.util.Date();
+		if (now.before( game.getDateTime())) {
+			// the game has not started yet ...
+			return Response.status(Status.NOT_ACCEPTABLE).build();
+		}
+		
+		if (game.isDone()) {
+			// score was already submitted 
+			// do nothing : might be a data fix
+		}
+		
+		// FIXME : set to done !
+
 		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( result.getHome_team_name()) : homeScore > awayScore;
 		actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeWinning );
 		recalculateScores();
 		associateScores();
-	}
-
-	@RolesAllowed("ADMIN")
-	@Path("/submit")
-	@Produces("text/html; charset=UTF-8")
-	@GET
-	@ApiOperation(value="Displays the admin view to submit scores", hidden=true)
-	public SubmitScoreView get() {
-		return new SubmitScoreView( games, actualResultDAO );
+		
+		return Response.ok().build();
 	}
 
 }

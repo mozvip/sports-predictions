@@ -45,6 +45,7 @@ import predictions.PredictionsConfiguration;
 import predictions.gmail.GmailService;
 import predictions.model.ActualResult;
 import predictions.model.ActualResultDAO;
+import predictions.model.GoogleReCaptchaResponse;
 import predictions.model.MatchPrediction;
 import predictions.model.MatchPredictionDAO;
 import predictions.model.MatchPredictions;

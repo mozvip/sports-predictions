@@ -40,6 +40,11 @@ angular.module('sports-predictions')
 				return connectedUser != undefined && connectedUser.admin;
 			},
 
+			refreshProfile: function() {
+				connectedUser = undefined;
+				return this.getCurrentUser();
+			},
+
 			getCurrentUser: function () {
 				var deferredObject = $q.defer();
 				if (connectedUser) {

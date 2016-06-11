@@ -175,6 +175,15 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 		else
 			return "notCurrentUser";
 	}
+	
+	$scope.whatArrow = function(rank){
+		if(rank.currentRanking > rank.previousRanking)
+			return "arrow-up";
+		else if(rank.currentRanking < rank.previousRanking)
+			return "arrow-down";
+		else
+			return "arrow-right";
+	}
 }
 RanksController.$inject = ['$scope', '$filter', '$location', 'UserService', 'RankingService', 'Notification', '$linq', 'NgTableParams'];
 
