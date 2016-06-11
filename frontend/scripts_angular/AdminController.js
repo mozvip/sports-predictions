@@ -1,4 +1,4 @@
-angular.module('sports-predictions').controller('AdminController', ['$scope', '$filter', '$http', 'AdminService', 'UserService', 'GamesService', 'SweetAlert', 'BackendService', 'currentUser', 'Notification', function ($scope, $filter, $http, AdminService, UserService, GamesService, SweetAlert, BackendService, currentUser, Notification) {
+angular.module('sports-predictions').controller('AdminController', ['$scope', '$http', 'AdminService', 'GamesService', 'SweetAlert', 'BackendService', 'currentUser', 'Notification', function ($scope, $http, AdminService, GamesService, SweetAlert, BackendService, currentUser, Notification) {
 
         $scope.userGridOptions = {
                 enableSorting: true,
