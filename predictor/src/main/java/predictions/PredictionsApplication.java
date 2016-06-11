@@ -45,7 +45,6 @@ import predictions.model.UserDAO;
 import predictions.phases.PhaseFilter;
 import predictions.resources.AdminResource;
 import predictions.resources.ChangePasswordResource;
-import predictions.resources.RankingsResource;
 import predictions.resources.ScoreResource;
 import predictions.resources.UserListResource;
 import predictions.resources.UserResource;
@@ -101,7 +100,6 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, client, configuration, gmail));
 		environment.jersey().register(new UserListResource(userDAO, matchPredictionDAO));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
-		environment.jersey().register(new RankingsResource(userDAO));
 		environment.jersey().register(new ValidateEmailResource(userDAO));
 		environment.jersey().register(new AdminResource(userDAO));
 		environment.jersey().register(new ScoreResource(actualResultDAO, matchPredictionDAO, userDAO));

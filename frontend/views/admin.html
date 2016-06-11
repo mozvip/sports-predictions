@@ -5,7 +5,7 @@
         </div>
         <div class="panel-body">
             <form name="scoreSubmitForm" novalidate>
-                <select class="form-control" ng-required="true" ng-options="item as gameLabel(item) for item in games" ng-model="selectedGame"></select>
+                <select class="form-control" ng-required="true" ng-options="item as gameLabel(item) for item in games | filter : {done: false}" ng-model="selectedGame"></select>
                 <div ng-show="selectedGame" class="row pronostic-row">
                     <small>Le {{selectedGame.dateTime}} à {{selectedGame.stadium}}</small>
                     <div class="col-md-5 team-name">

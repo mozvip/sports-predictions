@@ -150,7 +150,8 @@ public class ScoreResource {
 		
 		if (game.isDone()) {
 			// score was already submitted 
-			// do nothing : might be a data fix
+			// do nothing : might be a data fix ??? FIXME
+			return Response.status(Status.NOT_FOUND).build(); 
 		}
 		
 		// FIXME : set to done !
