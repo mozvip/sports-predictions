@@ -178,9 +178,9 @@ var RanksController = function($scope, $filter, $location, UserService, RankingS
 	
 	$scope.whatArrow = function(rank){
 		if(rank.currentRanking > rank.previousRanking)
-			return "arrow-up";
-		else if(rank.currentRanking < rank.previousRanking)
 			return "arrow-down";
+		else if(rank.currentRanking < rank.previousRanking)
+			return "arrow-up";
 		else
 			return "arrow-right";
 	}
