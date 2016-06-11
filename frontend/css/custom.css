@@ -499,6 +499,49 @@ html { height: 100%;}
     z-index: 10;
 }
 
+/*-------------------------------*/
+/*            Arrow              */
+/*-------------------------------*/
+
+.arrow {
+    position: absolute;
+    text-align: center;
+    margin-left: 5px;
+    margin-top: 4px;
+}
+
+.arrow-up {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 7.5px 13.0px 7.5px;
+	border-color: transparent transparent #5eff00 transparent;
+}
+
+.arrow-down {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 13.0px 7.5px 0 7.5px;
+	border-color: #ff0022 transparent transparent transparent;
+}
+
+.arrow-right {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 7.5px 0 7.5px 13.0px;
+	border-color: transparent transparent transparent #007bff;
+}
+
+.previousranks{
+	margin-left: 25px;
+}
+
+/*-------------------------------*/
+/*            Logo CE            */
+/*-------------------------------*/
+
 #logo-ce{
 	position: absolute;
 	right: 0;
