@@ -35,6 +35,14 @@ public class AdminResource {
 		return userDAO.findAll( community );
 	}
 
+	@GET
+	@Path("/users-no-prediction")
+	@RolesAllowed("ADMIN")
+	public List<User> getUsersWithNoPredictions() {
+		String community = (String) httpRequest.getAttribute("community");
+		return userDAO.findUsersWithNoPredictions( community );
+	}
+
 	@POST
 	@Path("/toggle-active")
 	@RolesAllowed("ADMIN")
@@ -42,6 +50,15 @@ public class AdminResource {
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.toLowerCase().trim();
 		userDAO.toggleActive( community, email );
+	}
+
+	@POST
+	@Path("/delete-user")
+	@RolesAllowed("ADMIN")
+	public void deleteUser( @FormParam("email") String email ) {
+		String community = (String) httpRequest.getAttribute("community");
+		email = email.toLowerCase().trim();
+		userDAO.delete( community, email );
 	}
 
 	@POST

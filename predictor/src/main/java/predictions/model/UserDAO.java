@@ -17,9 +17,6 @@ public interface UserDAO {
 	@SqlUpdate("update user set CURRENT_SCORE=:score where community=:community AND email=:email")
 	long updateScore(@Bind("email") String email, @Bind("community") String community, @Bind("score") int score);
 
-	@SqlUpdate("update user set PREVIOUS_RANKING=RANKING, RANKING=:ranking where community=:community AND email=:email")
-	long updateRanking(@Bind("email") String email, @Bind("community") String community, @Bind("ranking") int ranking);
-
 	@SqlUpdate("update user set password = HASH('SHA256', STRINGTOUTF8(:password),1000) where email=:email and community=:community")
 	long updatePassword(@Bind("email") String email, @Bind("community") String community, @Bind("password") String password);
 
@@ -34,6 +31,10 @@ public interface UserDAO {
 	@SqlQuery("select * from user where community = :community")
 	@Mapper(UserResultSetMapper.class)
 	List<User> findAll(@Bind("community") String community);
+
+	@SqlQuery("select * from user where community = :community and email not in (select distinct email from match_prediction where community = :community)")
+	@Mapper(UserResultSetMapper.class)
+	List<User> findUsersWithNoPredictions(@Bind("community") String community);
 
 	@SqlQuery("select * from user where community=:community and email=:email and password=HASH('SHA256', STRINGTOUTF8(:password),1000) AND active = true")
 	@Mapper(UserResultSetMapper.class)
@@ -75,5 +76,11 @@ public interface UserDAO {
 
 	@SqlUpdate("update user set name=:name where community=:community AND email=:email")
 	void setName(@Bind("community") String community, @Bind("email") String email, @Bind("name") String name);
+	
+	@SqlUpdate("UPDATE user set CURRENT_SCORE = NVL(( SELECT SUM(SCORE) FROM MATCH_PREDICTION WHERE MATCH_PREDICTION.COMMUNITY = user.COMMUNITY and MATCH_PREDICTION.email = user.EMAIL), 0), PREVIOUS_RANKING = RANKING")
+	void recalculateScores();
+	
+	@SqlUpdate("UPDATE USER SET RANKING = (SELECT RANKING FROM (SELECT ROWNUM() AS RANKING, CURRENT_SCORE FROM ( select B.CURRENT_SCORE from user B WHERE COMMUNITY=:community GROUP BY B.CURRENT_SCORE order by CURRENT_SCORE desc ))WHERE CURRENT_SCORE = USER.CURRENT_SCORE) WHERE COMMUNITY = :community")
+	void updateRankings(@Bind("community") String community);
 
 }

@@ -27,6 +27,27 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                 $scope.userGridOptions.data = response.users;
         });
 
+        $scope.userNoPredictionGridOptions = {
+                enableSorting: true,
+                enableRowSelection: true,
+                enableFiltering: true,
+                enableGridMenu: true,
+                columnDefs: [
+                        { field: 'name', displayName: 'Nom' },
+                        { field: 'email', displayName: 'Email' },
+                        { field: 'admin', type: 'boolean' },
+                        { field: 'lastLoginDate', displayName: 'Dernière Activité' },
+                        { field: 'active', type: 'boolean' }
+                ],
+                onRegisterApi: function (gridApi) {
+                        $scope.userGridNoPredictionOptionsApi = gridApi;
+                }
+        }
+
+        AdminService.getUsersNoPrediction().then(function (response) {
+                $scope.userNoPredictionGridOptions.data = response.users;
+        });
+
         $scope.disableEnable = function () {
                 for (let i = 0; i < $scope.userGridOptionsApi.selection.getSelectedCount(); i++) {
                         var userProfile = $scope.userGridOptionsApi.selection.getSelectedRows()[i];
@@ -53,6 +74,35 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
 
         $scope.selectedGame = undefined;
 
+        $scope.deleteUsers = function() {
+
+                var listOfEmailsToDelete = [];
+
+                for (let i = 0; i < $scope.userGridNoPredictionOptionsApi.selection.getSelectedCount(); i++) {
+                        var userProfile = $scope.userGridNoPredictionOptionsApi.selection.getSelectedRows()[i];
+                        listOfEmailsToDelete.push( userProfile.email );
+                }
+
+                SweetAlert.swal({
+                        title: "Etes vous sûr?",
+                        text: "Confirmez-vous la suppression de ces " + listOfEmailsToDelete.length + " utilisateurs ?",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: "Annuler",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Je confirme !",
+                        closeOnConfirm: true
+                },
+                        function (isConfirm) {
+                                if (!isConfirm) {
+                                        return;
+                                }
+                                for (let email of listOfEmailsToDelete) {
+                                        AdminService.deleteUser(email).then( function() { Notification.success("L'utilisateur " + email + " a été supprimé")}, function() {});
+                                }
+                        });
+        }
+
         $scope.submitScore = function () {
                 SweetAlert.swal({
                         title: "Etes vous sûr?",
@@ -64,12 +114,15 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                         confirmButtonText: "Je confirme !",
                         closeOnConfirm: true
                 },
-                        function () {
-				var data = 'gameNum=' + $scope.selectedGame.gameId + '&homeScore=' + $scope.homeScore + '&awayScore=' + $scope.awayScore + '&winningTeamName=' + $scope.winningTeamName;
-				var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
-                                $http.post(BackendService.getBackEndURL() + "score/submit", data, config).then( function(response) {
+                        function (isConfirm) {
+                                if (!isConfirm) {
+                                        return;
+                                }
+                                var data = 'gameNum=' + $scope.selectedGame.matchNum + '&homeScore=' + $scope.homeScore + '&awayScore=' + $scope.awayScore + '&winningTeamName=' + $scope.winningTeamName;
+                                var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
+                                $http.post(BackendService.getBackEndURL() + "score/submit", data, config).then(function (response) {
                                         Notification.success("Le score a été soumis avec succès");
-                                }, function(response) {
+                                }, function (response) {
 
                                         if (response.status == 406) {
                                                 Notification.error("Ce match n'a pas encore eu lieu !");

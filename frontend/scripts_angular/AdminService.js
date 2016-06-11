@@ -10,15 +10,28 @@ angular.module('sports-predictions')
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {
                         Notification.error({ 'title': response.statusText, 'message': response.data });
+                        deferredObject.reject();
+                    });
+
+                return deferredObject.promise;
+            },
+            getUsersNoPrediction: function () {
+                var deferredObject = $q.defer();
+                var config = BackendService.getRequestConfig();
+
+                $http.get(BackendService.getBackEndURL() + 'admin/users-no-prediction', config)
+                    .then(function (response) {
+                        deferredObject.resolve({ users: response.data });
+                    }, function (response) {
+                        Notification.error({ 'title': response.statusText, 'message': response.data });
+                        deferredObject.reject();
                     });
 
                 return deferredObject.promise;
             },
             toggleActive: function (email) {
                 var deferredObject = $q.defer();
-                var config = {
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Authorization': 'Basic ' + UserService.getToken() }
-                };
+                var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
                 
                 var data = 'email=' + email;
 
@@ -27,9 +40,27 @@ angular.module('sports-predictions')
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {
                         Notification.error({ 'title': response.statusText, 'message': response.data });
+                        deferredObject.reject();
+                    });
+
+                return deferredObject.promise;
+            },
+            deleteUser: function (email) {
+                var deferredObject = $q.defer();
+                var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
+                
+                var data = 'email=' + email;
+
+                $http.post(BackendService.getBackEndURL() + 'admin/delete-user', data, config)
+                    .then(function (response) {
+                        deferredObject.resolve({ users: response.data });
+                    }, function (response) {
+                        Notification.error({ 'title': response.statusText, 'message': response.data });
+                        deferredObject.reject();
                     });
 
                 return deferredObject.promise;
             }
+            
         }
     }]);

@@ -21,7 +21,7 @@ angular.module('sports-predictions')
                         return UserService.getCurrentUser();
                     }]
                 },
-                templateUrl: '/views/pronostic.html'
+                templateUrl: '/views/predictions.html'
             })
             .when('/pronostic-final', {
                 controller: 'PronosticFinalController',

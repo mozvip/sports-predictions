@@ -1,9 +1,12 @@
 package predictions.resources;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.Min;
@@ -33,7 +36,7 @@ import predictions.model.User;
 import predictions.model.UserDAO;
 
 @Path("/score")
-@Produces("text/html; charset=UTF-8")
+@Produces(MediaType.APPLICATION_JSON)
 public class ScoreResource {
 	
 	private final static Logger logger = LoggerFactory.getLogger( ScoreResource.class );
@@ -79,72 +82,55 @@ public class ScoreResource {
 	
 	@GET
 	@Path("/games")
-	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value="Get the list of all games, along with the final result for the games which have already been played")
 	public List<Game> getGames() {
 		return games;
 	}
 	
-	private synchronized void recalculateScores() {
+	private synchronized void updateMatchPredictionScores( int gameNum, int homeScore, int awayScore, boolean homeWinning ) {
 		
-		Map<String, Integer> scores = new HashMap<String, Integer>();
-		
-		List<User> allUsers = userDAO.findAllActive();
-		for (User user : allUsers) {
-			scores.put( String.format("%s:%s", user.getCommunity(), user.getEmail().toLowerCase()), 0 );
-		}
+		Set<String> communities = new HashSet<>();
 
-		List<MatchPrediction> predictions = matchPredictionDAO.findNonEvaluated();
-		List<ActualResult> results = actualResultDAO.findValidated();
-		for (ActualResult actualResult : results) {
-			for (MatchPrediction prediction : predictions) {
+		List<MatchPrediction> predictions = matchPredictionDAO.findPredictions( gameNum );
+		for (MatchPrediction prediction : predictions) {
+			
+			int matchScore = 0;
+			
+			if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore ) {
 				
-				String ident = String.format("%s:%s", prediction.getCommunity(), prediction.getEmail().toLowerCase());
+				// perfect score
+				matchScore = 3;
+			
+			} else if (
+					( prediction.getHome_score() == prediction.getAway_score() && homeScore == awayScore ) ||
+					( prediction.getHome_score() > prediction.getAway_score() && homeScore > awayScore ) ||
+					( prediction.getHome_score() < prediction.getAway_score() && homeScore < awayScore ) )
+			{
 				
-				if (!scores.containsKey( ident )) {
-					continue;
+				if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+					matchScore = 2;
+				} else {
+					matchScore = 1;
 				}
 				
-				if (prediction.getMatch_id() == actualResult.getMatch_id()) {
-					
-					int matchScore = 0;
-					
-					if ( prediction.getHome_score() == actualResult.getHome_score() && prediction.getAway_score() == actualResult.getAway_score() ) {
-						
-						// perfect score
-						matchScore = 3;
-					
-					} else if (
-							( prediction.getHome_score() == prediction.getAway_score() && actualResult.getHome_score() == actualResult.getAway_score() ) ||
-							( prediction.getHome_score() > prediction.getAway_score() && actualResult.getHome_score() > actualResult.getAway_score() ) ||
-							( prediction.getHome_score() < prediction.getAway_score() && actualResult.getHome_score() < actualResult.getAway_score() ) )
-					{
-						
-						if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-							matchScore = 2;
-						} else {
-							matchScore = 1;
-						}
-						
-					} else if ( prediction.getHome_score() == actualResult.getHome_score() || prediction.getAway_score() == actualResult.getAway_score() ) {
-						if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-							matchScore = 1;
-						}
-					}
-					
-					scores.put( ident, scores.get( ident ) + matchScore );
+			} else if ( prediction.getHome_score() == homeScore || prediction.getAway_score() == awayScore ) {
+				if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+					matchScore = 1;
+				} else {
+					matchScore = 0;
 				}
 			}
+			
+			matchPredictionDAO.updateScore( prediction.getCommunity(), prediction.getEmail(), prediction.getMatch_id(), matchScore);
+			
+			communities.add( prediction.getCommunity() );
 		}
 		
-		for (Map.Entry<String, Integer> entry : scores.entrySet()) {
-			String ident = entry.getKey();
-			int index = ident.indexOf(':');
-			String community = ident.substring( 0, index );
-			String email = ident.substring( index + 1 );
-			userDAO.updateScore( email, community, entry.getValue() );
+		userDAO.recalculateScores();
+		for (String community : communities) {
+			userDAO.updateRankings( community );
 		}
-		
+
 	}
 	
 	@RolesAllowed("ADMIN")
@@ -152,18 +138,17 @@ public class ScoreResource {
 	@POST
 	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate scores and rankings, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)")
 	public Response postScore( @Auth User user, @Min(0) @FormParam("gameNum") int gameNum, @Min(0) @FormParam("homeScore") int homeScore, @Min(0) @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
-		ActualResult result = actualResultDAO.find(gameNum);
 
 		Game game = gamesById.get( gameNum );
 		if (game == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
-
-		java.util.Date now = new java.util.Date();
-		if (now.before( game.getDateTime())) {
-			// the game has not started yet ...
+		
+		if (game.getDateTime().after( new Date())) {
+			// game has not started yet !!
 			return Response.status(Status.NOT_ACCEPTABLE).build();
 		}
+
 		
 		if (game.isDone()) {
 			// score was already submitted 
@@ -172,9 +157,9 @@ public class ScoreResource {
 		
 		// FIXME : set to done !
 
-		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( result.getHome_team_name()) : homeScore > awayScore;
-		actualResultDAO.insert(gameNum, homeScore, awayScore, result.getHome_team_id(), result.getAway_team_id(), homeWinning );
-		recalculateScores();
+		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeam()) : homeScore > awayScore;
+		actualResultDAO.insert(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
+		updateMatchPredictionScores( gameNum, homeScore, awayScore, homeWinning );
 		associateScores();
 		
 		return Response.ok().build();
