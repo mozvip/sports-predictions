@@ -27,6 +27,33 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                 $scope.userGridOptions.data = response.users;
         });
 
+        $scope.userNoPredictionGridOptions = {
+                enableSorting: true,
+                enableRowSelection: true,
+                enableFiltering: true,
+                enableGridMenu: true,
+                columnDefs: [
+                        { field: 'name', displayName: 'Nom' },
+                        { field: 'email', displayName: 'Email' },
+                        { field: 'currentScore', displayName: 'Score' },
+                        { field: 'admin', type: 'boolean' },
+                        { field: 'lastLoginDate', displayName: 'Dernière Activité' },
+                        { field: 'active', type: 'boolean' }
+                ],
+                onRegisterApi: function (gridApi) {
+                        $scope.userGridOptionsApi = gridApi;
+                }
+        }
+
+        $scope.userNoPredictionGridOptions.isRowSelectable = function (row) {
+                // ensure user does not disable its own account
+                return (row.entity.active == false || row.entity.email != currentUser.email);
+        };
+
+        AdminService.getUsersNoPrediction().then(function (response) {
+                $scope.userNoPredictionGridOptions.data = response.users;
+        });
+
         $scope.disableEnable = function () {
                 for (let i = 0; i < $scope.userGridOptionsApi.selection.getSelectedCount(); i++) {
                         var userProfile = $scope.userGridOptionsApi.selection.getSelectedRows()[i];
@@ -52,6 +79,25 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         $scope.winningTeamName = '';
 
         $scope.selectedGame = undefined;
+
+        $scope.deleteUsers = function() {
+                SweetAlert.swal({
+                        title: "Etes vous sûr?",
+                        text: "Confirmez-vous la suppression de ces utilisateurs ?",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: "Annuler",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Je confirme !",
+                        closeOnConfirm: true
+                },
+                        function (isConfirm) {
+                                if (!isConfirm) {
+                                        return;
+                                }
+                                // TODO
+                        });
+        }
 
         $scope.submitScore = function () {
                 SweetAlert.swal({

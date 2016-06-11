@@ -36,4 +36,15 @@
             <button class="btn btn-default" ng-click="disableEnable()">Activer/Désactiver l'utilisateur sélectionné</button>
         </div>
     </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Utilisateurs de la communauté {{community}} n'ayant enregistré aucuns pronostics</h3>
+        </div>
+        <div class="panel-body">
+            <div ui-grid="userNoPredictionGridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
+        </div>
+        <div class="panel-body">
+            <button class="btn btn-danger btn-block" ng-click="deleteUsers()">Supprimer les utilisateurs sélectionnés</button>
+        </div>
+    </div>
 </div>

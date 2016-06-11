@@ -35,6 +35,14 @@ public class AdminResource {
 		return userDAO.findAll( community );
 	}
 
+	@GET
+	@Path("/users-no-prediction")
+	@RolesAllowed("ADMIN")
+	public List<User> getUsersWithNoPredictions() {
+		String community = (String) httpRequest.getAttribute("community");
+		return userDAO.findUsersWithNoPredictions( community );
+	}
+
 	@POST
 	@Path("/toggle-active")
 	@RolesAllowed("ADMIN")

@@ -14,6 +14,19 @@ angular.module('sports-predictions')
 
                 return deferredObject.promise;
             },
+            getUsersNoPrediction: function () {
+                var deferredObject = $q.defer();
+                var config = BackendService.getRequestConfig();
+
+                $http.get(BackendService.getBackEndURL() + 'admin/users-no-prediction', config)
+                    .then(function (response) {
+                        deferredObject.resolve({ users: response.data });
+                    }, function (response) {
+                        Notification.error({ 'title': response.statusText, 'message': response.data });
+                    });
+
+                return deferredObject.promise;
+            },
             toggleActive: function (email) {
                 var deferredObject = $q.defer();
                 var config = {
