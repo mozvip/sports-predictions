@@ -8,7 +8,7 @@ public class Game {
 
 	private int matchNum;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm", timezone="CEST")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm", timezone="GMT+2")
 	private Date dateTime;
 	private boolean done = false;
 	private String group;
