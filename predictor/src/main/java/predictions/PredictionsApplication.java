@@ -29,7 +29,6 @@ import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import io.dropwizard.views.ViewBundle;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import predictions.auth.CommunityBasicCredentialAuthFilter;
@@ -60,7 +59,6 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	public void initialize(Bootstrap<PredictionsConfiguration> bootstrap) {
 
 		bootstrap.addBundle(new AssetsBundle("/assets", "/", "index.html"));
-		bootstrap.addBundle(new ViewBundle());
 
 		bootstrap.addBundle(new MigrationsBundle<PredictionsConfiguration>() {
 			public DataSourceFactory getDataSourceFactory(
