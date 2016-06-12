@@ -1,3 +1,83 @@
+.team-ALB{
+	background-image: url(../images/ALB.jpg);
+}
+.team-AUT{
+	background-image: url(../images/AUT.jpg);
+}
+.team-BEL{
+	background-image: url(../images/BEL.jpg);
+}
+.team-CRO{
+	background-image: url(../images/CRO.jpg);
+}
+.team-CZE{
+	background-image: url(../images/CZE.jpg);
+}
+.team-ENG{
+	background-image: url(../images/ENG.jpg);
+}
+.team-ESP{
+	background-image: url(../images/ESP.jpg);
+}
+.team-FRA{
+	background-image: url(../images/FRA.jpg);
+}
+.team-GER{
+	background-image: url(../images/GER.jpg);
+}
+.team-HUN{
+	background-image: url(../images/HUN.jpg);
+}
+.team-IRL{
+	background-image: url(../images/IRL.jpg);
+}
+.team-ISL{
+	background-image: url(../images/ISL.jpg);
+}
+.team-ITA{
+	background-image: url(../images/ITA.jpg);
+}
+.team-NIR{
+	background-image: url(../images/NIR.jpg);
+}
+.team-POL{
+	background-image: url(../images/POL.jpg);
+}
+.team-POR{
+	background-image: url(../images/POR.jpg);
+}
+.team-ROU{
+	background-image: url(../images/ROU.jpg);
+}
+.team-RUS{
+	background-image: url(../images/RUS.jpg);
+}
+.team-SUI{
+	background-image: url(../images/SUI.jpg);
+}
+.team-SVK{
+	background-image: url(../images/SVK.jpg);
+}
+.team-SWE{
+	background-image: url(../images/SWE.jpg);
+}
+.team-TUR{
+	background-image: url(../images/TUR.jpg);
+}
+.team-UKR{
+	background-image: url(../images/UKR.jpg);
+}
+.team-WAL{
+	background-image: url(../images/WAL.jpg);
+}
+
+.team-container{
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+
 [class*=" flag-"],
 [class^=flag-] {
     display: inline-block;

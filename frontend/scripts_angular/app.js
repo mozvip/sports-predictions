@@ -9,9 +9,9 @@ var euro2016Predictions = angular.module('sports-predictions', ['ui.grid', 'ui.g
 				var port = $location.protocol() == 'https' ? '443' : '80';
 				if ($location.host() == 'localhost') {
 					// hack for local development without backend
-					//return 'https://test.pronostics2016.com/api/';
+					return 'https://test.pronostics2016.com/api/';
 					// hack for development with local backend
-					return 'http://localhost:8080/api/';
+					//return 'http://localhost:8080/api/';
 				} else {
 					return $location.protocol() + '://' + $location.host() + ':' + port + '/api/';
 				}
@@ -36,6 +36,7 @@ euro2016Predictions.controller('RanksController', RanksController);
 euro2016Predictions.controller('ForgetController', ForgetController);
 euro2016Predictions.controller('ResetPasswordController', ResetPasswordController);
 euro2016Predictions.controller('PronosticFinalController', PronosticFinalController);
+euro2016Predictions.controller('MatchStatController', MatchStatController);
 
 /* Définition des factory */
 euro2016Predictions.factory('PredictionService', PredictionService);

@@ -82,6 +82,11 @@ angular.module('sports-predictions')
                 controller: 'UserProfileController',
                 authorized: true
             })
+			.when('/stat-match/:matchNum', {
+				templateUrl: '/views/match-stat.html',
+				controller: 'MatchStatController',
+				authorized: true
+			})
             .otherwise({
                 redirectTo: '/pronostic',
                 resolve: {

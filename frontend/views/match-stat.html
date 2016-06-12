@@ -1,0 +1,29 @@
+<div ng-init="init()">
+	<div class="col-md-12" data-wow-delay="0.2s">
+		<div class="box">		
+			<h2>Statistique du match : {{match.homeTeam}} vs {{match.awayTeam}}</h2><br/><br/>
+			<div class="row">
+				<div class="col-md-6 col-lg-6 col-sm-6 col-xs-12"><!-- padding-left: 15px; padding-right: 15px-->
+					<div class="team-container" ng-class="classFlagTeam(match.homeTeam, 'team')">
+						<span class="team-name">
+						  <span class="team-flag" ng-class="classFlagTeam(match.homeTeam, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
+						  <span class="team-name_name" style="color: white">{{match.homeTeam}}</span>
+						</span>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+					<div class="team-container" ng-class="classFlagTeam(match.awayTeam, 'team')">
+						<span class="team-name">
+						  <span class="team-flag" ng-class="classFlagTeam(match.awayTeam, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
+						  <span class="team-name_name" style="color: white">{{match.awayTeam}}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<br/><br/>
+			<div id="containerStat"></div>
+		</div>
+	</div>
+ </div>
+
+ 

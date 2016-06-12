@@ -405,3 +405,105 @@ var PronosticFinalController = function($scope, $location, UserService, Predicti
 	
 }
 PronosticFinalController.$inject = ['$scope','$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq'];
+
+
+var MatchStatController = function($scope, $location, $routeParams, GamesService){
+		
+	$scope.init = function(){
+		GamesService.getMatchGames($routeParams.matchNum).then(
+			function( response ){
+				if (response != null) {
+					$scope.match = response;
+				} else {
+					Notification.error( 'Match introuvable' );
+				}
+			}
+		)
+		
+			Highcharts.chart('containerStat', {
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: '',
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+						style: {
+							color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+						}
+					}
+				}
+			},
+			exporting:{
+				enabled: false
+			},	
+			credits: {
+				enabled: false
+			},
+			series: [{
+				name: 'Pronostic',
+				colorByPoint: true,
+				data: [{
+					color: '#E31937',
+					name: '% de joueur trouvant le pronostic est bon',
+					y: 25
+				}, {
+					color:  '#F2A200',
+					name: '% de joueur trouvant l\'équipe gagnante',
+					y: 50,
+					sliced: true,
+					selected: true
+				}, {
+					color: '#E67386',
+					name: '% de joueur dont le pronostic est faux',
+					y: 25
+				}]
+			}]
+		});
+	}
+	
+	$scope.classFlagTeam = function(nameTeam, type) {
+		var linking = {
+			"France" : "FRA",
+			"Allemagne" : "GER",
+			"Albanie" : "ALB",
+			"Autriche" : "AUT",
+			"Belgique" : "BEL", 
+			"Roumanie" : "ROU",
+			"Suisse" : "SUI", 
+			"Angleterre" : "ENG", 
+			"Russie" : "RUS", 
+			"Slovaquie" : "SVK",
+			"Galles" : "WAL",
+			"Irlande Du Nord" : "NIR", 
+			"Pologne" : "POL", 
+			"Ukraine" : "UKR",
+			"Croatie" :  "CRO",
+			"Rep. Tcheque"  : "CZE",
+			"Espagne" : "ESP",
+			"Turquie" : "TUR",
+			"Italie" : "ITA", 
+			"Irlande" : "IRL", 
+			"Suede" : "SWE", 
+			"Hongrie" : "HUN", 
+			"Islande" : "ISL",
+			"Portugal" : "POR"
+		}
+		return type+"-"+linking[nameTeam];
+	};
+
+
+}
+MatchStatController.$inject = ['$scope', '$location', '$routeParams', 'GamesService'];
