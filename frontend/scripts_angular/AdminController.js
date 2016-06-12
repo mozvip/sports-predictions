@@ -80,7 +80,9 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
 
                 for (let i = 0; i < $scope.userGridNoPredictionOptionsApi.selection.getSelectedCount(); i++) {
                         var userProfile = $scope.userGridNoPredictionOptionsApi.selection.getSelectedRows()[i];
-                        listOfEmailsToDelete.push( userProfile.email );
+                        if (userProfile) {
+                                listOfEmailsToDelete.push( userProfile.email );
+                        }
                 }
 
                 SweetAlert.swal({
@@ -98,7 +100,15 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                                         return;
                                 }
                                 for (let email of listOfEmailsToDelete) {
-                                        AdminService.deleteUser(email).then( function() { Notification.success("L'utilisateur " + email + " a été supprimé")}, function() {});
+                                        AdminService.deleteUser(email).then( function() {
+                                                for (let i=$scope.userNoPredictionGridOptions.data.length-1; i>=0; i--) {
+                                                        var row = $scope.userNoPredictionGridOptions.data[i];
+                                                        if (row.email && row.email == email) {
+                                                                $scope.userNoPredictionGridOptions.data.splice(i, 1);
+                                                        }
+                                                }
+                                                Notification.success("L'utilisateur " + email + " a été supprimé")}, function() {}
+                                        );
                                 }
                         });
         }
