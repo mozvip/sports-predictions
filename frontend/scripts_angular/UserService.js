@@ -33,7 +33,7 @@ angular.module('sports-predictions')
 			},
 			
 			isConnected: function() {
-				return connectedUser != undefined;	
+				return connectedUser != undefined || BackendService.getToken() != undefined;	
 			},
 			
 			isAdmin: function() {

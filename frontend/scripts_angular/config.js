@@ -68,8 +68,8 @@ angular.module('sports-predictions')
                 controller: 'ResetPasswordController',
                 authorized: false
             })
-            .when('/your-stats', {
-                templateUrl: '/views/yourStats.html',
+            .when('/stats', {
+                templateUrl: '/views/stats.html',
                 authorized: true
             })
             .when('/user-profile', {

@@ -39,11 +39,11 @@ SignupController.$inject = ['$scope', '$route', '$routeParams', '$location', 'Us
 var TestController = function($scope){
 	Highcharts.chart('containerRank', {
 		chart: {
-			type: 'column',
+			type: 'line',
 			inverted: false
 		},
 		title: {
-            text: 'Avancement de votre score',
+            text: 'Historique de votre classement',
             x: -20
         },
 		xAxis: {
@@ -57,74 +57,11 @@ var TestController = function($scope){
 			enabled: false
 		},
 		series: [{
-			name: 'Score',
-			type:'line',
-			data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-		},{
 			name: 'Classement',
-		type: 'column',
+		type: 'line',
 		data: [5,5,2,81,88,1,8,1,8,1,8,9],
 		color: '#FF0000'
 		}]
-	});
-	
-	Highcharts.chart('containerStat', {
-		chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-		},
-		title: {
-            text: 'Statistiques sur vos pronostiques',
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
-                }
-            }
-        },
-		exporting:{
-			enabled: false
-		},	
-		credits: {
-			enabled: false
-		},
-        series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: [{
-                name: 'Microsoft Internet Explorer',
-                y: 56.33
-            }, {
-                name: 'Chrome',
-                y: 24.03,
-                sliced: true,
-                selected: true
-            }, {
-                name: 'Firefox',
-                y: 10.38
-            }, {
-                name: 'Safari',
-                y: 4.77
-            }, {
-                name: 'Opera',
-                y: 0.91
-            }, {
-                name: 'Proprietary or Undetectable',
-                y: 0.2
-            }]
-        }]
 	});
 }
 TestController.$inject = ['$scope'];
