@@ -129,6 +129,11 @@
 			<artifactId>mailapi</artifactId>
 			<version>1.4.3</version>
 		</dependency>
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-views</artifactId>
+			<version>${dropwizard.version}</version>
+		</dependency>
 	</dependencies>
 	<properties>
 		<dropwizard.version>1.0.0-rc3</dropwizard.version>
