@@ -19,6 +19,10 @@ public interface MatchPredictionDAO {
 	@Mapper(MatchPredictionResultSetMapper.class)
 	List<MatchPrediction> findByCommunity(@Bind("community") String community);
 
+	@SqlQuery("select match_prediction.* from match_prediction inner join user on match_prediction.community = user.community and match_prediction.email = user.email where user.active=true and match_prediction.community=:community and match_id = :gameId")
+	@Mapper(MatchPredictionResultSetMapper.class)
+	List<MatchPrediction> findByGame(@Bind("community") String community, @Bind("gameId") int gameId);
+
 	@SqlQuery("select * from match_prediction where community=:community AND UPPER(email)=UPPER(:email)")
 	@Mapper(MatchPredictionResultSetMapper.class)
 	List<MatchPrediction> findForUser(@Bind("community") String community, @Bind("email") String email);

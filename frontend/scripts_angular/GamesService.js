@@ -3,36 +3,34 @@ angular.module('sports-predictions')
 
                 return {
                         getGames: function () {
-                            var deferredObject = $q.defer();
+                                var deferredObject = $q.defer();
 
-                            $http
-                                    .get(BackendService.getBackEndURL() + 'score/games')
-                                    .then(function (response) {
-                                            deferredObject.resolve(response.data);
-                                    }, function (response) {
-                                            deferredObject.reject();
-                                    });
+                                $http
+                                        .get(BackendService.getBackEndURL() + 'score/games')
+                                        .then(function (response) {
+                                                deferredObject.resolve(response.data);
+                                        }, function (response) {
+                                                deferredObject.reject();
+                                        });
 
-                            return deferredObject.promise;
+                                return deferredObject.promise;
                         },
-						getMatchGames: function(idMatch){
-							var deferredObject = $q.defer();
-							var result;
-                            $http
-                                    .get(BackendService.getBackEndURL() + 'score/games')
-                                    .then(function (response) {
-										result = $linq.Enumerable()
-                                                    .From(response.data)
-													.FirstOrDefault(null, function (match) {
-															return match.matchNum == idMatch;
-                                                    });
-                                        deferredObject.resolve(result);
-                                    }, function (response) {
-                                            deferredObject.reject();
-                                    });
 
-                            return deferredObject.promise;
-						},
+                        getGameStats: function( gameId ) {
+                                var deferredObject = $q.defer();
+                                var config = BackendService.getRequestConfig();
+
+                                $http
+                                        .get(BackendService.getBackEndURL() + 'game?gameId=' + gameId, config)
+                                        .then(function (response) {
+                                                deferredObject.resolve(response.data);
+                                        }, function (response) {
+                                                deferredObject.reject();
+                                        });
+
+                                return deferredObject.promise;
+                        },
+
                         getGroupGames: function () {
                                 var deferredObject = $q.defer();
                                 var result;
@@ -45,7 +43,7 @@ angular.module('sports-predictions')
                                                                 .From(data.data)
                                                                 .Where(function (match) {
                                                                         //return match.group.startsWith("Groupe")
-																		return match.group.indexOf("Groupe") >= 0;
+                                                                        return match.group.indexOf("Groupe") >= 0;
                                                                 })
                                                                 .OrderBy(function (match) {
                                                                         return match.matchNum;

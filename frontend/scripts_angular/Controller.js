@@ -345,12 +345,14 @@ PronosticFinalController.$inject = ['$scope','$location', 'UserService', 'Predic
 
 
 var MatchStatController = function($scope, $location, $routeParams, GamesService){
+
+	$scope.gameStats = { perfect: 0, good: 0, bad: 0};
 		
 	$scope.init = function(){
-		GamesService.getMatchGames($routeParams.matchNum).then(
+		GamesService.getGameStats($routeParams.matchNum).then(
 			function( response ){
 				if (response != null) {
-					$scope.match = response;
+					$scope.gameStats = response;
 				} else {
 					Notification.error( 'Match introuvable' );
 				}
@@ -395,17 +397,17 @@ var MatchStatController = function($scope, $location, $routeParams, GamesService
 				data: [{
 					color: '#E31937',
 					name: '% de joueur trouvant le pronostic est bon',
-					y: 25
+					y: $scope.gameStats.perfect / $scope.gameStats.total
 				}, {
 					color:  '#F2A200',
 					name: '% de joueur trouvant l\'équipe gagnante',
-					y: 50,
+					y: $scope.gameStats.good / $scope.gameStats.total,
 					sliced: true,
 					selected: true
 				}, {
 					color: '#E67386',
 					name: '% de joueur dont le pronostic est faux',
-					y: 25
+					y: $scope.gameStats.bad / $scope.gameStats.total
 				}]
 			}]
 		});
