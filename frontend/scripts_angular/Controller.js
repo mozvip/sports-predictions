@@ -348,7 +348,7 @@ var MatchStatController = function($scope, $location, $routeParams, GamesService
 
 	$scope.gameStats = { perfect: 0, good: 0, bad: 0};
 
-	$scope.drawStats = function() {
+	$scope.drawStats = function( gameStats ) {
 			Highcharts.chart('containerStat', {
 			chart: {
 				plotBackgroundColor: null,
@@ -386,18 +386,18 @@ var MatchStatController = function($scope, $location, $routeParams, GamesService
 				colorByPoint: true,
 				data: [{
 					color: '#E31937',
-					name: '% de joueur trouvant le pronostic est bon',
-					y: $scope.gameStats.perfect / $scope.gameStats.total
+					name: '% de joueurs ayant trouvé le bon score',
+					y: gameStats.perfect / gameStats.total
 				}, {
 					color:  '#F2A200',
-					name: '% de joueur trouvant l\'équipe gagnante',
-					y: $scope.gameStats.good / $scope.gameStats.total,
+					name: '% de joueurs ayant trouvé la bonne tendance',
+					y: gameStats.good / gameStats.total,
 					sliced: true,
 					selected: true
 				}, {
 					color: '#E67386',
-					name: '% de joueur dont le pronostic est faux',
-					y: $scope.gameStats.bad / $scope.gameStats.total
+					name: '% de joueurs ayant un mauvais pronostic',
+					y: gameStats.bad / gameStats.total
 				}]
 			}]
 		});
@@ -406,8 +406,7 @@ var MatchStatController = function($scope, $location, $routeParams, GamesService
 	$scope.init = function(){
 		GamesService.getGameStats($routeParams.matchNum).then(
 			function( response ){
-				$scope.gameStats = response.data;
-				$scope.drawStats();
+				$scope.drawStats( response );
 			}, function( reponse ) {
 				Notification.error( 'Match introuvable' );
 			}
