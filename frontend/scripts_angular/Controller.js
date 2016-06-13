@@ -347,18 +347,8 @@ PronosticFinalController.$inject = ['$scope','$location', 'UserService', 'Predic
 var MatchStatController = function($scope, $location, $routeParams, GamesService){
 
 	$scope.gameStats = { perfect: 0, good: 0, bad: 0};
-		
-	$scope.init = function(){
-		GamesService.getGameStats($routeParams.matchNum).then(
-			function( response ){
-				if (response != null) {
-					$scope.gameStats = response;
-				} else {
-					Notification.error( 'Match introuvable' );
-				}
-			}
-		)
-		
+
+	$scope.drawStats = function() {
 			Highcharts.chart('containerStat', {
 			chart: {
 				plotBackgroundColor: null,
@@ -411,6 +401,17 @@ var MatchStatController = function($scope, $location, $routeParams, GamesService
 				}]
 			}]
 		});
+	}
+		
+	$scope.init = function(){
+		GamesService.getGameStats($routeParams.matchNum).then(
+			function( response ){
+				$scope.gameStats = response.data;
+				$scope.drawStats();
+			}, function( reponse ) {
+				Notification.error( 'Match introuvable' );
+			}
+		)
 	}
 	
 	$scope.classFlagTeam = function(nameTeam, type) {
