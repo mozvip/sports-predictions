@@ -4,19 +4,6 @@ var euro2016Predictions = angular.module('sports-predictions', ['ui.grid', 'ui.g
 		cfpLoadingBarProvider.includeSpinner = false;
 	});
 
-/* Définition des controllers à l'application */
-euro2016Predictions.controller('SignupController', SignupController);
-euro2016Predictions.controller('TestController', TestController);
-euro2016Predictions.controller('RanksController', RanksController);
-euro2016Predictions.controller('ForgetController', ForgetController);
-euro2016Predictions.controller('ResetPasswordController', ResetPasswordController);
-euro2016Predictions.controller('PronosticFinalController', PronosticFinalController);
-euro2016Predictions.controller('MatchStatController', MatchStatController);
-
-/* Définition des factory */
-euro2016Predictions.factory('PredictionService', PredictionService);
-euro2016Predictions.factory('RankingService', RankingService);
-
 /* Définition des directives */
 euro2016Predictions.directive('logoCeDisplay', logoCeDisplay);
 euro2016Predictions.directive('pronostic', pronostic);
