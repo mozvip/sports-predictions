@@ -1,21 +1,21 @@
 <div ng-init="init()">
 	<div class="col-md-12" data-wow-delay="0.2s">
 		<div class="box">		
-			<h2>Statistique du match : {{match.homeTeam}} - {{match.awayTeam}}</h2><br/><br/>
+			<h2>Statistique du match : {{gameStats.homeTeam}} - {{gameStats.awayTeam}}</h2><br/><br/>
 			<div class="row">
 				<div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-					<div class="team-container" ng-class="classFlagTeam(match.homeTeam, 'team')">
+					<div class="team-container" ng-class="classFlagTeam(gameStats.homeTeam, 'team')">
 						<span class="team-name">
-						  <span class="team-flag" ng-class="classFlagTeam(match.homeTeam, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
-						  <span class="team-name_name" style="color: white">{{match.homeTeam}}</span>
+						  <span class="team-flag" ng-class="classFlagTeam(gameStats.homeTeam, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
+						  <span class="team-name_name" style="color: white">{{gameStats.homeTeam}}</span>
 						</span>
 					</div>
 				</div>
 				<div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-					<div class="team-container" ng-class="classFlagTeam(match.awayTeam, 'team')">
+					<div class="team-container" ng-class="classFlagTeam(gameStats.awayTeam, 'team')">
 						<span class="team-name">
-						  <span class="team-flag" ng-class="classFlagTeam(match.awayTeam, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
-						  <span class="team-name_name" style="color: white">{{match.awayTeam}}</span>
+						  <span class="team-flag" ng-class="classFlagTeam(gameStats.awayTeam, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
+						  <span class="team-name_name" style="color: white">{{gameStats.awayTeam}}</span>
 						</span>
 					</div>
 				</div>

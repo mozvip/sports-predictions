@@ -2,31 +2,6 @@
 var euro2016Predictions = angular.module('sports-predictions', ['ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ngAnimate', 'vTabs', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'angular-linq', 'ui-notification', 'ngTable', 'oitozero.ngSweetAlert'])
 	.config(function (cfpLoadingBarProvider) {
 		cfpLoadingBarProvider.includeSpinner = false;
-	})
-	.factory('BackendService', function ($location) {
-		return {
-			getBackEndURL: function () {
-				var port = $location.protocol() == 'https' ? '443' : '80';
-				if ($location.host() == 'localhost') {
-					// hack for local development without backend
-					//return 'https://test.pronostics2016.com/api/';
-					// hack for development with local backend
-					return 'http://localhost:8080/api/';
-				} else {
-					return $location.protocol() + '://' + $location.host() + ':' + port + '/api/';
-				}
-			},
-			getToken: function () {
-				return $cookies.get('SESSION_ID');
-			},
-			getRequestConfig: function () {
-				return {
-					headers: {
-						'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Basic ' + this.getToken()
-					}
-				}
-			}
-		}
 	});
 
 /* Définition des controllers à l'application */

@@ -406,6 +406,7 @@ var MatchStatController = function($scope, $location, $routeParams, GamesService
 	$scope.init = function(){
 		GamesService.getGameStats($routeParams.matchNum).then(
 			function( response ){
+				$scope.gameStats = response;
 				$scope.drawStats( response );
 			}, function( reponse ) {
 				Notification.error( 'Match introuvable' );
