@@ -52,6 +52,8 @@ import predictions.model.MatchPredictions;
 import predictions.model.Rankings;
 import predictions.model.User;
 import predictions.model.UserDAO;
+import predictions.phases.Phase;
+import predictions.phases.PhaseManager;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -197,6 +199,7 @@ public class UserResource {
 	@ApiOperation("Save predictions for the connected user")
 	public void save( @Auth User user, MatchPredictions predictions ) {
 		// FIXME savePredictions( user.getCommunity(), user.getEmail(), predictions );
+		Phase currentPhase = PhaseManager.getInstance().getCurrentPhase();
 	}
 
 	@GET

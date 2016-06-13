@@ -20,12 +20,14 @@ public class MatchPrediction {
 	private String home_team_id;
 	@JsonProperty
 	private boolean home_winner;
+	@JsonProperty
+	private int score = 0;
 
 	public MatchPrediction() {
 	}
 
 	public MatchPrediction(String community, String email, int match_id, int away_score, String away_team_id,
-			int home_score, String home_team_id, boolean home_winner) {
+			int home_score, String home_team_id, boolean home_winner, int score) {
 		super();
 		this.community = community;
 		this.email = email;
@@ -35,6 +37,7 @@ public class MatchPrediction {
 		this.home_score = home_score;
 		this.home_team_id = home_team_id;
 		this.home_winner = home_winner;
+		this.score = score;
 	}
 
 	public boolean isHome_winner() {
@@ -100,5 +103,8 @@ public class MatchPrediction {
 	public void setHome_team_id(String home_team_id) {
 		this.home_team_id = home_team_id;
 	}
-
+	
+	public int getScore() {
+		return score;
+	}
 }

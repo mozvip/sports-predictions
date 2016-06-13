@@ -37,10 +37,12 @@ angular.module('sports-predictions').controller('PredictionsController', ['$scop
                         if (prediction != null) {
                             element.predictionHome_Score = prediction.home_score;
                             element.predictionAway_Score = prediction.away_score;
+                            element.predictionScore = prediction.score;
                         }
                         else {
                             element.predictionHome_Score = 0;
                             element.predictionAway_Score = 0;
+                            element.predictionScore = 0;
                         }
                         element.home_winner = false;
                     });                
