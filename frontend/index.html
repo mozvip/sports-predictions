@@ -77,7 +77,7 @@
 
 <body>
 	<div id="wrapper">
-		<div id="page-content-wrapper" ng-controller="HomeController">		
+		<div id="page-content-wrapper" ng-controller="HomeController" ng-init="init()">		
 				<nav class="navbar navbar-transparent">
 					<div class="container-fluid">
 						<!-- Brand and toggle get grouped for better mobile display -->
@@ -105,7 +105,7 @@
 									<a href="#pronostic">Mes Pronostics <span class="glyphicon glyphicon-home"> </span></a>
 								</li>
 								<li>
-									<a href="#user-profile">Profil <span class="glyphicon glyphicon-user"> </span></a>
+									<a href="#user-profile">Profil <span class="glyphicon glyphicon-user"> </span><span class="badge" style="margin-left: 5px; margin-bottom: 5px;">{{rank}}</span></a>
 								</li>
 								<li ng-show="admin()">
 									<a href="#admin">Administration <span class="glyphicon glyphicon-cog"> </span></a>
