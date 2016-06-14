@@ -46,7 +46,7 @@ angular.module('sports-predictions')
 						name: 'Pronostic',
 						colorByPoint: true,
 						data: [{
-							color: '#E31937',
+							color: '#4caf50',
 							name: '% de joueurs ayant trouvé le bon score',
 							y: gameStats.perfect / gameStats.total
 						}, {
@@ -56,7 +56,7 @@ angular.module('sports-predictions')
 							sliced: true,
 							selected: true
 						}, {
-							color: '#E67386',
+							color: '#E31937',
 							name: '% de joueurs ayant un mauvais pronostic',
 							y: gameStats.bad / gameStats.total
 						}]
