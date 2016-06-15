@@ -53,7 +53,7 @@ angular.module('sports-predictions')
 					if (BackendService.getToken()) {
 						$http.get(BackendService.getBackEndURL() + 'user/predictions', BackendService.getRequestConfig()).then(
 							function( response ) {
-								deferredObject.resolve( response );
+								deferredObject.resolve( response.data );
 								connectedUser = response.data;
 							}, function( response ) {
 								deferredObject.reject();
