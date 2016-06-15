@@ -19,6 +19,9 @@ public class MatchPredictions {
 	private boolean admin;
 
 	@JsonProperty
+	private int currentRanking;
+
+	@JsonProperty
 	private String authToken;
 
 	@JsonProperty
@@ -70,6 +73,14 @@ public class MatchPredictions {
 
 	public void setAuthToken(String authToken) {
 		this.authToken = authToken;
+	}
+
+	public int getCurrentRanking() {
+		return currentRanking;
+	}
+
+	public void setCurrentRanking(int currentRanking) {
+		this.currentRanking = currentRanking;
 	}
 
 	public MatchPredictions() {

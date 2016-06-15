@@ -223,6 +223,7 @@ public class UserResource {
 		predictions.setCommunity( user.getCommunity() );
 		predictions.setEmail( user.getEmail() );
 		predictions.setName( user.getName() );
+		predictions.setCurrentRanking( user.getCurrentRanking() );
 		predictions.setAdmin( user.isAdmin() || user.getCommunity().equals("localhost") );
 		predictions.setMatch_predictions_attributes( matchPredictions );
 		return predictions;
