@@ -7,30 +7,30 @@
 angular.module('sports-predictions')
 .controller('SignupController', ['$scope', '$route', '$routeParams', '$location', 'UserService', 'Notification',
 function($scope, $route, $routeParams, $location, UserService, Notification) {
-	Highcharts.chart('containerRank', {
-		chart: {
-			type: 'line',
-			inverted: false
-		},
-		title: {
-            text: 'Historique de votre classement',
-            x: -20
-        },
-		xAxis: {
-			categories: ['Match 1', 'Match 2', 'Match 3', 'Match 4', 'Match 5', 'Match 6', 
-				'Match 7', 'Match 8', 'Match 9', 'Match 10', 'Match 11', 'Match 12']
-		},
-		exporting:{
-			enabled: false
-		},	
-		credits: {
-			enabled: false
-		},
-		series: [{
-			name: 'Classement',
-		type: 'line',
-		data: [5,5,2,81,88,1,8,1,8,1,8,9],
-		color: '#FF0000'
-		}]
-	});
+	// Implementation recaptcha
+	$scope.response = null;
+
+    $scope.model = {
+        key: '6LdiSh8TAAAAADLasplj5tGB390M6qBzH24vmXED'
+    };
+	
+	$scope.newuser = {
+        Login: '',
+		Name: '',
+        Password: ''
+    };
+				
+    $scope.save = function() {
+		var res = UserService.signup($scope.newuser.Login, $scope.newuser.Name, $scope.newuser.Password, $scope.response);
+		
+			res.then(function (result) {
+			if (result.User != null  && result.User.status === 500) 
+				Notification.error({message: result.User.message, title: 'Erreur lors de l\'enregistrement'});
+			else if(result.User != null  && result.User.status === 204)
+			{
+				Notification.success({message: 'Merci de vous connecter à l\'application afin d\'accèder au concours de pronostics.', title: 'Enregistrement effectué'});
+				$location.path('/');
+			}
+		});
+    }
 }]);
