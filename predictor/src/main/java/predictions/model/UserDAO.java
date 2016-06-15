@@ -1,5 +1,6 @@
 package predictions.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -82,5 +83,8 @@ public interface UserDAO {
 	
 	@SqlUpdate("UPDATE USER SET RANKING = SELECT RANKING FROM ( SELECT a1.EMAIL, a1.COMMUNITY, a1.CURRENT_SCORE, COUNT (a2.CURRENT_SCORE) RANKING FROM USER a1, USER a2 WHERE (a1.CURRENT_SCORE < a2.CURRENT_SCORE AND A1.COMMUNITY = A2.COMMUNITY) OR (a1.CURRENT_SCORE=a2.CURRENT_SCORE AND a1.EMAIL = a2.EMAIL AND a1.COMMUNITY = a2.COMMUNITY) GROUP BY a1.EMAIL, A1.COMMUNITY, a1.CURRENT_SCORE ORDER BY a1.CURRENT_SCORE DESC, a1.EMAIL DESC) WHERE EMAIL = USER.EMAIL AND COMMUNITY = USER.COMMUNITY;")
 	void updateRankings();
+
+	@SqlUpdate("INSERT INTO USER_RANKINGS(COMMUNITY, EMAIL, GAME_NUM, GAME_DATE, RANKING) VALUES (:community, :email, :gameNum, :gameDate, :ranking)")
+	void insertRankings(@Bind("community") String community, @Bind("email") String email, @Bind("gameNum") String gameNum, @Bind("gameDate") Date gameDate, @Bind("ranking") int ranking);
 
 }
