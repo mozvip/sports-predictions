@@ -195,7 +195,7 @@
     	<addPrimaryKey tableName="USER_RANKINGS" columnNames="COMMUNITY,EMAIL"/>
 
     	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="USER_RANKINGS" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
-    	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_GAME" referencedTableName="GAME" baseColumnNames="GAME_ID" baseTableName="USER_RANKINGS" referencedColumnNames="GAME_ID" onDelete="CASCADE"/>
+    	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_GAME" referencedTableName="GAMES" baseColumnNames="GAME_ID" baseTableName="USER_RANKINGS" referencedColumnNames="GAME_ID" onDelete="CASCADE"/>
 
     </changeSet>
 
