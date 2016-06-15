@@ -13,6 +13,8 @@ function($scope, $route, $routeParams, $location, UserService, Notification) {
     $scope.model = {
         key: '6LdiSh8TAAAAADLasplj5tGB390M6qBzH24vmXED'
     };
+
+	$scope.signUpOpened = false;
 	
 	$scope.newuser = {
         Login: '',
