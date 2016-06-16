@@ -1,25 +1,25 @@
-<div ng-controller="StatsController">
+<div ng-init="init()">
 	<div class="row">
 		<div class="col-md-12" data-wow-delay="0.2s">
 			<div class="box">	
 				<h2>Vos statistiques</h2><br/><br/>
-				<div class="row">
+			 	<div class="row">
 					<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12" style="padding-left: 1px; padding-right: 1px">
 						<div style="background-color: #95C13E;height: 100px; ">
 							<div style="text-align: center; color: white;padding-top: 25px;">Nombre de pronostics parfaits</div>
-							<div style="text-align: center; color: white; font-size:large;">2</div>
+							<div style="text-align: center; color: white; font-size:large;">{{statsPrediction.perfect}}</div>
 						</div>
 					</div>
 					<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12" style="padding-left: 1px; padding-right: 1px">
 						<div style="background-color: #ED9D2E;height: 100px; ">
 							<div style="text-align: center; color: white;padding-top: 25px;">Nombre de pronostics avec la bonne tendance</div>
-							<div style="text-align: center; color: white; font-size:large;">6</div>
+							<div style="text-align: center; color: white; font-size:large;">{{statsPrediction.good}}</div>
 						</div>
 					</div>
 					<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12"  style=" padding-left: 1px; padding-right: 1px">
 						<div style="background-color: #DE5840;height: 100px;">
 							<div style="text-align: center; color: white; padding-top: 25px;">Nombre de mauvais pronostics</div>
-							<div style="text-align: center; color: white; font-size:large;">5</div>
+							<div style="text-align: center; color: white; font-size:large;">{{statsPrediction.bad}}</div>
 						</div>
 					</div>
 				</div>

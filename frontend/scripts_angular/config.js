@@ -70,6 +70,12 @@ angular.module('sports-predictions')
             })
             .when('/stats', {
                 templateUrl: '/views/stats.html',
+				resolve: {
+                    currentUser: ['UserService', function (UserService) {
+                        return UserService.getCurrentUser();
+                    }]
+                },
+				controller: 'StatsController',
                 authorized: true
             })
             .when('/user-profile', {
