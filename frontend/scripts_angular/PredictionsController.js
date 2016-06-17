@@ -4,19 +4,20 @@
 * init() * Get data prediction with games data
 * submitPronostic() * Save predictions
 **/
-angular.module('sports-predictions').controller('PredictionsController', ['$scope', '$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser', function ($scope, $location, UserService, PredictionService, GamesService, Notification, $linq, currentUser) {
+angular.module('sports-predictions').controller('PredictionsController', ['$scope', '$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser', 
+function ($scope, $location, UserService, PredictionService, GamesService, Notification, $linq, currentUser) {
 
     $scope.games = [];
-
-    $scope.tabs = [{ title: 'Groupe A', content: '<div class="item active"><h3 class="group-name">Groupe A</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>' },
-        { title: 'Groupe B', content: '<div class="item"><h3 class="group-name">Groupe B</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>' },
-        { title: 'Groupe C', content: '<div class="item"><h3 class="group-name">Groupe C</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>' },
-        { title: 'Groupe D', content: '<div class="item"><h3 class="group-name">Groupe D</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe D\'" match="match"></pronostic></div>' },
-        { title: 'Groupe E', content: '<div class="item"><h3 class="group-name">Groupe E</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe E\'" match="match"></pronostic></div>' },
-        { title: 'Groupe F', content: '<div class="item"><h3 class="group-name">Groupe F</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe F\'" match="match"></pronostic></div>' }];
+	
+	
+    $scope.tabs = [{ id: 1, title: 'Groupe A', content: '<div class="GroupeA"><h3 class="group-name">Groupe A</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>' },
+        { id: 2, title: 'Groupe B', content: '<div class="GroupeB"><h3 class="group-name">Groupe B</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>' },
+        { id: 3, title: 'Groupe C', content: '<div class="GroupeC"><h3 class="group-name">Groupe C</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>' },
+        { id: 4, title: 'Groupe D', content: '<div class="GroupeD"><h3 class="group-name">Groupe D</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe D\'" match="match"></pronostic></div>' },
+        { id: 5, title: 'Groupe E', content: '<div class="GroupeE"><h3 class="group-name">Groupe E</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe E\'" match="match"></pronostic></div>' },
+        { id: 6, title: 'Groupe F', content: '<div class="GroupeF"><h3 class="group-name">Groupe F</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe F\'" match="match"></pronostic></div>' }];
 
     $scope.init = function () {
-
         var error = false;
         $scope.games = [];
         var res = GamesService.getGroupGames();
@@ -56,6 +57,7 @@ angular.module('sports-predictions').controller('PredictionsController', ['$scop
             $scope.games = [];
             return;
         }
+		
     }
 
     $scope.submitPronostic = function () {
@@ -93,4 +95,6 @@ angular.module('sports-predictions').controller('PredictionsController', ['$scop
             home_winner: (game.predictionHome_Score > game.predictionAway_Score)
         };
     }
+
+	
 }]);

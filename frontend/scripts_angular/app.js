@@ -9,3 +9,4 @@ euro2016Predictions.directive('logoCeDisplay', logoCeDisplay);
 euro2016Predictions.directive('pronostic', pronostic);
 euro2016Predictions.directive('compileHtml', compileHtml);
 euro2016Predictions.directive('pronosticFinal', pronosticFinal);
+euro2016Predictions.directive('backButton', backButton);

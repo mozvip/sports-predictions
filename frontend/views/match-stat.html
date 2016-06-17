@@ -3,6 +3,12 @@
 		<div class="box">		
 			<h2>Statistique du match : {{gameStats.homeTeam}} - {{gameStats.awayTeam}}</h2><br/><br/>
 			<div class="row">
+				<div class="col-md-3">
+					<button class="btn btn-block btn-primary" back-button><span class="glyphicon glyphicon-new-window"></span> Retour</button>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
 				<div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
 					<div class="team-container" ng-class="classFlagTeam(gameStats.homeTeam, 'team')">
 						<span class="team-name">

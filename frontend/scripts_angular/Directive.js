@@ -207,3 +207,24 @@ var pronosticFinal = function(){
         }
     };
 }
+
+
+/**
+* Angular Directive -> pronosticFinal
+* Element Directive for display a final match
+**/
+var backButton = function(){
+    return {
+      restrict: 'A',
+
+      link: function(scope, element, attrs) {
+        element.bind('click', goBack);
+
+        function goBack() {
+			window.history.back();
+			//history.back();
+			scope.$apply();
+        }
+      }
+    }
+};	

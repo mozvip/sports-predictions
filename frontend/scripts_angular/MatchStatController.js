@@ -4,8 +4,8 @@
  * login() * Try to log in user input
  **/
 angular.module('sports-predictions')
-	.controller('MatchStatController', ['$scope', '$location', '$routeParams', 'GamesService', 
-		function ($scope, $location, $routeParams, GamesService) {
+	.controller('MatchStatController', ['$scope', '$location', '$routeParams', 'GamesService', '$linq', 
+		function ($scope, $location, $routeParams, GamesService, $linq) {
 
 			$scope.gameStats = { perfect: 0, good: 0, bad: 0};
 
@@ -73,6 +73,9 @@ angular.module('sports-predictions')
 						Notification.error( 'Match introuvable' );
 					}
 				)
+			}
+			
+			$scope.back = function(){	
 			}
 			
 			$scope.classFlagTeam = function(nameTeam, type) {

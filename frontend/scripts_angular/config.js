@@ -70,11 +70,6 @@ angular.module('sports-predictions')
             })
             .when('/stats', {
                 templateUrl: '/views/stats.html',
-				resolve: {
-                    currentUser: ['UserService', function (UserService) {
-                        return UserService.getCurrentUser();
-                    }]
-                },
 				controller: 'StatsController',
                 authorized: true
             })
@@ -90,6 +85,11 @@ angular.module('sports-predictions')
             })
 			.when('/stat-match/:matchNum', {
 				templateUrl: '/views/match-stat.html',
+				resolve: {
+                    currentUser: ['UserService', function (UserService) {
+                        return UserService.getCurrentUser();
+                    }]
+                },
 				controller: 'MatchStatController',
 				authorized: true
 			})
