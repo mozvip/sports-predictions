@@ -24,7 +24,7 @@
 					</div>
 				</div>
 				<br/><br/>
-				<div id="containerRank" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+				<div id="containerUserRank" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 			</div>
 		</div>
 	</div>
@@ -34,8 +34,21 @@
 			<div class="box">	
 				<h2>Statistiques de la communauté</h2><br/><br/>
 				<div class="row">
-					TODO : Le premier du classement, le dernier, le meilleur pronostiqeur(celui qui le plus de match tout juste), le plus mauvais
+					<div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" style="padding-left: 1px; padding-right: 1px">
+						<div style="background-color: #95C13E;height: 100px; ">
+							<div style="text-align: center; color: white;padding-top: 25px;">Le meilleur pronostiqueur</div>
+							<div style="text-align: center; color: white; font-size:large;">{{bestpronosticman}}</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" style="padding-left: 1px; padding-right: 1px">
+						<div style="background-color: #DE5840;height: 100px; ">
+							<div style="text-align: center; color: white;padding-top: 25px;">Le pire pronostiqueur</div>
+							<div style="text-align: center; color: white; font-size:large;">{{lastpronosticman}}</div>
+						</div>
+					</div>
 				</div>
+				<br/><br/>
+				<div id="containerComScore" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 			</div>
 		</div>
 	</div>
