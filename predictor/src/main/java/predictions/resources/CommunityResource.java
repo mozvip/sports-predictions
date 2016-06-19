@@ -2,6 +2,7 @@ package predictions.resources;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,11 +14,10 @@ import io.dropwizard.auth.Auth;
 import predictions.model.Community;
 import predictions.model.CommunityDAO;
 import predictions.model.User;
-import predictions.phases.Phase;
-import predictions.phases.PhaseManager;
 
 @Path("/community")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class CommunityResource {
 	
 	@Context private HttpServletRequest httpRequest;
@@ -30,15 +30,12 @@ public class CommunityResource {
 	
 	@GET
 	public Community getCommunity() {
-		String community = (String) httpRequest.getAttribute("community");
-		
-		PhaseManager mgr = PhaseManager.getInstance();
-		Phase currentPhase = mgr.getCurrentPhase();
-		
-		boolean finalsPhase = currentPhase.getPhaseName().equals("Finals Phase");
-		boolean afterEvent = currentPhase.getPhaseName().equals("After Event");
-		
-		return new Community(community, !finalsPhase, !finalsPhase, finalsPhase );
+		String name = (String) httpRequest.getAttribute("community");
+		Community community = communityDAO.getCommunity(name);
+		if (community == null) {
+			community = new Community(name, true, true, false);
+		}
+		return community;
 	}
 	
 	@POST

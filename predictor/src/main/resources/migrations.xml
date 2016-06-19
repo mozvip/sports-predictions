@@ -161,6 +161,10 @@
     <changeSet id="20" author="Guillaume Serre">
     	<addForeignKeyConstraint constraintName="FK_MATCH_PREDICTION_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="MATCH_PREDICTION" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
     </changeSet>
+    <changeSet id="20.1" author="Guillaume Serre">
+    	<dropTable tableName="GAMES"/>
+    	<dropTable tableName="USER_RANKINGS"/>
+    </changeSet>
     <changeSet id="21" author="Guillaume Serre">
     	
     	<createTable tableName="GAMES">
@@ -197,6 +201,22 @@
     	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="USER_RANKINGS" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
     	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_GAME" referencedTableName="GAMES" baseColumnNames="GAME_ID" baseTableName="USER_RANKINGS" referencedColumnNames="GAME_ID" onDelete="CASCADE"/>
 
+    </changeSet>
+    
+    <changeSet id="22" author="Guillaume Serre">
+       	<createTable tableName="COMMUNITY">
+    		<column name="COMMUNITY_NAME" type="VARCHAR(100)">
+    			<constraints primaryKey="true"/>
+    		</column>
+    		<column name="CREATE_ACCOUNT_ENABLED" type="BOOLEAN"></column>
+    		<column name="GROUPS_EDIT_ENABLED" type="BOOLEAN"></column>
+    		<column name="FINALS_EDIT_ENABLED" type="BOOLEAN"></column>
+    	</createTable>	
+    </changeSet>
+    <changeSet id="23" author="Guillaume Serre">
+    	<sql>
+    		insert into community ( select distinct community, false, false, true FROM user )
+    	</sql>
     </changeSet>
 
 </databaseChangeLog>
