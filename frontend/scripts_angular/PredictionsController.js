@@ -7,9 +7,12 @@
 angular.module('sports-predictions').controller('PredictionsController', ['$scope', '$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser', 
 function ($scope, $location, UserService, PredictionService, GamesService, Notification, $linq, currentUser) {
 
+    $scope.updateEnabled = function() {
+        return false;
+    }
+
     $scope.games = [];
-	
-	
+
     $scope.tabs = [{ id: 1, title: 'Groupe A', content: '<div class="GroupeA"><h3 class="group-name">Groupe A</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>' },
         { id: 2, title: 'Groupe B', content: '<div class="GroupeB"><h3 class="group-name">Groupe B</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe B\'" match="match"></pronostic></div>' },
         { id: 3, title: 'Groupe C', content: '<div class="GroupeC"><h3 class="group-name">Groupe C</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe C\'" match="match"></pronostic></div>' },

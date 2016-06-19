@@ -9,6 +9,9 @@ angular.module('sports-predictions')
                 resolve: {
                     currentUser: ['UserService', function (UserService) {
                         return UserService.getCurrentUser();
+                    }],
+                    community: ['CommunityService', function(CommunityService) {
+                        return CommunityService.getCommunity();
                     }]
                 },
                 controller: 'RanksController'
@@ -39,6 +42,9 @@ angular.module('sports-predictions')
                 resolve: {
                     count: ['UserService', function (UserService) {
                         return UserService.getCount();
+                    }],
+                    community: ['CommunityService', function(CommunityService) {
+                        return CommunityService.getCommunity();
                     }]
                 },
                 authorized: false
@@ -53,7 +59,11 @@ angular.module('sports-predictions')
                 resolve: {
                     currentUser: ['UserService', function (UserService) {
                         return UserService.getCurrentUser();
+                    }],
+                    community: ['CommunityService', function(CommunityService) {
+                        return CommunityService.getCommunity();
                     }]
+
                 },
                 authorized: true,
                 controller: 'AdminController'

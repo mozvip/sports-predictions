@@ -1,4 +1,6 @@
-angular.module('sports-predictions').controller('AdminController', ['$scope', '$http', 'AdminService', 'GamesService', 'SweetAlert', 'BackendService', 'currentUser', 'Notification', function ($scope, $http, AdminService, GamesService, SweetAlert, BackendService, currentUser, Notification) {
+angular.module('sports-predictions').controller('AdminController', ['$scope', '$http', 'AdminService', 'GamesService', 'CommunityService', 'SweetAlert', 'BackendService', 'currentUser', 'community', 'Notification', function ($scope, $http, AdminService, GamesService, CommunityService, SweetAlert, BackendService, currentUser, community,  Notification) {
+
+        $scope.community = community;
 
         $scope.userGridOptions = {
                 enableSorting: true,
@@ -62,7 +64,6 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         })
 
         $scope.currentUser = currentUser;
-        $scope.community = currentUser.community;
 
         $scope.gameLabel = function (game) {
                 return game.group + ' - ' + game.homeTeam + ' - ' + game.awayTeam;
@@ -73,6 +74,10 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         $scope.winningTeamName = '';
 
         $scope.selectedGame = undefined;
+
+        $scope.saveParameters = function() {
+                CommunityService.save( community );
+        }
 
         $scope.deleteUsers = function() {
 

@@ -38,12 +38,14 @@ import predictions.auth.PredictorBasicAuthenticator;
 import predictions.auth.PredictorOAuthAuthenticator;
 import predictions.gmail.GmailService;
 import predictions.model.ActualResultDAO;
+import predictions.model.CommunityDAO;
 import predictions.model.MatchPredictionDAO;
 import predictions.model.User;
 import predictions.model.UserDAO;
 import predictions.phases.PhaseFilter;
 import predictions.resources.AdminResource;
 import predictions.resources.ChangePasswordResource;
+import predictions.resources.CommunityResource;
 import predictions.resources.GameResource;
 import predictions.resources.ScoreResource;
 import predictions.resources.UserResource;
@@ -78,6 +80,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
 		final MatchPredictionDAO matchPredictionDAO = jdbi.onDemand(MatchPredictionDAO.class);
 		final ActualResultDAO actualResultDAO = jdbi.onDemand(ActualResultDAO.class);
+		final CommunityDAO communityDAO = jdbi.onDemand(CommunityDAO.class);
 		
 		environment.jersey().setUrlPattern("/api");
 		
@@ -100,6 +103,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().register(new ValidateEmailResource(userDAO));
 		environment.jersey().register(new AdminResource(userDAO));
 		environment.jersey().register(new GameResource( matchPredictionDAO ));
+		environment.jersey().register(new CommunityResource( communityDAO ));
 		environment.jersey().register(new ScoreResource(actualResultDAO, matchPredictionDAO, userDAO));
 		
 		Dynamic corsFilter = environment.servlets().addFilter("CrossOriginFilter", CrossOriginFilter.class);

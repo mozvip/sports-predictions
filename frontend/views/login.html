@@ -18,12 +18,12 @@
 			</div>
 			
 			<button class="btn btn-block btn-primary" type="submit"><span class="glyphicon glyphicon-log-in"></span> Se Connecter</button>
-			<a ng-if="signUpOpened" href="#sign-up" class="btn btn-block btn-success">Pas encore de compte ? Créez en un nouveau !</a>
+			<a ng-if="community.createAccountEnabled" href="#sign-up" class="btn btn-block btn-success">Pas encore de compte ? Créez en un nouveau !</a>
 		</form>
-		<div ng-if="signUpOpened" style="text-align: center">
+		<div ng-if="community.createAccountEnabled" style="text-align: center">
 			<h3>Rejoignez {{count}} participants déjà inscrits !</h3>
 		</div>
-		<div ng-if="!signUpOpened" style="text-align: center">
+		<div ng-if="!community.createAccountEnabled" style="text-align: center">
 			<h3>{{count}} participants inscrits !</h3>
 		</div>
 	</div>
