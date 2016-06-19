@@ -14,19 +14,15 @@ angular.module('sports-predictions')
 			}
 
 			$scope.connected = function () {
-				return $location.path() != '/login';
+				return UserService.isConnected();
 			}
 
 			$scope.admin = function () {
 				return UserService.isAdmin();
 			}
 
-			$scope.currentRanking = 0;
-			$scope.init = function () {
-				UserService.getCurrentUser().then(function (userProfile) {
-					$scope.currentRanking = userProfile.currentRanking;
-				})
+			$scope.currentRanking = function() {
+				return UserService.getCurrentRanking();
 			}
-
 
 		}]);

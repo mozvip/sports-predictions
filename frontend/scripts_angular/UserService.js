@@ -31,6 +31,10 @@ angular.module('sports-predictions')
 				)
 				return deferredObject.promise;
 			},
+
+			getCurrentRanking: function() {
+				return connectedUser != undefined ? connectedUser.currentRanking : -1;
+			},
 			
 			isConnected: function() {
 				return connectedUser != undefined || BackendService.getToken() != undefined;	
