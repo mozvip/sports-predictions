@@ -4,8 +4,17 @@
 * logOut() * Log out user connected
 **/
 angular.module('sports-predictions')
-	.controller('HomeController', ['$scope', '$location', 'UserService', 'BackendService', 'Notification',
-		function ($scope, $location, UserService, BackendService, Notification) {
+	.controller('HomeController', ['$scope', '$location', 'UserService', 'BackendService', 'Notification', 'CommunityService',
+		function ($scope, $location, UserService, BackendService, Notification, CommunityService) {
+
+			$scope.community = undefined;
+			CommunityService.getCommunity().then( function( community ) {
+				$scope.community = community;
+			});
+
+			$scope.finalsEditEnabled = function() {
+				return $scope.community != undefined && $scope.community.finalsEditEnabled;
+			}
 
 			$scope.logOut = function () {
 				UserService.logout();

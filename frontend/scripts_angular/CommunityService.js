@@ -12,11 +12,9 @@ angular.module('sports-predictions')
                                         }
                                 )
                                 return deferredObject.promise;
-
                         },
 
                         save: function( community ) {
-                                
                                 var config = BackendService.getRequestConfig();
                                 var data = JSON.stringify( community );
 
