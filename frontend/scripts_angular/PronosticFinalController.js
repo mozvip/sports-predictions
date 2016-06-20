@@ -11,7 +11,7 @@ function($scope, $location, UserService, PredictionService, GamesService, Notifi
 		return true;
 	}
 
-// JUST FOR TEST
+	// JUST FOR TEST
 	$scope.games = [
 	{"matchNum":36,"dateTime":"2016-06-25T15:00", "group":"8èmes de finale","stadium":"Saint-Etienne","homeTeam":"2eme A","trueHomeTeam":"Suisse","trueAwayTeam":"Pologne", "awayTeam":"2eme C","homeScore":0,"awayScore":0},
 	{"matchNum":37,"dateTime":"2016-06-25T18:00", "group":"8èmes de finale","stadium":"Paris","homeTeam":"1er B","trueHomeTeam":"Angleterre","trueAwayTeam":"Croatie","awayTeam":"3eme Acd","homeScore":0,"awayScore":0},
@@ -39,7 +39,45 @@ function($scope, $location, UserService, PredictionService, GamesService, Notifi
 		{ title:'Finale', content:'<div class="item"><h3 class="group-name">Finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Finale\'}:true" match="match"></pronostic-final></div>'}];
 		
 	$scope.init = function(){
-		// TODO :
+		var error = false;
+        $scope.games = [];
+        var res = GamesService.getFinalGames();
+        res.then(function (result) {
+            if (result.Games != null && result.Games != undefined) {
+                $scope.games = result.Games;
+                
+                $linq.Enumerable()
+                    .From($scope.games)
+                    .ForEach(function (element) {
+                        var gameID = element.matchNum;
+                        var prediction = $linq.Enumerable()
+                            .From(currentUser.match_predictions_attributes)
+                            .FirstOrDefault(null, function (prediction) {
+                                return prediction.match_id === gameID;
+                            });
+
+                        if (prediction != null) {
+                            element.predictionHome_Score = prediction.home_score;
+                            element.predictionAway_Score = prediction.away_score;
+                            element.predictionScore = prediction.score;
+                        }
+                        else {
+                            element.predictionHome_Score = 0;
+                            element.predictionAway_Score = 0;
+                            element.predictionScore = 0;
+                        }
+                        element.home_winner = false;
+                    });                
+            } else {
+                Notification.error({ message: 'Les scores des matches n\'ont pu être récupérés. Un problème technique est à l\'origine du problème.', title: 'Erreur' });
+                error = true;
+            }
+        });
+
+        if (error) {
+            $scope.games = [];
+            return;
+        }
 	}	
 	
 	
@@ -57,8 +95,10 @@ function($scope, $location, UserService, PredictionService, GamesService, Notifi
 		  match_predictions_attributes: predictions
 		})
 		.then(function(result){
-			if (result.status == 'success')
+			if (result.status == 'success'){
+				UserService.refreshProfile();
 				Notification.success( result.message );
+			}
 			else
 				Notification.error( result.message );
 		});
@@ -79,7 +119,7 @@ function($scope, $location, UserService, PredictionService, GamesService, Notifi
 
 			
 	$scope.watchMatch = function(match){
-		if(match.group === '8�mes de finale'){
+		if(match.group === '8èmes de finale'){
 			var matchQuart = $linq.Enumerable()
 									.From($scope.games)
 									.Where(function(m){

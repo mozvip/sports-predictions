@@ -3,7 +3,8 @@
  * Login user in euro2016 Predictor
  * login() * Try to log in user input
  **/
-angular.module('sports-predictions').controller('LoginController', ['$scope', '$route', '$routeParams', '$location', 'UserService', 'count', 'community', 'Notification', function ($scope, $route, $routeParams, $location, UserService, count, community, Notification) {
+angular.module('sports-predictions').controller('LoginController', ['$scope', '$route', '$routeParams', '$location', 'UserService', 'count', 'community', 'Notification', 'CommunityService',
+function ($scope, $route, $routeParams, $location, UserService, count, community, Notification) {
 
     $scope.User = {
         Login: '',
@@ -20,7 +21,10 @@ angular.module('sports-predictions').controller('LoginController', ['$scope', '$
             if (response.status != 200) {
                 Notification.error("Votre email ou votre mot de passe est incorrect");
             } else {
-                $location.path('pronostic');
+				if($scope.community != undefined && $scope.community.finalsAccess != 'N')
+					$location.path('pronostic');
+				else
+					$location.path('pronostic');  
             }
         });
     }
