@@ -63,6 +63,10 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                 $scope.games = response;
         })
 
+        $scope.mustDetermineWinner = function() {
+                return $scope.homeScore == $scope.awayScore && (!$scope.selectedGame.group.startsWith("Groupe "));
+        }
+
         $scope.currentUser = currentUser;
 
         $scope.gameLabel = function (game) {
