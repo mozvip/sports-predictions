@@ -57,17 +57,26 @@
                     <input ng-model="community.createAccountEnabled" type="checkbox"> Autoriser les créations de nouveaux comptes
                 </label>
             </div>
-            <div class="checkbox">
-                <label>
-                    <input ng-model="community.groupsEditEnabled" type="checkbox"> Autoriser la modification des scores de phases de groupes
+            <div class="form-group">
+                <label class="control-label">
+                    Accès aux phases de groupes
                 </label>
+                <select class="form-control" ng-model="community.groupsAccess">
+                    <option value="R">Lecture</option>
+                    <option value="W">Lecture & Modification</option>
+                    <option value="N">Pas d'accès</option>
+                </select>
             </div>
-            <div class="checkbox">
-                <label>
-                    <input ng-model="community.finalsEditEnabled" type="checkbox"> Autoriser la modification des scores de phases finales
+            <div class="form-group">
+                <label class="control-label">
+                    Accès aux phases finales
                 </label>
+                <select class="form-control" ng-model="community.finalsAccess">
+                    <option value="R">Lecture</option>
+                    <option value="W">Lecture & Modification</option>
+                    <option value="N">Pas d'accès</option>
+                </select>
             </div>
-
         </div>
         <div class="panel-footer">
             <button class="btn btn-primary btn-block" ng-click="saveParameters()">Sauvegarder les paramètres</button>

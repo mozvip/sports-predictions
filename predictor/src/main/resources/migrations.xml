@@ -218,5 +218,18 @@
     		insert into community ( select distinct community, false, false, true FROM user )
     	</sql>
     </changeSet>
+    
+    <changeSet id="24" author="Guillaume Serre">
+    	<addColumn tableName="COMMUNITY">
+    		<column name="GROUPS_ACCESS" type="VARCHAR(1)" defaultValue="N">
+    			<constraints nullable="false"/>
+    		</column>
+    		<column name="FINALS_ACCESS" type="VARCHAR(1)" defaultValue="N">
+    			<constraints nullable="false"/>
+    		</column>
+    	</addColumn>
+    	<dropColumn tableName="COMMUNITY" columnName="GROUPS_EDIT_ENABLED"/>
+    	<dropColumn tableName="COMMUNITY" columnName="FINALS_EDIT_ENABLED"/>
+    </changeSet>
 
 </databaseChangeLog>

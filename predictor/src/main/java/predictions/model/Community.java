@@ -11,21 +11,21 @@ public class Community {
 	private boolean createAccountEnabled = true;
 
 	@JsonProperty
-	private boolean groupsEditEnabled = true;
+	private AccessType groupsAccess = AccessType.N;
 
 	@JsonProperty
-	private boolean finalsEditEnabled = true;
-	
+	private AccessType finalsAccess = AccessType.N;
+
 	public Community() {
 		
 	}
 
-	public Community(String name, boolean createAccountEnabled, boolean groupsEditEnabled, boolean finalsEditEnabled) {
+	public Community(String name, boolean createAccountEnabled, AccessType groupsAccess, AccessType finalsAccess) {
 		super();
 		this.name = name;
 		this.createAccountEnabled = createAccountEnabled;
-		this.groupsEditEnabled = groupsEditEnabled;
-		this.finalsEditEnabled = finalsEditEnabled;
+		this.groupsAccess = groupsAccess;
+		this.finalsAccess = finalsAccess;
 	}
 
 	public String getName() {
@@ -36,12 +36,12 @@ public class Community {
 		return createAccountEnabled;
 	}
 
-	public boolean isGroupsEditEnabled() {
-		return groupsEditEnabled;
+	public AccessType getGroupsAccess() {
+		return groupsAccess;
 	}
-
-	public boolean isFinalsEditEnabled() {
-		return finalsEditEnabled;
+	
+	public AccessType getFinalsAccess() {
+		return finalsAccess;
 	}
 
 }

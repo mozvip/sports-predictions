@@ -7,8 +7,8 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 public interface CommunityDAO {
 	
-	@SqlUpdate("MERGE INTO COMMUNITY KEY(COMMUNITY_NAME) VALUES(:name, :createAccountEnabled, :groupsEditEnabled, :finalsEditEnabled)")
-	public void updateCommunity(@Bind("name") String name, @Bind("createAccountEnabled") boolean createAccountEnabled, @Bind("groupsEditEnabled") boolean groupsEditEnabled, @Bind("finalsEditEnabled") boolean finalsEditEnabled);
+	@SqlUpdate("MERGE INTO COMMUNITY KEY(COMMUNITY_NAME) VALUES(:name, :createAccountEnabled, :groupsAccess, :finalsAccess)")
+	public void updateCommunity(@Bind("name") String name, @Bind("createAccountEnabled") boolean createAccountEnabled, @Bind("groupsAccess") AccessType groupsAccess, @Bind("finalsAccess") AccessType finalsAccess);
 	
 	@SqlQuery("SELECT * FROM COMMUNITY WHERE COMMUNITY_NAME = :name")
 	@Mapper(CommunityMapper.class)

@@ -11,6 +11,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import io.dropwizard.auth.Auth;
+import predictions.model.AccessType;
 import predictions.model.Community;
 import predictions.model.CommunityDAO;
 import predictions.model.User;
@@ -33,7 +34,7 @@ public class CommunityResource {
 		String name = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
 		if (community == null) {
-			community = new Community(name, true, true, false);
+			community = new Community(name, true, AccessType.R, AccessType.R);
 		}
 		return community;
 	}
@@ -42,7 +43,7 @@ public class CommunityResource {
 	@RolesAllowed("ADMIN")
 	public void save(@Auth User user, Community communityParameters) {
 		String name = (String) httpRequest.getAttribute("community");
-		communityDAO.updateCommunity(name, communityParameters.isCreateAccountEnabled(), communityParameters.isGroupsEditEnabled(), communityParameters.isFinalsEditEnabled());
+		communityDAO.updateCommunity(name, communityParameters.isCreateAccountEnabled(), communityParameters.getGroupsAccess(), communityParameters.getFinalsAccess());
 	}
 
 }

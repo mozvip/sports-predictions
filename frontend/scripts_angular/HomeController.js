@@ -12,8 +12,12 @@ angular.module('sports-predictions')
 				$scope.community = community;
 			});
 
-			$scope.finalsEditEnabled = function() {
-				return $scope.community != undefined && $scope.community.finalsEditEnabled;
+			$scope.finalsAccessEnabled = function() {
+				return $scope.community != undefined && $scope.community.finalsAccess != 'N';
+			}
+
+			$scope.groupsAccessEnabled = function() {
+				return $scope.community != undefined && $scope.community.groupsAccess != 'N';
 			}
 
 			$scope.logOut = function () {
