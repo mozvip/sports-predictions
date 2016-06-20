@@ -22,7 +22,7 @@ function ($scope, $route, $routeParams, $location, UserService, count, community
                 Notification.error("Votre email ou votre mot de passe est incorrect");
             } else {
 				if($scope.community != undefined && $scope.community.finalsAccess != 'N')
-					$location.path('pronostic');
+					$location.path('pronostic-final');
 				else
 					$location.path('pronostic');  
             }

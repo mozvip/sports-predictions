@@ -22,7 +22,13 @@ angular.module('sports-predictions')
                 resolve: {
                     currentUser: ['UserService', function (UserService) {
                         return UserService.getCurrentUser();
-                    }]
+                    }],
+					check:['CommunityService', '$location', function(CommunityService, $location){
+						CommunityService.getCommunity().then(function(result){
+							if(result.groupsAccess == 'N')
+								$location.path('ranks');
+						});
+					}]
                 },
                 templateUrl: '/views/predictions.html'
             })
@@ -31,7 +37,13 @@ angular.module('sports-predictions')
                 resolve: {
                     currentUser: ['UserService', function (UserService) {
                         return UserService.getCurrentUser();
-                    }]
+                    }],
+					check:['CommunityService', '$location', function(CommunityService, $location){
+						CommunityService.getCommunity().then(function(result){
+							if(result.finalsAccess == 'N')
+								$location.path('ranks');
+						});
+					}]
                 },
                 authorized: true,
                 templateUrl: '/views/pronosticFinal.html'

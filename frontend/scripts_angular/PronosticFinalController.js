@@ -4,8 +4,8 @@
  * login() * Try to log in user input
  **/
 angular.module('sports-predictions')
-.controller('PronosticFinalController', ['$scope', '$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq', 
-function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq){
+.controller('PronosticFinalController', ['$scope', '$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser',
+function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq, currentUser){
 
 	$scope.updateEnabled = function() {
 		return true;
