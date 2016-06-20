@@ -54,9 +54,6 @@ angular.module('sports-predictions')
                 resolve: {
                     count: ['UserService', function (UserService) {
                         return UserService.getCount();
-                    }],
-                    community: ['CommunityService', function(CommunityService) {
-                        return CommunityService.getCommunity();
                     }]
                 },
                 authorized: false
@@ -87,6 +84,11 @@ angular.module('sports-predictions')
             })
             .when('/forget-password/:email/:token', {
                 templateUrl: '/views/changePassword.html',
+				resolve: {
+                    community: ['CommunityService', function(CommunityService) {
+                        return CommunityService.getCommunity();
+                    }]
+                },
                 controller: 'ResetPasswordController',
                 authorized: false
             })

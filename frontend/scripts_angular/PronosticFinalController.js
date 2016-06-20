@@ -7,10 +7,6 @@ angular.module('sports-predictions')
 .controller('PronosticFinalController', ['$scope', '$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser',
 function($scope, $location, UserService, PredictionService, GamesService, Notification, $linq, currentUser){
 
-	$scope.updateEnabled = function() {
-		return true;
-	}
-
 	// JUST FOR TEST
 	$scope.games = [
 	{"matchNum":36,"dateTime":"2016-06-25T15:00", "group":"8èmes de finale","stadium":"Saint-Etienne","homeTeam":"2eme A","trueHomeTeam":"Suisse","trueAwayTeam":"Pologne", "awayTeam":"2eme C","homeScore":0,"awayScore":0},
