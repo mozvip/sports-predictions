@@ -7,10 +7,6 @@
 angular.module('sports-predictions').controller('PredictionsController', ['$scope', '$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser', 
 function ($scope, $location, UserService, PredictionService, GamesService, Notification, $linq, currentUser) {
 
-    $scope.updateEnabled = function() {
-        return false;
-    }
-
     $scope.games = [];
 
     $scope.tabs = [{ id: 1, title: 'Groupe A', content: '<div class="GroupeA"><h3 class="group-name">Groupe A</h3><hr/><pronostic ng-repeat="match in games | filter:\'Groupe A\'" match="match"></pronostic></div>' },
