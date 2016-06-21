@@ -10,7 +10,6 @@ angular.module('sports-predictions')
                 return {
 					savePredictions: function(predictions){
 						var deferredObject = $q.defer();
-						var result = {};
 						var config = BackendService.getRequestConfig('application/json');
 						$http
 						.post(BackendService.getBackEndURL() + 'user/save', predictions, config)

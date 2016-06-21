@@ -98,7 +98,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		
 		GmailService gmail = new GmailService(getName(), configuration);
 		
-		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, client, configuration, gmail));
+		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, communityDAO, client, configuration, gmail));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new ValidateEmailResource(userDAO));
 		environment.jersey().register(new AdminResource(userDAO));

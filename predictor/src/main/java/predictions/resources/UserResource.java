@@ -43,8 +43,11 @@ import io.dropwizard.auth.Auth;
 import io.swagger.annotations.ApiOperation;
 import predictions.PredictionsConfiguration;
 import predictions.gmail.GmailService;
+import predictions.model.AccessType;
 import predictions.model.ActualResult;
 import predictions.model.ActualResultDAO;
+import predictions.model.Community;
+import predictions.model.CommunityDAO;
 import predictions.model.GoogleReCaptchaResponse;
 import predictions.model.MatchPrediction;
 import predictions.model.MatchPredictionDAO;
@@ -64,16 +67,19 @@ public class UserResource {
 	private UserDAO userDAO;
 	private MatchPredictionDAO matchPredictionDAO;
 	private ActualResultDAO actualResultDAO;
+	private CommunityDAO communityDAO;
+	
 	private HttpClient client;
 	private PredictionsConfiguration configuration;
 	private GmailService gmail;
 
 	@Context private HttpServletRequest httpRequest;
 
-	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, HttpClient client, PredictionsConfiguration configuration, GmailService gmail ) {
+	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, CommunityDAO communityDAO, HttpClient client, PredictionsConfiguration configuration, GmailService gmail ) {
 		this.userDAO = dao;
 		this.matchPredictionDAO = matchPredictionDAO;
 		this.actualResultDAO = actualResultDAO;
+		this.communityDAO = communityDAO;
 		this.client = client;
 		this.configuration = configuration;
 		this.gmail = gmail;
@@ -108,14 +114,6 @@ public class UserResource {
 	public long getUserCount() {
 		String community = (String) httpRequest.getAttribute("community");
 		return userDAO.getCount(community);
-	}
-
-	@POST
-	@Path("/savePredictions")
-	@Timed
-	public void savePredictions( @Auth User user, MatchPredictions predictions ) {
-		String community = (String) httpRequest.getAttribute("community");
-		savePredictions( community, predictions.getEmail(), predictions );
 	}
 
 	@POST
@@ -180,7 +178,9 @@ public class UserResource {
 		}
 		for (MatchPrediction prediction : predictions.getMatch_predictions_attributes()) {
 			if (!validatedMatches.contains( prediction.getMatch_id())) {
-				matchPredictionDAO.insert(community, email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_id(), prediction.getAway_team_id(), prediction.isHome_winner());
+				if (prediction.getHome_team_id() != null && prediction.getAway_team_id() != null) {
+					matchPredictionDAO.insert(community, email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_id(), prediction.getAway_team_id(), prediction.isHome_winner());
+				}
 			}
 		}
 	}
@@ -198,8 +198,15 @@ public class UserResource {
 	@Timed
 	@ApiOperation("Save predictions for the connected user")
 	public void save( @Auth User user, MatchPredictions predictions ) {
-		// FIXME savePredictions( user.getCommunity(), user.getEmail(), predictions );
 		Phase currentPhase = PhaseManager.getInstance().getCurrentPhase();
+		
+		String name = (String) httpRequest.getAttribute("community");
+		Community community = communityDAO.getCommunity(name);
+
+		// FIXME: only save relevant data !!
+		if (community.getFinalsAccess() == AccessType.W || community.getGroupsAccess() == AccessType.W) {
+			savePredictions( user.getCommunity(), user.getEmail(), predictions );
+		}
 	}
 
 	@GET

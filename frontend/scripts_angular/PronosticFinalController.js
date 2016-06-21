@@ -4,8 +4,8 @@
  * login() * Try to log in user input
  **/
 angular.module('sports-predictions')
-	.controller('PronosticFinalController', ['$scope', '$location', 'UserService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser',
-		function ($scope, $location, UserService, PredictionService, GamesService, Notification, $linq, currentUser) {
+	.controller('PronosticFinalController', ['$scope', '$location', 'UserService', 'BackendService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser',
+		function ($scope, $location, UserService, BackendService, PredictionService, GamesService, Notification, $linq, currentUser) {
 
 			$scope.tabs = [
 				{ title: '8èmes de finale', content: '<div class="item active"><h3 class="group-name">8èmes de finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'8èmes de finale\'}:true" match="match"></pronostic-final></div>' },
@@ -57,16 +57,15 @@ angular.module('sports-predictions')
 
 
 			$scope.submitPronostic = function () {
-				var community = $location.host() == 'localhost' ? 'test' : $location.host();
 				var predictions = [];
 
 				$linq.Enumerable()
 					.From($scope.games)
 					.ForEach(function (element) {
-						predictions.push(createPrediction(community, element));
+						predictions.push(createPrediction(element));
 					});
 
-				PredictionService.savePredictions(UserService.getToken(), {
+				PredictionService.savePredictions({
 					match_predictions_attributes: predictions
 				})
 					.then(function (result) {
@@ -79,9 +78,8 @@ angular.module('sports-predictions')
 					});
 			}
 
-			var createPrediction = function (host, game) {
+			var createPrediction = function (game) {
 				return {
-					community: host,
 					email: UserService.getCurrentLogin(),
 					match_id: game.matchNum,
 					away_score: game.predictionAway_Score,

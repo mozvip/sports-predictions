@@ -60,13 +60,12 @@ function ($scope, $location, UserService, PredictionService, GamesService, Notif
     }
 
     $scope.submitPronostic = function () {
-        var community = $location.host() == 'localhost' ? 'test' : $location.host();
         var predictions = [];
 
         $linq.Enumerable()
             .From($scope.games)
-            .ForEach(function (element) {
-                predictions.push(createPrediction(community, element));
+            .ForEach(function (game) {
+                predictions.push(createPrediction(game));
             });
 
         PredictionService.savePredictions({
@@ -82,9 +81,8 @@ function ($scope, $location, UserService, PredictionService, GamesService, Notif
             });
     }
 
-    var createPrediction = function (host, game) {
+    var createPrediction = function (game) {
         return {
-            community: host,
             email: UserService.getCurrentLogin(),
             match_id: game.matchNum,
             away_score: game.predictionAway_Score,
