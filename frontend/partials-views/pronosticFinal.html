@@ -35,4 +35,22 @@
 		<h3 class="text-center visible-xs visible-sm" ng-if="match.trueAwayTeam == undefined">{{match.awayTeam}}</h3>
 	</div>	
 </div>
+<div class="row" ng-if="match.done">
+	<a href="#/stat-match/{{match.matchNum}}" style="color: black">
+		<div class="col-xs-12 col-md-3">
+		</div>
+		<div class="col-xs-12 col-md-2 team-name" style="margin-top:20px;">
+			Score final
+		</div>
+		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
+			<p class="form-control-static scoreInput">{{match.homeScore}}</p>
+		</div>
+		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
+			<p class="form-control-static scoreInput">{{match.awayScore}}</p>
+		</div>
+		<div class="col-xs-12 col-md-5 team-name" style="margin-top:20px;">
+			Vous marquez {{match.predictionScore}} points
+		</div>	
+	</a>
+</div>
 <hr></hr>
