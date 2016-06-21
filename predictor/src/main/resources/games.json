@@ -355,56 +355,56 @@
         "dateTime": "2016-06-30T21:00+02",
         "group": "Quarts de finale",
         "stadium": "Marseille",
-        "homeTeam": "2eme A Ou 2eme C",
-        "awayTeam": "1er D Ou 3eme Bef",
+        "homeTeamWinnerFrom": 36,
+        "awayTeamWinnerFrom": 38,
         "matchNum": 44
     },
     {
         "dateTime": "2016-07-01T21:00+02",
         "group": "Quarts de finale",
         "stadium": "Lille",
-        "homeTeam": "1er B Ou 3eme Acd",
-        "awayTeam": "1er F Ou 2eme E",
+        "homeTeamWinnerFrom": 37,
+        "awayTeamWinnerFrom": 41,
         "matchNum": 45
     },
     {
         "dateTime": "2016-07-02T21:00+02",
         "group": "Quarts de finale",
         "stadium": "Bordeaux",
-        "homeTeam": "1er C Ou 3eme Abf",
-        "awayTeam": "1er E Ou 2eme D",
+        "homeTeamWinnerFrom": 40,
+        "awayTeamWinnerFrom": 42,
         "matchNum": 46
     },
     {
         "dateTime": "2016-07-03T21:00+02",
         "group": "Quarts de finale",
         "stadium": "Saint-Denis",
-        "homeTeam": "1er A Ou 3eme Cde",
-        "awayTeam": "2eme B Ou 2eme F",
+        "homeTeamWinnerFrom": 39,
+        "awayTeamWinnerFrom": 43,
         "matchNum": 47
     },
     {
         "dateTime": "2016-07-06T21:00+02",
         "group": "Demi-finales",
         "stadium": "Lyon",
-        "homeTeam": "Vq1",
-        "awayTeam": "Vq2",
+        "homeTeamWinnerFrom": 44,
+        "awayTeamWinnerFrom": 45,
         "matchNum": 48
     },
     {
         "dateTime": "2016-07-07T21:00+02",
         "group": "Demi-finales",
         "stadium": "Marseille",
-        "homeTeam": "Vq3",
-        "awayTeam": "Vq4",
+        "homeTeamWinnerFrom": 46,
+        "awayTeamWinnerFrom": 47,
         "matchNum": 49
     },
     {
         "dateTime": "2016-07-10T21:00+02",
         "group": "Finale",
         "stadium": "Saint-Denis",
-        "homeTeam": "",
-        "awayTeam": "",
+        "homeTeamWinnerFrom": 48,
+        "awayTeamWinnerFrom": 49,
         "matchNum": 50
     }
 ]

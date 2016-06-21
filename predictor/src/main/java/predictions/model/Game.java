@@ -14,7 +14,9 @@ public class Game {
 	private String group;
 	private String stadium;
 	private String homeTeam;
+	private int homeTeamWinnerFrom;
 	private String awayTeam;
+	private int awayTeamWinnerFrom;
 	private int homeScore;
 	private int awayScore;
 	private String winningTeam;
@@ -97,6 +99,22 @@ public class Game {
 
 	public void setWinningTeam(String winningTeam) {
 		this.winningTeam = winningTeam;
+	}
+
+	public int getHomeTeamWinnerFrom() {
+		return homeTeamWinnerFrom;
+	}
+
+	public void setHomeTeamWinnerFrom(int homeTeamWinnerFrom) {
+		this.homeTeamWinnerFrom = homeTeamWinnerFrom;
+	}
+
+	public int getAwayTeamWinnerFrom() {
+		return awayTeamWinnerFrom;
+	}
+
+	public void setAwayTeamWinnerFrom(int awayTeamWinnerFrom) {
+		this.awayTeamWinnerFrom = awayTeamWinnerFrom;
 	}
 
 }
