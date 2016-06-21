@@ -4,7 +4,7 @@
  * login() * Try to log in user input
  **/
 angular.module('sports-predictions')
-.controller('ForgetController', ['$scope', '$route', '$routeParams', '$location', 'UserService', 'count', 'Notification',
+.controller('ForgetController', ['$scope', '$location', 'UserService', 'Notification',
 function($scope, $location, UserService, Notification){
 
 	$scope.email = '';
