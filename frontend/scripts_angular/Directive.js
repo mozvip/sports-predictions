@@ -158,8 +158,11 @@ var pronosticFinal = function(){
 				{
 				   if(newValue == "")
 						$scope.match.predictionHome_Score = 0;
-				   else
+				   else{
 						$scope.match.predictionHome_Score = parseInt(newValue);
+						if($scope.match.predictionHome_Score > $scope.match.predictionAway_Score)
+							$scope.match.home_winner  = true;
+				   }
 					$scope.$parent.watchMatch($scope.match);
 				}
 			  }, true);
@@ -169,8 +172,11 @@ var pronosticFinal = function(){
 				{
 				   if(newValue == "")
 					   $scope.match.predictionAway_Score = 0;
-				   else
+				   else{
 					   $scope.match.predictionAway_Score = parseInt(newValue);
+					   if($scope.match.predictionHome_Score < $scope.match.predictionAway_Score)
+							$scope.match.home_winner  = false;
+				   }
 					$scope.$parent.watchMatch($scope.match);
 				}
 			  }, true);

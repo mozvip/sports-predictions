@@ -1,17 +1,15 @@
 <div class="row pronostic-row">
 	<small>Le {{match.dateTime}} à {{match.stadium}}</small>
 	<div class="col-xs-12 col-md-3 team-name">
-		<h3 class="text-right hidden-xs hidden-sm" ng-if="match.trueHomeTeam != undefined">{{match.trueHomeTeam}}</h3>
-		<h3 class="text-center visible-xs visible-sm" ng-if="match.trueHomeTeam != undefined">{{match.trueHomeTeam}}</h3>
  		<h3 class="text-right hidden-xs hidden-sm" ng-if="match.trueHomeTeam == undefined">{{match.homeTeam}}</h3>
 		<h3 class="text-center visible-xs visible-sm" ng-if="match.trueHomeTeam == undefined">{{match.homeTeam}}</h3>
 	</div>
 	<div class="col-xs-12 col-md-2">
 		<div class="text-left hidden-xs hidden-sm">
-			<span ng-class="classFlagTeam(match.trueHomeTeam)"></span>
+			<span ng-class="classFlagTeam(match.homeTeam)"></span>
 		</div>
 		<div class="text-center visible-xs visible-sm">
-			<span ng-class="classFlagTeam(match.trueHomeTeam)"></span>
+			<span ng-class="classFlagTeam(match.homeTeam)"></span>
 		</div>
 		<input type="radio" name="{{match.matchNum}}" ng-model="match.home_winner" ng-value="true" ng-show="matchNul(match)" ng-disabled="isPronosticable(match)"> 
 	</div>
@@ -25,16 +23,14 @@
 	</div>
 	<div class="col-xs-12 col-md-2">
 		<div class="text-right hidden-xs hidden-sm">
-			<span ng-class="classFlagTeam(match.trueAwayTeam)"></span>
+			<span ng-class="classFlagTeam(match.awayTeam)"></span>
 		</div>
 		<div class="text-center visible-xs visible-sm">
-			<span ng-class="classFlagTeam(match.trueAwayTeam)"></span>
+			<span ng-class="classFlagTeam(match.awayTeam)"></span>
 		</div>
 		<input type="radio" name="{{match.matchNum}}" ng-model="match.home_winner" ng-value="false" ng-show="matchNul(match)" ng-disabled="isPronosticable(match)">
 	</div>
 	<div class="col-xs-12 col-md-3 team-name">
-		<h3 class="text-left hidden-xs hidden-sm" ng-if="match.trueAwayTeam != undefined">{{match.trueAwayTeam}}</h3>
-		<h3 class="text-center visible-xs visible-sm" ng-if="match.trueAwayTeam != undefined">{{match.trueAwayTeam}}</h3>
  		<h3 class="text-left hidden-xs hidden-sm" ng-if="match.trueAwayTeam == undefined">{{match.awayTeam}}</h3>
 		<h3 class="text-center visible-xs visible-sm" ng-if="match.trueAwayTeam == undefined">{{match.awayTeam}}</h3>
 	</div>	
