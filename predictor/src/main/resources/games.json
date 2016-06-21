@@ -291,7 +291,7 @@
         "dateTime": "2016-06-25T15:00+02",
         "group": "8èmes de finale",
         "stadium": "Saint-Etienne",
-        "homeTeam": "2eme A",
+        "homeTeam": "Suisse",
         "awayTeam": "2eme C",
         "matchNum": 36
     },
@@ -299,7 +299,7 @@
         "dateTime": "2016-06-25T18:00+02",
         "group": "8èmes de finale",
         "stadium": "Paris",
-        "homeTeam": "1er B",
+        "homeTeam": "Galles",
         "awayTeam": "3eme Acd",
         "matchNum": 37
     },
@@ -315,7 +315,7 @@
         "dateTime": "2016-06-26T15:00+02",
         "group": "8èmes de finale",
         "stadium": "Lyon",
-        "homeTeam": "1er A",
+        "homeTeam": "France",
         "awayTeam": "3eme Cde",
         "matchNum": 39
     },
@@ -339,7 +339,7 @@
         "dateTime": "2016-06-27T18:00+02",
         "group": "8èmes de finale",
         "stadium": "Saint-Denis",
-        "homeTeam": "1er E",
+        "homeTeam": "Italie",
         "awayTeam": "2eme D",
         "matchNum": 42
     },
@@ -347,7 +347,7 @@
         "dateTime": "2016-06-27T21:00+02",
         "group": "8èmes de finale",
         "stadium": "Nice",
-        "homeTeam": "2eme B",
+        "homeTeam": "Angleterre",
         "awayTeam": "2eme F",
         "matchNum": 43
     },
