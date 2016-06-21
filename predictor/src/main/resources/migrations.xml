@@ -232,4 +232,11 @@
     	<dropColumn tableName="COMMUNITY" columnName="FINALS_EDIT_ENABLED"/>
     </changeSet>
 
+    <changeSet id="25" author="Guillaume Serre">
+    	<update tableName="USER">
+    		<column name="ADMIN" value="true"></column>
+    		<where>EMAIL='test@gmail.com' AND COMMUNITY='test'</where>
+    	</update>
+    </changeSet>
+
 </databaseChangeLog>
