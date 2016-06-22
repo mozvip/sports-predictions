@@ -35,13 +35,14 @@ angular.module('sports-predictions')
 									element.predictionHome_Score = prediction.home_score;
 									element.predictionAway_Score = prediction.away_score;
 									element.predictionScore = prediction.score;
+									element.home_winner = prediction.home_winner;
 								}
 								else {
 									element.predictionHome_Score = 0;
 									element.predictionAway_Score = 0;
 									element.predictionScore = 0;
-								}
 								element.home_winner = false;
+								}
 							});
 					} else {
 						Notification.error({ message: 'Les scores des matches n\'ont pu être récupérés. Un problème technique est à l\'origine du problème.', title: 'Erreur' });
@@ -92,6 +93,7 @@ angular.module('sports-predictions')
 
 
 			$scope.watchMatch = function (match) {
+
 				var winningTeamName = $scope.winnerMatch(match);
 
 				if (winningTeamName === undefined) {
@@ -109,8 +111,11 @@ angular.module('sports-predictions')
 
 
 			$scope.winnerMatch = function (match) {
-				if (match.predictionHome_Score != undefined && match.predictionAway_Score != undefined)
-					return (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && match.home_winner)) ? match.homeTeam : match.awayTeam;
+				if (match.predictionHome_Score != undefined && match.predictionAway_Score != undefined) {
+					var homeWinner = (typeof match.home_winner == 'boolean' ? match.home_winner : Boolean( match.home_winner ));
+					console.log(homeWinner);
+					return (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && homeWinner)) ? match.homeTeam : match.awayTeam;
+				}
 				else
 					return false;
 			}

@@ -40,15 +40,33 @@ public class GameResource {
 		int bad = 0;
 
 		for (MatchPrediction matchPrediction : predictionsForGame) {
-			if (matchPrediction.getScore() == 3) {
-				perfect ++;
-			} else if (community.equals("michelin-solutions") && matchPrediction.getScore() == 2) {
-				good ++;
-			} else if (!community.equals("michelin-solutions") && matchPrediction.getScore() == 1) {
-				good ++;
-			} else {
-				bad ++;
+			
+			if (matchPrediction.getMatch_id() < 200 ) {	// FIXME groups phase
+				
+				if (matchPrediction.getScore() == 3) {
+					perfect ++;
+				} else if (community.equals("michelin-solutions") && matchPrediction.getScore() == 2) {
+					good ++;
+				} else if (!community.equals("michelin-solutions") && matchPrediction.getScore() == 1) {
+					good ++;
+				} else {
+					bad ++;
+				}
+
+			} else {	// finals phase
+				
+				if (matchPrediction.getScore() == 5) {
+					perfect ++;
+				} else if (community.equals("michelin-solutions") && matchPrediction.getScore() == 2) {
+					good ++;
+				} else if (!community.equals("michelin-solutions") && matchPrediction.getScore() == 1) {
+					good ++;
+				} else {
+					bad ++;
+				}				
+				
 			}
+			
 		}
 		
 		return new GameStats( predictionsForGame.get(0).getHome_team_id(), predictionsForGame.get(0).getAway_team_id(), predictionsForGame.size(), perfect, good, bad);

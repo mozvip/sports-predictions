@@ -45,6 +45,7 @@ public class ScoreResource {
 	
 	private List<Game> games;
 	private Map<Integer, Game> gamesById = new HashMap<>();
+	private Map<Integer, String> winners = new HashMap<>();
 	
 	public ScoreResource(ActualResultDAO actualResultDAO, MatchPredictionDAO matchPredictionDAO, UserDAO userDAO ) {
 		this.actualResultDAO = actualResultDAO;
@@ -66,7 +67,7 @@ public class ScoreResource {
 		
 	}
 	
-	private void associateScores() {
+	private synchronized void associateScores() {
 		List<ActualResult> allResults = actualResultDAO.findAll();
 		for (ActualResult actualResult : allResults) {
 			int gameId = actualResult.getMatch_id();
@@ -75,6 +76,15 @@ public class ScoreResource {
 			game.setHomeScore( actualResult.getHome_score());
 			game.setAwayScore( actualResult.getAway_score());
 			game.setWinningTeam( actualResult.isHome_winner() ? actualResult.getHome_team_name() : actualResult.getAway_team_name() );
+			
+			winners.put(game.getMatchNum(), game.getWinningTeam());
+		}
+		
+		for (Game game : games) {
+			if (game.getHomeTeam() == null || game.getAwayTeam() == null) {
+				game.setHomeTeam( winners.get( game.getHomeTeamWinnerFrom() ));
+				game.setAwayTeam( winners.get( game.getAwayTeamWinnerFrom() ));
+			}
 		}
 	}
 	
@@ -85,7 +95,7 @@ public class ScoreResource {
 		return games;
 	}
 	
-	private synchronized void updateMatchPredictionScores( int gameNum, int homeScore, int awayScore, boolean homeWinning ) {
+	private synchronized void updateMatchPredictionScores( int gameNum, String homeTeam, String awayTeam, int homeScore, int awayScore, boolean homeWinning ) {
 
 		List<MatchPrediction> predictions = matchPredictionDAO.findPredictions( gameNum );
 		for (MatchPrediction prediction : predictions) {
@@ -149,7 +159,7 @@ public class ScoreResource {
 
 		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeam()) : homeScore > awayScore;
 		actualResultDAO.merge(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
-		updateMatchPredictionScores( gameNum, homeScore, awayScore, homeWinning );
+		updateMatchPredictionScores( gameNum, "", "", homeScore, awayScore, homeWinning );
 		associateScores();
 		
 		return Response.ok().build();
