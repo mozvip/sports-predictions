@@ -121,16 +121,21 @@ public class UserResource {
 	@ApiOperation("Create a new regular user")
 	public void createUser(@FormParam("email") String email, @FormParam("name") String name, @FormParam("password") String password, @FormParam("g-recaptcha-response") String recaptcha) throws IOException {
 		
-		recaptcha(recaptcha);
+		String communityName = (String) httpRequest.getAttribute("community");
+		Community community = communityDAO.getCommunity(name);
 		
-		String community = (String) httpRequest.getAttribute("community");
+		if (!community.isCreateAccountEnabled()) {
+			return;	// FIXME: error code
+		}
+		
+		recaptcha(recaptcha);
 		
 		password = password.trim();
 		email = email.trim().toLowerCase();
 		
-		User user = userDAO.findExistingUserByEmail(community, email );
+		User user = userDAO.findExistingUserByEmail(communityName, email );
 		if (user == null) {
-			userDAO.insert(email, name, community, password );
+			userDAO.insert(email, name, communityName, password );
 		} else {
 			logger.warn("Attempt to create an already existing user : {} on community {}", email, community);
 		}
