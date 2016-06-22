@@ -300,7 +300,7 @@
         "group": "8èmes de finale",
         "stadium": "Paris",
         "homeTeam": "Galles",
-        "awayTeam": "3eme Acd",
+        "awayTeam": "Irlande du Nord",
         "matchNum": 37
     },
     {
@@ -308,7 +308,7 @@
         "group": "8èmes de finale",
         "stadium": "Lens",
         "homeTeam": "Croatie",
-        "awayTeam": "3eme Bef",
+        "awayTeam": "Portugal",
         "matchNum": 38
     },
     {
@@ -316,7 +316,7 @@
         "group": "8èmes de finale",
         "stadium": "Lyon",
         "homeTeam": "France",
-        "awayTeam": "3eme Cde",
+        "awayTeam": "Irlande",
         "matchNum": 39
     },
     {
@@ -324,15 +324,15 @@
         "group": "8èmes de finale",
         "stadium": "Lille",
         "homeTeam": "Allemagne",
-        "awayTeam": "3eme Abf",
+        "awayTeam": "Slovaquie",
         "matchNum": 40
     },
     {
         "dateTime": "2016-06-26T21:00+02",
         "group": "8èmes de finale",
         "stadium": "Toulouse",
-        "homeTeam": "1er F",
-        "awayTeam": "2eme E",
+        "homeTeam": "Hongrie",
+        "awayTeam": "Belgique",
         "matchNum": 41
     },
     {
@@ -348,7 +348,7 @@
         "group": "8èmes de finale",
         "stadium": "Nice",
         "homeTeam": "Angleterre",
-        "awayTeam": "2eme F",
+        "awayTeam": "Islande",
         "matchNum": 43
     },
     {
