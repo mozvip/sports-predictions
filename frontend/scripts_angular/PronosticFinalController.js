@@ -41,7 +41,12 @@ angular.module('sports-predictions')
 									element.predictionAway_Score = 0;
 									element.predictionScore = 0;
 								}
-								element.home_winner = false;
+								element.home_winner = true;
+								
+								if(element.done){
+									element.predictionHomeTeam = prediction.home_team_id;
+									element.predictionAwayTeam = prediction.away_team_id;
+								}
 							});
 					} else {
 						Notification.error({ message: 'Les scores des matches n\'ont pu être récupérés. Un problème technique est à l\'origine du problème.', title: 'Erreur' });
