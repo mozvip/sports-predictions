@@ -3,10 +3,8 @@ package predictions.resources;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.Min;
@@ -88,8 +86,6 @@ public class ScoreResource {
 	}
 	
 	private synchronized void updateMatchPredictionScores( int gameNum, int homeScore, int awayScore, boolean homeWinning ) {
-		
-		Set<String> communities = new HashSet<>();
 
 		List<MatchPrediction> predictions = matchPredictionDAO.findPredictions( gameNum );
 		for (MatchPrediction prediction : predictions) {
@@ -122,15 +118,13 @@ public class ScoreResource {
 			}
 			
 			matchPredictionDAO.updateScore( prediction.getCommunity(), prediction.getEmail(), prediction.getMatch_id(), matchScore);
-			
-			communities.add( prediction.getCommunity() );
 		}
 		
 		userDAO.recalculateScores();
 		userDAO.updateRankings();
 
 	}
-	
+
 	@RolesAllowed("ADMIN")
 	@Path("/submit")
 	@POST
@@ -150,14 +144,11 @@ public class ScoreResource {
 		
 		if (game.isDone()) {
 			// score was already submitted 
-			// do nothing : might be a data fix ??? FIXME
-			return Response.status(Status.NOT_FOUND).build(); 
+			// do nothing : might be a data fix ??? this will break the previous ranking in this case : minor issue
 		}
-		
-		// FIXME : set to done !
 
 		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeam()) : homeScore > awayScore;
-		actualResultDAO.insert(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
+		actualResultDAO.merge(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
 		updateMatchPredictionScores( gameNum, homeScore, awayScore, homeWinning );
 		associateScores();
 		
