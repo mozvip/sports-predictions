@@ -36,6 +36,8 @@ angular.module('sports-predictions')
 									element.predictionAway_Score = prediction.away_score;
 									element.predictionScore = prediction.score;
 									element.home_winner = prediction.home_winner;
+
+									$scope.watchMatch( element );
 								}
 								else {
 									element.predictionHome_Score = 0;
