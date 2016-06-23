@@ -107,7 +107,7 @@ angular.module('sports-predictions')
 					return;
 				}
 
-				for (let i=0; i<$scope.games.length; i++) {
+				for (var i=0; i<$scope.games.length; i++) {
 					if ($scope.games[i].homeTeamWinnerFrom === match.matchNum) {
 						$scope.games[i].homeTeam = winningTeamName;
 					} else if ($scope.games[i].awayTeamWinnerFrom === match.matchNum) {

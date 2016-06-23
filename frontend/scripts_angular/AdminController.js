@@ -51,7 +51,8 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         });
 
         $scope.disableEnable = function () {
-                for (let i = 0; i < $scope.userGridOptionsApi.selection.getSelectedCount(); i++) {
+
+                for (var i = 0; i < $scope.userGridOptionsApi.selection.getSelectedCount(); i++) {
                         var userProfile = $scope.userGridOptionsApi.selection.getSelectedRows()[i];
                         AdminService.toggleActive(userProfile.email);
                         userProfile.active = !userProfile.active;
@@ -87,7 +88,7 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
 
                 var listOfEmailsToDelete = [];
 
-                for (let i = 0; i < $scope.userGridNoPredictionOptionsApi.selection.getSelectedCount(); i++) {
+                for (var i = 0; i < $scope.userGridNoPredictionOptionsApi.selection.getSelectedCount(); i++) {
                         var userProfile = $scope.userGridNoPredictionOptionsApi.selection.getSelectedRows()[i];
                         if (userProfile) {
                                 listOfEmailsToDelete.push( userProfile.email );
@@ -108,9 +109,9 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                                 if (!isConfirm) {
                                         return;
                                 }
-                                for (let email of listOfEmailsToDelete) {
+                                for (var email of listOfEmailsToDelete) {
                                         AdminService.deleteUser(email).then( function() {
-                                                for (let i=$scope.userNoPredictionGridOptions.data.length-1; i>=0; i--) {
+                                                for (var i=$scope.userNoPredictionGridOptions.data.length-1; i>=0; i--) {
                                                         var row = $scope.userNoPredictionGridOptions.data[i];
                                                         if (row.email && row.email == email) {
                                                                 $scope.userNoPredictionGridOptions.data.splice(i, 1);
