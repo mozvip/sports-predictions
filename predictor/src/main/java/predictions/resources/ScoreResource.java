@@ -96,44 +96,60 @@ public class ScoreResource {
 	}
 	
 	private synchronized void updateMatchPredictionScores( int gameNum, String homeTeam, String awayTeam, int homeScore, int awayScore, boolean homeWinning ) {
+		
+		Game game = games.get( gameNum );
 
 		List<MatchPrediction> predictions = matchPredictionDAO.findPredictions( gameNum );
 		for (MatchPrediction prediction : predictions) {
 			
 			int matchScore = 0;
 			
-			if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore && prediction.isHome_winner() == homeWinning) {
+			if (game.getHomeTeamWinnerFrom() == -1) {	// opponents were known before the prediction was made
 				
-				// perfect score
-				matchScore = 3;
+				if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore) {
+					
+					// perfect score
+					matchScore = 3;
+					
+				} else if (
+						( prediction.getHome_score() == prediction.getAway_score() && homeScore == awayScore ) ||
+						( prediction.getHome_score() > prediction.getAway_score() && homeScore > awayScore ) ||
+						( prediction.getHome_score() < prediction.getAway_score() && homeScore < awayScore ) )
+				{
+					
+					if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+						matchScore = 2;
+					} else {
+						matchScore = 1;
+					}
+
+				} else if ( prediction.isHome_winner() == homeWinning) {
 				
-			} else if (
-					( prediction.getHome_score() == prediction.getAway_score() && homeScore == awayScore ) ||
-					( prediction.getHome_score() > prediction.getAway_score() && homeScore > awayScore ) ||
-					( prediction.getHome_score() < prediction.getAway_score() && homeScore < awayScore ) )
-			{
+					if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+						matchScore = 2;
+					} else {
+						matchScore = 1;
+					}
+					
+				} else if ( prediction.getHome_score() == homeScore || prediction.getAway_score() == awayScore ) {
+					if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+						matchScore = 1;
+					} else {
+						matchScore = 0;
+					}
+				}
+
+			} else {
 				
-				if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-					matchScore = 2;
-				} else {
-					matchScore = 1;
+				// TODO
+				
+				if (homeTeam.equals( prediction.getHome_team_id() ) && awayTeam.equals( prediction.getAway_team_id() )) {
+					
 				}
 				
-			} else if ( homeScore == awayScore && prediction.isHome_winner() == homeWinning) {
 				
-				if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-					matchScore = 2;
-				} else {
-					matchScore = 1;
-				}
-				
-			} else if ( prediction.getHome_score() == homeScore || prediction.getAway_score() == awayScore ) {
-				if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-					matchScore = 1;
-				} else {
-					matchScore = 0;
-				}
 			}
+			
 			
 			matchPredictionDAO.updateScore( prediction.getCommunity(), prediction.getEmail(), prediction.getMatch_id(), matchScore);
 		}
@@ -167,7 +183,8 @@ public class ScoreResource {
 
 		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeam()) : homeScore > awayScore;
 		actualResultDAO.merge(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
-		updateMatchPredictionScores( gameNum, "", "", homeScore, awayScore, homeWinning );
+		
+		updateMatchPredictionScores( gameNum, game.getHomeTeam(), game.getAwayTeam(), homeScore, awayScore, homeWinning );
 		associateScores();
 		
 		return Response.ok().build();

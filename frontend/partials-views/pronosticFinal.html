@@ -34,6 +34,15 @@
 			<h3 class="text-center visible-xs visible-sm" ng-if="match.trueAwayTeam == undefined">{{match.awayTeam}}</h3>
 		</div>
 	</div>
+	<div class="row" ng-show="matchNul()">
+		<div class="form-group" ng-if="isPronosticable()">
+			<label for="winningTeam">Equipe gagnante après les tirs aux buts</label>
+			<select id="winningTeam" class="form-control" ng-model="match.home_winner" ng-options="(item?match.homeTeam:match.awayTeam) for item in [true, false]"></select>
+		</div>
+		<p ng-if="!isPronosticable()" class="form-control-static">
+			Equipe gagnante après les tirs aux buts : {{match.home_winner?match.homeTeam:match.awayTeam}}
+		</p>
+	</div>
 	<div class="row" ng-if="match.done">
 		<a href="#/stat-match/{{match.matchNum}}" style="color: black">
 			<div class="col-xs-12 col-md-3">
@@ -51,14 +60,5 @@
 				Vous marquez {{match.predictionScore}} points
 			</div>
 		</a>
-	</div>
-	<div class="row" ng-show="matchNul()">
-		<div class="form-group" ng-if="isPronosticable()">
-			<label for="winningTeam">Equipe gagnante après les tirs aux buts</label>
-			<select id="winningTeam" class="form-control" ng-model="match.home_winner" ng-options="(item?match.homeTeam:match.awayTeam) for item in [true, false]"></select>
-		</div>
-		<p ng-if="!isPronosticable()" class="form-control-static">
-			Equipe gagnante après les tirs aux buts : {{match.home_winner?match.homeTeam:match.awayTeam}}
-		</p>
 	</div>
 </div>
