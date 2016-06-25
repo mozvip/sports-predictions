@@ -10,11 +10,11 @@
 	},
 	{
 		"phaseName"	: "Finals Phase",
-		"phaseEnd"	: "2016-06-25T14:30+02"
+		"phaseEnd"	: "2016-07-10T23:00+02"
 	},
 	{
 		"phaseName"	: "After Event",
-		"phaseEnd"	: "2016-07-10T23:00+02",
+		"phaseEnd"	: "2016-08-10T23:00+02",
 		"welcomePage"	: "/rankings.html"
 	}
 ]
