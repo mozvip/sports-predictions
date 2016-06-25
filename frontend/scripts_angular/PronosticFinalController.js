@@ -4,14 +4,14 @@
  * login() * Try to log in user input
  **/
 angular.module('sports-predictions')
-	.controller('PronosticFinalController', ['$scope', '$location', 'UserService', 'BackendService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser',
-		function ($scope, $location, UserService, BackendService, PredictionService, GamesService, Notification, $linq, currentUser) {
+	.controller('PronosticFinalController', ['$scope', '$location', 'UserService', 'BackendService', 'PredictionService', 'GamesService', 'Notification', '$linq', 'currentUser', 'community',
+		function ($scope, $location, UserService, BackendService, PredictionService, GamesService, Notification, $linq, currentUser, community) {
 
 			$scope.tabs = [
-				{ title: '8èmes de finale', content: '<div class="item active"><h3 class="group-name">8èmes de finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'8èmes de finale\'}:true" match="match"></pronostic-final></div>' },
-				{ title: 'Quarts de finale', content: '<div class="item"><h3 class="group-name">Quarts de finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Quarts de finale\'}:true" match="match"></pronostic-final></div>' },
-				{ title: 'Demi-finales', content: '<div class="item"><h3 class="group-name">Demi-finales</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Demi-finales\'}:true" match="match"></pronostic-final></div>' },
-				{ title: 'Finale', content: '<div class="item"><h3 class="group-name">Finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Finale\'}:true" match="match"></pronostic-final></div>' }];
+				{ title: '8èmes de finale', content: '<div class="item active"><h3 class="group-name">8èmes de finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'8èmes de finale\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
+				{ title: 'Quarts de finale', content: '<div class="item"><h3 class="group-name">Quarts de finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Quarts de finale\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
+				{ title: 'Demi-finales', content: '<div class="item"><h3 class="group-name">Demi-finales</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Demi-finales\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
+				{ title: 'Finale', content: '<div class="item"><h3 class="group-name">Finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Finale\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' }];
 
 			$scope.init = function () {
 				var error = false;
@@ -120,7 +120,6 @@ angular.module('sports-predictions')
 			$scope.winnerMatch = function (match) {
 				if (match.predictionHome_Score != undefined && match.predictionAway_Score != undefined) {
 					var homeWinner = (typeof match.home_winner == 'boolean' ? match.home_winner : Boolean( match.home_winner ));
-					console.log(homeWinner);
 					return (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && homeWinner)) ? match.homeTeam : match.awayTeam;
 				}
 				else
