@@ -142,7 +142,7 @@ var pronosticFinal = function(){
 			}
 			
 			$scope.isPronosticable = function(){
-				return ($scope.access == 'W' && $scope.match.dateTime <= new Date() && !$scope.match.done);
+				return ($scope.access == 'W' && !$scope.match.done ); //FIXME : && $scope.match.dateTime <= new Date());
 			}
 			
 			$scope.realScore = function(predictionScore, realScore){

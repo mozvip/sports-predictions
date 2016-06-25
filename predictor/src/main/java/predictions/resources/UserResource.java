@@ -175,7 +175,7 @@ public class UserResource {
 		userDAO.setAdmin( community, email, admin );
 	}
 
-	private void savePredictions( String community, String email, MatchPredictions predictions ) {
+	private void savePredictions( Community community, String email, MatchPredictions predictions ) {
 		Set<Integer> validatedMatches = new HashSet<Integer>();
 		List<ActualResult> result = actualResultDAO.findValidated();
 		for (ActualResult actualResult : result) {
@@ -184,7 +184,7 @@ public class UserResource {
 		for (MatchPrediction prediction : predictions.getMatch_predictions_attributes()) {
 			if (!validatedMatches.contains( prediction.getMatch_id())) {
 				if (prediction.getHome_team_id() != null && prediction.getAway_team_id() != null) {
-					matchPredictionDAO.insert(community, email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_id(), prediction.getAway_team_id(), prediction.isHome_winner());
+					matchPredictionDAO.insert(community.getName(), email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_id(), prediction.getAway_team_id(), prediction.isHome_winner());
 				}
 			}
 		}
@@ -210,7 +210,7 @@ public class UserResource {
 
 		// FIXME: only save relevant data !!
 		if (community.getFinalsAccess() == AccessType.W || community.getGroupsAccess() == AccessType.W) {
-			savePredictions( user.getCommunity(), user.getEmail(), predictions );
+			savePredictions( community, user.getEmail(), predictions );
 		}
 	}
 
