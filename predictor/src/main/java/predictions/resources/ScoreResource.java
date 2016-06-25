@@ -106,12 +106,20 @@ public class ScoreResource {
 				
 				// perfect score
 				matchScore = 3;
-			
+				
 			} else if (
 					( prediction.getHome_score() == prediction.getAway_score() && homeScore == awayScore ) ||
 					( prediction.getHome_score() > prediction.getAway_score() && homeScore > awayScore ) ||
 					( prediction.getHome_score() < prediction.getAway_score() && homeScore < awayScore ) )
 			{
+				
+				if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+					matchScore = 2;
+				} else {
+					matchScore = 1;
+				}
+				
+			} else if ( homeScore == awayScore && prediction.isHome_winner() == homeWinning) {
 				
 				if ( prediction.getCommunity().startsWith("michelin-solutions")) {
 					matchScore = 2;
