@@ -73,6 +73,12 @@ ul[rn-carousel] {
     text-align: center;
 }
 
+.scoreWinner {
+    color: green;
+    font-weight: 800;
+}
+
+
 .group-name{
 	font-family: 'Yellowtail', cursive;
 	text-align:left;
