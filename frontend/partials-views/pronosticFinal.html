@@ -14,13 +14,11 @@
 			</div>
 		</div>
 		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-			<span ng-show="isPronosticable()" ng-class="realScore(match.predictionHome_Score, match.homeScore)">{{match.homeScore}}</span>
 			<input class="scoreInput form-control" ng-model="match.predictionHome_Score" ng-if="isPronosticable()" size="2" maxlength="2">
 			<p ng-if="!isPronosticable()" class="form-control-static scoreInput">{{match.predictionHome_Score}}</p>
 		</div>
 		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
 			<input class="scoreInput form-control" ng-model="match.predictionAway_Score" ng-if="isPronosticable()" size="2" maxlength="2">
-			<span ng-show="isPronosticable()" ng-class="realScore(match.predictionAway_Score, match.awayScore)">{{match.awayScore}}</span>
 			<p ng-if="!isPronosticable()" class="form-control-static scoreInput">{{match.predictionAway_Score}}</p>
 		</div>
 		<div class="col-xs-12 col-md-2">
