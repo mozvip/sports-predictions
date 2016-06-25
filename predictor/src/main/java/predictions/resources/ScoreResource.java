@@ -102,7 +102,7 @@ public class ScoreResource {
 			
 			int matchScore = 0;
 			
-			if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore ) {
+			if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore && prediction.isHome_winner() == homeWinning) {
 				
 				// perfect score
 				matchScore = 3;
