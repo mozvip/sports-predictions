@@ -124,7 +124,7 @@ public class UserResource {
 		String communityName = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
 		
-		if (!community.isCreateAccountEnabled()) {
+		if (community != null && !community.isCreateAccountEnabled()) {
 			return;	// FIXME: error code
 		}
 		

@@ -18,17 +18,13 @@ public class ActualResult {
 	private boolean home_winner;
 	@JsonProperty
 	private boolean validated;
-	@JsonProperty
-	private String home_team_name;
-	@JsonProperty
-	private String away_team_name;
 
 	public ActualResult() {
 	}
 
 	public ActualResult(int match_id, int away_score, String away_team_id,
 			int home_score, String home_team_id, boolean home_winner,
-			boolean validated, String home_team_name, String away_team_name) {
+			boolean validated) {
 		super();
 		this.match_id = match_id;
 		this.away_score = away_score;
@@ -37,8 +33,6 @@ public class ActualResult {
 		this.home_team_id = home_team_id;
 		this.home_winner = home_winner;
 		this.validated = validated;
-		this.home_team_name = home_team_name;
-		this.away_team_name = away_team_name;
 	}
 
 
@@ -84,13 +78,5 @@ public class ActualResult {
 	public boolean isValidated() {
 		return validated;
 	}
-
-	public String getHome_team_name() {
-		return home_team_name;
-	}
-
-	public String getAway_team_name() {
-		return away_team_name;
-	}	
 
 }

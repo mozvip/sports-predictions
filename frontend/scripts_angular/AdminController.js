@@ -84,6 +84,14 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                 CommunityService.save( community );
         }
 
+        $scope.recalculateScores = function() {
+                AdminService.recalculateScores().then( function(response) {
+                        Notification.success({ 'title': 'Success', 'message': 'Les scores ont été recalculés avec succès' });
+                }, function(response) {
+                        Notification.error({ 'title': response.statusText, 'message': response.data });
+                });
+        }
+
         $scope.deleteUsers = function() {
 
                 var listOfEmailsToDelete = [];

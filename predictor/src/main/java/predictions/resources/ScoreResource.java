@@ -75,7 +75,7 @@ public class ScoreResource {
 			game.setDone( true );
 			game.setHomeScore( actualResult.getHome_score());
 			game.setAwayScore( actualResult.getAway_score());
-			game.setWinningTeam( actualResult.isHome_winner() ? actualResult.getHome_team_name() : actualResult.getAway_team_name() );
+			game.setWinningTeam( actualResult.isHome_winner() ? actualResult.getHome_team_id() : actualResult.getAway_team_id() );
 			
 			winners.put(game.getMatchNum(), game.getWinningTeam());
 		}
@@ -95,68 +95,110 @@ public class ScoreResource {
 		return games;
 	}
 	
+	@GET
+	@Path("/recalculate")
+	@RolesAllowed("ADMIN")
+	@ApiOperation(value="Recalculate all scores")
+	public void recalculate() {
+		List<ActualResult> allResults = actualResultDAO.findAll();
+		for (ActualResult actualResult : allResults) {
+			updateMatchPredictionScores(actualResult.getMatch_id(), actualResult.getHome_team_id(), actualResult.getAway_team_id(), actualResult.getHome_score(), actualResult.getAway_score(), actualResult.isHome_winner());
+		}
+		userDAO.recalculateScores();
+		userDAO.updateRankings();
+	}
+	
 	private synchronized void updateMatchPredictionScores( int gameNum, String homeTeam, String awayTeam, int homeScore, int awayScore, boolean homeWinning ) {
 		
 		Game game = games.get( gameNum );
+		
+		String actualWinner = homeScore > awayScore ? homeTeam : (homeWinning ? homeTeam : awayTeam);
 
 		List<MatchPrediction> predictions = matchPredictionDAO.findPredictions( gameNum );
 		for (MatchPrediction prediction : predictions) {
 			
-			int matchScore = 0;
-			
-			if (game.getHomeTeamWinnerFrom() == -1) {	// opponents were known before the prediction was made
-				
-				if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore) {
-					
-					// perfect score
-					matchScore = 3;
-					
-				} else if (
-						( prediction.getHome_score() == prediction.getAway_score() && homeScore == awayScore ) ||
-						( prediction.getHome_score() > prediction.getAway_score() && homeScore > awayScore ) ||
-						( prediction.getHome_score() < prediction.getAway_score() && homeScore < awayScore ) )
-				{
-					
-					if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-						matchScore = 2;
-					} else {
-						matchScore = 1;
-					}
-
-				} else if ( prediction.isHome_winner() == homeWinning) {
-				
-					if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-						matchScore = 2;
-					} else {
-						matchScore = 1;
-					}
-					
-				} else if ( prediction.getHome_score() == homeScore || prediction.getAway_score() == awayScore ) {
-					if ( prediction.getCommunity().startsWith("michelin-solutions")) {
-						matchScore = 1;
-					} else {
-						matchScore = 0;
-					}
-				}
-
-			} else {
-				
-				// TODO
-				
-				if (homeTeam.equals( prediction.getHome_team_id() ) && awayTeam.equals( prediction.getAway_team_id() )) {
-					
-				}
-				
-				
+			String predictionWinner = prediction.getAway_team_id();
+			if (prediction.getHome_score() > prediction.getAway_score() || homeWinning) {
+				predictionWinner = prediction.getHome_team_id();
 			}
 			
+			int matchScore = 0;
+			
+			if ( prediction.getCommunity().startsWith("michelin-solutions")) {
+				
+
+				if (!game.getGroup().startsWith("Groupe ")) {
+					
+					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore) {
+						matchScore = 5;
+						if (homeScore == awayScore) { // draw
+							if (prediction.isHome_winner() != homeWinning) { // wrong qualified team
+								matchScore = 2;
+							}
+						}
+					} else if ( actualWinner.equals( predictionWinner )) {
+						matchScore = 3;
+					} else if (prediction.getHome_score() == homeScore || prediction.getAway_score() == awayScore) {
+						matchScore = 1;
+					}
+					
+				} else {
+					
+					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore) {
+						// perfect score
+						matchScore = 3;
+					} else if (
+							( prediction.getHome_score() == prediction.getAway_score() && homeScore == awayScore ) ||
+							( prediction.getHome_score() > prediction.getAway_score() && homeScore > awayScore ) ||
+							( prediction.getHome_score() < prediction.getAway_score() && homeScore < awayScore ) )
+					{
+						
+						matchScore = 2;
+
+					} else if ( prediction.getHome_score() == homeScore || prediction.getAway_score() == awayScore ) {
+						matchScore = 1;
+					}
+					
+				}
+				
+				
+			} else {
+				
+
+				if (!game.getGroup().startsWith("Groupe ")) {
+					
+					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore) {
+						matchScore = 5;
+						if (homeScore == awayScore) { // draw
+							if (prediction.isHome_winner() != homeWinning) { // wrong qualified team
+								matchScore = 1;
+							}
+						}
+					} else if ( actualWinner.equals( predictionWinner )) {
+						matchScore = 3;
+					}
+					
+				} else {
+					
+					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore) {
+						// perfect score
+						matchScore = 3;
+					} else if (
+							( prediction.getHome_score() == prediction.getAway_score() && homeScore == awayScore ) ||
+							( prediction.getHome_score() > prediction.getAway_score() && homeScore > awayScore ) ||
+							( prediction.getHome_score() < prediction.getAway_score() && homeScore < awayScore ) )
+					{
+						
+						matchScore = 1;
+					}
+					
+				}
+
+			}
 			
 			matchPredictionDAO.updateScore( prediction.getCommunity(), prediction.getEmail(), prediction.getMatch_id(), matchScore);
 		}
 		
-		userDAO.recalculateScores();
-		userDAO.updateRankings();
-
 	}
 
 	@RolesAllowed("ADMIN")
@@ -185,6 +227,8 @@ public class ScoreResource {
 		actualResultDAO.merge(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
 		
 		updateMatchPredictionScores( gameNum, game.getHomeTeam(), game.getAwayTeam(), homeScore, awayScore, homeWinning );
+		userDAO.recalculateScores();
+		userDAO.updateRankings();
 		associateScores();
 		
 		return Response.ok().build();
