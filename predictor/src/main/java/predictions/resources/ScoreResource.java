@@ -125,8 +125,12 @@ public class ScoreResource {
 		for (MatchPrediction prediction : predictions) {
 			
 			String predictionWinner = prediction.getAway_team_id();
-			if (prediction.getHome_score() > prediction.getAway_score() || homeWinning) {
+			if (prediction.getHome_score() > prediction.getAway_score()) {
 				predictionWinner = prediction.getHome_team_id();
+			} else if (prediction.getAway_score() > prediction.getHome_score()) {
+				predictionWinner = prediction.getAway_team_id();
+			} else {
+				predictionWinner = prediction.isHome_winner() ? prediction.getHome_team_id() : prediction.getAway_team_id();
 			}
 			
 			int matchScore = 0;
