@@ -112,7 +112,14 @@ public class ScoreResource {
 		
 		Game game = games.get( gameNum );
 		
-		String actualWinner = homeScore > awayScore ? homeTeam : (homeWinning ? homeTeam : awayTeam);
+		String actualWinner = awayTeam;
+		if (homeScore > awayScore) {
+			actualWinner = homeTeam;
+		} else if (awayScore > homeScore) {
+			actualWinner = awayTeam;
+		} else {
+			actualWinner = homeWinning ? homeTeam : awayTeam;
+		}
 
 		List<MatchPrediction> predictions = matchPredictionDAO.findPredictions( gameNum );
 		for (MatchPrediction prediction : predictions) {
