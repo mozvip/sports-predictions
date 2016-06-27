@@ -230,7 +230,14 @@ public class ScoreResource {
 			// do nothing : might be a data fix ??? this will break the previous ranking in this case : minor issue
 		}
 
-		boolean homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeam()) : homeScore > awayScore;
+		boolean homeWinning = false;
+		if (homeScore > awayScore) {
+			homeWinning = true;
+		} else if (awayScore > homeScore) {
+			homeWinning = false;
+		} else {
+			homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeam()) : false;
+		}
 		actualResultDAO.merge(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
 		
 		updateMatchPredictionScores( gameNum, game.getHomeTeam(), game.getAwayTeam(), homeScore, awayScore, homeWinning );
