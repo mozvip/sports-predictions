@@ -50,6 +50,17 @@ angular.module('sports-predictions')
 									element.predictionHomeTeam = prediction.home_team_id;
 									element.predictionAwayTeam = prediction.away_team_id;
 								}
+
+								// Display real team after 8eme final 
+								if(element.group.indexOf("8èmes de finale") == -1){
+									var gameFrom = $linq.Enumerable().From($scope.games).First(function(g){return element.homeTeamWinnerFrom == g.matchNum});
+									var gameAway = $linq.Enumerable().From($scope.games).First(function(g){return element.awayTeamWinnerFrom == g.matchNum});
+									if(gameFrom.done)
+										element.trueTeamFrom = gameFrom.winningTeam;
+									if(gameAway.done)
+										element.trueTeamAway = gameAway.winningTeam;
+								}
+
 							});
 					} else {
 						Notification.error({ message: 'Les scores des matches n\'ont pu être récupérés. Un problème technique est à l\'origine du problème.', title: 'Erreur' });
@@ -116,7 +127,7 @@ angular.module('sports-predictions')
 				}
 			}
 
-			$scope.currentUser = currentUser;
+
 
 			$scope.winnerMatch = function (match) {
 				if (match.predictionHome_Score != undefined && match.predictionAway_Score != undefined) {
