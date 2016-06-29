@@ -175,14 +175,14 @@ public class UserResource {
 		userDAO.setAdmin( community, email, admin );
 	}
 
-	private void savePredictions( Community community, String email, MatchPredictions predictions ) {
+	private void savePredictions( Community community, String email, MatchPredictions predictions, boolean forceSave ) {
 		Set<Integer> validatedMatches = new HashSet<Integer>();
 		List<ActualResult> result = actualResultDAO.findValidated();
 		for (ActualResult actualResult : result) {
 			validatedMatches.add( actualResult.getMatch_id() );
 		}
 		for (MatchPrediction prediction : predictions.getMatch_predictions_attributes()) {
-			if (!validatedMatches.contains( prediction.getMatch_id())) {
+			if (forceSave || !validatedMatches.contains( prediction.getMatch_id())) {
 				if (prediction.getHome_team_id() != null && prediction.getAway_team_id() != null) {
 					matchPredictionDAO.merge(community.getName(), email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_id(), prediction.getAway_team_id(), prediction.isHome_winner());
 				}
@@ -210,7 +210,7 @@ public class UserResource {
 
 		// FIXME: only save relevant data !!
 		if (community.getFinalsAccess() == AccessType.W || community.getGroupsAccess() == AccessType.W) {
-			savePredictions( community, user.getEmail(), predictions );
+			savePredictions( community, user.getEmail(), predictions, false );
 		}
 	}
 	
@@ -222,7 +222,7 @@ public class UserResource {
 	public void saveImpersonate( @Auth User user, MatchPredictions predictions ) {
 		String name = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
-		savePredictions( community, predictions.getEmail(), predictions );
+		savePredictions( community, predictions.getEmail(), predictions, true );
 	}	
 
 	@GET

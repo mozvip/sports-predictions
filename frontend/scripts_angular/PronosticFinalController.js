@@ -13,7 +13,6 @@ angular.module('sports-predictions')
 				{ title: 'Demi-finales', content: '<div class="item"><h3 class="group-name">Demi-finales</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Demi-finales\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
 				{ title: 'Finale', content: '<div class="item"><h3 class="group-name">Finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Finale\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' }];
 
-
 			$scope.init = function () {
 				var error = false;
 				$scope.games = [];
