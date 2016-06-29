@@ -142,7 +142,11 @@ var pronosticFinal = function(){
 			}
 			
 			$scope.isPronosticable = function(){
-				return ($scope.access == 'W' && !$scope.match.done ); //FIXME : && $scope.match.dateTime <= new Date());
+				return $location.path() == '/pronostic-final-delegate' || ($scope.access == 'W' && !$scope.match.done ); //FIXME : && $scope.match.dateTime <= new Date());
+			}
+
+			$scope.displayFinalScore = function() {
+				return $location.path() != '/pronostic-final-delegate' && $scope.match.done;
 			}
 			
 			$scope.realScore = function(predictionScore, realScore){

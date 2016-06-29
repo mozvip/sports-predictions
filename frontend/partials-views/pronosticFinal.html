@@ -45,7 +45,7 @@
 			Equipe gagnante après les tirs aux buts : {{match.home_winner?match.homeTeam:match.awayTeam}}
 		</p>
 	</div>
-	<div class="row" ng-if="match.done">
+	<div class="row" ng-if="displayFinalScore()">
 		<a href="#/stat-match/{{match.matchNum}}" style="color: black">
 			<div class="col-xs-12 col-md-3">
 			</div>

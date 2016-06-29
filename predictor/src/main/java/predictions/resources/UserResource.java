@@ -184,7 +184,7 @@ public class UserResource {
 		for (MatchPrediction prediction : predictions.getMatch_predictions_attributes()) {
 			if (!validatedMatches.contains( prediction.getMatch_id())) {
 				if (prediction.getHome_team_id() != null && prediction.getAway_team_id() != null) {
-					matchPredictionDAO.insert(community.getName(), email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_id(), prediction.getAway_team_id(), prediction.isHome_winner());
+					matchPredictionDAO.merge(community.getName(), email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_id(), prediction.getAway_team_id(), prediction.isHome_winner());
 				}
 			}
 		}
@@ -213,6 +213,17 @@ public class UserResource {
 			savePredictions( community, user.getEmail(), predictions );
 		}
 	}
+	
+	@POST
+	@Path("/save-impersonate")
+	@Timed
+	@ApiOperation("Save predictions for another user")
+	@RolesAllowed("ADMIN")
+	public void saveImpersonate( @Auth User user, MatchPredictions predictions ) {
+		String name = (String) httpRequest.getAttribute("community");
+		Community community = communityDAO.getCommunity(name);
+		savePredictions( community, predictions.getEmail(), predictions );
+	}	
 
 	@GET
 	@Path("/rankings")

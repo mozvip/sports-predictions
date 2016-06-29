@@ -11,8 +11,14 @@ angular.module('sports-predictions')
 					savePredictions: function(predictions){
 						var deferredObject = $q.defer();
 						var config = BackendService.getRequestConfig('application/json');
+
+						var url = 'user/save';
+						if (predictions.email != undefined) {
+							url = 'user/save-impersonate';
+						}
+
 						$http
-						.post(BackendService.getBackEndURL() + 'user/save', predictions, config)
+						.post(BackendService.getBackEndURL() + url, predictions, config)
 						.then(function(data){
 							if (data.status === 204)
 								deferredObject.resolve({status:'success', message:'Sauvegarde réalisée avec succès'});

@@ -13,6 +13,7 @@ angular.module('sports-predictions')
 				{ title: 'Demi-finales', content: '<div class="item"><h3 class="group-name">Demi-finales</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Demi-finales\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
 				{ title: 'Finale', content: '<div class="item"><h3 class="group-name">Finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{group:\'Finale\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' }];
 
+
 			$scope.init = function () {
 				var error = false;
 				$scope.games = [];
@@ -86,9 +87,33 @@ angular.module('sports-predictions')
 					});
 			}
 
+			$scope.submitPronosticsImpersonate = function () {
+				var predictions = [];
+
+				$linq.Enumerable()
+					.From($scope.games)
+					.ForEach(function (game) {
+						predictions.push(
+							createPrediction(game)
+						);
+					});
+
+				PredictionService.savePredictions({
+					email: $scope.delegateEmail,
+					match_predictions_attributes: predictions
+				})
+					.then(function (result) {
+						if (result.status == 'success') {
+							UserService.refreshProfile();
+							Notification.success(result.message);
+						}
+						else
+							Notification.error(result.message);
+					});
+			}			
+
 			var createPrediction = function (game) {
 				return {
-					email: UserService.getCurrentLogin(),
 					match_id: game.matchNum,
 					away_score: game.predictionAway_Score,
 					away_team_id: game.awayTeam,

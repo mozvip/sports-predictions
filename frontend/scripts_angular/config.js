@@ -54,6 +54,25 @@ angular.module('sports-predictions')
                 authorized: true,
                 templateUrl: '/views/pronosticFinal.html'
             })
+            .when('/pronostic-final-delegate', {
+                controller: 'PronosticFinalController',
+                resolve: {
+                    currentUser: ['UserService', function (UserService) {
+                        return UserService.getCurrentUser();
+                    }],
+                    community: ['CommunityService', function(CommunityService) {
+                        return CommunityService.getCommunity();
+                    }],                    
+					check:['CommunityService', '$location', function(CommunityService, $location){
+						CommunityService.getCommunity().then(function(result){
+							if(result.finalsAccess == 'N')
+								$location.path('ranks');
+						});
+					}]
+                },
+                authorized: true,
+                templateUrl: '/views/pronosticFinalDelegate.html'
+            })            
             .when('/login', {
                 controller: 'LoginController',
                 templateUrl: '/views/login.html',
