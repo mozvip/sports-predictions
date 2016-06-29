@@ -140,7 +140,7 @@ var pronosticFinal = function(){
 			}
 			
 			$scope.isPronosticable = function(match){
-				return (match.dateTime <= new Date() && !match.done);
+				return $scope.access = 'W';
 			}
 			
 			$scope.realScore = function(predictionScore, realScore){
