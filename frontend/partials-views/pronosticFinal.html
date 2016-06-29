@@ -45,6 +45,37 @@
 			Equipe gagnante après les tirs aux buts : {{match.home_winner?match.homeTeam:match.awayTeam}}
 		</p>
 	</div>
+	<div class="row pronostic-row" ng-show="(match.trueTeamFrom !=  undefined || match.trueTeamAway != undefined) && (match.trueTeamFrom != homeTeam || match.trueTeamAway != awayTeam)">
+		<small>Equipe réellement qualifiée</small>
+		<div class="col-xs-12 col-md-3 team-name">
+			<h3 class="text-right hidden-xs hidden-sm">{{match.trueTeamFrom}}</h3>
+			<h3 class="text-center visible-xs visible-sm">{{match.trueTeamFrom}}</h3>
+		</div>
+		<div class="col-xs-12 col-md-2">
+			<div class="text-left hidden-xs hidden-sm">
+				<span ng-class="classFlagTeam(match.trueTeamFrom)"></span>
+			</div>
+			<div class="text-center visible-xs visible-sm">
+				<span ng-class="classFlagTeam(match.trueTeamFrom)"></span>
+			</div>
+		</div>
+		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
+		</div>
+		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
+		</div>
+		<div class="col-xs-12 col-md-2">
+			<div class="text-right hidden-xs hidden-sm">
+				<span ng-class="classFlagTeam(match.trueTeamAway)"></span>
+			</div>
+			<div class="text-center visible-xs visible-sm">
+				<span ng-class="classFlagTeam(match.trueTeamAway)"></span>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-3 team-name">
+			<h3 class="text-left hidden-xs hidden-sm">{{match.trueTeamAway}}</h3>
+			<h3 class="text-center visible-xs visible-sm">{{match.trueTeamAway}}</h3>
+		</div>
+	</div>
 	<div class="row" ng-if="displayFinalScore()">
 		<a href="#/stat-match/{{match.matchNum}}" style="color: black">
 			<div class="col-xs-12 col-md-3">
