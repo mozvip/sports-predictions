@@ -107,7 +107,7 @@ angular.module('sports-predictions')
 					return;
 				}
 
-				for (let i=0; i<$scope.games.length; i++) {
+				for (var i=0; i<$scope.games.length; i++) {
 					if ($scope.games[i].homeTeamWinnerFrom === match.matchNum) {
 						$scope.games[i].homeTeam = winningTeamName;
 					} else if ($scope.games[i].awayTeamWinnerFrom === match.matchNum) {
@@ -121,7 +121,6 @@ angular.module('sports-predictions')
 			$scope.winnerMatch = function (match) {
 				if (match.predictionHome_Score != undefined && match.predictionAway_Score != undefined) {
 					var homeWinner = (typeof match.home_winner == 'boolean' ? match.home_winner : Boolean( match.home_winner ));
-					console.log(homeWinner);
 					return (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && homeWinner)) ? match.homeTeam : match.awayTeam;
 				}
 				else

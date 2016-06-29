@@ -1,52 +1,53 @@
-<div class="row pronostic-row">
-	<small>Le {{match.dateTime}} à {{match.stadium}}</small>
-	<div class="col-xs-12 col-md-3 team-name">
-		<h3 class="text-right hidden-xs hidden-sm">{{match.homeTeam}}</h3>
-		<h3 class="text-center visible-xs visible-sm">{{match.homeTeam}}</h3>
-	</div>
-	<div class="col-xs-12 col-md-2">
-		<div class="text-left hidden-xs hidden-sm">
-			<span ng-class="classFlagTeam(match.homeTeam)"></span>
+<div class="well">
+	<div class="row pronostic-row">
+		<small>Le {{match.dateTime}} à {{match.stadium}}</small>
+		<div class="col-xs-12 col-md-3 team-name">
+			<h3 class="text-right hidden-xs hidden-sm">{{match.homeTeam}}</h3>
+			<h3 class="text-center visible-xs visible-sm">{{match.homeTeam}}</h3>
 		</div>
-		<div class="text-center visible-xs visible-sm">
-			<span ng-class="classFlagTeam(match.homeTeam)"></span>
-		</div>
-	</div>
-	<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-		<p class="form-control-static scoreInput" >{{match.predictionHome_Score}}</p>
-	</div>
-	<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-		<p class="form-control-static scoreInput" 	>{{match.predictionAway_Score}}</p>
-	</div>
-	<div class="col-xs-12 col-md-2">
-		<div class="text-right hidden-xs hidden-sm">
-			<span ng-class="classFlagTeam(match.awayTeam)"></span>
-		</div>
-		<div class="text-center visible-xs visible-sm">
-			<span ng-class="classFlagTeam(match.awayTeam)"></span>
-		</div>
-	</div>
-	<div class="col-xs-12 col-md-3 team-name">
-		<h3 class="text-left hidden-xs hidden-sm">{{match.awayTeam}}</h3>
-		<h3 class="text-center visible-xs visible-sm">{{match.awayTeam}}</h3>
-	</div>	
-</div>
-<div class="row" ng-if="match.done">
-	<a href="#/stat-match/{{match.matchNum}}" style="color: black">
-		<div class="col-xs-12 col-md-3">
-		</div>
-		<div class="col-xs-12 col-md-2 team-name" style="margin-top:20px;">
-			Score final
+		<div class="col-xs-12 col-md-2">
+			<div class="text-left hidden-xs hidden-sm">
+				<span ng-class="classFlagTeam(match.homeTeam)"></span>
+			</div>
+			<div class="text-center visible-xs visible-sm">
+				<span ng-class="classFlagTeam(match.homeTeam)"></span>
+			</div>
 		</div>
 		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-			<p class="form-control-static scoreInput">{{match.homeScore}}</p>
+			<p class="form-control-static scoreInput">{{match.predictionHome_Score}}</p>
 		</div>
 		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-			<p class="form-control-static scoreInput">{{match.awayScore}}</p>
+			<p class="form-control-static scoreInput">{{match.predictionAway_Score}}</p>
 		</div>
-		<div class="col-xs-12 col-md-5 team-name" style="margin-top:20px;">
-			Vous marquez {{match.predictionScore}} points
-		</div>	
-	</a>
+		<div class="col-xs-12 col-md-2">
+			<div class="text-right hidden-xs hidden-sm">
+				<span ng-class="classFlagTeam(match.awayTeam)"></span>
+			</div>
+			<div class="text-center visible-xs visible-sm">
+				<span ng-class="classFlagTeam(match.awayTeam)"></span>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-3 team-name">
+			<h3 class="text-left hidden-xs hidden-sm">{{match.awayTeam}}</h3>
+			<h3 class="text-center visible-xs visible-sm">{{match.awayTeam}}</h3>
+		</div>
+	</div>
+	<div class="row" ng-if="match.done">
+		<a href="#/stat-match/{{match.matchNum}}" style="color: black">
+			<div class="col-xs-12 col-md-3">
+			</div>
+			<div class="col-xs-12 col-md-2 team-name" style="margin-top:20px;">
+				Score final
+			</div>
+			<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
+				<p class="form-control-static scoreInput">{{match.homeScore}}</p>
+			</div>
+			<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
+				<p class="form-control-static scoreInput">{{match.awayScore}}</p>
+			</div>
+			<div class="col-xs-12 col-md-5 team-name" style="margin-top:20px;">
+				Vous marquez {{match.predictionScore}} points
+			</div>
+		</a>
+	</div>
 </div>
-<hr></hr>

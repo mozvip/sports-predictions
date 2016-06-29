@@ -28,6 +28,11 @@ public class CommunityFilter implements Filter {
 		if (i > 0) {
 			community = community.substring(0, i);
 		}
+		
+		if (community.equals("localhost")) {
+			return "grand-est";
+		}
+		
 		return community;
 	}
 

@@ -15,6 +15,18 @@ angular.module('sports-predictions')
 
                 return deferredObject.promise;
             },
+            recalculateScores: function() {
+                var deferredObject = $q.defer();
+                var config = BackendService.getRequestConfig();
+                $http.get(BackendService.getBackEndURL() + 'score/recalculate', config)
+                    .then(function (response) {
+                        deferredObject.resolve(response);
+                    }, function (response) {
+                        deferredObject.reject(response);
+                    });
+
+                return deferredObject.promise;
+            },
             getUsersNoPrediction: function () {
                 var deferredObject = $q.defer();
                 var config = BackendService.getRequestConfig();

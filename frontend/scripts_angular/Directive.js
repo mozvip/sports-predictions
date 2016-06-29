@@ -30,7 +30,8 @@ var pronostic = function(){
 		restrict: 'E',
 		templateUrl: '/partials-views/pronostic.html',
 		scope: {
-			match: "="
+			match: "=",
+			access: "="
 		},
 		controller: function($scope, $location) {
 									
@@ -130,17 +131,18 @@ var pronosticFinal = function(){
 		restrict: 'E',
 		templateUrl: '/partials-views/pronosticFinal.html',
 		scope: {
-			match: "="
+			match: "=match",
+			access: "=access"
 		},
 		controller: function($scope, $location) {
-									
-			$scope.matchNul = function(match){
-				return match.predictionHome_Score != undefined && match.predictionAway_Score != undefined &&
-				match.predictionHome_Score == match.predictionAway_Score;
+			
+			$scope.matchNul = function(){
+				return $scope.match.predictionHome_Score != undefined && $scope.match.predictionAway_Score != undefined &&
+					$scope.match.predictionHome_Score == $scope.match.predictionAway_Score;
 			}
 			
-			$scope.isPronosticable = function(match){
-				return $scope.access = 'W';
+			$scope.isPronosticable = function(){
+				return ($scope.access == 'W' && !$scope.match.done ); //FIXME : && $scope.match.dateTime <= new Date());
 			}
 			
 			$scope.realScore = function(predictionScore, realScore){

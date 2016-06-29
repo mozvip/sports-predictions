@@ -14,9 +14,9 @@ public class Game {
 	private String group;
 	private String stadium;
 	private String homeTeam;
-	private int homeTeamWinnerFrom;
+	private int homeTeamWinnerFrom = -1;
 	private String awayTeam;
-	private int awayTeamWinnerFrom;
+	private int awayTeamWinnerFrom = -1;
 	private int homeScore;
 	private int awayScore;
 	private String winningTeam;

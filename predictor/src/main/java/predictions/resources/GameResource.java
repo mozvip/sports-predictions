@@ -41,7 +41,7 @@ public class GameResource {
 
 		for (MatchPrediction matchPrediction : predictionsForGame) {
 			
-			if (matchPrediction.getMatch_id() < 200 ) {	// FIXME groups phase
+			if (matchPrediction.getMatch_id() < 36 ) {
 				
 				if (matchPrediction.getScore() == 3) {
 					perfect ++;
@@ -57,9 +57,7 @@ public class GameResource {
 				
 				if (matchPrediction.getScore() == 5) {
 					perfect ++;
-				} else if (community.equals("michelin-solutions") && matchPrediction.getScore() == 2) {
-					good ++;
-				} else if (!community.equals("michelin-solutions") && matchPrediction.getScore() == 1) {
+				} else if (matchPrediction.getScore() == 3) {
 					good ++;
 				} else {
 					bad ++;

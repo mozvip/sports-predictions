@@ -23,6 +23,9 @@ angular.module('sports-predictions')
                     currentUser: ['UserService', function (UserService) {
                         return UserService.getCurrentUser();
                     }],
+                    community: ['CommunityService', function(CommunityService) {
+                        return CommunityService.getCommunity();
+                    }],
 					check:['CommunityService', '$location', function(CommunityService, $location){
 						CommunityService.getCommunity().then(function(result){
 							if(result.groupsAccess == 'N')
