@@ -82,7 +82,7 @@ angular.module('sports-predictions')
 				if ($scope.delegateEmail) {
 					PredictionService.getPredictions($scope.delegateEmail).then(
 						function ( response ) {
-							$scope.refreshPredictions( response.data );
+							$scope.refreshPredictions( response.data.match_predictions_attributes );
 						}, function ( response ) {
 
 						}
