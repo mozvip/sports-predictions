@@ -16,7 +16,7 @@ angular.module('sports-predictions')
 			},
 			get : function( url ) {
 				var config = this.getRequestConfig();
-				return $http.get( url, config );
+				return $http.get( this.getBackEndURL() + url, config );
 			},
 			getToken: function () {
 				return $cookies.get('SESSION_ID');
