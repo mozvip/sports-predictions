@@ -36,6 +36,10 @@ public interface UserDAO {
 	@SqlQuery("select * from user where community = :community and email not in (select distinct email from match_prediction where community = :community)")
 	@Mapper(UserResultSetMapper.class)
 	List<User> findUsersWithNoPredictions(@Bind("community") String community);
+	
+	@SqlQuery("select * from user where community = :community and email = :email")
+	@Mapper(UserResultSetMapper.class)
+	User findUser(@Bind("community") String community, @Bind("email") String email);
 
 	@SqlQuery("select * from user where community=:community and email=:email and password=HASH('SHA256', STRINGTOUTF8(:password),1000) AND active = true")
 	@Mapper(UserResultSetMapper.class)

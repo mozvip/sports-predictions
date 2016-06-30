@@ -17,6 +17,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -196,7 +197,7 @@ public class UserResource {
 	public void saveProfile( @Auth User user, @FormParam("name") String name ) {
 		name = name.trim();
 		userDAO.setName( user.getCommunity(), user.getEmail(), name );
-	}	
+	}
 	
 	@POST
 	@Path("/save")
@@ -240,15 +241,28 @@ public class UserResource {
 		return buildPredictions( user );
 	}
 	
+	@GET
+	@Path("/predictions/{email}")
+	@RolesAllowed("ADMIN")
+	@ApiOperation("Get the current predictions for the specified user")
+	public MatchPredictions getPredictionsForUser( @Auth User user, @PathParam("email") String email ) {
+		String community = (String) httpRequest.getAttribute("community");
+		email = email.trim().toLowerCase();
+		return buildPredictions( userDAO.findUser(community, email) );
+	}
+	
+	
 	private MatchPredictions buildPredictions( User user ) {
 		MatchPredictions predictions = new MatchPredictions();
-		List<MatchPrediction> matchPredictions = matchPredictionDAO.findForUser( user.getCommunity(), user.getEmail() );
 		predictions.setCommunity( user.getCommunity() );
 		predictions.setEmail( user.getEmail() );
 		predictions.setName( user.getName() );
 		predictions.setCurrentRanking( user.getCurrentRanking() );
 		predictions.setAdmin( user.isAdmin() || user.getCommunity().equals("localhost") );
+
+		List<MatchPrediction> matchPredictions = matchPredictionDAO.findForUser( user.getCommunity(), user.getEmail() );
 		predictions.setMatch_predictions_attributes( matchPredictions );
+		
 		return predictions;
 		
 	}

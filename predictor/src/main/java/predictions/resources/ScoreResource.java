@@ -150,7 +150,7 @@ public class ScoreResource {
 
 				if (!game.getGroup().startsWith("Groupe ")) {
 					
-					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore) {
+					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore && prediction.getHome_team_id().equals(game.getHomeTeam()) && prediction.getAway_team_id().equals(game.getAwayTeam())) {
 						matchScore = 5;
 						if (homeScore == awayScore) { // draw
 							if (prediction.isHome_winner() != homeWinning) { // wrong qualified team
@@ -188,7 +188,7 @@ public class ScoreResource {
 
 				if (!game.getGroup().startsWith("Groupe ")) {
 					
-					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore) {
+					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore && prediction.getHome_team_id().equals(game.getHomeTeam()) && prediction.getAway_team_id().equals(game.getAwayTeam())) {
 						matchScore = 5;
 						if (homeScore == awayScore) { // draw
 							if (prediction.isHome_winner() != homeWinning) { // wrong qualified team
