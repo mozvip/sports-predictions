@@ -20,48 +20,7 @@ angular.module('sports-predictions')
 				res.then(function (result) {
 					if (result.Games != null && result.Games != undefined) {
 						$scope.games = result.Games;
-
-						$linq.Enumerable()
-							.From($scope.games)
-							.ForEach(function (element) {
-								var gameID = element.matchNum;
-								var prediction = $linq.Enumerable()
-									.From(currentUser.match_predictions_attributes)
-									.FirstOrDefault(null, function (prediction) {
-										return prediction.match_id === gameID;
-									});
-
-								if (prediction != null) {
-									element.predictionHome_Score = prediction.home_score;
-									element.predictionAway_Score = prediction.away_score;
-									element.predictionScore = prediction.score;
-									element.home_winner = prediction.home_winner;
-
-									$scope.watchMatch( element );
-								}
-								else {
-									element.predictionHome_Score = 0;
-									element.predictionAway_Score = 0;
-									element.predictionScore = 0;
-									element.home_winner = false;
-								}
-								
-								if(element.done){
-									element.predictionHomeTeam = prediction.home_team_id;
-									element.predictionAwayTeam = prediction.away_team_id;
-								}
-
-								// Display real team after 8eme final 
-								if(element.group.indexOf("8èmes de finale") == -1){
-									var gameFrom = $linq.Enumerable().From($scope.games).First(function(g){return element.homeTeamWinnerFrom == g.matchNum});
-									var gameAway = $linq.Enumerable().From($scope.games).First(function(g){return element.awayTeamWinnerFrom == g.matchNum});
-									if(gameFrom.done)
-										element.trueTeamFrom = gameFrom.winningTeam;
-									if(gameAway.done)
-										element.trueTeamAway = gameAway.winningTeam;
-								}
-
-							});
+						refreshPredictions( currentUser.match_predictions_attributes );
 					} else {
 						Notification.error({ message: 'Les scores des matches n\'ont pu être récupérés. Un problème technique est à l\'origine du problème.', title: 'Erreur' });
 						error = true;
@@ -71,6 +30,63 @@ angular.module('sports-predictions')
 				if (error) {
 					$scope.games = [];
 					return;
+				}
+			}
+
+			$scope.refreshPredictions = function ( predictions ) {
+				$linq.Enumerable()
+					.From($scope.games)
+					.ForEach(function (element) {
+						var gameID = element.matchNum;
+						var prediction = $linq.Enumerable()
+							.From(predictions)
+							.FirstOrDefault(null, function (prediction) {
+								return prediction.match_id === gameID;
+							});
+
+						if (prediction != null) {
+							element.predictionHome_Score = prediction.home_score;
+							element.predictionAway_Score = prediction.away_score;
+							element.predictionScore = prediction.score;
+							element.home_winner = prediction.home_winner;
+
+							$scope.watchMatch(element);
+						}
+						else {
+							element.predictionHome_Score = 0;
+							element.predictionAway_Score = 0;
+							element.predictionScore = 0;
+							element.home_winner = false;
+						}
+
+						if (element.done) {
+							element.predictionHomeTeam = prediction.home_team_id;
+							element.predictionAwayTeam = prediction.away_team_id;
+						}
+
+						// Display real team after 8eme final 
+						if (element.group.indexOf("8èmes de finale") == -1) {
+							var gameFrom = $linq.Enumerable().From($scope.games).First(function (g) { return element.homeTeamWinnerFrom == g.matchNum });
+							var gameAway = $linq.Enumerable().From($scope.games).First(function (g) { return element.awayTeamWinnerFrom == g.matchNum });
+							if (gameFrom.done)
+								element.trueTeamFrom = gameFrom.winningTeam;
+							if (gameAway.done)
+								element.trueTeamAway = gameAway.winningTeam;
+						}
+
+					});
+
+			}
+
+			$scope.delegateUserChanged = function () {
+				if ($scope.delegateEmail) {
+					PredictionService.getPredictions($scope.delegateEmail).then(
+						function ( response ) {
+							$scope.refreshPredictions( response.data );
+						}, function ( response ) {
+
+						}
+					)
 				}
 			}
 
@@ -120,7 +136,7 @@ angular.module('sports-predictions')
 						else
 							Notification.error(result.message);
 					});
-			}			
+			}
 
 			var createPrediction = function (game) {
 				return {
@@ -142,7 +158,7 @@ angular.module('sports-predictions')
 					return;
 				}
 
-				for (var i=0; i<$scope.games.length; i++) {
+				for (var i = 0; i < $scope.games.length; i++) {
 					if ($scope.games[i].homeTeamWinnerFrom === match.matchNum) {
 						$scope.games[i].homeTeam = winningTeamName;
 					} else if ($scope.games[i].awayTeamWinnerFrom === match.matchNum) {
@@ -155,7 +171,7 @@ angular.module('sports-predictions')
 
 			$scope.winnerMatch = function (match) {
 				if (match.predictionHome_Score != undefined && match.predictionAway_Score != undefined) {
-					var homeWinner = (typeof match.home_winner == 'boolean' ? match.home_winner : Boolean( match.home_winner ));
+					var homeWinner = (typeof match.home_winner == 'boolean' ? match.home_winner : Boolean(match.home_winner));
 					return (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && homeWinner)) ? match.homeTeam : match.awayTeam;
 				}
 				else

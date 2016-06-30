@@ -29,6 +29,9 @@ angular.module('sports-predictions')
 						});
 						
 						return deferredObject.promise;
+					},
+					getPredictions : function(email) {
+						return BackendService.get( 'user/predictions/' + email);
 					}
                 }
         }]);
