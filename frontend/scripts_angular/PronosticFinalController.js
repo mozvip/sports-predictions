@@ -20,7 +20,7 @@ angular.module('sports-predictions')
 				res.then(function (result) {
 					if (result.Games != null && result.Games != undefined) {
 						$scope.games = result.Games;
-						refreshPredictions( currentUser.match_predictions_attributes );
+						$scope.refreshPredictions( currentUser.match_predictions_attributes );
 					} else {
 						Notification.error({ message: 'Les scores des matches n\'ont pu être récupérés. Un problème technique est à l\'origine du problème.', title: 'Erreur' });
 						error = true;
