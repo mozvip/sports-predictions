@@ -84,10 +84,10 @@
 				Score final
 			</div>
 			<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-				<p ng-class="['form-control-static', 'scoreInput', {scoreWinner: match.homeScore == match.awayScore && match.homeWinner}]">{{match.homeScore}}</p>
+				<p ng-class="['form-control-static', 'scoreInput', {scoreWinner: match.homeScore == match.awayScore && match.winningTeam == match.homeTeam}]">{{match.homeScore}}</p>
 			</div>
 			<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-				<p ng-class="['form-control-static', 'scoreInput', {scoreWinner: match.homeScore == match.awayScore && !match.homeWinner}]">{{match.awayScore}}</p>
+				<p ng-class="['form-control-static', 'scoreInput', {scoreWinner: match.homeScore == match.awayScore && match.winningTeam == match.awayTeam}]">{{match.awayScore}}</p>
 			</div>
 			<div class="col-xs-12 col-md-5 team-name" style="margin-top:20px;">
 				Vous marquez {{match.predictionScore}} points
