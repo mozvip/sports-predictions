@@ -159,7 +159,7 @@ public class ScoreResource {
 						}
 					} else if ( actualWinner.equals( predictionWinner )) {
 						matchScore = 3;
-					} else if (prediction.getHome_score() == homeScore || prediction.getAway_score() == awayScore) {
+					} else if ((prediction.getHome_score() == homeScore && prediction.getHome_team_id().equals(game.getHomeTeam())) || (prediction.getAway_score() == awayScore && prediction.getAway_team_id().equals(game.getAwayTeam()))) {
 						matchScore = 1;
 					}
 					
@@ -176,7 +176,7 @@ public class ScoreResource {
 						
 						matchScore = 2;
 
-					} else if ( prediction.getHome_score() == homeScore || prediction.getAway_score() == awayScore ) {
+					} else if ((prediction.getHome_score() == homeScore && prediction.getHome_team_id().equals(game.getHomeTeam())) || (prediction.getAway_score() == awayScore && prediction.getAway_team_id().equals(game.getAwayTeam()))) {
 						matchScore = 1;
 					}
 					
