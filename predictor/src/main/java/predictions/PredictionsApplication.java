@@ -87,8 +87,10 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.lifecycle().manage(phaseManager);
 		
 		environment.jersey().setUrlPattern("/api");
+
+		CommunityFilter communityFilter = new CommunityFilter(configuration.getDefaultCommunity());
 		
-		environment.servlets().addFilter("CommunityFilter", CommunityFilter.class).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+		environment.servlets().addFilter("CommunityFilter", communityFilter).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
 		PhaseFilter phaseFilter = new PhaseFilter(phaseManager);
 		environment.servlets().addFilter("SitePhaseFilter", phaseFilter).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
