@@ -1,4 +1,4 @@
-package euro2016.scrapper;
+package model;
 
 public class Match {
 	
