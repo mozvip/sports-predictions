@@ -161,10 +161,6 @@
     <changeSet id="20" author="Guillaume Serre">
     	<addForeignKeyConstraint constraintName="FK_MATCH_PREDICTION_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="MATCH_PREDICTION" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
     </changeSet>
-    <changeSet id="20.1" author="Guillaume Serre">
-    	<dropTable tableName="GAMES"/>
-    	<dropTable tableName="USER_RANKINGS"/>
-    </changeSet>
     <changeSet id="21" author="Guillaume Serre">
     	
     	<createTable tableName="GAMES">

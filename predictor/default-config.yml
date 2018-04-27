@@ -1,9 +1,22 @@
- googleReCaptchaEnabled : false
- googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+publicDomain: wc2018.soccer
+defaultCommunity: grand-est
+eventName: World Cup 2018
+
+googleReCaptchaEnabled : false
+googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 oAuth2CredentialsFolder: ./credentials
 
- database:
+server:
+  type: simple
+  applicationContextPath: /
+  adminContextPath: /admin
+  rootPath: /api/*
+  connector:
+    type: http
+    port: 9000
+
+database:
   # the name of your JDBC driver
   driverClass: org.h2.Driver
 
@@ -34,6 +47,3 @@ oAuth2CredentialsFolder: ./credentials
 
   # whether or not idle connections should be validated
   checkConnectionWhileIdle: false
-
-server:
- rootPath: /api/*

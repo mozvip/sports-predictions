@@ -65,6 +65,8 @@ public class UserResource {
 
 	private final static Logger logger = LoggerFactory.getLogger( UserResource.class );
 
+    private PhaseManager phaseManager;
+
 	private UserDAO userDAO;
 	private MatchPredictionDAO matchPredictionDAO;
 	private ActualResultDAO actualResultDAO;
@@ -76,7 +78,8 @@ public class UserResource {
 
 	@Context private HttpServletRequest httpRequest;
 
-	public UserResource( UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, CommunityDAO communityDAO, HttpClient client, PredictionsConfiguration configuration, GmailService gmail ) {
+	public UserResource( PhaseManager phaseManager, UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, CommunityDAO communityDAO, HttpClient client, PredictionsConfiguration configuration, GmailService gmail ) {
+		this.phaseManager = phaseManager;
 		this.userDAO = dao;
 		this.matchPredictionDAO = matchPredictionDAO;
 		this.actualResultDAO = actualResultDAO;
@@ -156,9 +159,8 @@ public class UserResource {
 		postParams.add( new BasicNameValuePair("remoteip", httpRequest.getRemoteAddr()) );
 		post.setEntity( new UrlEncodedFormEntity(postParams));
 
-		String string = null;
 		HttpResponse clientResponse = client.execute( post );
-		string = EntityUtils.toString( clientResponse.getEntity() );
+		String string = EntityUtils.toString( clientResponse.getEntity() );
 		
 		ObjectMapper mapper = new ObjectMapper();
 		GoogleReCaptchaResponse response = mapper.readValue( string, GoogleReCaptchaResponse.class );
@@ -204,7 +206,7 @@ public class UserResource {
 	@Timed
 	@ApiOperation("Save predictions for the connected user")
 	public void save( @Auth User user, MatchPredictions predictions ) {
-		Phase currentPhase = PhaseManager.getInstance().getCurrentPhase();
+		Phase currentPhase = phaseManager.getCurrentPhase();
 		
 		String name = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
@@ -291,9 +293,9 @@ public class UserResource {
 		
 		String mailFrom = getAdminEmail(community);
 		
-		String subject = String.format( "Mot de passe oublié pour https://%s.pronostics2016.com", community);
+		String subject = String.format("Mot de passe oublié pour https://%s.%s", community, configuration.getPublicDomain());
 		
-		String resetPasswordLink = String.format("https://%s.pronostics2016.com/#/forget-password/%s/%s", community, email, uuid.toString());			
+		String resetPasswordLink = String.format("https://%s.%s/#/forget-password/%s/%s", community, configuration.getPublicDomain(), email, uuid.toString());
 		String htmlMessage = String.format( "<p>Cliquez <a href='%s'>ce lien</a> pour choisir un nouveau mot de passe</p>", resetPasswordLink );
 
 		gmail.sendEmail( existingUser.getEmail(), subject, htmlMessage );

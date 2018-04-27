@@ -43,6 +43,7 @@ import predictions.model.MatchPredictionDAO;
 import predictions.model.User;
 import predictions.model.UserDAO;
 import predictions.phases.PhaseFilter;
+import predictions.phases.PhaseManager;
 import predictions.resources.AdminResource;
 import predictions.resources.ChangePasswordResource;
 import predictions.resources.CommunityResource;
@@ -53,9 +54,9 @@ import predictions.resources.ValidateEmailResource;
 
 public class PredictionsApplication extends Application<PredictionsConfiguration> {
 
-	@Override
+    @Override
 	public String getName() {
-		return "Euro 2016 Predictions";
+		return "Sports Predictions";
 	}
 
 	@Override
@@ -81,11 +82,16 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		final MatchPredictionDAO matchPredictionDAO = jdbi.onDemand(MatchPredictionDAO.class);
 		final ActualResultDAO actualResultDAO = jdbi.onDemand(ActualResultDAO.class);
 		final CommunityDAO communityDAO = jdbi.onDemand(CommunityDAO.class);
+
+		PhaseManager phaseManager = new PhaseManager();
+		environment.lifecycle().manage(phaseManager);
 		
 		environment.jersey().setUrlPattern("/api");
 		
 		environment.servlets().addFilter("CommunityFilter", CommunityFilter.class).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-		environment.servlets().addFilter("SitePhaseFilter", PhaseFilter.class).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+
+		PhaseFilter phaseFilter = new PhaseFilter(phaseManager);
+		environment.servlets().addFilter("SitePhaseFilter", phaseFilter).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
 		// swagger
 		environment.jersey().register(new ApiListingResource());
@@ -98,7 +104,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		
 		GmailService gmail = new GmailService(getName(), configuration);
 		
-		environment.jersey().register(new UserResource(userDAO, matchPredictionDAO, actualResultDAO, communityDAO, client, configuration, gmail));
+		environment.jersey().register(new UserResource(phaseManager, userDAO, matchPredictionDAO, actualResultDAO, communityDAO, client, configuration, gmail));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new ValidateEmailResource(userDAO));
 		environment.jersey().register(new AdminResource(userDAO));
@@ -114,10 +120,10 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 
 		PredictorBasicAuthenticator basicAuthenticator = new PredictorBasicAuthenticator( userDAO );
 		
-		CommunityBasicCredentialAuthFilter<User> basicCredentialAuthFilter = new CommunityBasicCredentialAuthFilter.Builder<User>()
+		CommunityBasicCredentialAuthFilter<User> basicCredentialAuthFilter = new CommunityBasicCredentialAuthFilter.Builder<User>(configuration.getDefaultCommunity())
             .setAuthenticator( basicAuthenticator )
             .setAuthorizer(new PredictorAuthorizer())
-            .setRealm("Euro 2016 Application Realm")
+            .setRealm(configuration.getEventName() + " Application Realm")
             .buildAuthFilter();
 	    
 		PredictorOAuthAuthenticator oAuthAuthenticator = new PredictorOAuthAuthenticator( userDAO );
@@ -125,13 +131,13 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
         OAuthCredentialAuthFilter<User> oauthCredentialAuthFilter = new OAuthCredentialAuthFilter.Builder<User>()
         	.setAuthenticator( oAuthAuthenticator )
             .setAuthorizer(new PredictorAuthorizer())
-            .setRealm("Euro 2016 Application Realm")
+            .setRealm(configuration.getEventName() + " Application Realm")
             .buildAuthFilter();
 	    
 	    List<AuthFilter<? extends Object, User>> filters = Lists.newArrayList(basicCredentialAuthFilter, oauthCredentialAuthFilter);
 	    environment.jersey().register(new AuthDynamicFeature(new ChainedAuthFilter(filters)));
 	    environment.jersey().register(RolesAllowedDynamicFeature.class);
-	    environment.jersey().register(new AuthValueFactoryProvider.Binder<User>(User.class));
+	    environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 	    
 	    BeanConfig config = new BeanConfig();
 	    config.setTitle("Sports Predictions Application");

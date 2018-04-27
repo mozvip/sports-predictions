@@ -19,12 +19,15 @@ import io.dropwizard.auth.basic.BasicCredentials;
 
 public class CommunityBasicCredentialAuthFilter<P extends Principal> extends AuthFilter<CommunityBasicCredentials, P> {
 
-    private CommunityBasicCredentialAuthFilter() {
+    private String defaultCommunity;
+
+    private CommunityBasicCredentialAuthFilter(String defaultCommunity) {
+        this.defaultCommunity = defaultCommunity;
     }
 
     @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException {
-    	String community = CommunityFilter.extractCommunity( requestContext.getUriInfo().getRequestUri().getHost() );
+    public void filter(ContainerRequestContext requestContext) {
+    	String community = CommunityFilter.extractCommunity(requestContext.getUriInfo().getRequestUri().getHost(), defaultCommunity);
         final CommunityBasicCredentials credentials = getCredentials(community, requestContext.getHeaders().getFirst(HttpHeaders.AUTHORIZATION));
         if (!authenticate(requestContext, credentials, SecurityContext.BASIC_AUTH)) {
             throw new WebApplicationException(unauthorizedHandler.buildResponse(prefix, realm));
@@ -82,9 +85,15 @@ public class CommunityBasicCredentialAuthFilter<P extends Principal> extends Aut
     public static class Builder<P extends Principal> extends
             AuthFilterBuilder<CommunityBasicCredentials, P, CommunityBasicCredentialAuthFilter<P>> {
 
+        private String defaultCommunity;
+
+        public Builder(String defaultCommunity) {
+            this.defaultCommunity = defaultCommunity;
+        }
+
         @Override
         protected CommunityBasicCredentialAuthFilter<P> newInstance() {
-            return new CommunityBasicCredentialAuthFilter<>();
+            return new CommunityBasicCredentialAuthFilter<>(defaultCommunity);
         }
     }
 }

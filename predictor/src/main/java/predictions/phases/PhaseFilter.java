@@ -18,6 +18,12 @@ public class PhaseFilter implements Filter {
 	
 	private final static Logger logger = LoggerFactory.getLogger( PhaseFilter.class );
 
+	private PhaseManager phaseManager;
+
+	public PhaseFilter(PhaseManager phaseManager) {
+		this.phaseManager = phaseManager;
+	}
+
 	public void init(FilterConfig filterConfig) throws ServletException {
 
 	}
@@ -26,12 +32,12 @@ public class PhaseFilter implements Filter {
 			throws IOException, ServletException {
 		
 		// get current phase
-		Phase currentPhase = PhaseManager.getInstance().getCurrentPhase();
+		Phase currentPhase = phaseManager.getCurrentPhase();
 		if (currentPhase.getWelcomePage() == null) {
 			chain.doFilter(request, response);
 			return;
 		}
-		
+
 		HttpServletRequest servletRequest = (HttpServletRequest) request;
 		String requestURI = servletRequest.getRequestURI();
 		

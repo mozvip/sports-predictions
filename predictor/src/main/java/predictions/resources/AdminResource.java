@@ -23,7 +23,7 @@ public class AdminResource {
 
 	@Context private HttpServletRequest httpRequest;
 
-	public AdminResource( UserDAO userDAO ) {
+	public AdminResource(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
 

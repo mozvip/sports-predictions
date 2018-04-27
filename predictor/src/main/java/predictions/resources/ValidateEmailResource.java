@@ -22,7 +22,6 @@ public class ValidateEmailResource {
 		this.userDAO = userDAO;
 	}
 
-
 	@GET
 	@Path("/valid")
 	@ApiOperation("Indicates if the email is available for new users")

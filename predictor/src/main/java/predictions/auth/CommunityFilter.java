@@ -11,26 +11,32 @@ import javax.servlet.ServletResponse;
 
 public class CommunityFilter implements Filter {
 
-	public void init(FilterConfig filterConfig) throws ServletException {
+    private String defaultCommunity;
+
+    public CommunityFilter(String defaultCommunity) {
+        this.defaultCommunity = defaultCommunity;
+    }
+
+	public void init(FilterConfig filterConfig) {
 
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		String community = extractCommunity( request.getServerName() );
+		String community = extractCommunity( request.getServerName(), defaultCommunity );
 		request.setAttribute("community", community);
 		chain.doFilter(request, response);
 
 	}
 
-	public static String extractCommunity(String community) {
+	public static String extractCommunity(String community, String defaultCommunity) {
 		int i = community.indexOf('.');
 		if (i > 0) {
 			community = community.substring(0, i);
 		}
 		
 		if (community.equals("localhost")) {
-			return "grand-est";
+			return defaultCommunity;
 		}
 		
 		return community;
