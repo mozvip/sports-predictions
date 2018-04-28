@@ -21,7 +21,8 @@
 			<a ng-if="community.createAccountEnabled" href="#sign-up" class="btn btn-block btn-success">Pas encore de compte ? Créez en un nouveau !</a>
 		</form>
 		<div ng-if="community.createAccountEnabled" style="text-align: center">
-			<h3>Rejoignez {{count}} participants déjà inscrits !</h3>
+			<h3 ng-if="count > 0">Rejoignez {{count}} participants déjà inscrits !</h3>
+			<h3 ng-if="count == 0">Soyez le premier à vous inscrire !</h3>
 		</div>
 		<div ng-if="!community.createAccountEnabled" style="text-align: center">
 			<h3>{{count}} participants inscrits !</h3>

@@ -1,5 +1,5 @@
 h1#main-title{
-	font-family: 'Yellowtail', cursive;
+	font-family: 'IBM Plex Sans', sans-serif;
 	text-align:center;
 	font-size: 500%;
 	color:white;
@@ -80,7 +80,7 @@ ul[rn-carousel] {
 
 
 .group-name{
-	font-family: 'Yellowtail', cursive;
+	font-family: 'IBM Plex Sans', sans-serif;
 	text-align:left;
 	margin-left:5%;
 	margin-bottom:2%;
@@ -89,7 +89,7 @@ ul[rn-carousel] {
 }
 
 .team-name{
-	font-family: 'Yellowtail', cursive;
+	font-family: 'IBM Plex Sans', sans-serif;
 	font-size: 200%;
 	color:black;
 }
