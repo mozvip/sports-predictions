@@ -92,8 +92,10 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		
 		environment.servlets().addFilter("CommunityFilter", communityFilter).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
-		PhaseFilter phaseFilter = new PhaseFilter(phaseManager);
-		environment.servlets().addFilter("SitePhaseFilter", phaseFilter).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+		if (configuration.isLiveWebSite()) {
+			PhaseFilter phaseFilter = new PhaseFilter(phaseManager);
+			environment.servlets().addFilter("SitePhaseFilter", phaseFilter).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+		}
 
 		// swagger
 		environment.jersey().register(new ApiListingResource());

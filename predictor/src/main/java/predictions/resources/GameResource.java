@@ -40,7 +40,8 @@ public class GameResource {
 		int bad = 0;
 
 		for (MatchPrediction matchPrediction : predictionsForGame) {
-			
+
+			//FIXME
 			if (matchPrediction.getMatch_id() < 36 ) {
 				
 				if (matchPrediction.getScore() == 3) {

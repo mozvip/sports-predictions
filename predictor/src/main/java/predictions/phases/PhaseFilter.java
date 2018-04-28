@@ -1,6 +1,7 @@
 package predictions.phases;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -16,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class PhaseFilter implements Filter {
 	
-	private final static Logger logger = LoggerFactory.getLogger( PhaseFilter.class );
+	private final static Logger LOGGER = LoggerFactory.getLogger( PhaseFilter.class );
 
 	private PhaseManager phaseManager;
 
@@ -24,13 +25,12 @@ public class PhaseFilter implements Filter {
 		this.phaseManager = phaseManager;
 	}
 
-	public void init(FilterConfig filterConfig) throws ServletException {
-
+	public void init(FilterConfig filterConfig) {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		// get current phase
 		Phase currentPhase = phaseManager.getCurrentPhase();
 		if (currentPhase.getWelcomePage() == null) {
@@ -49,8 +49,9 @@ public class PhaseFilter implements Filter {
 		
 		if ((requestURI.endsWith("/") || requestURI.endsWith(".html")) && ! ( requestURI.startsWith( currentPhase.getWelcomePage() ))) {
 			HttpServletResponse servletResponse = (HttpServletResponse) response;
-			logger.info("Redirecting request {} to {}", requestURI, currentPhase.getWelcomePage() );
-			servletResponse.sendRedirect( currentPhase.getWelcomePage());
+			LOGGER.info("Redirecting request {} to {}", requestURI, currentPhase.getWelcomePage() );
+			String url = String.format("%s?phaseEnd=%s", currentPhase.getWelcomePage(), new SimpleDateFormat("yyyy/MM/dd").format(currentPhase.getPhaseEnd()));
+			servletResponse.sendRedirect(url);
 		} else {
 			chain.doFilter(request, response);
 		}

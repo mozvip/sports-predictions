@@ -4,6 +4,21 @@
 /*
 -----------------------------------------------------------------------------------*/
 
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
 jQuery(document).ready(function($) {
 
 /*---------------------------------------------------- */
@@ -86,18 +101,9 @@ jQuery(document).ready(function($) {
 
 
 /*----------------------------------------------------*/
-/* FitText Settings
------------------------------------------------------- */
-   setTimeout( function() {
-
-	   $('h1.responsive-headline').fitText(1, { minFontSize: '40px', maxFontSize: '90px' });
-	   
-   }, 100);
-
-/*----------------------------------------------------*/
 /* Final Countdown Settings
 ------------------------------------------------------ */
-	var finalDate = '2016/05/17';
+    var finalDate = getUrlParameter("phaseEnd");
 
 	$('div#counter').countdown(finalDate)
    	.on('update.countdown', function(event) {
@@ -108,34 +114,6 @@ jQuery(document).ready(function($) {
    										 	 '<span>%S <em>seconds</em></span>'));
 
    });  
-
-
-/*----------------------------------------------------*/
-/* Highlight the current section in the navigation bar
-------------------------------------------------------*/
-
-	var sections = $("section");
-	var navigation_links = $("#nav-wrap a");
-
-	sections.waypoint({
-
-      handler: function(event, direction) {
-
-		   var active_section;
-
-			active_section = $(this);
-			if (direction === "up") active_section = active_section.prev();
-
-			var active_link = $('#nav-wrap a[href="#' + active_section.attr("id") + '"]');
-
-         navigation_links.parent().removeClass("current");
-			active_link.parent().addClass("current");
-
-		},
-		offset: '35%'
-
-	});
-
 
 /*----------------------------------------------------*/
 /*	Make sure that #intro height is

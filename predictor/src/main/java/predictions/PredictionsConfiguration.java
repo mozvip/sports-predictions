@@ -10,6 +10,8 @@ import io.dropwizard.db.DataSourceFactory;
 
 public class PredictionsConfiguration extends Configuration {
 
+	private boolean liveWebSite = false;
+
     @Valid
     @NotNull
     private String eventName = "World Cup 2018";
@@ -77,4 +79,12 @@ public class PredictionsConfiguration extends Configuration {
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
+
+	public boolean isLiveWebSite() {
+		return liveWebSite;
+	}
+
+	public void setLiveWebSite(boolean liveWebSite) {
+		this.liveWebSite = liveWebSite;
+	}
 }
