@@ -2,8 +2,11 @@ publicDomain: wc2018.soccer
 defaultCommunity: grand-est
 eventName: World Cup 2018
 
+# set to true to enable the PhaseFilter that redirects use to coming-soon among other things
+liveWebSite: true
+
 googleReCaptchaEnabled : false
-googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 oAuth2CredentialsFolder: ./credentials
 
