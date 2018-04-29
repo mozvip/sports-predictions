@@ -51,17 +51,26 @@ public class FootballDataClient {
 
     public Competition competition(int competitionId) throws IOException {
         Response<Competition> response = service.competition(competitionId).execute();
-        return response.body();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IOException(response.message());
     }
 
     public Teams teams(int competitionId) throws IOException {
         Response<Teams> response = service.teams(competitionId).execute();
-        return response.body();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IOException(response.message());
     }
 
     public Fixtures fixtures(int competitionId) throws IOException {
         Response<Fixtures> response = service.fixtures(competitionId).execute();
-        return response.body();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IOException(response.message());
     }
 }
 

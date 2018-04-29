@@ -1,6 +1,6 @@
 package com.github.mozvip.footballdata.model;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 public class Competition {
@@ -14,7 +14,22 @@ public class Competition {
     private int numberOfMatchdays;
     private int numberOfTeams;
     private int numberOfGames;
-    private LocalDateTime lastUpdated;
+    private ZonedDateTime lastUpdated;
+
+    public Competition() {
+    }
+
+    public Competition(int id, String caption, String league, String year, int currentMatchday, int numberOfMatchdays, int numberOfTeams, int numberOfGames, ZonedDateTime lastUpdated) {
+        this.id = id;
+        this.caption = caption;
+        this.league = league;
+        this.year = year;
+        this.currentMatchday = currentMatchday;
+        this.numberOfMatchdays = numberOfMatchdays;
+        this.numberOfTeams = numberOfTeams;
+        this.numberOfGames = numberOfGames;
+        this.lastUpdated = lastUpdated;
+    }
 
     public Map<String, Link> get_links() {
         return _links;
@@ -88,11 +103,11 @@ public class Competition {
         this.numberOfGames = numberOfGames;
     }
 
-    public LocalDateTime getLastUpdated() {
+    public ZonedDateTime getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(LocalDateTime lastUpdated) {
+    public void setLastUpdated(ZonedDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 }
