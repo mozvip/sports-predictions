@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
-import predictions.model.User;
-import predictions.model.UserDAO;
+import predictions.model.db.User;
+import predictions.model.db.UserDAO;
 
 public class PredictorOAuthAuthenticator implements Authenticator<String, User> {
 	

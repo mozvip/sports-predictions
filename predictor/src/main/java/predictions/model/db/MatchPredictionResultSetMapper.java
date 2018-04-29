@@ -1,4 +1,4 @@
-package predictions.model;
+package predictions.model.db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

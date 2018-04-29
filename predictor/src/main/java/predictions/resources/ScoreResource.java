@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,16 +26,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.ApiOperation;
-import predictions.model.ActualResult;
-import predictions.model.ActualResultDAO;
+import predictions.model.db.ActualResult;
+import predictions.model.db.ActualResultDAO;
 import predictions.model.Game;
-import predictions.model.MatchPrediction;
-import predictions.model.MatchPredictionDAO;
-import predictions.model.User;
-import predictions.model.UserDAO;
+import predictions.model.db.MatchPrediction;
+import predictions.model.db.MatchPredictionDAO;
+import predictions.model.db.User;
+import predictions.model.db.UserDAO;
 
 @Path("/score")
 @Produces(MediaType.APPLICATION_JSON)
+@Api
 public class ScoreResource {
 	
 	private final static Logger logger = LoggerFactory.getLogger( ScoreResource.class );

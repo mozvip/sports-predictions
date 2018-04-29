@@ -14,16 +14,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.ApiOperation;
-import predictions.model.User;
-import predictions.model.UserDAO;
+import predictions.model.db.User;
+import predictions.model.db.UserDAO;
 
 @Path("/change-password")
 @Produces(MediaType.APPLICATION_JSON)
+@Api
 public class ChangePasswordResource {
 	
 	private final static Logger logger = LoggerFactory.getLogger( ChangePasswordResource.class );

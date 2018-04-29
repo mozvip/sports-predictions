@@ -1,7 +1,7 @@
 package predictions.auth;
 
 import io.dropwizard.auth.Authorizer;
-import predictions.model.User;
+import predictions.model.db.User;
 
 public class PredictorAuthorizer implements Authorizer<User>{
 

@@ -26,6 +26,14 @@ public class PredictionsConfiguration extends Configuration {
 
 	@Valid
 	@NotNull
+	private String footballDataApiKey;
+
+	@Valid
+	@NotNull
+	private String swaggerApiHost = "http://locahost:9000";
+
+	@Valid
+	@NotNull
 	private String googleReCaptchaSecretKey;
 
 	@Valid
@@ -86,5 +94,21 @@ public class PredictionsConfiguration extends Configuration {
 
 	public void setLiveWebSite(boolean liveWebSite) {
 		this.liveWebSite = liveWebSite;
+	}
+
+	public String getFootballDataApiKey() {
+		return footballDataApiKey;
+	}
+
+	public void setFootballDataApiKey(String footballDataApiKey) {
+		this.footballDataApiKey = footballDataApiKey;
+	}
+
+	public String getSwaggerApiHost() {
+		return swaggerApiHost;
+	}
+
+	public void setSwaggerApiHost(String swaggerApiHost) {
+		this.swaggerApiHost = swaggerApiHost;
 	}
 }

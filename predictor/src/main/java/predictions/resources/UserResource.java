@@ -24,6 +24,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.swagger.annotations.Api;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -44,23 +45,24 @@ import io.dropwizard.auth.Auth;
 import io.swagger.annotations.ApiOperation;
 import predictions.PredictionsConfiguration;
 import predictions.gmail.GmailService;
-import predictions.model.AccessType;
-import predictions.model.ActualResult;
-import predictions.model.ActualResultDAO;
-import predictions.model.Community;
-import predictions.model.CommunityDAO;
+import predictions.model.db.AccessType;
+import predictions.model.db.ActualResult;
+import predictions.model.db.ActualResultDAO;
+import predictions.model.db.Community;
+import predictions.model.db.CommunityDAO;
 import predictions.model.GoogleReCaptchaResponse;
-import predictions.model.MatchPrediction;
-import predictions.model.MatchPredictionDAO;
+import predictions.model.db.MatchPrediction;
+import predictions.model.db.MatchPredictionDAO;
 import predictions.model.MatchPredictions;
 import predictions.model.Rankings;
-import predictions.model.User;
-import predictions.model.UserDAO;
+import predictions.model.db.User;
+import predictions.model.db.UserDAO;
 import predictions.phases.Phase;
 import predictions.phases.PhaseManager;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
+@Api
 public class UserResource {
 
 	private final static Logger logger = LoggerFactory.getLogger( UserResource.class );
@@ -115,6 +117,7 @@ public class UserResource {
 	
 	@GET
 	@Path("/count")
+	@ApiOperation("Returns the current user count for the community")
 	public long getUserCount() {
 		String community = (String) httpRequest.getAttribute("community");
 		return userDAO.getCount(community);
@@ -126,9 +129,13 @@ public class UserResource {
 	public void createUser(@FormParam("email") String email, @FormParam("name") String name, @FormParam("password") String password, @FormParam("g-recaptcha-response") String recaptcha) throws IOException {
 		
 		String communityName = (String) httpRequest.getAttribute("community");
-		Community community = communityDAO.getCommunity(name);
-		
-		if (community != null && !community.isCreateAccountEnabled()) {
+		Community community = communityDAO.getCommunity(communityName);
+
+		if (community == null) {
+			// create new community with default settings
+			community = new Community(communityName, true, AccessType.W, AccessType.W);
+			communityDAO.updateCommunity(community.getName(), community.isCreateAccountEnabled(), community.getGroupsAccess(), community.getFinalsAccess());
+		} else if (!community.isCreateAccountEnabled()) {
 			return;	// FIXME: error code
 		}
 		
@@ -141,7 +148,7 @@ public class UserResource {
 		if (user == null) {
 			userDAO.insert(email, name, communityName, password );
 		} else {
-			logger.warn("Attempt to create an already existing user : {} on community {}", email, community);
+			logger.warn("Attempt to create an already existing user : {} on community {}", email, communityName);
 		}
 	}
 
@@ -206,12 +213,12 @@ public class UserResource {
 	@Timed
 	@ApiOperation("Save predictions for the connected user")
 	public void save( @Auth User user, MatchPredictions predictions ) {
-		Phase currentPhase = phaseManager.getCurrentPhase();
-		
+
 		String name = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
 
-		// FIXME: only save relevant data !!
+		// FIXME: only save relevant data !! use currentPhase !!
+		Phase currentPhase = phaseManager.getCurrentPhase();
 		if (community.getFinalsAccess() == AccessType.W || community.getGroupsAccess() == AccessType.W) {
 			savePredictions( community, user.getEmail(), predictions, false );
 		}

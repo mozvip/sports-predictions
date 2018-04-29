@@ -12,11 +12,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import predictions.model.User;
-import predictions.model.UserDAO;
+import io.swagger.annotations.Api;
+import predictions.model.db.User;
+import predictions.model.db.UserDAO;
 
 @Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)
+@Api
 public class AdminResource {
 
 	private UserDAO userDAO;

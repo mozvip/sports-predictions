@@ -11,13 +11,15 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import io.dropwizard.auth.Auth;
+import io.swagger.annotations.Api;
 import predictions.model.GameStats;
-import predictions.model.MatchPrediction;
-import predictions.model.MatchPredictionDAO;
-import predictions.model.User;
+import predictions.model.db.MatchPrediction;
+import predictions.model.db.MatchPredictionDAO;
+import predictions.model.db.User;
 
 @Path("/game")
 @Produces(MediaType.APPLICATION_JSON)
+@Api
 public class GameResource {
 	
 	@Context private HttpServletRequest httpRequest;

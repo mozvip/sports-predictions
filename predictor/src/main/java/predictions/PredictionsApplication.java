@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration.Dynamic;
 
+import com.github.mozvip.footballdata.FootballDataClient;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
@@ -37,20 +38,10 @@ import predictions.auth.PredictorAuthorizer;
 import predictions.auth.PredictorBasicAuthenticator;
 import predictions.auth.PredictorOAuthAuthenticator;
 import predictions.gmail.GmailService;
-import predictions.model.ActualResultDAO;
-import predictions.model.CommunityDAO;
-import predictions.model.MatchPredictionDAO;
-import predictions.model.User;
-import predictions.model.UserDAO;
+import predictions.model.db.*;
 import predictions.phases.PhaseFilter;
 import predictions.phases.PhaseManager;
-import predictions.resources.AdminResource;
-import predictions.resources.ChangePasswordResource;
-import predictions.resources.CommunityResource;
-import predictions.resources.GameResource;
-import predictions.resources.ScoreResource;
-import predictions.resources.UserResource;
-import predictions.resources.ValidateEmailResource;
+import predictions.resources.*;
 
 public class PredictionsApplication extends Application<PredictionsConfiguration> {
 
@@ -81,6 +72,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
 		final MatchPredictionDAO matchPredictionDAO = jdbi.onDemand(MatchPredictionDAO.class);
 		final ActualResultDAO actualResultDAO = jdbi.onDemand(ActualResultDAO.class);
+		final CompetitionDAO competitionDAO = jdbi.onDemand(CompetitionDAO.class);
 		final CommunityDAO communityDAO = jdbi.onDemand(CommunityDAO.class);
 
 		PhaseManager phaseManager = new PhaseManager();
@@ -115,7 +107,11 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().register(new GameResource( matchPredictionDAO ));
 		environment.jersey().register(new CommunityResource( communityDAO ));
 		environment.jersey().register(new ScoreResource(actualResultDAO, matchPredictionDAO, userDAO));
-		
+
+		FootballDataClient footballDataClient = FootballDataClient.Builder(configuration.getFootballDataApiKey()).build();
+
+		environment.jersey().register(new CompetitionResource(footballDataClient, competitionDAO, actualResultDAO));
+
 		Dynamic corsFilter = environment.servlets().addFilter("CrossOriginFilter", CrossOriginFilter.class);
 		corsFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 		corsFilter.setInitParameter("allowedOrigins", "*");
@@ -146,6 +142,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    BeanConfig config = new BeanConfig();
 	    config.setTitle("Sports Predictions Application");
 	    config.setVersion("1.0.0");
+	    config.setHost(configuration.getSwaggerApiHost());
 	    config.setBasePath("/api");
 	    config.setResourcePackage("predictions");
 	    config.setScan(true);

@@ -11,14 +11,17 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import io.dropwizard.auth.Auth;
-import predictions.model.AccessType;
-import predictions.model.Community;
-import predictions.model.CommunityDAO;
-import predictions.model.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
+import predictions.model.db.AccessType;
+import predictions.model.db.Community;
+import predictions.model.db.CommunityDAO;
+import predictions.model.db.User;
 
 @Path("/community")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Api
 public class CommunityResource {
 	
 	@Context private HttpServletRequest httpRequest;
@@ -41,7 +44,7 @@ public class CommunityResource {
 	
 	@POST
 	@RolesAllowed("ADMIN")
-	public void save(@Auth User user, Community communityParameters) {
+	public void save(@ApiParam(hidden = true) @Auth User user, Community communityParameters) {
 		String name = (String) httpRequest.getAttribute("community");
 		communityDAO.updateCommunity(name, communityParameters.isCreateAccountEnabled(), communityParameters.getGroupsAccess(), communityParameters.getFinalsAccess());
 	}

@@ -1,4 +1,4 @@
-package predictions.model;
+package predictions.model.db;
 
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;

@@ -1,10 +1,11 @@
-package predictions.model;
+package predictions.model.db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
+import predictions.model.db.ActualResult;
 
 public class ActualResultResultSetMapper implements ResultSetMapper<ActualResult> {
 

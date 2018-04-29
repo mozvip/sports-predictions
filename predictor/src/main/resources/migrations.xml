@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet author="Guillaume Serre" id="1">
-        <createTable catalogName="PREDICTOR" schemaName="PUBLIC" tableName="USER">
+
+    <changeSet author="Guillaume Serre" id="createUserTable">
+        <createTable tableName="USER">
             <column name="EMAIL" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
@@ -15,15 +16,53 @@
                 <constraints nullable="false"/>
             </column>
     		<column name="ADMIN" type="BOOLEAN" defaultValueBoolean="false" />
+            <column name="ACTIVE" type="BOOLEAN" defaultValueBoolean="true" />
             <column name="LAST_LOGIN_DATE" type="TIMESTAMP" />
             <column name="CHANGE_PASSWORD_TOKEN" type="VARCHAR(100)" />
             <column defaultValueNumeric="0" name="CURRENT_SCORE" type="INT(10)">
                 <constraints nullable="false"/>
             </column>
+            <column name="EMAIL_VALID" type="BOOLEAN" defaultValueBoolean="false" />
+            <column name="RANKING" type="INTEGER" />
+            <column name="PREVIOUS_RANKING" type="INTEGER" />
+        </createTable>
+        <addPrimaryKey columnNames="EMAIL, COMMUNITY" constraintName="PK_USER" tableName="USER"/>
+    </changeSet>
+
+    <changeSet id="createTableEvent" author="Guillaume Serre">
+        <createTable tableName="COMPETITIONS">
+            <column name="ID" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="CAPTION" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="LEAGUE" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="YEAR" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="CURRENT_MATCHDAY" type="INT">
+                <constraints nullable="false" />
+            </column>
+            <column name="NUMBER_OF_MATCHDAYS" type="INT">
+                <constraints nullable="false" />
+            </column>
+            <column name="NUMBER_OF_TEAMS" type="INT">
+                <constraints nullable="false" />
+            </column>
+            <column name="NUMBER_OF_GAMES" type="INT">
+                <constraints nullable="false" />
+            </column>
+            <column name="LAST_UPDATED" type="TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
         </createTable>
     </changeSet>
-    <changeSet author="Guillaume Serre" id="1402578543320-1">
-        <createTable catalogName="PREDICTOR" schemaName="PUBLIC" tableName="MATCH_PREDICTION">
+
+    <changeSet author="Guillaume Serre" id="createTableMatchPrediction">
+        <createTable tableName="MATCH_PREDICTION">
             <column name="COMMUNITY" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
@@ -33,7 +72,35 @@
             <column name="MATCH_ID" type="INT(10)">
                 <constraints nullable="false"/>
             </column>
-            <column name="HOME_TEAM_ID" type="VARCHAR(5)">
+            <column name="HOME_TEAM_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="HOME_SCORE" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AWAY_TEAM_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="AWAY_SCORE" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HOME_WINNER" type="BOOLEAN(1)"/>
+            <column name="SCORE" type="INTEGER" />
+        </createTable>
+        <addPrimaryKey columnNames="EMAIL, COMMUNITY, MATCH_ID" constraintName="PK_MATCH_PREDICTION" tableName="MATCH_PREDICTION"/>
+        <addForeignKeyConstraint constraintName="FK_MATCH_PREDICTION_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="MATCH_PREDICTION" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="4" author="Guillaume Serre">
+        <createTable tableName="ACTUAL_RESULT">
+            <column name="MATCH_ID" type="INT(10)" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_ACTUAL_RESULT" nullable="false"/>
+            </column>
+            <column name="GROUP" type="VARCHAR(1)"></column>
+            <column name="HOME_TEAM_NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AWAY_TEAM_NAME" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
             <column defaultValueNumeric="0" name="HOME_SCORE" type="INT(10)">
@@ -42,138 +109,30 @@
             <column defaultValueNumeric="0" name="AWAY_SCORE" type="INT(10)">
                 <constraints nullable="false"/>
             </column>
-            <column name="AWAY_TEAM_ID" type="VARCHAR(5)">
-                <constraints nullable="false"/>
-            </column>
             <column name="HOME_WINNER" type="BOOLEAN(1)"/>
+            <column name="VALIDATED" type="BOOLEAN"></column>
         </createTable>
     </changeSet>
-    <changeSet author="Guillaume Serre" id="1402578543320-3">
-        <addPrimaryKey catalogName="PREDICTOR" columnNames="EMAIL, COMMUNITY" constraintName="CONSTRAINT_2" schemaName="PUBLIC" tableName="USER"/>
-    </changeSet>
-    <changeSet author="Guillaume Serre" id="1402578543320-4">
-        <addPrimaryKey catalogName="PREDICTOR" columnNames="EMAIL, COMMUNITY, MATCH_ID" constraintName="CONSTRAINT_F" schemaName="PUBLIC" tableName="MATCH_PREDICTION"/>
-    </changeSet>
-    <changeSet id="4" author="serregu">
-        <createTable catalogName="PREDICTOR" schemaName="PUBLIC" tableName="ACTUAL_RESULT">
-            <column name="MATCH_ID" type="INT(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="HOME_TEAM_ID" type="VARCHAR(5)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="AWAY_TEAM_ID" type="VARCHAR(5)">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueNumeric="0" name="HOME_SCORE" type="INT(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueNumeric="0" name="AWAY_SCORE" type="INT(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="HOME_WINNER" type="BOOLEAN(1)"/>
-        </createTable>    	
-    </changeSet>
-    <changeSet id="5" author="serregu">
-        <addPrimaryKey catalogName="PREDICTOR" columnNames="MATCH_ID" constraintName="PK_ACTUAL_RESULT" schemaName="PUBLIC" tableName="ACTUAL_RESULT"/>
-    </changeSet>
-    <changeSet id="6" author="serregu">
-    	<addColumn catalogName="PREDICTOR" tableName="ACTUAL_RESULT">
-    		<column name="VALIDATED" type="BOOLEAN"></column>
-    	</addColumn>
-    </changeSet>
-    <changeSet id="7" author="serregu">
-    	<createTable catalogName="PREDICTOR" schemaName="PUBLIC" tableName="TEAM_NAME">
-            <column name="TEAM_ID" type="VARCHAR(5)">
-                <constraints nullable="false"/>
-            </column>
-			<column name="TEAM_NAME" type="VARCHAR(100)">
-                <constraints nullable="false"/>
-            </column>
-    	</createTable>
-    </changeSet>
-    <changeSet id="8" author="serregu">
-        <addPrimaryKey catalogName="PREDICTOR" columnNames="TEAM_ID" constraintName="PK_TEAM_NAME" schemaName="PUBLIC" tableName="TEAM_NAME"/>
-    </changeSet>
-    <changeSet id="9" author="serregu">
-    	<addColumn catalogName="PREDICTOR" tableName="ACTUAL_RESULT">
-    		<column name="GROUP" type="VARCHAR(1)"></column>
-    	</addColumn>
-    </changeSet>
-    <changeSet id="10" author="serregu">
-    	<addColumn catalogName="PREDICTOR" tableName="TEAM_NAME">
-    		<column name="GROUP" type="VARCHAR(1)"></column>
-    	</addColumn>
-    </changeSet>
-    <changeSet id="11" author="serregu">
-    	<addColumn catalogName="PREDICTOR" tableName="ACTUAL_RESULT">
-    		<column name="HOME_TEAM_NAME" type="VARCHAR(100)"></column>
-    		<column name="AWAY_TEAM_NAME" type="VARCHAR(100)"></column>
-    	</addColumn>
-    </changeSet>
-    <changeSet id="12" author="serregu">
-    	<addColumn catalogName="PREDICTOR" tableName="USER">
-    		<column name="EMAIL_VALID" type="BOOLEAN" defaultValueBoolean="false" />
-    	</addColumn>
-    </changeSet>
-    <changeSet id="13" author="Guillaume Serre">
-    	<addColumn catalogName="PREDICTOR" tableName="USER">
-    		<column name="RANKING" type="INTEGER" />
-    		<column name="PREVIOUS_RANKING" type="INTEGER" />
-    	</addColumn>
-    </changeSet>
-    <changeSet id="14" author="Guillaume Serre">
-    	<modifyDataType tableName="MATCH_PREDICTION" columnName="HOME_TEAM_ID" newDataType="VARCHAR(50)"/>
-    	<modifyDataType tableName="MATCH_PREDICTION" columnName="AWAY_TEAM_ID" newDataType="VARCHAR(50)"/>
-    </changeSet>
-    <changeSet id="15" author="Guillaume Serre">
-    	<addColumn catalogName="PREDICTOR" tableName="USER">
-    		<column name="ACTIVE" type="BOOLEAN" />
-    	</addColumn>
-    	<update tableName="USER"><column name="ACTIVE" value="true"></column></update>
-    </changeSet>
-    <changeSet id="16" author="Guillaume Serre">
-    	<update tableName="USER">
-    		<column name="ADMIN" value="true"></column>
-    		<where>EMAIL='guillaume.serre@cgi.com' AND COMMUNITY='grand-est'</where>
-    	</update>
-    	<update tableName="USER">
-    		<column name="ADMIN" value="true"></column>
-    		<where>EMAIL='sylvain.le.gouellec@cgi.com' AND COMMUNITY='grand-est'</where>
-    	</update>
-    </changeSet>
-    <changeSet id="17" author="Guillaume Serre">
-    	<addColumn tableName="MATCH_PREDICTION">
-    		<column name="SCORE" type="INTEGER" defaultValueNumeric="0">
-    			<constraints nullable="false"></constraints>
-    		</column>
-    	</addColumn>
-    </changeSet>
-    <changeSet id="18" author="Guillaume Serre">
-    	<dropNotNullConstraint tableName="MATCH_PREDICTION" columnName="SCORE" columnDataType="INTEGER"/>
-    	<dropDefaultValue tableName="MATCH_PREDICTION" columnName="SCORE"/>
-    	<sql>update match_prediction set score = NULL</sql>
-    </changeSet>
-    <changeSet id="19" author="Guillaume Serre">
-    	<modifyDataType tableName="ACTUAL_RESULT" columnName="HOME_TEAM_ID" newDataType="VARCHAR(50)"/>
-    	<modifyDataType tableName="ACTUAL_RESULT" columnName="AWAY_TEAM_ID" newDataType="VARCHAR(50)"/>
-    </changeSet>
-    <changeSet id="20" author="Guillaume Serre">
-    	<addForeignKeyConstraint constraintName="FK_MATCH_PREDICTION_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="MATCH_PREDICTION" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
-    </changeSet>
+
     <changeSet id="21" author="Guillaume Serre">
     	
-    	<createTable tableName="GAMES">
-    		<column name="GAME_ID" type="INTEGER">
-    			<constraints primaryKey="true"/>
+    	<createTable tableName="FIXTURES">
+    		<column name="ID" type="INTEGER" autoIncrement="true">
+    			<constraints primaryKey="true" primaryKeyName="PK_FIXTURE"/>
     		</column>
-    		<column name="GAME_GROUP" type="VARCHAR(100)">
+            <column name="COMPETITION_ID" type="INTEGER" />
+    		<column name="FIXTURE_GROUP" type="VARCHAR(100)">
     		</column>
-    		<column name="HOME_TEAM" type="VARCHAR(100)">
+    		<column name="HOME_TEAM_NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
     		</column>
-    		<column name="AWAY_TEAM" type="VARCHAR(100)">
+    		<column name="AWAY_TEAM_NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
     		</column>
     	</createTable>
+
+        <addForeignKeyConstraint baseTableName="FIXTURES" baseColumnNames="COMPETITION_ID" constraintName="FK_FIXTURE_COMPETITION" referencedTableName="COMPETITIONS"
+                                 referencedColumnNames="ID" />
 
     	<createTable tableName="USER_RANKINGS">
             <column name="COMMUNITY" type="VARCHAR(100)">
@@ -182,7 +141,7 @@
             <column name="EMAIL" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="GAME_ID" type="INTEGER">
+            <column name="FIXTURE_ID" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
             <column name="GAME_DATE" type="TIMESTAMP">
@@ -195,37 +154,23 @@
     	<addPrimaryKey tableName="USER_RANKINGS" columnNames="COMMUNITY,EMAIL"/>
 
     	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="USER_RANKINGS" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
-    	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_GAME" referencedTableName="GAMES" baseColumnNames="GAME_ID" baseTableName="USER_RANKINGS" referencedColumnNames="GAME_ID" onDelete="CASCADE"/>
+    	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_GAME" referencedTableName="FIXTURES" baseColumnNames="FIXTURE_ID" baseTableName="USER_RANKINGS" referencedColumnNames="ID" onDelete="CASCADE"/>
 
     </changeSet>
     
     <changeSet id="22" author="Guillaume Serre">
        	<createTable tableName="COMMUNITY">
     		<column name="COMMUNITY_NAME" type="VARCHAR(100)">
-    			<constraints primaryKey="true"/>
+    			<constraints primaryKey="true" primaryKeyName="PK_COMMUNITY"/>
     		</column>
     		<column name="CREATE_ACCOUNT_ENABLED" type="BOOLEAN"></column>
-    		<column name="GROUPS_EDIT_ENABLED" type="BOOLEAN"></column>
-    		<column name="FINALS_EDIT_ENABLED" type="BOOLEAN"></column>
-    	</createTable>	
-    </changeSet>
-    <changeSet id="23" author="Guillaume Serre">
-    	<sql>
-    		insert into community ( select distinct community, false, false, true FROM user )
-    	</sql>
-    </changeSet>
-    
-    <changeSet id="24" author="Guillaume Serre">
-    	<addColumn tableName="COMMUNITY">
-    		<column name="GROUPS_ACCESS" type="VARCHAR(1)" defaultValue="N">
-    			<constraints nullable="false"/>
-    		</column>
-    		<column name="FINALS_ACCESS" type="VARCHAR(1)" defaultValue="N">
-    			<constraints nullable="false"/>
-    		</column>
-    	</addColumn>
-    	<dropColumn tableName="COMMUNITY" columnName="GROUPS_EDIT_ENABLED"/>
-    	<dropColumn tableName="COMMUNITY" columnName="FINALS_EDIT_ENABLED"/>
+            <column name="GROUPS_ACCESS" type="VARCHAR(1)" defaultValue="N">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FINALS_ACCESS" type="VARCHAR(1)" defaultValue="N">
+                <constraints nullable="false"/>
+            </column>
+    	</createTable>
     </changeSet>
 
     <changeSet id="25" author="Guillaume Serre">
@@ -233,6 +178,15 @@
     		<column name="ADMIN" value="true"></column>
     		<where>EMAIL='test@gmail.com' AND COMMUNITY='test'</where>
     	</update>
+        <update tableName="USER">
+            <column name="ADMIN" value="true"></column>
+            <where>EMAIL='guillaume.serre@cgi.com' AND COMMUNITY='grand-est'</where>
+        </update>
+        <update tableName="USER">
+            <column name="ADMIN" value="true"></column>
+            <where>EMAIL='sylvain.le.gouellec@cgi.com' AND COMMUNITY='grand-est'</where>
+        </update>
     </changeSet>
+
 
 </databaseChangeLog>

@@ -8,10 +8,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import predictions.model.UserDAO;
+import predictions.model.db.UserDAO;
 
 @Path("/email")
+@Api
 public class ValidateEmailResource {
 	
 	private UserDAO userDAO;

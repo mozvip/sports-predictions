@@ -1,3 +1,7 @@
+#secrets
+googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXX
+footballDataApiKey: XXXXXXXXXXXXXXXXXXXX
+
 publicDomain: wc2018.soccer
 defaultCommunity: grand-est
 eventName: World Cup 2018
@@ -6,7 +10,6 @@ eventName: World Cup 2018
 liveWebSite: true
 
 googleReCaptchaEnabled : false
-googleReCaptchaSecretKey: XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 oAuth2CredentialsFolder: ./credentials
 

@@ -1,4 +1,4 @@
-package predictions.model;
+package predictions.model.db;
 
 public enum AccessType {
 	

@@ -1,4 +1,4 @@
-package predictions.model;
+package predictions.model.db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.joda.time.DateTime;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
+import predictions.model.db.User;
 
 public class UserResultSetMapper implements ResultSetMapper<User> {
 
