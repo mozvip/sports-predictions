@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet author="Guillaume Serre" id="createUserTable">
-        <createTable tableName="USER">
+        <createTable tableName="SP_USER">
             <column name="EMAIL" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
@@ -26,7 +26,7 @@
             <column name="RANKING" type="INTEGER" />
             <column name="PREVIOUS_RANKING" type="INTEGER" />
         </createTable>
-        <addPrimaryKey columnNames="EMAIL, COMMUNITY" constraintName="PK_USER" tableName="USER"/>
+        <addPrimaryKey columnNames="EMAIL, COMMUNITY" constraintName="PK_USER" tableName="SP_USER"/>
     </changeSet>
 
     <changeSet id="createTableEvent" author="Guillaume Serre">
@@ -88,7 +88,7 @@
             <column name="SCORE" type="INTEGER" />
         </createTable>
         <addPrimaryKey columnNames="EMAIL, COMMUNITY, MATCH_ID" constraintName="PK_MATCH_PREDICTION" tableName="MATCH_PREDICTION"/>
-        <addForeignKeyConstraint constraintName="FK_MATCH_PREDICTION_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="MATCH_PREDICTION" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
+        <addForeignKeyConstraint constraintName="FK_MATCH_PREDICTION_USER" referencedTableName="SP_USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="MATCH_PREDICTION" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
     </changeSet>
 
     <changeSet id="4" author="Guillaume Serre">
@@ -153,7 +153,7 @@
     	</createTable>
     	<addPrimaryKey tableName="USER_RANKINGS" columnNames="COMMUNITY,EMAIL"/>
 
-    	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_USER" referencedTableName="USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="USER_RANKINGS" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
+    	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_USER" referencedTableName="SP_USER" baseColumnNames="COMMUNITY,EMAIL" baseTableName="USER_RANKINGS" referencedColumnNames="COMMUNITY,EMAIL" onDelete="CASCADE"/>
     	<addForeignKeyConstraint constraintName="FK_USER_RANKINGS_GAME" referencedTableName="FIXTURES" baseColumnNames="FIXTURE_ID" baseTableName="USER_RANKINGS" referencedColumnNames="ID" onDelete="CASCADE"/>
 
     </changeSet>
@@ -174,15 +174,15 @@
     </changeSet>
 
     <changeSet id="25" author="Guillaume Serre">
-    	<update tableName="USER">
+    	<update tableName="SP_USER">
     		<column name="ADMIN" value="true"></column>
     		<where>EMAIL='test@gmail.com' AND COMMUNITY='test'</where>
     	</update>
-        <update tableName="USER">
+        <update tableName="SP_USER">
             <column name="ADMIN" value="true"></column>
             <where>EMAIL='guillaume.serre@cgi.com' AND COMMUNITY='grand-est'</where>
         </update>
-        <update tableName="USER">
+        <update tableName="SP_USER">
             <column name="ADMIN" value="true"></column>
             <where>EMAIL='sylvain.le.gouellec@cgi.com' AND COMMUNITY='grand-est'</where>
         </update>
