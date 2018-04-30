@@ -5,8 +5,7 @@ before_install:
 - npm install -g bower
 - cd frontend
 - bower install
-- cp -R ./* ../predictor/src/main/resources/assets 
-- cd ../predictor
+- cd ../
 
 env:
   global:
