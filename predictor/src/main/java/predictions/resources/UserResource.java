@@ -25,6 +25,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -203,7 +204,7 @@ public class UserResource {
 	@POST
 	@Path("/saveProfile")
 	@ApiOperation("Save user profile")
-	public void saveProfile( @Auth User user, @FormParam("name") String name ) {
+	public void saveProfile(@ApiParam(hidden = true) @Auth User user, @FormParam("name") String name ) {
 		name = name.trim();
 		userDAO.setName( user.getCommunity(), user.getEmail(), name );
 	}
@@ -212,7 +213,7 @@ public class UserResource {
 	@Path("/save")
 	@Timed
 	@ApiOperation("Save predictions for the connected user")
-	public void save( @Auth User user, MatchPredictions predictions ) {
+	public void save(@ApiParam(hidden = true) @Auth User user, MatchPredictions predictions ) {
 
 		String name = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
@@ -229,7 +230,7 @@ public class UserResource {
 	@Timed
 	@ApiOperation("Save predictions for another user")
 	@RolesAllowed("ADMIN")
-	public void saveImpersonate( @Auth User user, MatchPredictions predictions ) {
+	public void saveImpersonate(@ApiParam(hidden = true)@Auth User user, MatchPredictions predictions ) {
 		String name = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
 		savePredictions( community, predictions.getEmail(), predictions, true );
@@ -246,7 +247,7 @@ public class UserResource {
 	@GET
 	@Path("/predictions")
 	@ApiOperation("Get the current predictions for the connected user")
-	public MatchPredictions getPredictions( @Auth User user ) {
+	public MatchPredictions getPredictions(@ApiParam(hidden = true) @Auth User user ) {
 		return buildPredictions( user );
 	}
 	
@@ -254,7 +255,7 @@ public class UserResource {
 	@Path("/predictions/{email}")
 	@RolesAllowed("ADMIN")
 	@ApiOperation("Get the current predictions for the specified user")
-	public MatchPredictions getPredictionsForUser( @Auth User user, @PathParam("email") String email ) {
+	public MatchPredictions getPredictionsForUser(@ApiParam(hidden = true)@Auth User user, @PathParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.trim().toLowerCase();
 		return buildPredictions( userDAO.findUser(community, email) );
