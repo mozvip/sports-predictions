@@ -1,0 +1,9 @@
+[Unit]
+Description=Sports Predictions application
+After=network-online.target
+[Service]
+Type=simple
+ExecStart=/home/sports-predictions/start.sh
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
