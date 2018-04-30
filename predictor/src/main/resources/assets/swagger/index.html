@@ -39,9 +39,11 @@
     <script>
     window.onload = function() {
 
+      var myurl = window.location.protocol + "//" + window.location.host;
+
       // Build a system
       const ui = SwaggerUIBundle({
-        url: "http://localhost:9000/api/swagger.json",
+        url: myurl + "/api/swagger.json",
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
