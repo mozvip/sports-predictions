@@ -1,6 +1,5 @@
 package com.github.mozvip.footballdata.model;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Map;
 
