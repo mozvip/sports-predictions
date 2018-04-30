@@ -19,7 +19,7 @@
             <column name="ACTIVE" type="BOOLEAN" defaultValueBoolean="true" />
             <column name="LAST_LOGIN_DATE" type="TIMESTAMP" />
             <column name="CHANGE_PASSWORD_TOKEN" type="VARCHAR(100)" />
-            <column defaultValueNumeric="0" name="CURRENT_SCORE" type="INT(10)">
+            <column defaultValueNumeric="0" name="CURRENT_SCORE" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
             <column name="EMAIL_VALID" type="BOOLEAN" defaultValueBoolean="false" />
@@ -69,22 +69,22 @@
             <column name="EMAIL" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="MATCH_ID" type="INT(10)">
+            <column name="MATCH_ID" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
             <column name="HOME_TEAM_NAME" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueNumeric="0" name="HOME_SCORE" type="INT(10)">
+            <column defaultValueNumeric="0" name="HOME_SCORE" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
             <column name="AWAY_TEAM_NAME" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueNumeric="0" name="AWAY_SCORE" type="INT(10)">
+            <column defaultValueNumeric="0" name="AWAY_SCORE" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
-            <column name="HOME_WINNER" type="BOOLEAN(1)"/>
+            <column name="HOME_WINNER" type="BOOLEAN"/>
             <column name="SCORE" type="INTEGER" />
         </createTable>
         <addPrimaryKey columnNames="EMAIL, COMMUNITY, MATCH_ID" constraintName="PK_MATCH_PREDICTION" tableName="MATCH_PREDICTION"/>
@@ -93,7 +93,7 @@
 
     <changeSet id="4" author="Guillaume Serre">
         <createTable tableName="ACTUAL_RESULT">
-            <column name="MATCH_ID" type="INT(10)" autoIncrement="true">
+            <column name="MATCH_ID" type="INTEGER" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="PK_ACTUAL_RESULT" nullable="false"/>
             </column>
             <column name="GROUP" type="VARCHAR(1)"></column>
@@ -103,13 +103,13 @@
             <column name="AWAY_TEAM_NAME" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueNumeric="0" name="HOME_SCORE" type="INT(10)">
+            <column defaultValueNumeric="0" name="HOME_SCORE" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueNumeric="0" name="AWAY_SCORE" type="INT(10)">
+            <column defaultValueNumeric="0" name="AWAY_SCORE" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
-            <column name="HOME_WINNER" type="BOOLEAN(1)"/>
+            <column name="HOME_WINNER" type="BOOLEAN"/>
             <column name="VALIDATED" type="BOOLEAN"></column>
         </createTable>
     </changeSet>
