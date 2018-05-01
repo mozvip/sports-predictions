@@ -14,12 +14,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.dropwizard.auth.Auth;
-import io.swagger.annotations.ApiOperation;
 import predictions.model.db.User;
 import predictions.model.db.UserDAO;
 
@@ -39,9 +38,9 @@ public class ChangePasswordResource {
 	@Context private HttpServletRequest httpRequest;
 
 	@POST
-	@ApiOperation(value="Used when a connected user changes his own password")
+	@ApiOperation(tags="user", value="Used when a connected user changes his own password", authorizations = @Authorization("basicAuth"))
 	@Path("/self")
-	public Response changePassword( @Auth User user, @NotNull @FormParam("oldPassword") String oldPassword, @NotNull @FormParam("newPassword") String newPassword) {
+	public Response changePassword(@ApiParam(hidden = true) @Auth User user, @NotNull @FormParam("oldPassword") String oldPassword, @NotNull @FormParam("newPassword") String newPassword) {
 		oldPassword = oldPassword.trim();
 		newPassword = newPassword.trim();
 		if (userDAO.authentify( user.getCommunity(), user.getEmail(), oldPassword ) != null) {
@@ -57,9 +56,9 @@ public class ChangePasswordResource {
 	}
 
 	@POST
-	@ApiOperation(value="Used when a user had forgotten his password and will now set it")
+	@ApiOperation(tags="user", value="Used when a user sets his new password using the changePasswordToken he obtained previously", authorizations = @Authorization("basicAuth"))
 	@Path("/reset")
-	public Response changePassword( @FormParam("email") String email, @FormParam("changePasswordToken") String changePasswordToken, @FormParam("password") String password ) {
+	public Response changePassword(@NotNull @FormParam("email") String email, @NotNull @FormParam("changePasswordToken") String changePasswordToken, @NotNull @FormParam("password") String password ) {
 		email = email.trim().toLowerCase();
 		password = password.trim();
 		String community = (String) httpRequest.getAttribute("community");
@@ -71,10 +70,10 @@ public class ChangePasswordResource {
 	}
 
 	@POST
-	@ApiOperation(value="Used when an admin changes the password for another user in the community")
+	@ApiOperation(tags="admin", value="Used when an admin changes the password for another user in the community", authorizations = @Authorization(value="basicAuth", scopes = { @AuthorizationScope(scope = "ADMIN", description = "") }))
 	@RolesAllowed("ADMIN")
 	@Path("/admin")
-	public Response changePassword( @Auth User user, @FormParam("password") String password, @FormParam("email") String email, @FormParam("changePasswordToken") String changePasswordToken) {
+	public Response changePassword(@ApiParam(hidden = true) @Auth User user, @NotNull @FormParam("password") String password, @NotNull @FormParam("email") String email, @NotNull @FormParam("changePasswordToken") String changePasswordToken) {
 		email = email.trim().toLowerCase();
 		password = password.trim();
 		logger.info(String.format("Admin %s changed the password of %s", user.getEmail(), email));

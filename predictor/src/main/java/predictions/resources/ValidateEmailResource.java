@@ -1,6 +1,7 @@
 package predictions.resources;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
@@ -26,8 +27,8 @@ public class ValidateEmailResource {
 
 	@GET
 	@Path("/valid")
-	@ApiOperation("Indicates if the email is available for new users")
-	public Response isAvailableForNewAccount(@QueryParam("email") String email) {
+	@ApiOperation(tags="public", value="Indicates if the email is available for new users on this community")
+	public Response isAvailableForNewAccount(@NotNull  @QueryParam("email") String email) {
 		String community = (String) httpRequest.getAttribute("community");
 		
 		if (userDAO.findExistingUserByEmail(community, email) != null) {

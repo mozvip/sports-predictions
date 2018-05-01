@@ -1,34 +1,11 @@
 package predictions.resources;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.annotation.security.RolesAllowed;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.dropwizard.auth.Auth;
+import io.swagger.annotations.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -36,34 +13,30 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.codahale.metrics.annotation.Timed;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.dropwizard.auth.Auth;
-import io.swagger.annotations.ApiOperation;
 import predictions.PredictionsConfiguration;
 import predictions.gmail.GmailService;
-import predictions.model.db.AccessType;
-import predictions.model.db.ActualResult;
-import predictions.model.db.ActualResultDAO;
-import predictions.model.db.Community;
-import predictions.model.db.CommunityDAO;
 import predictions.model.GoogleReCaptchaResponse;
-import predictions.model.db.MatchPrediction;
-import predictions.model.db.MatchPredictionDAO;
 import predictions.model.MatchPredictions;
 import predictions.model.Rankings;
-import predictions.model.db.User;
-import predictions.model.db.UserDAO;
+import predictions.model.db.*;
 import predictions.phases.Phase;
 import predictions.phases.PhaseManager;
+
+import javax.annotation.security.RolesAllowed;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.*;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Api
+@SwaggerDefinition(securityDefinition = @SecurityDefinition(basicAuthDefinitions = @BasicAuthDefinition(key="basicAuth")))
 public class UserResource {
 
 	private final static Logger logger = LoggerFactory.getLogger( UserResource.class );
@@ -94,15 +67,15 @@ public class UserResource {
 	
 	@GET
 	@Path("/emailAvailable")
-	@ApiOperation("Indicates if the email is available for new users")
-	public boolean isEmailAvailable(@QueryParam("email") String email) {
+	@ApiOperation(tags="public", value="Indicates if the email is available for new users")
+	public boolean isEmailAvailable(@NotNull @QueryParam("email") String email) {
 		String community = (String) httpRequest.getAttribute("community");
 		return userDAO.findExistingUserByEmail(community, email) == null;
 	}
 	
 	@GET
 	@Path("/nameAvailable")
-	@ApiOperation("Indicates if the name is available for new users")
+	@ApiOperation(tags="public", value="Indicates if the name is available for new users")
 	public boolean isNameAvailable(@QueryParam("email") String email, @QueryParam("name") String name) {
 		String community = (String) httpRequest.getAttribute("community");
 		return userDAO.findExistingUserByName(community, email, name) == null;
@@ -110,15 +83,15 @@ public class UserResource {
 
 	@RolesAllowed("ADMIN")
 	@DELETE
-	@ApiOperation(value="Deletes a user from the application")
-	public void deleteUser( @Auth User user, @QueryParam("email") String email ) {
+	@ApiOperation(tags="admin", value="Deletes a user from the application", authorizations = @Authorization("basicAuth"))
+	public void deleteUser(@ApiParam(hidden = true) @Auth User user, @NotNull @QueryParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		userDAO.delete( community, email );
 	}
 	
 	@GET
 	@Path("/count")
-	@ApiOperation("Returns the current user count for the community")
+	@ApiOperation(tags="public", value="Returns the current user count for the community")
 	public long getUserCount() {
 		String community = (String) httpRequest.getAttribute("community");
 		return userDAO.getCount(community);
@@ -126,14 +99,14 @@ public class UserResource {
 
 	@POST
 	@Path("/create")
-	@ApiOperation("Create a new regular user")
-	public void createUser(@FormParam("email") String email, @FormParam("name") String name, @FormParam("password") String password, @FormParam("g-recaptcha-response") String recaptcha) throws IOException {
+	@ApiOperation(tags={"public", "captcha"}, value="Create a new regular user")
+	public void createUser(@NotNull @FormParam("email") String email, @NotNull @FormParam("name") String name, @NotNull @FormParam("password") String password, @NotNull @FormParam("g-recaptcha-response") String recaptcha) throws IOException {
 		
 		String communityName = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(communityName);
 
 		if (community == null) {
-			// create new community with default settings
+			// FIXME: create new community with default settings ??
 			community = new Community(communityName, true, AccessType.W, AccessType.W);
 			communityDAO.updateCommunity(community.getName(), community.isCreateAccountEnabled(), community.getGroupsAccess(), community.getFinalsAccess());
 		} else if (!community.isCreateAccountEnabled()) {
@@ -153,8 +126,7 @@ public class UserResource {
 		}
 	}
 
-	private void recaptcha(String recaptcha) throws UnsupportedEncodingException, IOException, ClientProtocolException,
-			JsonParseException, JsonMappingException {
+	private void recaptcha(String recaptcha) throws IOException {
 		
 		if (!configuration.isGoogleReCaptchaEnabled()) {
 			return;
@@ -180,8 +152,8 @@ public class UserResource {
 	@RolesAllowed("ADMIN")
 	@POST
 	@Path("/set-admin")
-	@ApiOperation(value="Gives or remove admin privileges to an existing user, can only be invoked by a connected admin")
-	public void setAdmin(@Auth User user, @FormParam("email") String email, @FormParam("admin") boolean admin) {
+	@ApiOperation(tags="admin", value="Gives or remove admin privileges to an existing user, can only be invoked by an admin", authorizations = @Authorization("basicAuth"))
+	public void setAdmin(@ApiParam(hidden = true) @Auth User user, @NotNull @FormParam("email") String email, @NotNull @FormParam("admin") boolean admin) {
 		String community = (String) httpRequest.getAttribute("community");
 		userDAO.setAdmin( community, email, admin );
 	}
@@ -203,7 +175,7 @@ public class UserResource {
 	
 	@POST
 	@Path("/saveProfile")
-	@ApiOperation("Save user profile")
+	@ApiOperation(tags="user", value="Save user profile", authorizations = @Authorization("basicAuth"))
 	public void saveProfile(@ApiParam(hidden = true) @Auth User user, @FormParam("name") String name ) {
 		name = name.trim();
 		userDAO.setName( user.getCommunity(), user.getEmail(), name );
@@ -212,7 +184,7 @@ public class UserResource {
 	@POST
 	@Path("/save")
 	@Timed
-	@ApiOperation("Save predictions for the connected user")
+	@ApiOperation(tags="user", value="Save predictions for the connected user", authorizations = @Authorization("basicAuth"))
 	public void save(@ApiParam(hidden = true) @Auth User user, MatchPredictions predictions ) {
 
 		String name = (String) httpRequest.getAttribute("community");
@@ -228,9 +200,9 @@ public class UserResource {
 	@POST
 	@Path("/save-impersonate")
 	@Timed
-	@ApiOperation("Save predictions for another user")
+	@ApiOperation(tags="admin", value="Save predictions for *another* user", authorizations = @Authorization("basicAuth"))
 	@RolesAllowed("ADMIN")
-	public void saveImpersonate(@ApiParam(hidden = true)@Auth User user, MatchPredictions predictions ) {
+	public void saveImpersonate(@ApiParam(hidden = true) @Auth User user, MatchPredictions predictions ) {
 		String name = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
 		savePredictions( community, predictions.getEmail(), predictions, true );
@@ -238,7 +210,7 @@ public class UserResource {
 
 	@GET
 	@Path("/rankings")
-	@ApiOperation("Return the current rankings")
+	@ApiOperation(tags="public", value="Return the current rankings")
 	public Rankings getRankings() {
 		String community = (String) httpRequest.getAttribute("community");
 		return new Rankings( userDAO.findUsersOrderedByScore( community ) );
@@ -246,7 +218,7 @@ public class UserResource {
 	
 	@GET
 	@Path("/predictions")
-	@ApiOperation("Get the current predictions for the connected user")
+	@ApiOperation(tags="user", value="Get the current predictions for the connected user", authorizations = @Authorization("basicAuth"))
 	public MatchPredictions getPredictions(@ApiParam(hidden = true) @Auth User user ) {
 		return buildPredictions( user );
 	}
@@ -254,8 +226,8 @@ public class UserResource {
 	@GET
 	@Path("/predictions/{email}")
 	@RolesAllowed("ADMIN")
-	@ApiOperation("Get the current predictions for the specified user")
-	public MatchPredictions getPredictionsForUser(@ApiParam(hidden = true)@Auth User user, @PathParam("email") String email ) {
+	@ApiOperation(tags="admin", value="Get the current predictions for the specified user", authorizations = @Authorization("basicAuth"))
+	public MatchPredictions getPredictionsForUser(@ApiParam(hidden = true) @Auth User user, @NotNull @PathParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.trim().toLowerCase();
 		return buildPredictions( userDAO.findUser(community, email) );
@@ -284,8 +256,8 @@ public class UserResource {
 	@POST
 	@Path("/forget-password")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value="Declares a forgotten password and send the relevant email")
-	public Response forgetPassword( @FormParam("email") String email, @FormParam("g-recaptcha-response") String recaptcha ) throws IOException, MessagingException {
+	@ApiOperation(tags={"public", "captcha"}, value="Declares a forgotten password and send the relevant email")
+	public Response forgetPassword(@NotNull @FormParam("email") String email,@NotNull @FormParam("g-recaptcha-response") String recaptcha ) throws IOException, MessagingException {
 		recaptcha(recaptcha);
 
 		String community = (String) httpRequest.getAttribute("community");
@@ -323,8 +295,8 @@ public class UserResource {
 
 	@POST
 	@Path("/signin")
-	@ApiOperation("Used to login a user")
-	public MatchPredictions signIn( @FormParam("email") String email, @FormParam("password") String password ) {
+	@ApiOperation(tags="public", value="Used to login a user")
+	public MatchPredictions signIn(@NotNull @FormParam("email") String email, @NotNull @FormParam("password") String password ) {
 
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.toLowerCase().trim();

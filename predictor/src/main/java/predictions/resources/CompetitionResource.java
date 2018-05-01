@@ -9,6 +9,7 @@ import predictions.model.db.CompetitionDAO;
 import predictions.model.db.User;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
@@ -16,7 +17,6 @@ import java.io.IOException;
 @Path("/competition")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Api
 public class CompetitionResource {
 
     private FootballDataClient client;
@@ -31,8 +31,8 @@ public class CompetitionResource {
 
     @POST
     @RolesAllowed("ADMIN")
-    @ApiOperation(value = "Save or create a competition")
-    public Competition saveOrCreateCompetition(@Auth @ApiParam(hidden = true) User user, Integer competitionId) throws IOException {
+    @ApiOperation(tags={"admin", "competition"}, value = "Save or create a competition", authorizations = @Authorization("basicAuth"))
+    public Competition saveOrCreateCompetition(@Auth @ApiParam(hidden = true) User user, @NotNull  Integer competitionId) throws IOException {
         Competition competition = client.competition(competitionId);
         competitionDAO.saveCompetition(competition);
 
@@ -52,7 +52,8 @@ public class CompetitionResource {
 
     @PUT
     @RolesAllowed("ADMIN")
-    public void updateCompetition(@Auth @ApiParam(hidden = true) User user, Integer competitionId) throws IOException {
+    @ApiOperation(tags={"admin", "competition"}, value = "Update competition, obtaining scores for finished games", authorizations = @Authorization("basicAuth"))
+    public void updateCompetition(@Auth @ApiParam(hidden = true) User user, @NotNull Integer competitionId) throws IOException {
         Competition competition = client.competition(competitionId);
         competitionDAO.saveCompetition(competition);
 

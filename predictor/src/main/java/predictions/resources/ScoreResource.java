@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,7 +104,7 @@ public class ScoreResource {
 	
 	@GET
 	@Path("/games")
-	@ApiOperation(value="Get the list of all games, along with the final result for the games which have already been played")
+	@ApiOperation(tags="public", value="Get the list of all games, along with the final result for the games which have already been played")
 	public List<Game> getGames() {
 		return games;
 	}
@@ -110,7 +112,7 @@ public class ScoreResource {
 	@GET
 	@Path("/recalculate")
 	@RolesAllowed("ADMIN")
-	@ApiOperation(value="Recalculate all scores")
+	@ApiOperation(tags="admin", value="Recalculate all scores", authorizations = @Authorization("basicAuth"))
 	public void recalculate() {
 		List<ActualResult> allResults = actualResultDAO.findAll();
 		for (ActualResult actualResult : allResults) {
@@ -227,8 +229,8 @@ public class ScoreResource {
 	@RolesAllowed("ADMIN")
 	@Path("/submit")
 	@POST
-	@ApiOperation(value="Admin users can call this API to submit actual scores after a game ended, this will recalculate scores and rankings, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)")
-	public Response postScore( @Auth User user, @Min(0) @FormParam("gameNum") int gameNum, @Min(0) @FormParam("homeScore") int homeScore, @Min(0) @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
+	@ApiOperation(tags="admin", value="Submit actual score for a game after it ended, this will recalculate scores and rankings, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)", authorizations = @Authorization("basicAuth"))
+	public Response postScore(@ApiParam(hidden = true) @Auth User user, @Min(0) @FormParam("gameNum") int gameNum, @Min(0) @FormParam("homeScore") int homeScore, @Min(0) @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
 
 		Game game = gamesById.get( gameNum );
 		if (game == null) {

@@ -12,7 +12,9 @@ import javax.ws.rs.core.MediaType;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 import predictions.model.db.AccessType;
 import predictions.model.db.Community;
 import predictions.model.db.CommunityDAO;
@@ -33,6 +35,7 @@ public class CommunityResource {
 	}
 	
 	@GET
+	@ApiOperation(tags="public", value = "Retrieves information about the community")
 	public Community getCommunity() {
 		String name = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
@@ -44,6 +47,7 @@ public class CommunityResource {
 	
 	@POST
 	@RolesAllowed("ADMIN")
+	@ApiOperation(tags="admin", value = "Update settings of the community", authorizations = @Authorization("basicAuth"))
 	public void save(@ApiParam(hidden = true) @Auth User user, Community communityParameters) {
 		String name = (String) httpRequest.getAttribute("community");
 		communityDAO.updateCommunity(name, communityParameters.isCreateAccountEnabled(), communityParameters.getGroupsAccess(), communityParameters.getFinalsAccess());

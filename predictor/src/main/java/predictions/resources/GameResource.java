@@ -3,6 +3,7 @@ package predictions.resources;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -12,6 +13,9 @@ import javax.ws.rs.core.MediaType;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 import predictions.model.GameStats;
 import predictions.model.db.MatchPrediction;
 import predictions.model.db.MatchPredictionDAO;
@@ -31,7 +35,8 @@ public class GameResource {
 	}
 	
 	@GET
-	public GameStats getGameStats( @Auth User user, @QueryParam("gameId") int gameId ) {
+	@ApiOperation(tags="user", value="Retrieve the statistics for a game", authorizations = @Authorization("basicAuth"))
+	public GameStats getGameStats(@ApiParam(hidden = true) @Auth User user, @NotNull @QueryParam("gameId") int gameId) {
 		
 		String community = user.getCommunity();
 

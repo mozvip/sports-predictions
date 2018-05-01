@@ -13,12 +13,14 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import predictions.model.db.User;
 import predictions.model.db.UserDAO;
 
 @Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)
-@Api
+@Api(tags="admin")
 public class AdminResource {
 
 	private UserDAO userDAO;
@@ -32,6 +34,7 @@ public class AdminResource {
 	@GET
 	@Path("/users")
 	@RolesAllowed("ADMIN")
+	@ApiOperation(value = "Get all users of the community", authorizations = @Authorization("basicAuth"))
 	public List<User> getUsers() {
 		String community = (String) httpRequest.getAttribute("community");
 		return userDAO.findAll( community );
@@ -40,6 +43,7 @@ public class AdminResource {
 	@GET
 	@Path("/users-no-prediction")
 	@RolesAllowed("ADMIN")
+	@ApiOperation(value="Get all users of the community who did not make their predictions", authorizations = @Authorization("basicAuth"))
 	public List<User> getUsersWithNoPredictions() {
 		String community = (String) httpRequest.getAttribute("community");
 		return userDAO.findUsersWithNoPredictions( community );
@@ -48,6 +52,7 @@ public class AdminResource {
 	@POST
 	@Path("/toggle-active")
 	@RolesAllowed("ADMIN")
+	@ApiOperation(value="Toggle the active state of an user of this community", authorizations = @Authorization("basicAuth"))
 	public void toggleActive( @FormParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.toLowerCase().trim();
@@ -57,6 +62,7 @@ public class AdminResource {
 	@POST
 	@Path("/delete-user")
 	@RolesAllowed("ADMIN")
+	@ApiOperation(value="Delete an user of this community", authorizations = @Authorization("basicAuth"))
 	public void deleteUser( @FormParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.toLowerCase().trim();
@@ -66,6 +72,7 @@ public class AdminResource {
 	@POST
 	@Path("/toggle-admin")
 	@RolesAllowed("ADMIN")
+	@ApiOperation(value="Toggle the admin status of an user of this community", authorizations = @Authorization("basicAuth"))
 	public void toggleAdmin( @FormParam("email") String email ) {
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.toLowerCase().trim();
