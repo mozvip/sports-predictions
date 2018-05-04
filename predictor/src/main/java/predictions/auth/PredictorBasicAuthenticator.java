@@ -9,7 +9,7 @@ import predictions.model.db.UserDAO;
 
 public class PredictorBasicAuthenticator implements Authenticator<CommunityBasicCredentials, User> {
 
-	private UserDAO dao = null;
+	private UserDAO dao;
 	
 	public PredictorBasicAuthenticator( UserDAO dao ) {
 		this.dao = dao;
@@ -17,12 +17,16 @@ public class PredictorBasicAuthenticator implements Authenticator<CommunityBasic
 
 	public Optional<User> authenticate(CommunityBasicCredentials credentials)
 			throws AuthenticationException {
-		User user = dao.authentify( credentials.getCommunity(), credentials.getUsername(), credentials.getPassword() );
-		if (user != null) {
-			dao.updateLastLoginDate( credentials.getCommunity(), credentials.getUsername() );
-			return Optional.of( user );
+		try {
+			User user = dao.authentify(credentials.getCommunity(), credentials.getUsername(), credentials.getPassword());
+			if (user != null) {
+				dao.updateLastLoginDate(credentials.getCommunity(), credentials.getUsername());
+				return Optional.of(user);
+			}
+			return Optional.empty();
+		} catch (Exception e) {
+			throw new AuthenticationException(e.getMessage(), e);
 		}
-        return Optional.empty();
 	}
 
 }

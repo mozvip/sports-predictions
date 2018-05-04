@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
+import predictions.configuration.GoogleSigninConfiguration;
 
 public class PredictionsConfiguration extends Configuration {
 
@@ -38,7 +39,7 @@ public class PredictionsConfiguration extends Configuration {
 
 	@Valid
 	private boolean googleReCaptchaEnabled = true;
-	
+
 	@Valid
 	@NotNull
 	private String oAuth2CredentialsFolder;
@@ -54,6 +55,8 @@ public class PredictionsConfiguration extends Configuration {
 	public String getoAuth2CredentialsFolder() {
 		return oAuth2CredentialsFolder;
 	}
+
+	private GoogleSigninConfiguration googleSignin = new GoogleSigninConfiguration();
 
 	@Valid
 	@NotNull
@@ -110,5 +113,34 @@ public class PredictionsConfiguration extends Configuration {
 
 	public void setSwaggerApiHost(String swaggerApiHost) {
 		this.swaggerApiHost = swaggerApiHost;
+	}
+
+	public void setGoogleReCaptchaSecretKey(String googleReCaptchaSecretKey) {
+		this.googleReCaptchaSecretKey = googleReCaptchaSecretKey;
+	}
+
+	public void setGoogleReCaptchaEnabled(boolean googleReCaptchaEnabled) {
+		this.googleReCaptchaEnabled = googleReCaptchaEnabled;
+	}
+
+
+	public void setoAuth2CredentialsFolder(String oAuth2CredentialsFolder) {
+		this.oAuth2CredentialsFolder = oAuth2CredentialsFolder;
+	}
+
+	public DataSourceFactory getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(DataSourceFactory database) {
+		this.database = database;
+	}
+
+	public GoogleSigninConfiguration getGoogleSignin() {
+		return googleSignin;
+	}
+
+	public void setGoogleSignin(GoogleSigninConfiguration googleSignin) {
+		this.googleSignin = googleSignin;
 	}
 }

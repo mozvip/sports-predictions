@@ -36,7 +36,12 @@ import java.util.*;
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Api
-@SwaggerDefinition(securityDefinition = @SecurityDefinition(basicAuthDefinitions = @BasicAuthDefinition(key="basicAuth")))
+@SwaggerDefinition(
+	securityDefinition = @SecurityDefinition(
+		basicAuthDefinitions = @BasicAuthDefinition(key="basicAuth"),
+		oAuth2Definitions = @OAuth2Definition(key="oauth2", scopes = {@Scope(name = "email", description = "email")}, tokenUrl = "https://www.googleapis.com/oauth2/v4/token", authorizationUrl = "https://accounts.google.com/o/oauth2/v2/auth", flow=OAuth2Definition.Flow.ACCESS_CODE)
+	)
+)
 public class UserResource {
 
 	private final static Logger logger = LoggerFactory.getLogger( UserResource.class );
@@ -70,7 +75,7 @@ public class UserResource {
 	@ApiOperation(tags="public", value="Indicates if the email is available for new users")
 	public boolean isEmailAvailable(@NotNull @QueryParam("email") String email) {
 		String community = (String) httpRequest.getAttribute("community");
-		return userDAO.findExistingUserByEmail(community, email) == null;
+		return userDAO.findUser(community, email) == null;
 	}
 	
 	@GET
@@ -81,20 +86,23 @@ public class UserResource {
 		return userDAO.findExistingUserByName(community, email, name) == null;
 	}
 
-	@RolesAllowed("ADMIN")
-	@DELETE
-	@ApiOperation(tags="admin", value="Deletes a user from the application", authorizations = @Authorization("basicAuth"))
-	public void deleteUser(@ApiParam(hidden = true) @Auth User user, @NotNull @QueryParam("email") String email ) {
-		String community = (String) httpRequest.getAttribute("community");
-		userDAO.delete( community, email );
-	}
-	
 	@GET
 	@Path("/count")
 	@ApiOperation(tags="public", value="Returns the current user count for the community")
 	public long getUserCount() {
 		String community = (String) httpRequest.getAttribute("community");
 		return userDAO.getCount(community);
+	}
+
+
+	@DELETE
+	@Path("/{email}")
+	@RolesAllowed("ADMIN")
+	@ApiOperation(tags="admin", value="Deletes a user from the application", authorizations = @Authorization("basicAuth"))
+	public void deleteUser(@NotNull @PathParam("email") String email ) {
+		String community = (String) httpRequest.getAttribute("community");
+		email = email.toLowerCase().trim();
+		userDAO.delete( community, email );
 	}
 
 	@POST
@@ -118,7 +126,7 @@ public class UserResource {
 		password = password.trim();
 		email = email.trim().toLowerCase();
 		
-		User user = userDAO.findExistingUserByEmail(communityName, email );
+		User user = userDAO.findUser(communityName, email );
 		if (user == null) {
 			userDAO.insert(email, name, communityName, password );
 		} else {
@@ -263,7 +271,7 @@ public class UserResource {
 		String community = (String) httpRequest.getAttribute("community");
 		email = email.trim();
 		
-		User existingUser = userDAO.findExistingUserByEmail(community, email);
+		User existingUser = userDAO.findUser(community, email);
 		if (existingUser == null) {
 			return Response.status(404).build();
 		}

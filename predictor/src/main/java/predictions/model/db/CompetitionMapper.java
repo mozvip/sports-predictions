@@ -1,8 +1,8 @@
 package predictions.model.db;
 
 import com.github.mozvip.footballdata.model.Competition;
-import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,10 +11,10 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-public class CompetitionMapper implements ResultSetMapper<Competition> {
+public class CompetitionMapper implements RowMapper<Competition> {
 
     @Override
-    public Competition map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+    public Competition map(ResultSet r, StatementContext ctx) throws SQLException {
 
         Timestamp lastUpdated = r.getTimestamp("lastUpdated");
         ZonedDateTime zonedDateTime = lastUpdated != null ? ZonedDateTime.ofInstant(Instant.ofEpochMilli(lastUpdated.getTime()), ZoneOffset.UTC) : null;

@@ -1,47 +1,39 @@
 package predictions;
 
-import java.util.EnumSet;
-import java.util.List;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration.Dynamic;
-
-import com.github.mozvip.footballdata.FootballDataClient;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.HttpParams;
-import org.eclipse.jetty.servlets.CrossOriginFilter;
-import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
-import org.skife.jdbi.v2.DBI;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.github.mozvip.footballdata.FootballDataClient;
 import com.google.common.collect.Lists;
-
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthFilter;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.chained.ChainedAuthFilter;
-import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.jdbi.DBIFactory;
+import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
-import predictions.auth.CommunityBasicCredentialAuthFilter;
-import predictions.auth.CommunityFilter;
-import predictions.auth.PredictorAuthorizer;
-import predictions.auth.PredictorBasicAuthenticator;
-import predictions.auth.PredictorOAuthAuthenticator;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.params.HttpParams;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.jdbi.v3.core.Jdbi;
+import predictions.auth.*;
 import predictions.gmail.GmailService;
 import predictions.model.db.*;
 import predictions.phases.PhaseFilter;
 import predictions.phases.PhaseManager;
 import predictions.resources.*;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration.Dynamic;
+import java.util.EnumSet;
+import java.util.List;
 
 public class PredictionsApplication extends Application<PredictionsConfiguration> {
 
@@ -67,8 +59,9 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	public void run(PredictionsConfiguration configuration,
 			Environment environment) throws Exception {
 
-		final DBIFactory factory = new DBIFactory();
-		final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
+		final JdbiFactory factory = new JdbiFactory();
+		final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
+
 		final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
 		final MatchPredictionDAO matchPredictionDAO = jdbi.onDemand(MatchPredictionDAO.class);
 		final ActualResultDAO actualResultDAO = jdbi.onDemand(ActualResultDAO.class);
@@ -99,7 +92,9 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    client = new DefaultHttpClient(new ThreadSafeClientConnManager(params, mgr.getSchemeRegistry()), params);		
 		
 		GmailService gmail = new GmailService(getName(), configuration);
-		
+
+		environment.jersey().register(new GoogleSigninResource(configuration.getGoogleSignin().getClientId()));
+
 		environment.jersey().register(new UserResource(phaseManager, userDAO, matchPredictionDAO, actualResultDAO, communityDAO, client, configuration, gmail));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new ValidateEmailResource(userDAO));
@@ -126,11 +121,12 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
             .setRealm(configuration.getEventName() + " Application Realm")
             .buildAuthFilter();
 	    
-		PredictorOAuthAuthenticator oAuthAuthenticator = new PredictorOAuthAuthenticator( userDAO );
+		PredictorGoogleAuthenticator oAuthAuthenticator = new PredictorGoogleAuthenticator(configuration.getGoogleSignin().getClientId(), userDAO);
 
-        OAuthCredentialAuthFilter<User> oauthCredentialAuthFilter = new OAuthCredentialAuthFilter.Builder<User>()
+		CommunityOAuthCredentialAuthFilter oauthCredentialAuthFilter = new CommunityOAuthCredentialAuthFilter.Builder(configuration.getDefaultCommunity())
         	.setAuthenticator( oAuthAuthenticator )
             .setAuthorizer(new PredictorAuthorizer())
+			.setPrefix("Bearer")
             .setRealm(configuration.getEventName() + " Application Realm")
             .buildAuthFilter();
 	    

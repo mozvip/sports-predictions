@@ -4,23 +4,23 @@ import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import io.dropwizard.auth.Auth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
 import predictions.model.db.User;
 import predictions.model.db.UserDAO;
 
 @Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)
-@Api(tags="admin")
+@RolesAllowed("ADMIN")
+@Api(tags="admin", authorizations = @Authorization("basicAuth"))
 public class AdminResource {
 
 	private UserDAO userDAO;
@@ -31,50 +31,40 @@ public class AdminResource {
 		this.userDAO = userDAO;
 	}
 
+	protected String getCommunity() {
+		return (String) httpRequest.getAttribute("community");
+	}
+
 	@GET
 	@Path("/users")
-	@RolesAllowed("ADMIN")
-	@ApiOperation(value = "Get all users of the community", authorizations = @Authorization("basicAuth"))
+	@ApiOperation(value="Get all users of the community")
 	public List<User> getUsers() {
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		return userDAO.findAll( community );
 	}
 
 	@GET
 	@Path("/users-no-prediction")
-	@RolesAllowed("ADMIN")
-	@ApiOperation(value="Get all users of the community who did not make their predictions", authorizations = @Authorization("basicAuth"))
+	@ApiOperation(value="Get all users of the community who did not make their predictions")
 	public List<User> getUsersWithNoPredictions() {
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		return userDAO.findUsersWithNoPredictions( community );
 	}
 
 	@POST
 	@Path("/toggle-active")
-	@RolesAllowed("ADMIN")
-	@ApiOperation(value="Toggle the active state of an user of this community", authorizations = @Authorization("basicAuth"))
-	public void toggleActive( @FormParam("email") String email ) {
-		String community = (String) httpRequest.getAttribute("community");
+	@ApiOperation(value="Toggle the active state of an user of this community")
+	public void toggleActive(@NotNull @FormParam("email") String email) {
+		String community = getCommunity();
 		email = email.toLowerCase().trim();
 		userDAO.toggleActive( community, email );
 	}
 
 	@POST
-	@Path("/delete-user")
-	@RolesAllowed("ADMIN")
-	@ApiOperation(value="Delete an user of this community", authorizations = @Authorization("basicAuth"))
-	public void deleteUser( @FormParam("email") String email ) {
-		String community = (String) httpRequest.getAttribute("community");
-		email = email.toLowerCase().trim();
-		userDAO.delete( community, email );
-	}
-
-	@POST
 	@Path("/toggle-admin")
-	@RolesAllowed("ADMIN")
-	@ApiOperation(value="Toggle the admin status of an user of this community", authorizations = @Authorization("basicAuth"))
-	public void toggleAdmin( @FormParam("email") String email ) {
-		String community = (String) httpRequest.getAttribute("community");
+	@ApiOperation(value="Toggle the admin status of an user of this community")
+	public void toggleAdmin(@NotNull @FormParam("email") String email) {
+		String community = getCommunity();
 		email = email.toLowerCase().trim();
 		userDAO.toggleAdmin( community, email );
 	}

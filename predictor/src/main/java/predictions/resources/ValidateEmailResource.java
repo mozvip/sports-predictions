@@ -31,7 +31,7 @@ public class ValidateEmailResource {
 	public Response isAvailableForNewAccount(@NotNull  @QueryParam("email") String email) {
 		String community = (String) httpRequest.getAttribute("community");
 		
-		if (userDAO.findExistingUserByEmail(community, email) != null) {
+		if (userDAO.findUser(community, email) != null) {
 			return Response.status(Status.CONFLICT).build();
 		}
 		
