@@ -32,7 +32,7 @@ public class AdminResource {
 	}
 
 	protected String getCommunity() {
-		return (String) httpRequest.getAttribute("community");
+		return httpRequest != null ? (String) httpRequest.getAttribute("community") : null;
 	}
 
 	@GET
@@ -52,18 +52,18 @@ public class AdminResource {
 	}
 
 	@POST
-	@Path("/toggle-active")
+	@Path("/toggle-active/{email}")
 	@ApiOperation(value="Toggle the active state of an user of this community")
-	public void toggleActive(@NotNull @FormParam("email") String email) {
+	public void toggleActive(@NotNull @PathParam("email") String email) {
 		String community = getCommunity();
 		email = email.toLowerCase().trim();
 		userDAO.toggleActive( community, email );
 	}
 
 	@POST
-	@Path("/toggle-admin")
+	@Path("/toggle-admin/{email}")
 	@ApiOperation(value="Toggle the admin status of an user of this community")
-	public void toggleAdmin(@NotNull @FormParam("email") String email) {
+	public void toggleAdmin(@NotNull @PathParam("email") String email) {
 		String community = getCommunity();
 		email = email.toLowerCase().trim();
 		userDAO.toggleAdmin( community, email );
