@@ -12,10 +12,11 @@ public class Game {
 	private Date dateTime;
 	private boolean done = false;
 	private String group;
+	private String round;
 	private String stadium;
-	private String homeTeam;
+	private String homeTeamName;
 	private int homeTeamWinnerFrom = -1;
-	private String awayTeam;
+	private String awayTeamName;
 	private int awayTeamWinnerFrom = -1;
 	private int homeScore;
 	private int awayScore;
@@ -53,20 +54,20 @@ public class Game {
 		this.stadium = stadium;
 	}
 
-	public String getHomeTeam() {
-		return homeTeam;
+	public String getHomeTeamName() {
+		return homeTeamName;
 	}
 
-	public void setHomeTeam(String homeTeam) {
-		this.homeTeam = homeTeam;
+	public void setHomeTeamName(String homeTeamName) {
+		this.homeTeamName = homeTeamName;
 	}
 
-	public String getAwayTeam() {
-		return awayTeam;
+	public String getAwayTeamName() {
+		return awayTeamName;
 	}
 
-	public void setAwayTeam(String awayTeam) {
-		this.awayTeam = awayTeam;
+	public void setAwayTeamName(String awayTeamName) {
+		this.awayTeamName = awayTeamName;
 	}
 
 	public int getMatchNum() {
@@ -117,4 +118,11 @@ public class Game {
 		this.awayTeamWinnerFrom = awayTeamWinnerFrom;
 	}
 
+	public String getRound() {
+		return round;
+	}
+
+	public void setRound(String round) {
+		this.round = round;
+	}
 }

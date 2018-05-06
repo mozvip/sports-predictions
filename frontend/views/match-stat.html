@@ -1,7 +1,7 @@
 <div ng-init="init()">
 	<div class="col-md-12" data-wow-delay="0.2s">
 		<div class="box">		
-			<h2>Statistique du match : {{gameStats.homeTeam}} - {{gameStats.awayTeam}}</h2><br/><br/>
+			<h2>Statistique du match : {{gameStats.homeTeamName}} - {{gameStats.awayTeamName}}</h2><br/><br/>
 			<div class="row">
 				<div class="col-md-3">
 					<button class="btn btn-block btn-primary" back-button><span class="glyphicon glyphicon-new-window"></span> Retour</button>
@@ -10,18 +10,18 @@
 			<br/>
 			<div class="row">
 				<div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-					<div class="team-container" ng-class="classFlagTeam(gameStats.homeTeam, 'team')">
+					<div class="team-container" ng-class="classFlagTeam(gameStats.homeTeamName, 'team')">
 						<span class="team-name">
-						  <span class="team-flag" ng-class="classFlagTeam(gameStats.homeTeam, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
-						  <span class="team-name_name" style="color: white">{{gameStats.homeTeam}}</span>
+						  <span class="team-flag" ng-class="classFlagTeam(gameStats.homeTeamName, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
+						  <span class="team-name_name" style="color: white">{{gameStats.homeTeamName}}</span>
 						</span>
 					</div>
 				</div>
 				<div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-					<div class="team-container" ng-class="classFlagTeam(gameStats.awayTeam, 'team')">
+					<div class="team-container" ng-class="classFlagTeam(gameStats.awayTeamName, 'team')">
 						<span class="team-name">
-						  <span class="team-flag" ng-class="classFlagTeam(gameStats.awayTeam, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
-						  <span class="team-name_name" style="color: white">{{gameStats.awayTeam}}</span>
+						  <span class="team-flag" ng-class="classFlagTeam(gameStats.awayTeamName, 'flag')" style="margin-top: 8px;margin-left: 8px;"></span>
+						  <span class="team-name_name" style="color: white">{{gameStats.awayTeamName}}</span>
 						</span>
 					</div>
 				</div>

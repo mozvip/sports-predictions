@@ -24,6 +24,18 @@ import java.util.regex.Pattern;
 
 public class WC2018Scrapper {
 
+    public String getName(Element nameElement) throws IOException {
+        Elements name = nameElement.select("[itemprop=name]");
+        String teamName = name.select("a").isEmpty() ? name.text() : name.select("a").text();
+        Elements teamFlag = nameElement.select(".flagicon img");
+        if (!teamFlag.isEmpty()) {
+            String flagSet = teamFlag.first().attr("srcset");
+            Path flagsDirectory = Paths.get("flags");
+            Files.createDirectories(flagsDirectory);
+        }
+        return teamName;
+    }
+
     public void scrapMatches() throws IOException {
 
         Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/2018_FIFA_World_Cup").get();
@@ -35,7 +47,6 @@ public class WC2018Scrapper {
 
         Elements fixtures = doc.select("[itemtype=http://schema.org/SportsEvent");
         for (Element fixture : fixtures) {
-
             /*
             <div itemscope="itemscope" itemtype="http://schema.org/SportsEvent" style="clear: both; overflow: auto;">
             <div class="mobile-float-reset" style="float: left; width: 15%; padding: 2px 0; overflow: auto;"><time style="display: block; overflow: auto;"><span class="mobile-float-reset" style="display: block; float: right;">16&nbsp;June&nbsp;2018<span style="display:none">&nbsp;(<span class="bday dtstart published updated">2018-06-16</span>)</span></span><span class="mobile-float-reset" style="display: block; clear: right; float: right;">13:00 <a href="/wiki/Moscow_Time" title="Moscow Time">MSK</a> (<a href="/wiki/UTC%2B03:00" title="UTC+03:00">UTC+3</a>)</span></time></div>
@@ -77,7 +88,6 @@ public class WC2018Scrapper {
 
             System.out.println("Parsing " + name.text() );
 
-
             Element nameElement = name.select("th").get(1);
             String matchName = nameElement.text();
 
@@ -90,6 +100,8 @@ public class WC2018Scrapper {
                     group = matcher.group(1);
                     if (group.startsWith("Group ")) {
                         group = group.substring(6);
+                    } else {
+                        group = null;
                     }
                 }
             }
@@ -102,14 +114,14 @@ public class WC2018Scrapper {
             }
 
             Element homeTeam = name.select("[itemprop=hometeam]").first();
-            String homeTeamName = homeTeam.select("[itemprop=name] a").text();
+            String homeTeamName = getName(homeTeam);
             Elements homeFlag = homeTeam.select(".flagicon img");
             if (!homeFlag.isEmpty()) {
                 String homeFlagSet = homeFlag.first().attr("srcset");
             }
 
             Element awayTeam = name.select("[itemprop=awayteam]").first();
-            String awayTeamName = awayTeam.select("[itemprop=name] a").text();
+            String awayTeamName = getName(awayTeam);
             Elements awayFlag = awayTeam.select(".flagicon img");
             if (!awayFlag.isEmpty()) {
                 String awayFlagSet = awayFlag.first().attr("srcset");
@@ -129,6 +141,8 @@ public class WC2018Scrapper {
             } else {
                 match = new Match(id, zonedDateTime, group, location, homeTeamName, awayTeamName);
             }
+
+            System.out.println(match.toString());
 
             matches.add(match);
 

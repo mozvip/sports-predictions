@@ -2,7 +2,7 @@
 	<div class="col-md-12" data-wow-delay="0.2s">
 		<div class="box">		
 			<section class="u-paddingBl">
-				<v-tabs class="vTabs--default" id="tebs" horizontal control="currentTab" active="currentTab.active">
+				<v-tabs class="vTabs--default" id="tabs" horizontal control="currentTab" active="currentTab.active">
 					<v-tab ng-repeat="tab in tabs" ng-bind="tab.title"></v-tab>
 				</v-tabs>
 				<div class="u-marginVm" compile-html="tabs[currentTab.active].content"></div>

@@ -1,1 +1,514 @@
-[{"matchNum":1,"dateTime":"2018-06-14T17:00","group":"A","stadium":"Luzhniki Stadium, Moscow","homeTeamName":"Russia","awayTeamName":"Saudi Arabia"},{"matchNum":2,"dateTime":"2018-06-15T14:00","group":"A","stadium":"Central Stadium, Yekaterinburg","homeTeamName":"Egypt","awayTeamName":"Uruguay"},{"matchNum":17,"dateTime":"2018-06-19T20:00","group":"A","stadium":"Krestovsky Stadium, Saint Petersburg","homeTeamName":"Russia","awayTeamName":"Egypt"},{"matchNum":18,"dateTime":"2018-06-20T17:00","group":"A","stadium":"Rostov Arena, Rostov-on-Don","homeTeamName":"Uruguay","awayTeamName":"Saudi Arabia"},{"matchNum":33,"dateTime":"2018-06-25T16:00","group":"A","stadium":"Cosmos Arena, Samara","homeTeamName":"Uruguay","awayTeamName":"Russia"},{"matchNum":34,"dateTime":"2018-06-25T16:00","group":"A","stadium":"Volgograd Arena, Volgograd","homeTeamName":"Saudi Arabia","awayTeamName":"Egypt"},{"matchNum":4,"dateTime":"2018-06-15T17:00","group":"B","stadium":"Krestovsky Stadium, Saint Petersburg","homeTeamName":"Morocco","awayTeamName":"Iran"},{"matchNum":3,"dateTime":"2018-06-15T20:00","group":"B","stadium":"Fisht Olympic Stadium, Sochi","homeTeamName":"Portugal","awayTeamName":"Spain"},{"matchNum":19,"dateTime":"2018-06-20T14:00","group":"B","stadium":"Luzhniki Stadium, Moscow","homeTeamName":"Portugal","awayTeamName":"Morocco"},{"matchNum":20,"dateTime":"2018-06-20T20:00","group":"B","stadium":"Kazan Arena, Kazan","homeTeamName":"Iran","awayTeamName":"Spain"},{"matchNum":35,"dateTime":"2018-06-25T20:00","group":"B","stadium":"Mordovia Arena, Saransk","homeTeamName":"Iran","awayTeamName":"Portugal"},{"matchNum":36,"dateTime":"2018-06-25T20:00","group":"B","stadium":"Kaliningrad Stadium, Kaliningrad","homeTeamName":"Spain","awayTeamName":"Morocco"},{"matchNum":5,"dateTime":"2018-06-16T12:00","group":"C","stadium":"Kazan Arena, Kazan","homeTeamName":"France","awayTeamName":"Australia"},{"matchNum":6,"dateTime":"2018-06-16T18:00","group":"C","stadium":"Mordovia Arena, Saransk","homeTeamName":"Peru","awayTeamName":"Denmark"},{"matchNum":22,"dateTime":"2018-06-21T14:00","group":"C","stadium":"Cosmos Arena, Samara","homeTeamName":"Denmark","awayTeamName":"Australia"},{"matchNum":21,"dateTime":"2018-06-21T17:00","group":"C","stadium":"Central Stadium, Yekaterinburg","homeTeamName":"France","awayTeamName":"Peru"},{"matchNum":37,"dateTime":"2018-06-26T16:00","group":"C","stadium":"Luzhniki Stadium, Moscow","homeTeamName":"Denmark","awayTeamName":"France"},{"matchNum":38,"dateTime":"2018-06-26T16:00","group":"C","stadium":"Fisht Olympic Stadium, Sochi","homeTeamName":"Australia","awayTeamName":"Peru"},{"matchNum":7,"dateTime":"2018-06-16T15:00","group":"D","stadium":"Otkritie Arena, Moscow","homeTeamName":"Argentina","awayTeamName":"Iceland"},{"matchNum":8,"dateTime":"2018-06-16T21:00","group":"D","stadium":"Kaliningrad Stadium, Kaliningrad","homeTeamName":"Croatia","awayTeamName":"Nigeria"},{"matchNum":23,"dateTime":"2018-06-21T20:00","group":"D","stadium":"Nizhny Novgorod Stadium, Nizhny Novgorod","homeTeamName":"Argentina","awayTeamName":"Croatia"},{"matchNum":24,"dateTime":"2018-06-22T17:00","group":"D","stadium":"Volgograd Arena, Volgograd","homeTeamName":"Nigeria","awayTeamName":"Iceland"},{"matchNum":39,"dateTime":"2018-06-26T20:00","group":"D","stadium":"Krestovsky Stadium, Saint Petersburg","homeTeamName":"Nigeria","awayTeamName":"Argentina"},{"matchNum":40,"dateTime":"2018-06-26T20:00","group":"D","stadium":"Rostov Arena, Rostov-on-Don","homeTeamName":"Iceland","awayTeamName":"Croatia"},{"matchNum":10,"dateTime":"2018-06-17T14:00","group":"E","stadium":"Cosmos Arena, Samara","homeTeamName":"Costa Rica","awayTeamName":"Serbia"},{"matchNum":9,"dateTime":"2018-06-17T20:00","group":"E","stadium":"Rostov Arena, Rostov-on-Don","homeTeamName":"Brazil","awayTeamName":"Switzerland"},{"matchNum":25,"dateTime":"2018-06-22T14:00","group":"E","stadium":"Krestovsky Stadium, Saint Petersburg","homeTeamName":"Brazil","awayTeamName":"Costa Rica"},{"matchNum":26,"dateTime":"2018-06-22T20:00","group":"E","stadium":"Kaliningrad Stadium, Kaliningrad","homeTeamName":"Serbia","awayTeamName":"Switzerland"},{"matchNum":41,"dateTime":"2018-06-27T20:00","group":"E","stadium":"Otkritie Arena, Moscow","homeTeamName":"Serbia","awayTeamName":"Brazil"},{"matchNum":42,"dateTime":"2018-06-27T20:00","group":"E","stadium":"Nizhny Novgorod Stadium, Nizhny Novgorod","homeTeamName":"Switzerland","awayTeamName":"Costa Rica"},{"matchNum":11,"dateTime":"2018-06-17T17:00","group":"F","stadium":"Luzhniki Stadium, Moscow","homeTeamName":"Germany","awayTeamName":"Mexico"},{"matchNum":12,"dateTime":"2018-06-18T14:00","group":"F","stadium":"Nizhny Novgorod Stadium, Nizhny Novgorod","homeTeamName":"Sweden","awayTeamName":"South Korea"},{"matchNum":28,"dateTime":"2018-06-23T17:00","group":"F","stadium":"Rostov Arena, Rostov-on-Don","homeTeamName":"South Korea","awayTeamName":"Mexico"},{"matchNum":27,"dateTime":"2018-06-23T20:00","group":"F","stadium":"Fisht Olympic Stadium, Sochi","homeTeamName":"Germany","awayTeamName":"Sweden"},{"matchNum":43,"dateTime":"2018-06-27T16:00","group":"F","stadium":"Kazan Arena, Kazan","homeTeamName":"South Korea","awayTeamName":"Germany"},{"matchNum":44,"dateTime":"2018-06-27T16:00","group":"F","stadium":"Central Stadium, Yekaterinburg","homeTeamName":"Mexico","awayTeamName":"Sweden"},{"matchNum":13,"dateTime":"2018-06-18T17:00","group":"G","stadium":"Fisht Olympic Stadium, Sochi","homeTeamName":"Belgium","awayTeamName":"Panama"},{"matchNum":14,"dateTime":"2018-06-18T20:00","group":"G","stadium":"Volgograd Arena, Volgograd","homeTeamName":"Tunisia","awayTeamName":"England"},{"matchNum":29,"dateTime":"2018-06-23T14:00","group":"G","stadium":"Otkritie Arena, Moscow","homeTeamName":"Belgium","awayTeamName":"Tunisia"},{"matchNum":30,"dateTime":"2018-06-24T14:00","group":"G","stadium":"Nizhny Novgorod Stadium, Nizhny Novgorod","homeTeamName":"England","awayTeamName":"Panama"},{"matchNum":45,"dateTime":"2018-06-28T20:00","group":"G","stadium":"Kaliningrad Stadium, Kaliningrad","homeTeamName":"England","awayTeamName":"Belgium"},{"matchNum":46,"dateTime":"2018-06-28T20:00","group":"G","stadium":"Mordovia Arena, Saransk","homeTeamName":"Panama","awayTeamName":"Tunisia"},{"matchNum":16,"dateTime":"2018-06-19T14:00","group":"H","stadium":"Mordovia Arena, Saransk","homeTeamName":"Colombia","awayTeamName":"Japan"},{"matchNum":15,"dateTime":"2018-06-19T17:00","group":"H","stadium":"Otkritie Arena, Moscow","homeTeamName":"Poland","awayTeamName":"Senegal"},{"matchNum":32,"dateTime":"2018-06-24T17:00","group":"H","stadium":"Central Stadium, Yekaterinburg","homeTeamName":"Japan","awayTeamName":"Senegal"},{"matchNum":31,"dateTime":"2018-06-24T20:00","group":"H","stadium":"Kazan Arena, Kazan","homeTeamName":"Poland","awayTeamName":"Colombia"},{"matchNum":47,"dateTime":"2018-06-28T16:00","group":"H","stadium":"Volgograd Arena, Volgograd","homeTeamName":"Japan","awayTeamName":"Poland"},{"matchNum":48,"dateTime":"2018-06-28T16:00","group":"H","stadium":"Cosmos Arena, Samara","homeTeamName":"Senegal","awayTeamName":"Colombia"},{"matchNum":50,"dateTime":"2018-06-30T16:00","group":"knockout stage","stadium":"Kazan Arena, Kazan","homeTeamName":"","awayTeamName":""},{"matchNum":49,"dateTime":"2018-06-30T20:00","group":"knockout stage","stadium":"Fisht Olympic Stadium, Sochi","homeTeamName":"","awayTeamName":""},{"matchNum":51,"dateTime":"2018-07-01T16:00","group":"knockout stage","stadium":"Luzhniki Stadium, Moscow","homeTeamName":"","awayTeamName":""},{"matchNum":52,"dateTime":"2018-07-01T20:00","group":"knockout stage","stadium":"Nizhny Novgorod Stadium, Nizhny Novgorod","homeTeamName":"","awayTeamName":""},{"matchNum":53,"dateTime":"2018-07-02T16:00","group":"knockout stage","stadium":"Cosmos Arena, Samara","homeTeamName":"","awayTeamName":""},{"matchNum":54,"dateTime":"2018-07-02T20:00","group":"knockout stage","stadium":"Rostov Arena, Rostov-on-Don","homeTeamName":"","awayTeamName":""},{"matchNum":55,"dateTime":"2018-07-03T16:00","group":"knockout stage","stadium":"Krestovsky Stadium, Saint Petersburg","homeTeamName":"","awayTeamName":""},{"matchNum":56,"dateTime":"2018-07-03T20:00","group":"knockout stage","stadium":"Otkritie Arena, Moscow","homeTeamName":"","awayTeamName":""},{"matchNum":57,"dateTime":"2018-07-06T16:00","group":"knockout stage","stadium":"Nizhny Novgorod Stadium, Nizhny Novgorod","homeTeamName":"","awayTeamName":""},{"matchNum":58,"dateTime":"2018-07-06T20:00","group":"knockout stage","stadium":"Kazan Arena, Kazan","homeTeamName":"","awayTeamName":""},{"matchNum":60,"dateTime":"2018-07-07T16:00","group":"knockout stage","stadium":"Cosmos Arena, Samara","homeTeamName":"","awayTeamName":""},{"matchNum":59,"dateTime":"2018-07-07T20:00","group":"knockout stage","stadium":"Fisht Olympic Stadium, Sochi","homeTeamName":"","awayTeamName":""},{"matchNum":61,"dateTime":"2018-07-10T20:00","group":"knockout stage","stadium":"Krestovsky Stadium, Saint Petersburg","homeTeamName":"","awayTeamName":""},{"matchNum":62,"dateTime":"2018-07-11T20:00","group":"knockout stage","stadium":"Luzhniki Stadium, Moscow","homeTeamName":"","awayTeamName":""},{"matchNum":63,"dateTime":"2018-07-14T16:00","group":"knockout stage","stadium":"Krestovsky Stadium, Saint Petersburg","homeTeamName":"","awayTeamName":""},{"matchNum":64,"dateTime":"2018-07-15T17:00","stadium":"Luzhniki Stadium, Moscow","homeTeamName":"","awayTeamName":""}]
+[
+  {
+    "matchNum": 1,
+    "dateTime": "2018-06-14T17:00",
+    "group": "A",
+    "stadium": "Luzhniki Stadium, Moscow",
+    "homeTeamName": "Russia",
+    "awayTeamName": "Saudi Arabia"
+  },
+  {
+    "matchNum": 2,
+    "dateTime": "2018-06-15T14:00",
+    "group": "A",
+    "stadium": "Central Stadium, Yekaterinburg",
+    "homeTeamName": "Egypt",
+    "awayTeamName": "Uruguay"
+  },
+  {
+    "matchNum": 17,
+    "dateTime": "2018-06-19T20:00",
+    "group": "A",
+    "stadium": "Krestovsky Stadium, Saint Petersburg",
+    "homeTeamName": "Russia",
+    "awayTeamName": "Egypt"
+  },
+  {
+    "matchNum": 18,
+    "dateTime": "2018-06-20T17:00",
+    "group": "A",
+    "stadium": "Rostov Arena, Rostov-on-Don",
+    "homeTeamName": "Uruguay",
+    "awayTeamName": "Saudi Arabia"
+  },
+  {
+    "matchNum": 33,
+    "dateTime": "2018-06-25T16:00",
+    "group": "A",
+    "stadium": "Cosmos Arena, Samara",
+    "homeTeamName": "Uruguay",
+    "awayTeamName": "Russia"
+  },
+  {
+    "matchNum": 34,
+    "dateTime": "2018-06-25T16:00",
+    "group": "A",
+    "stadium": "Volgograd Arena, Volgograd",
+    "homeTeamName": "Saudi Arabia",
+    "awayTeamName": "Egypt"
+  },
+  {
+    "matchNum": 4,
+    "dateTime": "2018-06-15T17:00",
+    "group": "B",
+    "stadium": "Krestovsky Stadium, Saint Petersburg",
+    "homeTeamName": "Morocco",
+    "awayTeamName": "Iran"
+  },
+  {
+    "matchNum": 3,
+    "dateTime": "2018-06-15T20:00",
+    "group": "B",
+    "stadium": "Fisht Olympic Stadium, Sochi",
+    "homeTeamName": "Portugal",
+    "awayTeamName": "Spain"
+  },
+  {
+    "matchNum": 19,
+    "dateTime": "2018-06-20T14:00",
+    "group": "B",
+    "stadium": "Luzhniki Stadium, Moscow",
+    "homeTeamName": "Portugal",
+    "awayTeamName": "Morocco"
+  },
+  {
+    "matchNum": 20,
+    "dateTime": "2018-06-20T20:00",
+    "group": "B",
+    "stadium": "Kazan Arena, Kazan",
+    "homeTeamName": "Iran",
+    "awayTeamName": "Spain"
+  },
+  {
+    "matchNum": 35,
+    "dateTime": "2018-06-25T20:00",
+    "group": "B",
+    "stadium": "Mordovia Arena, Saransk",
+    "homeTeamName": "Iran",
+    "awayTeamName": "Portugal"
+  },
+  {
+    "matchNum": 36,
+    "dateTime": "2018-06-25T20:00",
+    "group": "B",
+    "stadium": "Kaliningrad Stadium, Kaliningrad",
+    "homeTeamName": "Spain",
+    "awayTeamName": "Morocco"
+  },
+  {
+    "matchNum": 5,
+    "dateTime": "2018-06-16T12:00",
+    "group": "C",
+    "stadium": "Kazan Arena, Kazan",
+    "homeTeamName": "France",
+    "awayTeamName": "Australia"
+  },
+  {
+    "matchNum": 6,
+    "dateTime": "2018-06-16T18:00",
+    "group": "C",
+    "stadium": "Mordovia Arena, Saransk",
+    "homeTeamName": "Peru",
+    "awayTeamName": "Denmark"
+  },
+  {
+    "matchNum": 22,
+    "dateTime": "2018-06-21T14:00",
+    "group": "C",
+    "stadium": "Cosmos Arena, Samara",
+    "homeTeamName": "Denmark",
+    "awayTeamName": "Australia"
+  },
+  {
+    "matchNum": 21,
+    "dateTime": "2018-06-21T17:00",
+    "group": "C",
+    "stadium": "Central Stadium, Yekaterinburg",
+    "homeTeamName": "France",
+    "awayTeamName": "Peru"
+  },
+  {
+    "matchNum": 37,
+    "dateTime": "2018-06-26T16:00",
+    "group": "C",
+    "stadium": "Luzhniki Stadium, Moscow",
+    "homeTeamName": "Denmark",
+    "awayTeamName": "France"
+  },
+  {
+    "matchNum": 38,
+    "dateTime": "2018-06-26T16:00",
+    "group": "C",
+    "stadium": "Fisht Olympic Stadium, Sochi",
+    "homeTeamName": "Australia",
+    "awayTeamName": "Peru"
+  },
+  {
+    "matchNum": 7,
+    "dateTime": "2018-06-16T15:00",
+    "group": "D",
+    "stadium": "Otkritie Arena, Moscow",
+    "homeTeamName": "Argentina",
+    "awayTeamName": "Iceland"
+  },
+  {
+    "matchNum": 8,
+    "dateTime": "2018-06-16T21:00",
+    "group": "D",
+    "stadium": "Kaliningrad Stadium, Kaliningrad",
+    "homeTeamName": "Croatia",
+    "awayTeamName": "Nigeria"
+  },
+  {
+    "matchNum": 23,
+    "dateTime": "2018-06-21T20:00",
+    "group": "D",
+    "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
+    "homeTeamName": "Argentina",
+    "awayTeamName": "Croatia"
+  },
+  {
+    "matchNum": 24,
+    "dateTime": "2018-06-22T17:00",
+    "group": "D",
+    "stadium": "Volgograd Arena, Volgograd",
+    "homeTeamName": "Nigeria",
+    "awayTeamName": "Iceland"
+  },
+  {
+    "matchNum": 39,
+    "dateTime": "2018-06-26T20:00",
+    "group": "D",
+    "stadium": "Krestovsky Stadium, Saint Petersburg",
+    "homeTeamName": "Nigeria",
+    "awayTeamName": "Argentina"
+  },
+  {
+    "matchNum": 40,
+    "dateTime": "2018-06-26T20:00",
+    "group": "D",
+    "stadium": "Rostov Arena, Rostov-on-Don",
+    "homeTeamName": "Iceland",
+    "awayTeamName": "Croatia"
+  },
+  {
+    "matchNum": 10,
+    "dateTime": "2018-06-17T14:00",
+    "group": "E",
+    "stadium": "Cosmos Arena, Samara",
+    "homeTeamName": "Costa Rica",
+    "awayTeamName": "Serbia"
+  },
+  {
+    "matchNum": 9,
+    "dateTime": "2018-06-17T20:00",
+    "group": "E",
+    "stadium": "Rostov Arena, Rostov-on-Don",
+    "homeTeamName": "Brazil",
+    "awayTeamName": "Switzerland"
+  },
+  {
+    "matchNum": 25,
+    "dateTime": "2018-06-22T14:00",
+    "group": "E",
+    "stadium": "Krestovsky Stadium, Saint Petersburg",
+    "homeTeamName": "Brazil",
+    "awayTeamName": "Costa Rica"
+  },
+  {
+    "matchNum": 26,
+    "dateTime": "2018-06-22T20:00",
+    "group": "E",
+    "stadium": "Kaliningrad Stadium, Kaliningrad",
+    "homeTeamName": "Serbia",
+    "awayTeamName": "Switzerland"
+  },
+  {
+    "matchNum": 41,
+    "dateTime": "2018-06-27T20:00",
+    "group": "E",
+    "stadium": "Otkritie Arena, Moscow",
+    "homeTeamName": "Serbia",
+    "awayTeamName": "Brazil"
+  },
+  {
+    "matchNum": 42,
+    "dateTime": "2018-06-27T20:00",
+    "group": "E",
+    "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
+    "homeTeamName": "Switzerland",
+    "awayTeamName": "Costa Rica"
+  },
+  {
+    "matchNum": 11,
+    "dateTime": "2018-06-17T17:00",
+    "group": "F",
+    "stadium": "Luzhniki Stadium, Moscow",
+    "homeTeamName": "Germany",
+    "awayTeamName": "Mexico"
+  },
+  {
+    "matchNum": 12,
+    "dateTime": "2018-06-18T14:00",
+    "group": "F",
+    "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
+    "homeTeamName": "Sweden",
+    "awayTeamName": "South Korea"
+  },
+  {
+    "matchNum": 28,
+    "dateTime": "2018-06-23T17:00",
+    "group": "F",
+    "stadium": "Rostov Arena, Rostov-on-Don",
+    "homeTeamName": "South Korea",
+    "awayTeamName": "Mexico"
+  },
+  {
+    "matchNum": 27,
+    "dateTime": "2018-06-23T20:00",
+    "group": "F",
+    "stadium": "Fisht Olympic Stadium, Sochi",
+    "homeTeamName": "Germany",
+    "awayTeamName": "Sweden"
+  },
+  {
+    "matchNum": 43,
+    "dateTime": "2018-06-27T16:00",
+    "group": "F",
+    "stadium": "Kazan Arena, Kazan",
+    "homeTeamName": "South Korea",
+    "awayTeamName": "Germany"
+  },
+  {
+    "matchNum": 44,
+    "dateTime": "2018-06-27T16:00",
+    "group": "F",
+    "stadium": "Central Stadium, Yekaterinburg",
+    "homeTeamName": "Mexico",
+    "awayTeamName": "Sweden"
+  },
+  {
+    "matchNum": 13,
+    "dateTime": "2018-06-18T17:00",
+    "group": "G",
+    "stadium": "Fisht Olympic Stadium, Sochi",
+    "homeTeamName": "Belgium",
+    "awayTeamName": "Panama"
+  },
+  {
+    "matchNum": 14,
+    "dateTime": "2018-06-18T20:00",
+    "group": "G",
+    "stadium": "Volgograd Arena, Volgograd",
+    "homeTeamName": "Tunisia",
+    "awayTeamName": "England"
+  },
+  {
+    "matchNum": 29,
+    "dateTime": "2018-06-23T14:00",
+    "group": "G",
+    "stadium": "Otkritie Arena, Moscow",
+    "homeTeamName": "Belgium",
+    "awayTeamName": "Tunisia"
+  },
+  {
+    "matchNum": 30,
+    "dateTime": "2018-06-24T14:00",
+    "group": "G",
+    "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
+    "homeTeamName": "England",
+    "awayTeamName": "Panama"
+  },
+  {
+    "matchNum": 45,
+    "dateTime": "2018-06-28T20:00",
+    "group": "G",
+    "stadium": "Kaliningrad Stadium, Kaliningrad",
+    "homeTeamName": "England",
+    "awayTeamName": "Belgium"
+  },
+  {
+    "matchNum": 46,
+    "dateTime": "2018-06-28T20:00",
+    "group": "G",
+    "stadium": "Mordovia Arena, Saransk",
+    "homeTeamName": "Panama",
+    "awayTeamName": "Tunisia"
+  },
+  {
+    "matchNum": 16,
+    "dateTime": "2018-06-19T14:00",
+    "group": "H",
+    "stadium": "Mordovia Arena, Saransk",
+    "homeTeamName": "Colombia",
+    "awayTeamName": "Japan"
+  },
+  {
+    "matchNum": 15,
+    "dateTime": "2018-06-19T17:00",
+    "group": "H",
+    "stadium": "Otkritie Arena, Moscow",
+    "homeTeamName": "Poland",
+    "awayTeamName": "Senegal"
+  },
+  {
+    "matchNum": 32,
+    "dateTime": "2018-06-24T17:00",
+    "group": "H",
+    "stadium": "Central Stadium, Yekaterinburg",
+    "homeTeamName": "Japan",
+    "awayTeamName": "Senegal"
+  },
+  {
+    "matchNum": 31,
+    "dateTime": "2018-06-24T20:00",
+    "group": "H",
+    "stadium": "Kazan Arena, Kazan",
+    "homeTeamName": "Poland",
+    "awayTeamName": "Colombia"
+  },
+  {
+    "matchNum": 47,
+    "dateTime": "2018-06-28T16:00",
+    "group": "H",
+    "stadium": "Volgograd Arena, Volgograd",
+    "homeTeamName": "Japan",
+    "awayTeamName": "Poland"
+  },
+  {
+    "matchNum": 48,
+    "dateTime": "2018-06-28T16:00",
+    "group": "H",
+    "stadium": "Cosmos Arena, Samara",
+    "homeTeamName": "Senegal",
+    "awayTeamName": "Colombia"
+  },
+  {
+    "matchNum": 50,
+    "dateTime": "2018-06-30T16:00",
+    "stadium": "Kazan Arena, Kazan",
+    "homeTeamName": "Winners Group C",
+    "awayTeamName": "Runners-up Group D",
+    "round": "Round of 16"
+  },
+  {
+    "matchNum": 49,
+    "dateTime": "2018-06-30T20:00",
+    "stadium": "Fisht Olympic Stadium, Sochi",
+    "homeTeamName": "Winners Group A",
+    "awayTeamName": "Runners-up Group B",
+    "round": "Round of 16"
+  },
+  {
+    "matchNum": 51,
+    "dateTime": "2018-07-01T16:00",
+    "stadium": "Luzhniki Stadium, Moscow",
+    "homeTeamName": "Winners Group B",
+    "awayTeamName": "Runners-up Group A",
+    "round": "Round of 16"
+  },
+  {
+    "matchNum": 52,
+    "dateTime": "2018-07-01T20:00",
+    "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
+    "homeTeamName": "Winners Group D",
+    "awayTeamName": "Runners-up Group C",
+    "round": "Round of 16"
+  },
+  {
+    "matchNum": 53,
+    "dateTime": "2018-07-02T16:00",
+    "stadium": "Cosmos Arena, Samara",
+    "homeTeamName": "Winners Group E",
+    "awayTeamName": "Runners-up Group F",
+    "round": "Round of 16"
+  },
+  {
+    "matchNum": 54,
+    "dateTime": "2018-07-02T20:00",
+    "stadium": "Rostov Arena, Rostov-on-Don",
+    "homeTeamName": "Winners Group G",
+    "awayTeamName": "Runners-up Group H",
+    "round": "Round of 16"
+  },
+  {
+    "matchNum": 55,
+    "dateTime": "2018-07-03T16:00",
+    "stadium": "Krestovsky Stadium, Saint Petersburg",
+    "homeTeamName": "Winners Group F",
+    "awayTeamName": "Runners-up Group E",
+    "round": "Round of 16"
+  },
+  {
+    "matchNum": 56,
+    "dateTime": "2018-07-03T20:00",
+    "stadium": "Otkritie Arena, Moscow",
+    "homeTeamName": "Winners Group H",
+    "awayTeamName": "Runners-up Group G",
+    "round": "Round of 16"
+  },
+  {
+    "matchNum": 57,
+    "dateTime": "2018-07-06T16:00",
+    "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
+    "homeTeamWinnerFrom": 49,
+    "awayTeamWinnerFrom": 50,
+    "round": "Quarter-finals"
+  },
+  {
+    "matchNum": 58,
+    "dateTime": "2018-07-06T20:00",
+    "stadium": "Kazan Arena, Kazan",
+    "homeTeamWinnerFrom": 53,
+    "awayTeamWinnerFrom": 54,
+    "round": "Quarter-finals"
+  },
+  {
+    "matchNum": 60,
+    "dateTime": "2018-07-07T16:00",
+    "stadium": "Cosmos Arena, Samara",
+    "homeTeamWinnerFrom": 55,
+    "awayTeamWinnerFrom": 56,
+    "round": "Quarter-finals"
+  },
+  {
+    "matchNum": 59,
+    "dateTime": "2018-07-07T20:00",
+    "stadium": "Fisht Olympic Stadium, Sochi",
+    "homeTeamWinnerFrom": 51,
+    "awayTeamWinnerFrom": 52,
+    "round": "Quarter-finals"
+  },
+  {
+    "matchNum": 61,
+    "dateTime": "2018-07-10T20:00",
+    "stadium": "Krestovsky Stadium, Saint Petersburg",
+    "homeTeamWinnerFrom": 57,
+    "awayTeamWinnerFrom": 58,
+    "round": "Semi-finals"
+  },
+  {
+    "matchNum": 62,
+    "dateTime": "2018-07-11T20:00",
+    "stadium": "Luzhniki Stadium, Moscow",
+    "homeTeamWinnerFrom": 59,
+    "awayTeamWinnerFrom": 60,
+    "round": "Semi-finals"
+  },
+  {
+    "matchNum": 63,
+    "dateTime": "2018-07-14T16:00",
+    "stadium": "Krestovsky Stadium, Saint Petersburg",
+    "homeTeamName": "Losers Match 61",
+    "awayTeamName": "Losers Match 62",
+    "round": "Third place play-off"
+  },
+  {
+    "matchNum": 64,
+    "dateTime": "2018-07-15T17:00",
+    "stadium": "Luzhniki Stadium, Moscow",
+    "homeTeamWinnerFrom": 61,
+    "awayTeamWinnerFrom": 62,
+    "round": "Final"
+  }
+]

@@ -95,9 +95,9 @@ public class ScoreResource {
 		}
 		
 		for (Game game : games) {
-			if (game.getHomeTeam() == null || game.getAwayTeam() == null) {
-				game.setHomeTeam( winners.get( game.getHomeTeamWinnerFrom() ));
-				game.setAwayTeam( winners.get( game.getAwayTeamWinnerFrom() ));
+			if (game.getHomeTeamName() == null || game.getAwayTeamName() == null) {
+				game.setHomeTeamName( winners.get( game.getHomeTeamWinnerFrom() ));
+				game.setAwayTeamName( winners.get( game.getAwayTeamWinnerFrom() ));
 			}
 		}
 	}
@@ -154,7 +154,7 @@ public class ScoreResource {
 
 				if (!game.getGroup().startsWith("Groupe ")) {
 					
-					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore && prediction.getHome_team_id().equals(game.getHomeTeam()) && prediction.getAway_team_id().equals(game.getAwayTeam())) {
+					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore && prediction.getHome_team_id().equals(game.getHomeTeamName()) && prediction.getAway_team_id().equals(game.getAwayTeamName())) {
 						matchScore = 5;
 						if (homeScore == awayScore) { // draw
 							if (prediction.isHome_winner() != homeWinning) { // wrong qualified team
@@ -163,7 +163,7 @@ public class ScoreResource {
 						}
 					} else if ( actualWinner.equals( predictionWinner )) {
 						matchScore = 3;
-					} else if ((prediction.getHome_score() == homeScore && prediction.getHome_team_id().equals(game.getHomeTeam())) || (prediction.getAway_score() == awayScore && prediction.getAway_team_id().equals(game.getAwayTeam()))) {
+					} else if ((prediction.getHome_score() == homeScore && prediction.getHome_team_id().equals(game.getHomeTeamName())) || (prediction.getAway_score() == awayScore && prediction.getAway_team_id().equals(game.getAwayTeamName()))) {
 						matchScore = 1;
 					}
 					
@@ -180,7 +180,7 @@ public class ScoreResource {
 						
 						matchScore = 2;
 
-					} else if ((prediction.getHome_score() == homeScore && prediction.getHome_team_id().equals(game.getHomeTeam())) || (prediction.getAway_score() == awayScore && prediction.getAway_team_id().equals(game.getAwayTeam()))) {
+					} else if ((prediction.getHome_score() == homeScore && prediction.getHome_team_id().equals(game.getHomeTeamName())) || (prediction.getAway_score() == awayScore && prediction.getAway_team_id().equals(game.getAwayTeamName()))) {
 						matchScore = 1;
 					}
 					
@@ -192,7 +192,7 @@ public class ScoreResource {
 
 				if (!game.getGroup().startsWith("Groupe ")) {
 					
-					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore && prediction.getHome_team_id().equals(game.getHomeTeam()) && prediction.getAway_team_id().equals(game.getAwayTeam())) {
+					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore && prediction.getHome_team_id().equals(game.getHomeTeamName()) && prediction.getAway_team_id().equals(game.getAwayTeamName())) {
 						matchScore = 5;
 						if (homeScore == awayScore) { // draw
 							if (prediction.isHome_winner() != homeWinning) { // wrong qualified team
@@ -254,11 +254,11 @@ public class ScoreResource {
 		} else if (awayScore > homeScore) {
 			homeWinning = false;
 		} else {
-			homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeam()) : false;
+			homeWinning = winningTeamName != null ? winningTeamName.equals( game.getHomeTeamName()) : false;
 		}
-		actualResultDAO.merge(gameNum, homeScore, awayScore, game.getHomeTeam(), game.getAwayTeam(), homeWinning );
+		actualResultDAO.merge(gameNum, homeScore, awayScore, game.getHomeTeamName(), game.getAwayTeamName(), homeWinning );
 		
-		updateMatchPredictionScores( gameNum, game.getHomeTeam(), game.getAwayTeam(), homeScore, awayScore, homeWinning );
+		updateMatchPredictionScores( gameNum, game.getHomeTeamName(), game.getAwayTeamName(), homeScore, awayScore, homeWinning );
 		userDAO.recalculateScores();
 		userDAO.updateRankings();
 		associateScores();

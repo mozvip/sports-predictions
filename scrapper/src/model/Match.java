@@ -116,4 +116,18 @@ public class Match {
 	public void setAwayTeamWinnerFrom(Integer awayTeamWinnerFrom) {
 		this.awayTeamWinnerFrom = awayTeamWinnerFrom;
 	}
+
+	@Override
+	public String toString() {
+		return "Match{" +
+				"matchNum=" + matchNum +
+				", dateTime=" + dateTime +
+				", group='" + group + '\'' +
+				", stadium='" + stadium + '\'' +
+				", homeTeamName='" + homeTeamName + '\'' +
+				", homeTeamWinnerFrom=" + homeTeamWinnerFrom +
+				", awayTeamName='" + awayTeamName + '\'' +
+				", awayTeamWinnerFrom=" + awayTeamWinnerFrom +
+				'}';
+	}
 }
