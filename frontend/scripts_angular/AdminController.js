@@ -65,13 +65,16 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         })
 
         $scope.mustDetermineWinner = function() {
-                return $scope.selectedGame != undefined && $scope.homeScore == $scope.awayScore && (!$scope.selectedGame.group.startsWith("Groupe "));
+                return $scope.selectedGame != undefined && $scope.selectedGame.round && $scope.homeScore == $scope.awayScore;
         }
 
         $scope.currentUser = currentUser;
 
         $scope.gameLabel = function (game) {
-                return game.group + ' - ' + game.homeTeam + ' - ' + game.awayTeam;
+                if (game.group) {
+                    return game.group + ' - ' + game.homeTeamName + ' - ' + game.awayTeamName;
+                }
+                return game.round + ' - ' + game.homeTeamName + ' - ' + game.awayTeamName;
         }
 
         $scope.homeScore = 0;
