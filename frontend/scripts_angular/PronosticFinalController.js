@@ -8,10 +8,10 @@ angular.module('sports-predictions')
 		function ($scope, $location, UserService, BackendService, PredictionService, GamesService, Notification, $linq, currentUser, community) {
 
 			$scope.tabs = [
-				{ title: '8èmes de finale', content: '<div class="item active"><h3 class="group-name">8èmes de finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{round:\'Round of 16\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
-				{ title: 'Quarts de finale', content: '<div class="item"><h3 class="group-name">Quarts de finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{round:\'Quarter-finals\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
-				{ title: 'Demi-finales', content: '<div class="item"><h3 class="group-name">Demi-finales</h3><hr/><pronostic-final ng-repeat="match in games | filter:{round:\'Semi-finals\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
-				{ title: 'Finale', content: '<div class="item"><h3 class="group-name">Finale</h3><hr/><pronostic-final ng-repeat="match in games | filter:{round:\'Final\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' }];
+				{ title: '8èmes de finale', content: '<div class="item active"><pronostic-final ng-repeat="match in games | filter:{round:\'Round of 16\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
+				{ title: 'Quarts de finale', content: '<div class="item"><pronostic-final ng-repeat="match in games | filter:{round:\'Quarter-finals\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
+				{ title: 'Demi-finales', content: '<div class="item"><pronostic-final ng-repeat="match in games | filter:{round:\'Semi-finals\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' },
+				{ title: 'Finale', content: '<div class="item"><pronostic-final ng-repeat="match in games | filter:{round:\'Final\'}:true" match="match" access="community.finalsAccess"></pronostic-final></div>' }];
 
 			$scope.init = function () {
 				var error = false;

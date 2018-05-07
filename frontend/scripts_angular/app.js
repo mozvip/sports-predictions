@@ -5,7 +5,6 @@ var sportsPredictions = angular.module('sports-predictions', ['ui.grid', 'ui.gri
 	});
 
 /* Définition des directives */
-sportsPredictions.directive('logoCeDisplay', logoCeDisplay);
 sportsPredictions.directive('pronostic', pronostic);
 sportsPredictions.directive('compileHtml', compileHtml);
 sportsPredictions.directive('pronosticFinal', pronosticFinal);

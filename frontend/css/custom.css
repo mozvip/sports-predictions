@@ -3,6 +3,11 @@
     src: url('../fonts/dusha.ttf');
 }
 
+.vTabs--default {
+    font-family: 'Dusha', sans-serif;
+    font-size: 24px;
+}
+
 h1#main-title{
 	font-family: 'Dusha', sans-serif;
 	text-align:center;
@@ -19,39 +24,7 @@ h1#main-title::first-letter {
 }
 
 #wrapper{
-	background-image:  radial-gradient(circle farthest-corner at top center,#2c6a93,#000a34);
-    background-position: center;
-	min-height:100%;
-	/*background-image: radial-gradient(circle farthest-corner at top center,#2c6a93,#000a34); */
-	z-index: 3;
-	position: relative;
-}
-
-#wrapper:before{
-	background: repeating-linear-gradient(90deg, #84c8d2, #84c8d2 100px, #75a4aa 100px, #75a4aa 200px);
-    opacity: .2;
-	content: "";
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    left: 0;
-	z-index: 1;
-}
-
-#wrapper:after{
-	background-image: radial-gradient(circle closest-corner at top center,#65beec,rgba(101,190,236,0));
-    opacity: .5;
-    filter: alpha(opacity=50);
-    z-index: 2;
-	content: "";
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    left: 0;
+	background-image: url('../images/field-stripes.jpg');
 }
 
 .box{
@@ -81,16 +54,6 @@ ul[rn-carousel] {
 .scoreWinner {
     color: green;
     font-weight: 800;
-}
-
-
-.group-name{
-	font-family: 'Dusha', sans-serif;
-	text-align:left;
-	margin-left:5%;
-	margin-bottom:2%;
-	font-size: 300%;
-	color:black;
 }
 
 .team-name{
@@ -547,21 +510,4 @@ html { height: 100%;}
 
 .previousranks{
 	margin-left: 25px;
-}
-
-/*-------------------------------*/
-/*            Logo CE            */
-/*-------------------------------*/
-
-#logo-ce{
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	z-index: 2;
-	color: white;
-}
-
-#logo-ce img{
-	height: 75px;
-	display: inline-block;
 }
