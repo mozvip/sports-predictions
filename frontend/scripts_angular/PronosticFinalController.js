@@ -60,8 +60,8 @@ angular.module('sports-predictions')
 						}
 
 						if (element.done) {
-							element.predictionHomeTeam = prediction.home_team_id;
-							element.predictionAwayTeam = prediction.away_team_id;
+							element.predictionHomeTeam = prediction.home_team_name;
+							element.predictionAwayTeam = prediction.away_team_name;
 						}
 
 						// Display real team if possible
@@ -142,9 +142,9 @@ angular.module('sports-predictions')
 				return {
 					match_id: game.matchNum,
 					away_score: game.predictionAway_Score,
-					away_team_id: game.awayTeam,
+					away_team_name: game.awayTeamName,
 					home_score: game.predictionHome_Score,
-					home_team_id: game.homeTeam,
+					home_team_name: game.homeTeamName,
 					home_winner: game.home_winner
 				};
 			}
@@ -160,9 +160,9 @@ angular.module('sports-predictions')
 
 				for (var i = 0; i < $scope.games.length; i++) {
 					if ($scope.games[i].homeTeamWinnerFrom === match.matchNum) {
-						$scope.games[i].homeTeam = winningTeamName;
+						$scope.games[i].homeTeamName = winningTeamName;
 					} else if ($scope.games[i].awayTeamWinnerFrom === match.matchNum) {
-						$scope.games[i].awayTeam = winningTeamName;
+						$scope.games[i].awayTeamName = winningTeamName;
 					}
 				}
 			}

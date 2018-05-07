@@ -11,14 +11,11 @@ import java.util.List;
 @RegisterRowMapper(MatchPredictionResultSetMapper.class)
 public interface MatchPredictionDAO {
 
-	@SqlUpdate("merge into match_prediction (community, email, match_id, home_score, away_score, home_team_id, away_team_id, home_winner) values (:community, :email, :match_id, :home_score, :away_score, :home_team_id, :away_team_id, :home_winner)")
+	@SqlUpdate("merge into match_prediction (community, email, match_id, home_score, away_score, home_team_name, away_team_name, home_winner) values (:community, :email, :match_id, :home_score, :away_score, :home_team_name, :away_team_name, :home_winner)")
 	void merge(@Bind("community") String community, @Bind("email") String email, @Bind("match_id") int match_id,
 			   @Bind("home_score") int home_score, @Bind("away_score") int away_score,
-			   @Bind("home_team_id") String home_team_id, @Bind("away_team_id") String away_team_id,
+			   @Bind("home_team_name") String home_team_name, @Bind("away_team_name") String away_team_name,
 			   @Bind("home_winner") boolean home_winner);
-
-	@SqlQuery("select * from match_prediction where community=:community")
-	List<MatchPrediction> findByCommunity(@Bind("community") String community);
 
 	@SqlQuery("select match_prediction.* from match_prediction inner join user on match_prediction.community = user.community and match_prediction.email = user.email where user.active=true and match_prediction.community=:community and match_id = :gameId")
 	List<MatchPrediction> findByGame(@Bind("community") String community, @Bind("gameId") int gameId);

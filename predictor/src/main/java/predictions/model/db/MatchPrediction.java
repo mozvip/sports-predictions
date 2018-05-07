@@ -13,11 +13,11 @@ public class MatchPrediction {
 	@JsonProperty
 	private int away_score;
 	@JsonProperty
-	private String away_team_id;
+	private String away_team_name;
 	@JsonProperty
 	private int home_score;
 	@JsonProperty
-	private String home_team_id;
+	private String home_team_name;
 	@JsonProperty
 	private boolean home_winner;
 	@JsonProperty
@@ -26,16 +26,16 @@ public class MatchPrediction {
 	public MatchPrediction() {
 	}
 
-	public MatchPrediction(String community, String email, int match_id, int away_score, String away_team_id,
-			int home_score, String home_team_id, boolean home_winner, int score) {
+	public MatchPrediction(String community, String email, int match_id, int away_score, String away_team_name,
+						   int home_score, String home_team_name, boolean home_winner, int score) {
 		super();
 		this.community = community;
 		this.email = email;
 		this.match_id = match_id;
 		this.away_score = away_score;
-		this.away_team_id = away_team_id;
+		this.away_team_name = away_team_name;
 		this.home_score = home_score;
-		this.home_team_id = home_team_id;
+		this.home_team_name = home_team_name;
 		this.home_winner = home_winner;
 		this.score = score;
 	}
@@ -80,12 +80,12 @@ public class MatchPrediction {
 		this.away_score = away_score;
 	}
 
-	public String getAway_team_id() {
-		return away_team_id;
+	public String getAway_team_name() {
+		return away_team_name;
 	}
 
-	public void setAway_team_id(String away_team_id) {
-		this.away_team_id = away_team_id;
+	public void setAway_team_name(String away_team_name) {
+		this.away_team_name = away_team_name;
 	}
 
 	public int getHome_score() {
@@ -96,12 +96,12 @@ public class MatchPrediction {
 		this.home_score = home_score;
 	}
 
-	public String getHome_team_id() {
-		return home_team_id;
+	public String getHome_team_name() {
+		return home_team_name;
 	}
 
-	public void setHome_team_id(String home_team_id) {
-		this.home_team_id = home_team_id;
+	public void setHome_team_name(String home_team_name) {
+		this.home_team_name = home_team_name;
 	}
 	
 	public int getScore() {

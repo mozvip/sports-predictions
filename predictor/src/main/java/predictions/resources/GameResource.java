@@ -75,7 +75,7 @@ public class GameResource {
 			
 		}
 		
-		return new GameStats( predictionsForGame.get(0).getHome_team_id(), predictionsForGame.get(0).getAway_team_id(), predictionsForGame.size(), perfect, good, bad);
+		return new GameStats( predictionsForGame.get(0).getHome_team_name(), predictionsForGame.get(0).getAway_team_name(), predictionsForGame.size(), perfect, good, bad);
 		
 	}
 

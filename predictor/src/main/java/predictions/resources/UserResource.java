@@ -174,8 +174,8 @@ public class UserResource {
 		}
 		for (MatchPrediction prediction : predictions.getMatch_predictions_attributes()) {
 			if (forceSave || !validatedMatches.contains( prediction.getMatch_id())) {
-				if (prediction.getHome_team_id() != null && prediction.getAway_team_id() != null) {
-					matchPredictionDAO.merge(community.getName(), email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_id(), prediction.getAway_team_id(), prediction.isHome_winner());
+				if (prediction.getHome_team_name() != null && prediction.getAway_team_name() != null) {
+					matchPredictionDAO.merge(community.getName(), email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_name(), prediction.getAway_team_name(), prediction.isHome_winner());
 				}
 			}
 		}

@@ -86,9 +86,9 @@ function ($scope, $location, UserService, PredictionService, GamesService, Notif
             email: UserService.getCurrentLogin(),
             match_id: game.matchNum,
             away_score: game.predictionAway_Score,
-            away_team_id: game.awayTeam,
+            away_team_name: game.awayTeamName,
             home_score: game.predictionHome_Score,
-            home_team_id: game.homeTeam,
+            home_team_name: game.homeTeamName,
             home_winner: (game.predictionHome_Score > game.predictionAway_Score)
         };
     }
