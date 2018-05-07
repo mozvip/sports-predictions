@@ -4,15 +4,15 @@
     "dateTime": "2018-06-14T17:00",
     "group": "A",
     "stadium": "Luzhniki Stadium, Moscow",
-    "homeTeamName": "Russia",
-    "awayTeamName": "Saudi Arabia"
+    "homeTeamName": "Russie",
+    "awayTeamName": "Arabie Saoudite"
   },
   {
     "matchNum": 2,
     "dateTime": "2018-06-15T14:00",
     "group": "A",
     "stadium": "Central Stadium, Yekaterinburg",
-    "homeTeamName": "Egypt",
+    "homeTeamName": "Egypte",
     "awayTeamName": "Uruguay"
   },
   {
@@ -20,8 +20,8 @@
     "dateTime": "2018-06-19T20:00",
     "group": "A",
     "stadium": "Krestovsky Stadium, Saint Petersburg",
-    "homeTeamName": "Russia",
-    "awayTeamName": "Egypt"
+    "homeTeamName": "Russie",
+    "awayTeamName": "Egypte"
   },
   {
     "matchNum": 18,
@@ -29,7 +29,7 @@
     "group": "A",
     "stadium": "Rostov Arena, Rostov-on-Don",
     "homeTeamName": "Uruguay",
-    "awayTeamName": "Saudi Arabia"
+    "awayTeamName": "Arabie Saoudite"
   },
   {
     "matchNum": 33,
@@ -37,22 +37,22 @@
     "group": "A",
     "stadium": "Cosmos Arena, Samara",
     "homeTeamName": "Uruguay",
-    "awayTeamName": "Russia"
+    "awayTeamName": "Russie"
   },
   {
     "matchNum": 34,
     "dateTime": "2018-06-25T16:00",
     "group": "A",
     "stadium": "Volgograd Arena, Volgograd",
-    "homeTeamName": "Saudi Arabia",
-    "awayTeamName": "Egypt"
+    "homeTeamName": "Arabie Saoudite",
+    "awayTeamName": "Egypte"
   },
   {
     "matchNum": 4,
     "dateTime": "2018-06-15T17:00",
     "group": "B",
     "stadium": "Krestovsky Stadium, Saint Petersburg",
-    "homeTeamName": "Morocco",
+    "homeTeamName": "Maroc",
     "awayTeamName": "Iran"
   },
   {
@@ -61,7 +61,7 @@
     "group": "B",
     "stadium": "Fisht Olympic Stadium, Sochi",
     "homeTeamName": "Portugal",
-    "awayTeamName": "Spain"
+    "awayTeamName": "Espagne"
   },
   {
     "matchNum": 19,
@@ -69,7 +69,7 @@
     "group": "B",
     "stadium": "Luzhniki Stadium, Moscow",
     "homeTeamName": "Portugal",
-    "awayTeamName": "Morocco"
+    "awayTeamName": "Maroc"
   },
   {
     "matchNum": 20,
@@ -77,7 +77,7 @@
     "group": "B",
     "stadium": "Kazan Arena, Kazan",
     "homeTeamName": "Iran",
-    "awayTeamName": "Spain"
+    "awayTeamName": "Espagne"
   },
   {
     "matchNum": 35,
@@ -92,8 +92,8 @@
     "dateTime": "2018-06-25T20:00",
     "group": "B",
     "stadium": "Kaliningrad Stadium, Kaliningrad",
-    "homeTeamName": "Spain",
-    "awayTeamName": "Morocco"
+    "homeTeamName": "Espagne",
+    "awayTeamName": "Maroc"
   },
   {
     "matchNum": 5,
@@ -101,23 +101,23 @@
     "group": "C",
     "stadium": "Kazan Arena, Kazan",
     "homeTeamName": "France",
-    "awayTeamName": "Australia"
+    "awayTeamName": "Australie"
   },
   {
     "matchNum": 6,
     "dateTime": "2018-06-16T18:00",
     "group": "C",
     "stadium": "Mordovia Arena, Saransk",
-    "homeTeamName": "Peru",
-    "awayTeamName": "Denmark"
+    "homeTeamName": "Pérou",
+    "awayTeamName": "Danemark"
   },
   {
     "matchNum": 22,
     "dateTime": "2018-06-21T14:00",
     "group": "C",
     "stadium": "Cosmos Arena, Samara",
-    "homeTeamName": "Denmark",
-    "awayTeamName": "Australia"
+    "homeTeamName": "Danemark",
+    "awayTeamName": "Australie"
   },
   {
     "matchNum": 21,
@@ -125,14 +125,14 @@
     "group": "C",
     "stadium": "Central Stadium, Yekaterinburg",
     "homeTeamName": "France",
-    "awayTeamName": "Peru"
+    "awayTeamName": "Pérou"
   },
   {
     "matchNum": 37,
     "dateTime": "2018-06-26T16:00",
     "group": "C",
     "stadium": "Luzhniki Stadium, Moscow",
-    "homeTeamName": "Denmark",
+    "homeTeamName": "Danemark",
     "awayTeamName": "France"
   },
   {
@@ -140,8 +140,8 @@
     "dateTime": "2018-06-26T16:00",
     "group": "C",
     "stadium": "Fisht Olympic Stadium, Sochi",
-    "homeTeamName": "Australia",
-    "awayTeamName": "Peru"
+    "homeTeamName": "Australie",
+    "awayTeamName": "Pérou"
   },
   {
     "matchNum": 7,
