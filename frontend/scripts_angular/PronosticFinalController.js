@@ -172,7 +172,7 @@ angular.module('sports-predictions')
 			$scope.winnerMatch = function (match) {
 				if (match.predictionHome_Score != undefined && match.predictionAway_Score != undefined) {
 					var homeWinner = (typeof match.home_winner == 'boolean' ? match.home_winner : Boolean(match.home_winner));
-					return (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && homeWinner)) ? match.homeTeam : match.awayTeam;
+					return (match.predictionHome_Score > match.predictionAway_Score || (match.predictionHome_Score == match.predictionAway_Score && homeWinner)) ? match.homeTeamName : match.awayTeamName;
 				}
 				else
 					return false;
