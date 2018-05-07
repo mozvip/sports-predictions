@@ -9,6 +9,8 @@ import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
 import predictions.configuration.GoogleSigninConfiguration;
 
+import java.util.Set;
+
 public class PredictionsConfiguration extends Configuration {
 
 	private boolean liveWebSite = false;
@@ -43,6 +45,8 @@ public class PredictionsConfiguration extends Configuration {
 	@Valid
 	@NotNull
 	private String oAuth2CredentialsFolder;
+
+	private Set<String> administratorAccounts;
 
 	public String getGoogleReCaptchaSecretKey() {
 		return googleReCaptchaSecretKey;
@@ -142,5 +146,13 @@ public class PredictionsConfiguration extends Configuration {
 
 	public void setGoogleSignin(GoogleSigninConfiguration googleSignin) {
 		this.googleSignin = googleSignin;
+	}
+
+	public Set<String> getAdministratorAccounts() {
+		return administratorAccounts;
+	}
+
+	public void setAdministratorAccounts(Set<String> administratorAccounts) {
+		this.administratorAccounts = administratorAccounts;
 	}
 }

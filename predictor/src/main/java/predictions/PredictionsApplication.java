@@ -117,7 +117,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		
 		CommunityBasicCredentialAuthFilter<User> basicCredentialAuthFilter = new CommunityBasicCredentialAuthFilter.Builder<User>(configuration.getDefaultCommunity())
             .setAuthenticator( basicAuthenticator )
-            .setAuthorizer(new PredictorAuthorizer())
+            .setAuthorizer(new PredictorAuthorizer(configuration.getAdministratorAccounts()))
             .setRealm(configuration.getEventName() + " Application Realm")
             .buildAuthFilter();
 	    
@@ -125,7 +125,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 
 		CommunityOAuthCredentialAuthFilter oauthCredentialAuthFilter = new CommunityOAuthCredentialAuthFilter.Builder(configuration.getDefaultCommunity())
         	.setAuthenticator( oAuthAuthenticator )
-            .setAuthorizer(new PredictorAuthorizer())
+            .setAuthorizer(new PredictorAuthorizer(configuration.getAdministratorAccounts()))
 			.setPrefix("Bearer")
             .setRealm(configuration.getEventName() + " Application Realm")
             .buildAuthFilter();
