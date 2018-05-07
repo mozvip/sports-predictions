@@ -60,32 +60,47 @@ var pronostic = function(){
 			
 			$scope.classFlagTeam = function(nameTeam) {
 				var linking = {
-					"France" : "FRA",
-					"Allemagne" : "GER",
-					"Albanie" : "ALB",
+					"France" : "fr",
+					"Allemagne" : "de",
+					"Albanie" : "al",
+                    "Arabie Saoudite" : "sa",
 					"Autriche" : "AUT",
-					"Belgique" : "BEL", 
+                    "Australie" : "au",
+					"Belgique" : "be",
+                    "Brésil" : "br",
+                    "Costa Rica" : "cr",
+                    "Croatie" : "hr",
+                    "Danemark" : "dk",
+                    "Pérou" : "pe",
+                    "Maroc" : "ma",
+                    "Russie" : "ru",
+                    "Uruguay" : "uy",
+                    "Argentine" : "ar",
+                    "Egypte" : "eg",
+                    "Iran" : "ir",
 					"Roumanie" : "ROU",
-					"Suisse" : "SUI", 
-					"Angleterre" : "ENG", 
-					"Russie" : "RUS", 
+					"Angleterre" : "gb",
 					"Slovaquie" : "SVK",
 					"Galles" : "WAL",
 					"Irlande Du Nord" : "NIR", 
 					"Pologne" : "POL", 
 					"Ukraine" : "UKR",
-					"Croatie" :  "CRO",
 					"Rep. Tcheque"  : "CZE",
-					"Espagne" : "ESP",
+                    "Corée du Sud"  : "kr",
+					"Espagne" : "es",
+                    "Nigéria"  : "ng",
 					"Turquie" : "TUR",
 					"Italie" : "ITA", 
-					"Irlande" : "IRL", 
-					"Suede" : "SWE", 
-					"Hongrie" : "HUN", 
-					"Islande" : "ISL",
-					"Portugal" : "POR"
+					"Irlande" : "IRL",
+                    "Mexique" : "mx",
+                    "Serbie" : "rs",
+					"Suède" : "se",
+                    "Suisse" : "ch",
+					"Hongrie" : "hu",
+					"Islande" : "is",
+					"Portugal" : "pt"
 				}
-				return "flag-"+linking[nameTeam];
+				return "flag-icon flag-icon-"+linking[nameTeam];
 			};
         }
     };

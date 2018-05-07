@@ -148,48 +148,48 @@
     "dateTime": "2018-06-16T15:00",
     "group": "D",
     "stadium": "Otkritie Arena, Moscow",
-    "homeTeamName": "Argentina",
-    "awayTeamName": "Iceland"
+    "homeTeamName": "Argentine",
+    "awayTeamName": "Islande"
   },
   {
     "matchNum": 8,
     "dateTime": "2018-06-16T21:00",
     "group": "D",
     "stadium": "Kaliningrad Stadium, Kaliningrad",
-    "homeTeamName": "Croatia",
-    "awayTeamName": "Nigeria"
+    "homeTeamName": "Croatie",
+    "awayTeamName": "Nigéria"
   },
   {
     "matchNum": 23,
     "dateTime": "2018-06-21T20:00",
     "group": "D",
     "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
-    "homeTeamName": "Argentina",
-    "awayTeamName": "Croatia"
+    "homeTeamName": "Argentine",
+    "awayTeamName": "Croatie"
   },
   {
     "matchNum": 24,
     "dateTime": "2018-06-22T17:00",
     "group": "D",
     "stadium": "Volgograd Arena, Volgograd",
-    "homeTeamName": "Nigeria",
-    "awayTeamName": "Iceland"
+    "homeTeamName": "Nigéria",
+    "awayTeamName": "Islande"
   },
   {
     "matchNum": 39,
     "dateTime": "2018-06-26T20:00",
     "group": "D",
     "stadium": "Krestovsky Stadium, Saint Petersburg",
-    "homeTeamName": "Nigeria",
-    "awayTeamName": "Argentina"
+    "homeTeamName": "Nigéria",
+    "awayTeamName": "Argentine"
   },
   {
     "matchNum": 40,
     "dateTime": "2018-06-26T20:00",
     "group": "D",
     "stadium": "Rostov Arena, Rostov-on-Don",
-    "homeTeamName": "Iceland",
-    "awayTeamName": "Croatia"
+    "homeTeamName": "Islande",
+    "awayTeamName": "Croatie"
   },
   {
     "matchNum": 10,
@@ -197,22 +197,22 @@
     "group": "E",
     "stadium": "Cosmos Arena, Samara",
     "homeTeamName": "Costa Rica",
-    "awayTeamName": "Serbia"
+    "awayTeamName": "Serbie"
   },
   {
     "matchNum": 9,
     "dateTime": "2018-06-17T20:00",
     "group": "E",
     "stadium": "Rostov Arena, Rostov-on-Don",
-    "homeTeamName": "Brazil",
-    "awayTeamName": "Switzerland"
+    "homeTeamName": "Brésil",
+    "awayTeamName": "Suisse"
   },
   {
     "matchNum": 25,
     "dateTime": "2018-06-22T14:00",
     "group": "E",
     "stadium": "Krestovsky Stadium, Saint Petersburg",
-    "homeTeamName": "Brazil",
+    "homeTeamName": "Brésil",
     "awayTeamName": "Costa Rica"
   },
   {
@@ -220,23 +220,23 @@
     "dateTime": "2018-06-22T20:00",
     "group": "E",
     "stadium": "Kaliningrad Stadium, Kaliningrad",
-    "homeTeamName": "Serbia",
-    "awayTeamName": "Switzerland"
+    "homeTeamName": "Serbie",
+    "awayTeamName": "Suisse"
   },
   {
     "matchNum": 41,
     "dateTime": "2018-06-27T20:00",
     "group": "E",
     "stadium": "Otkritie Arena, Moscow",
-    "homeTeamName": "Serbia",
-    "awayTeamName": "Brazil"
+    "homeTeamName": "Serbie",
+    "awayTeamName": "Brésil"
   },
   {
     "matchNum": 42,
     "dateTime": "2018-06-27T20:00",
     "group": "E",
     "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
-    "homeTeamName": "Switzerland",
+    "homeTeamName": "Suisse",
     "awayTeamName": "Costa Rica"
   },
   {
@@ -244,48 +244,48 @@
     "dateTime": "2018-06-17T17:00",
     "group": "F",
     "stadium": "Luzhniki Stadium, Moscow",
-    "homeTeamName": "Germany",
-    "awayTeamName": "Mexico"
+    "homeTeamName": "Allemagne",
+    "awayTeamName": "Mexique"
   },
   {
     "matchNum": 12,
     "dateTime": "2018-06-18T14:00",
     "group": "F",
     "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
-    "homeTeamName": "Sweden",
-    "awayTeamName": "South Korea"
+    "homeTeamName": "Suède",
+    "awayTeamName": "Corée du Sud"
   },
   {
     "matchNum": 28,
     "dateTime": "2018-06-23T17:00",
     "group": "F",
     "stadium": "Rostov Arena, Rostov-on-Don",
-    "homeTeamName": "South Korea",
-    "awayTeamName": "Mexico"
+    "homeTeamName": "Corée du Sud",
+    "awayTeamName": "Mexique"
   },
   {
     "matchNum": 27,
     "dateTime": "2018-06-23T20:00",
     "group": "F",
     "stadium": "Fisht Olympic Stadium, Sochi",
-    "homeTeamName": "Germany",
-    "awayTeamName": "Sweden"
+    "homeTeamName": "Allemagne",
+    "awayTeamName": "Suède"
   },
   {
     "matchNum": 43,
     "dateTime": "2018-06-27T16:00",
     "group": "F",
     "stadium": "Kazan Arena, Kazan",
-    "homeTeamName": "South Korea",
-    "awayTeamName": "Germany"
+    "homeTeamName": "Corée du Sud",
+    "awayTeamName": "Allemagne"
   },
   {
     "matchNum": 44,
     "dateTime": "2018-06-27T16:00",
     "group": "F",
     "stadium": "Central Stadium, Yekaterinburg",
-    "homeTeamName": "Mexico",
-    "awayTeamName": "Sweden"
+    "homeTeamName": "Mexique",
+    "awayTeamName": "Suède"
   },
   {
     "matchNum": 13,

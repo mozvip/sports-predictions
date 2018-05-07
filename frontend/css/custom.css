@@ -1,5 +1,10 @@
+@font-face {
+    font-family: "Dusha";
+    src: url('../fonts/dusha.ttf');
+}
+
 h1#main-title{
-	font-family: 'IBM Plex Sans', sans-serif;
+	font-family: 'Dusha', sans-serif;
 	text-align:center;
 	font-size: 500%;
 	color:white;
@@ -80,7 +85,7 @@ ul[rn-carousel] {
 
 
 .group-name{
-	font-family: 'IBM Plex Sans', sans-serif;
+	font-family: 'Dusha', sans-serif;
 	text-align:left;
 	margin-left:5%;
 	margin-bottom:2%;
@@ -89,7 +94,7 @@ ul[rn-carousel] {
 }
 
 .team-name{
-	font-family: 'IBM Plex Sans', sans-serif;
+	font-family: 'Dusha', sans-serif;
 	font-size: 200%;
 	color:black;
 }
