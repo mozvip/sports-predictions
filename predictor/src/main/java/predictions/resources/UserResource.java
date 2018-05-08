@@ -44,7 +44,7 @@ import java.util.*;
 )
 public class UserResource {
 
-	private final static Logger logger = LoggerFactory.getLogger( UserResource.class );
+	private final static Logger LOGGER = LoggerFactory.getLogger( UserResource.class );
 
     private PhaseManager phaseManager;
 
@@ -115,10 +115,10 @@ public class UserResource {
 
 		if (community == null) {
 			// FIXME: create new community with default settings ??
-			community = new Community(communityName, true, AccessType.W, AccessType.W);
-			communityDAO.updateCommunity(community.getName(), community.isCreateAccountEnabled(), community.getGroupsAccess(), community.getFinalsAccess());
+			community = new Community(communityName, true, null, AccessType.W, AccessType.W);
+			communityDAO.updateCommunity(community.getName(), community.isCreateAccountEnabled(), community.getOpeningDate(), community.getGroupsAccess(), community.getFinalsAccess());
 		} else if (!community.isCreateAccountEnabled()) {
-			return;	// FIXME: error code
+			return;	// FIXME: error code 403
 		}
 		
 		recaptcha(recaptcha);
@@ -128,9 +128,9 @@ public class UserResource {
 		
 		User user = userDAO.findUser(communityName, email );
 		if (user == null) {
-			userDAO.insert(email, name, communityName, password );
+			userDAO.insert(email, name, communityName, password, configuration.getAdministratorAccounts() != null && configuration.getAdministratorAccounts().contains(email) );
 		} else {
-			logger.warn("Attempt to create an already existing user : {} on community {}", email, communityName);
+			LOGGER.warn("Attempt to create an already existing user : {} on community {}", email, communityName);
 		}
 	}
 

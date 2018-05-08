@@ -12,8 +12,8 @@ import java.util.UUID;
 @RegisterRowMapper(UserResultSetMapper.class)
 public interface UserDAO {
 
-	@SqlUpdate("insert into sp_user (email, name, community, password, admin, EMAIL_VALID, ACTIVE) values (:email, :name, :community, HASH('SHA256', STRINGTOUTF8(:password),1000), false, false, true)")
-	int insert(@Bind("email") String email, @Bind("name") String name, @Bind("community") String community, @Bind("password") String password);
+	@SqlUpdate("insert into sp_user (email, name, community, password, admin, EMAIL_VALID, ACTIVE) values (:email, :name, :community, HASH('SHA256', STRINGTOUTF8(:password),1000), :admin, false, true)")
+	int insert(@Bind("email") String email, @Bind("name") String name, @Bind("community") String community, @Bind("password") String password, @Bind("admin") boolean admin);
 
 	@SqlUpdate("update sp_user set CURRENT_SCORE=:score where community=:community AND email=:email")
 	int updateScore(@Bind("email") String email, @Bind("community") String community, @Bind("score") int score);

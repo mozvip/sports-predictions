@@ -44,9 +44,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 
 	@Override
 	public void initialize(Bootstrap<PredictionsConfiguration> bootstrap) {
-
 		bootstrap.addBundle(new AssetsBundle("/assets", "/", "index.html"));
-
 		bootstrap.addBundle(new MigrationsBundle<PredictionsConfiguration>() {
 			public DataSourceFactory getDataSourceFactory(
 					PredictionsConfiguration configuration) {

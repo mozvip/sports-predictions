@@ -121,8 +121,8 @@
     			<constraints primaryKey="true" primaryKeyName="PK_FIXTURE"/>
     		</column>
             <column name="COMPETITION_ID" type="INTEGER" />
-    		<column name="FIXTURE_GROUP" type="VARCHAR(100)">
-    		</column>
+    		<column name="FIXTURE_GROUP" type="VARCHAR(100)" />
+            <column name="DATETIME" type="TIMESTAMP"/>
     		<column name="HOME_TEAM_NAME" type="VARCHAR(100)">
                 <constraints nullable="false"/>
     		</column>
@@ -164,6 +164,7 @@
     			<constraints primaryKey="true" primaryKeyName="PK_COMMUNITY"/>
     		</column>
     		<column name="CREATE_ACCOUNT_ENABLED" type="BOOLEAN"></column>
+            <column name="OPENING_DATE" type="TIMESTAMP"></column>
             <column name="GROUPS_ACCESS" type="VARCHAR(1)" defaultValue="N">
                 <constraints nullable="false"/>
             </column>
@@ -172,21 +173,5 @@
             </column>
     	</createTable>
     </changeSet>
-
-    <changeSet id="25" author="Guillaume Serre">
-    	<update tableName="SP_USER">
-    		<column name="ADMIN" value="true"></column>
-    		<where>EMAIL='test@gmail.com' AND COMMUNITY='test'</where>
-    	</update>
-        <update tableName="SP_USER">
-            <column name="ADMIN" value="true"></column>
-            <where>EMAIL='guillaume.serre@cgi.com' AND COMMUNITY='grand-est'</where>
-        </update>
-        <update tableName="SP_USER">
-            <column name="ADMIN" value="true"></column>
-            <where>EMAIL='sylvain.le.gouellec@cgi.com' AND COMMUNITY='grand-est'</where>
-        </update>
-    </changeSet>
-
 
 </databaseChangeLog>

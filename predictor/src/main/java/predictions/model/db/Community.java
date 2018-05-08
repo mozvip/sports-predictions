@@ -1,6 +1,10 @@
 package predictions.model.db;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class Community {
 
@@ -9,6 +13,10 @@ public class Community {
 
 	@JsonProperty
 	private boolean createAccountEnabled = true;
+
+	@JsonProperty
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+	private ZonedDateTime openingDate = null;
 
 	@JsonProperty
 	private AccessType groupsAccess = AccessType.N;
@@ -20,9 +28,10 @@ public class Community {
 		
 	}
 
-	public Community(String name, boolean createAccountEnabled, AccessType groupsAccess, AccessType finalsAccess) {
+	public Community(String name, boolean createAccountEnabled, ZonedDateTime openingDate, AccessType groupsAccess, AccessType finalsAccess) {
 		super();
 		this.name = name;
+		this.openingDate = openingDate;
 		this.createAccountEnabled = createAccountEnabled;
 		this.groupsAccess = groupsAccess;
 		this.finalsAccess = finalsAccess;
@@ -44,4 +53,11 @@ public class Community {
 		return finalsAccess;
 	}
 
+	public ZonedDateTime getOpeningDate() {
+		return openingDate;
+	}
+
+	public void setOpeningDate(ZonedDateTime openingDate) {
+		this.openingDate = openingDate;
+	}
 }

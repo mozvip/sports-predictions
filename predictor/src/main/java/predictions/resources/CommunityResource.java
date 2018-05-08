@@ -40,7 +40,7 @@ public class CommunityResource {
 		String name = (String) httpRequest.getAttribute("community");
 		Community community = communityDAO.getCommunity(name);
 		if (community == null) {
-			community = new Community(name, true, AccessType.R, AccessType.R);
+			community = new Community(name, true, null, AccessType.R, AccessType.R);
 		}
 		return community;
 	}
@@ -50,7 +50,11 @@ public class CommunityResource {
 	@ApiOperation(tags="admin", value = "Update settings of the community", authorizations = @Authorization("basicAuth"))
 	public void save(@ApiParam(hidden = true) @Auth User user, Community communityParameters) {
 		String name = (String) httpRequest.getAttribute("community");
-		communityDAO.updateCommunity(name, communityParameters.isCreateAccountEnabled(), communityParameters.getGroupsAccess(), communityParameters.getFinalsAccess());
+		communityDAO.updateCommunity(name,
+				communityParameters.isCreateAccountEnabled(),
+				communityParameters.getOpeningDate(),
+				communityParameters.getGroupsAccess(),
+				communityParameters.getFinalsAccess());
 	}
 
 }
