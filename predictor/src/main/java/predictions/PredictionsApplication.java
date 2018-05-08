@@ -78,7 +78,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.servlets().addFilter("CommunityFilter", communityFilter).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
 		if (configuration.isLiveWebSite()) {
-			PhaseFilter phaseFilter = new PhaseFilter(phaseManager);
+			PhaseFilter phaseFilter = new PhaseFilter(phaseManager, communityDAO);
 			environment.servlets().addFilter("SitePhaseFilter", phaseFilter).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 		}
 
@@ -143,6 +143,9 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    config.setResourcePackage("predictions");
 	    config.setScan(true);
 
+		for (String email : configuration.getAdministratorAccounts()) {
+			userDAO.setAdmin(email, true);
+		}
 	}
 
 	public static void main(String[] args) throws Exception {
