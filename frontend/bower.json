@@ -15,23 +15,23 @@
   ],
   "dependencies": {
     "bootstrap": "#3.3.6",
-    "angular": "#1.5.5",
-    "angular-sweetalert": "^1.1.0",
+    "angular": "#1.6.10",
+    "angular-sweetalert": "latest",
     "angular-bootstrap": "~1.3.2",
     "angular-route": "^1.5.3",
     "backstretch": "^2.0.4",
     "angular-loading-bar": "^0.9.0",
-    "angular-cookies": "^1.5.5",
+    "angular-cookies": "^1.6.10",
     "angular-recaptcha": "^3.0.3",
     "angular-linq": "^1.0.2",
-    "angular-ui-notification": "^0.2.0",
+    "angular-ui-notification": "0.3.6",
     "ng-table": "^0.8.3",
-    "angular-animate": "^1.5.5",
+    "angular-animate": "^1.6.10",
     "angular-ui-grid": "~3.1.1",
     "v-tabs": "~0.2.0",
-    "ngSweetAlert": "angular-sweetalert#~1.1.0"
+    "flag-icon-css": "^3.1.0"
   },
   "resolutions": {
-    "angular": "1.5.5"
+    "angular": "1.6.10"
   }
 }

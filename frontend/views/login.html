@@ -13,12 +13,12 @@
 				<input name="password" placeholder="Mot de passe" class="form-control" type="password" id="UserPassword" required="required" ng-model="User.Password">
 				<span class="glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
 				<span class="help-block">
-					<a href="#forget-password">Mot de passe oublié ?</a>
+					<a ng-href="/forget-password">Mot de passe oublié ?</a>
 				</span>
 			</div>
 			
 			<button class="btn btn-block btn-primary" type="submit"><span class="glyphicon glyphicon-log-in"></span> Se Connecter</button>
-			<a ng-if="community.createAccountEnabled" href="#sign-up" class="btn btn-block btn-success">Pas encore de compte ? Créez en un nouveau !</a>
+			<a ng-if="community.createAccountEnabled" ng-href="/sign-up" class="btn btn-block btn-success">Pas encore de compte ? Créez en un nouveau !</a>
 		</form>
 		<div ng-if="community.createAccountEnabled" style="text-align: center">
 			<h3 ng-if="count > 0">Rejoignez {{count}} participants déjà inscrits !</h3>
