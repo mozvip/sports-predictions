@@ -156,7 +156,7 @@ angular.module('sports-predictions')
                 }
             });
 
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
     }]);
 
 angular.module('sports-predictions')
