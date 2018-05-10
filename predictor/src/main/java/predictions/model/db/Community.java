@@ -1,9 +1,7 @@
 package predictions.model.db;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class Community {
@@ -15,7 +13,7 @@ public class Community {
 	private boolean createAccountEnabled = true;
 
 	@JsonProperty
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+
 	private ZonedDateTime openingDate = null;
 
 	@JsonProperty
@@ -55,9 +53,5 @@ public class Community {
 
 	public ZonedDateTime getOpeningDate() {
 		return openingDate;
-	}
-
-	public void setOpeningDate(ZonedDateTime openingDate) {
-		this.openingDate = openingDate;
 	}
 }

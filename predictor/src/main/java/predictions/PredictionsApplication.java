@@ -1,6 +1,7 @@
 package predictions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.mozvip.footballdata.FootballDataClient;
 import com.google.common.collect.Lists;
 import io.dropwizard.Application;
@@ -56,6 +57,8 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	@Override
 	public void run(PredictionsConfiguration configuration,
 			Environment environment) throws Exception {
+
+		environment.getObjectMapper().disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
 		final JdbiFactory factory = new JdbiFactory();
 		final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
