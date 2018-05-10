@@ -71,7 +71,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 
 		PhaseManager phaseManager = new PhaseManager();
 		environment.lifecycle().manage(phaseManager);
-		
+
 		environment.jersey().setUrlPattern("/api");
 
 		CommunityFilter communityFilter = new CommunityFilter(configuration.getDefaultCommunity());
@@ -93,6 +93,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    client = new DefaultHttpClient(new ThreadSafeClientConnManager(params, mgr.getSchemeRegistry()), params);		
 		
 		GmailService gmail = new GmailService(getName(), configuration);
+		environment.lifecycle().manage(gmail);
 
 		environment.jersey().register(new GoogleSigninResource(configuration.getGoogleSignin().getClientId()));
 

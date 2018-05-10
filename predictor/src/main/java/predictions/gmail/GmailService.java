@@ -31,9 +31,14 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
 
+import io.dropwizard.lifecycle.Managed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import predictions.PredictionsConfiguration;
 
-public class GmailService {
+public class GmailService implements Managed {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(GmailService.class);
     
     /** Application name. */
 	private String applicationName;
@@ -41,6 +46,8 @@ public class GmailService {
     Path credentialsFolder;
     /** Global instance of the {@link FileDataStoreFactory}. */
     private FileDataStoreFactory dataStoreFactory;
+
+    private Gmail service;
 
     public GmailService( String applicationName, PredictionsConfiguration configuration ) throws IOException {
 		this.applicationName = applicationName;
@@ -76,22 +83,29 @@ public class GmailService {
      */
     public Credential authorize() throws IOException {
         // Load client secrets.
-    	InputStream in = Files.newInputStream( credentialsFolder.resolve("client_secret.json") );
-        GoogleClientSecrets clientSecrets =
-            GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+        Path clientSecretFile = credentialsFolder.resolve("client_secret.json");
 
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(
-                        HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(dataStoreFactory)
-                .setAccessType("offline")
-                .build();
-        Credential credential = new AuthorizationCodeInstalledApp(
-            flow, new LocalServerReceiver()).authorize("user");
-        System.out.println(
-                "Credentials saved to " + credentialsFolder.toAbsolutePath().toString());
-        return credential;
+        if (!Files.exists(clientSecretFile)) {
+            LOGGER.error("File {} could not be read : mail sending disabled", clientSecretFile.toAbsolutePath().toString());
+            return null;
+        }
+
+        try (InputStream in = Files.newInputStream(clientSecretFile)) {
+            GoogleClientSecrets clientSecrets =
+                    GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+            // Build flow and trigger user authorization request.
+            GoogleAuthorizationCodeFlow flow =
+                    new GoogleAuthorizationCodeFlow.Builder(
+                            HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                            .setDataStoreFactory(dataStoreFactory)
+                            .setAccessType("offline")
+                            .build();
+            Credential credential = new AuthorizationCodeInstalledApp(
+                    flow, new LocalServerReceiver()).authorize("user");
+            LOGGER.info("Credentials saved to " + credentialsFolder.toAbsolutePath().toString());
+            return credential;
+        }
     }
 
     /**
@@ -125,9 +139,6 @@ public class GmailService {
     }    
     
     public void sendEmail( String to, String subject, String htmlMessage ) throws IOException, MessagingException {
-    	
-    	Gmail service = getGmailService();
-
     	MimeMessage email = new MimeMessage( (Session) null );
 		email.setSubject( subject );
 		email.setRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress(to, false));
@@ -137,7 +148,15 @@ public class GmailService {
 		Message message = createMessageWithEmail( email );
    	
 		service.users().messages().send("me", message).execute();
-		
     }
 
+    @Override
+    public void start() throws Exception {
+        service = getGmailService();
+    }
+
+    @Override
+    public void stop() throws Exception {
+
+    }
 }
