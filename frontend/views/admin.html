@@ -9,7 +9,7 @@
                     ng-model="selectedGame"></select>
                 <div ng-show="selectedGame" class="row pronostic-row">
                     <div class="row">
-                        <small>Le {{selectedGame.dateTime}} à {{selectedGame.stadium}}</small>
+                        <small>Le {{selectedGame.dateTime | date : 'dd/MM/yyyy HH:mm:ss' }} à {{selectedGame.stadium}}</small>
                         <div class="col-md-5 team-name">
                             <h3 class="text-right">{{selectedGame.homeTeamName}}</h3>
                         </div>

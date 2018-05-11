@@ -72,10 +72,20 @@ angular.module('sports-predictions')
                 },
                 authorized: true,
                 templateUrl: '/views/pronosticFinalDelegate.html'
-            })            
+            })
             .when('/login', {
                 controller: 'LoginController',
                 templateUrl: '/views/login.html',
+                resolve: {
+                    count: ['UserService', function (UserService) {
+                        return UserService.getCount();
+                    }]
+                },
+                authorized: false
+            })
+            .when('/coming-soon', {
+                controller: 'ComingSoonController',
+                templateUrl: '/views/coming-soon.html',
                 resolve: {
                     count: ['UserService', function (UserService) {
                         return UserService.getCount();
@@ -152,6 +162,13 @@ angular.module('sports-predictions')
                 resolve: {
                     currentUser: ['UserService', function (UserService) {
                         return UserService.getCurrentUser();
+                    }],
+                    check:['CommunityService', '$location', function(CommunityService, $location){
+                        CommunityService.getCommunity().then(function(community){
+                            if (new Date(community.openingDate) > new Date()) {
+                                $location.path('coming-soon');
+                            }
+                        });
                     }]
                 }
             });
@@ -160,7 +177,7 @@ angular.module('sports-predictions')
     }]);
 
 angular.module('sports-predictions')
-    .run(['$rootScope', '$location', 'UserService', 'BackendService', function ($rootScope, $location, UserService, BackendService) {
+    .run(['$rootScope', '$location', 'UserService', function ($rootScope, $location, UserService) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             if (next.authorized && !UserService.isConnected()) {
                 $location.url('login');

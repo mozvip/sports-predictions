@@ -84,7 +84,15 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
         $scope.selectedGame = undefined;
 
         $scope.saveParameters = function() {
-                CommunityService.save( community );
+            CommunityService.save( community ).then( function(response) {
+                Notification.success({ 'title': 'Success', 'message': 'Les changements ont été sauvegardés avec succès' });
+            }, function(response) {
+                Notification.error({ 'title': response.statusText, 'message': response.data.message });
+            });
+        }
+
+        $scope.authorizeGMail = function() {
+            Notification.error({ 'title': 'Error', 'message': 'not implemented yet!' });
         }
 
         $scope.recalculateScores = function() {

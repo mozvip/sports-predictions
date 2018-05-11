@@ -69,9 +69,9 @@
 
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
-	<link rel="stylesheet" href="https://unpkg.com/sweetalert@1.1.3/dist/sweetalert.css" />
 	<link rel="stylesheet" href="bower_components/flag-icon-css/css/flag-icon.css" />
 
+	<link rel="stylesheet" href="https://unpkg.com/sweetalert@1.1.3/dist/sweetalert.css" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="css/custom.css" />
@@ -102,12 +102,10 @@
 
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul ng-show="connected()" class="nav navbar-nav navbar-right">								
-								<!-- FIXME
+							<ul ng-show="connected()" class="nav navbar-nav navbar-right">
 								<li>
 									<a href="#stats">Statistiques <span class="glyphicon glyphicon-tasks"> </span></a>
 								</li>
-								-->
 								<li>
 									<a ng-href="/#!/ranks">Classement <span class="glyphicon glyphicon-list"> </span><span class="badge" style="margin-left: 5px; margin-bottom: 5px;">{{currentRanking()}}</span></a>
 								</li>

@@ -15,7 +15,7 @@ angular.module('sports-predictions')
                             data.openingDate = new Date(data.openingDate);
                             deferredObject.resolve(data);
                         }, function (response) {
-                            deferredObject.reject();
+                            deferredObject.reject(response);
                         }
                     )
                 }
@@ -24,6 +24,9 @@ angular.module('sports-predictions')
 
             save: function (community) {
                 var config = BackendService.getRequestConfig();
+
+                community.openingDate = new Date(community.openingDate);
+
                 var data = JSON.stringify(community);
 
                 currentCommunity = undefined;   // force refresh on next call
@@ -31,9 +34,9 @@ angular.module('sports-predictions')
                 var deferredObject = $q.defer();
                 $http.post(BackendService.getBackEndURL() + "community", data, config).then(
                     function (response) {
-                        deferredObject.resolve(response.data);
+                        deferredObject.resolve(response);
                     }, function (response) {
-                        deferredObject.reject();
+                        deferredObject.reject(response);
                     }
                 )
                 return deferredObject.promise;
