@@ -283,10 +283,10 @@ public class UserResource {
 		
 		String subject = String.format("Mot de passe oublié pour https://%s.%s", community, configuration.getPublicDomain());
 		
-		String resetPasswordLink = String.format("https://%s.%s/#/forget-password/%s/%s", community, configuration.getPublicDomain(), email, uuid.toString());
+		String resetPasswordLink = String.format("https://%s.%s/#!/forget-password/%s/%s", community, configuration.getPublicDomain(), email, uuid.toString());
 		String htmlMessage = String.format( "<p>Cliquez <a href='%s'>ce lien</a> pour choisir un nouveau mot de passe</p>", resetPasswordLink );
 
-		gmail.sendEmail( existingUser.getEmail(), subject, htmlMessage );
+		gmail.sendEmail( mailFrom, existingUser.getEmail(), subject, htmlMessage );
 
 		
 		return Response.ok().build();
@@ -294,7 +294,7 @@ public class UserResource {
 
 	public String getAdminEmail(String community) {
 		List<User> communityAdmins = userDAO.findAdmins( community );
-		String mailFrom = "guillaume.serre@gmail.com";
+		String mailFrom = "me";
 		if (communityAdmins != null && communityAdmins.size() > 0) {
 			mailFrom = communityAdmins.get(0).getEmail();
 		}

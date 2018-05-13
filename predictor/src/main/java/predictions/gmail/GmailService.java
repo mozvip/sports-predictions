@@ -130,24 +130,22 @@ public class GmailService implements Managed {
      */
     public static Message createMessageWithEmail(MimeMessage email)
         throws MessagingException, IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      email.writeTo(baos);
-      String encodedEmail = Base64.encodeBase64URLSafeString(baos.toByteArray());
-      Message message = new Message();
-      message.setRaw(encodedEmail);
-      return message;
-    }    
+      try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+          email.writeTo(baos);
+          String encodedEmail = Base64.encodeBase64URLSafeString(baos.toByteArray());
+          Message message = new Message();
+          message.setRaw(encodedEmail);
+          return message;
+      }
+    }
     
-    public void sendEmail( String to, String subject, String htmlMessage ) throws IOException, MessagingException {
+    public void sendEmail( String from, String to, String subject, String htmlMessage ) throws IOException, MessagingException {
     	MimeMessage email = new MimeMessage( (Session) null );
 		email.setSubject( subject );
 		email.setRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress(to, false));
 		email.setContent(htmlMessage, "text/html; charset=utf-8");
-		email.setSentDate(new Date());
-		
 		Message message = createMessageWithEmail( email );
-   	
-		service.users().messages().send("me", message).execute();
+		service.users().messages().send(from!=null ? from : "me", message).execute();
     }
 
     @Override
