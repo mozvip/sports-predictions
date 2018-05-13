@@ -12,7 +12,7 @@
 * changePassword() -> Can change password for current user
 **/
 angular.module('sports-predictions')
-    .factory('UserService', ['$rootScope', '$http', '$q', '$cookies', 'BackendService', function ($rootScope, $http, $q, $cookies, BackendService) {
+    .factory('UserService', ['$rootScope', '$http', '$q', '$window', 'BackendService', function ($rootScope, $http, $q, $window, BackendService) {
 
 		var connectedUser;
 		
@@ -26,7 +26,7 @@ angular.module('sports-predictions')
 					function (response) {
 						deferredObject.resolve(response);
 					}, function (response) {
-						deferredObject.reject();
+						deferredObject.reject(response);
 					}
 				)
 				return deferredObject.promise;
@@ -37,7 +37,7 @@ angular.module('sports-predictions')
 			},
 			
 			isConnected: function() {
-				return connectedUser != undefined || BackendService.getToken() != undefined;	
+				return connectedUser != undefined || BackendService.getToken() != undefined;
 			},
 			
 			isAdmin: function() {
@@ -82,7 +82,7 @@ angular.module('sports-predictions')
 				return deferredObject.promise;
 			},
 			getCurrentLogin: function () {
-				return $cookies.get('SESSION_CURRENT_LOGIN');
+				return $window.localStorage.getItem('SESSION_CURRENT_LOGIN');
 			},
 			login: function (login, password) {
 
@@ -98,7 +98,7 @@ angular.module('sports-predictions')
 						if (response.status === 200) {
 							connectedUser = response.data;
 							BackendService.connect( response.data );
-							$cookies.put('SESSION_CURRENT_LOGIN', login);
+                            $window.localStorage.setItem('SESSION_CURRENT_LOGIN', login);
 							deferredObject.resolve( response );
 							$rootScope.$broadcast("connectionStateChanged");
 						} else {
@@ -111,7 +111,7 @@ angular.module('sports-predictions')
 				return deferredObject.promise;
 			},
 			logout: function () {
-				$cookies.remove('SESSION_ID');
+				$window.localStorage.clear();
 				$rootScope.$broadcast("connectionStateChanged");
 				connectedUser = undefined;
 			},

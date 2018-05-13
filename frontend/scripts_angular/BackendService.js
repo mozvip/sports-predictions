@@ -1,5 +1,5 @@
 angular.module('sports-predictions')
-	.factory('BackendService', ['$location', '$cookies', '$http', function ($location, $cookies, $http) {
+	.factory('BackendService', ['$location', '$window', '$http', function ($location, $window, $http) {
 		return {
 			
 			getBackEndURL: function () {
@@ -19,10 +19,10 @@ angular.module('sports-predictions')
 				return $http.get( this.getBackEndURL() + url, config );
 			},
 			getToken: function () {
-				return $cookies.get('SESSION_ID');
+				return $window.localStorage.getItem('SESSION_ID');
 			},
 			connect : function( profile ) {
-				$cookies.put('SESSION_ID', profile.authToken);
+                $window.localStorage.setItem('SESSION_ID', profile.authToken);
 			},
 			getRequestConfig: function ( contentType ) {
 				

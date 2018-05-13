@@ -1,19 +1,23 @@
 angular.module('sports-predictions')
-    .factory('CommunityService', ['$http', '$q', 'BackendService', function ($http, $q, BackendService) {
-
-        var currentCommunity;
+    .factory('CommunityService', ['$http', '$q', 'BackendService', '$window', function ($http, $q, BackendService, $window) {
 
         return {
             getCommunity: function () {
+
+                let currentCommunity = $window.localStorage.getItem('community');
+
                 var deferredObject = $q.defer();
                 if (currentCommunity != undefined) {
-                    deferredObject.resolve(currentCommunity);
+                    let community = JSON.parse(currentCommunity);
+                    community.openingDate = new Date(community.openingDate);
+                    deferredObject.resolve(community);
                 } else {
                     $http.get(BackendService.getBackEndURL() + "community").then(
                         function (response) {
-                            let data = response.data;
-                            data.openingDate = new Date(data.openingDate);
-                            deferredObject.resolve(data);
+                            let community = response.data;
+                            community.openingDate = new Date(community.openingDate);
+                            $window.localStorage.setItem('community', JSON.stringify(community));
+                            deferredObject.resolve(community);
                         }, function (response) {
                             deferredObject.reject(response);
                         }
@@ -25,11 +29,9 @@ angular.module('sports-predictions')
             save: function (community) {
                 var config = BackendService.getRequestConfig();
 
-                community.openingDate = new Date(community.openingDate);
-
                 var data = JSON.stringify(community);
 
-                currentCommunity = undefined;   // force refresh on next call
+                $window.localStorage.setItem('community', data);
 
                 var deferredObject = $q.defer();
                 $http.post(BackendService.getBackEndURL() + "community", data, config).then(

@@ -1,6 +1,6 @@
 
 angular.module('sports-predictions')
-    .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
         $routeProvider
             .when('/ranks', {
