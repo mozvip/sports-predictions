@@ -16,8 +16,10 @@ public class Game {
 	private String stadium;
 	private String homeTeamName;
 	private int homeTeamWinnerFrom = -1;
+	private int homeTeamLoserFrom = -1;
 	private String awayTeamName;
 	private int awayTeamWinnerFrom = -1;
+	private int awayTeamLoserFrom = -1;
 	private int homeScore;
 	private int awayScore;
 	private String winningTeam;
@@ -124,5 +126,21 @@ public class Game {
 
 	public void setRound(String round) {
 		this.round = round;
+	}
+
+	public int getHomeTeamLoserFrom() {
+		return homeTeamLoserFrom;
+	}
+
+	public void setHomeTeamLoserFrom(int homeTeamLoserFrom) {
+		this.homeTeamLoserFrom = homeTeamLoserFrom;
+	}
+
+	public int getAwayTeamLoserFrom() {
+		return awayTeamLoserFrom;
+	}
+
+	public void setAwayTeamLoserFrom(int awayTeamLoserFrom) {
+		this.awayTeamLoserFrom = awayTeamLoserFrom;
 	}
 }

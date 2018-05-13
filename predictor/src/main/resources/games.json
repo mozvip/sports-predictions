@@ -499,8 +499,8 @@
     "matchNum": 63,
     "dateTime": "2018-07-14T16:00",
     "stadium": "Krestovsky Stadium, Saint Petersburg",
-    "homeTeamName": "Losers Match 61",
-    "awayTeamName": "Losers Match 62",
+    "homeTeamLoserFrom": 61,
+    "awayTeamLoserFrom": 62,
     "round": "Third place play-off"
   },
   {

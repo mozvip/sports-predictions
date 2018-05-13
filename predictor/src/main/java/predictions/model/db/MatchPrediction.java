@@ -22,6 +22,8 @@ public class MatchPrediction {
 	private boolean home_winner;
 	@JsonProperty
 	private int score = 0;
+	@JsonProperty
+	private boolean perfect = false;
 
 	public MatchPrediction() {
 	}
@@ -106,5 +108,13 @@ public class MatchPrediction {
 	
 	public int getScore() {
 		return score;
+	}
+
+	public boolean isPerfect() {
+		return perfect;
+	}
+
+	public void setPerfect(boolean perfect) {
+		this.perfect = perfect;
 	}
 }

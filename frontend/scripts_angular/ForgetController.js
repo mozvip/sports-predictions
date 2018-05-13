@@ -13,7 +13,7 @@ function($scope, $location, UserService, Notification){
 	$scope.response = null;
 	
     $scope.model = {
-        key: '6LdiSh8TAAAAADLasplj5tGB390M6qBzH24vmXED'
+        key: '6LchHVYUAAAAAEtUEWoMaLPkZBLFS71UYKXhU7eQ'
     };
 	
 	$scope.forget = function(){

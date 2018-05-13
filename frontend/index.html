@@ -103,9 +103,12 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul ng-show="connected()" class="nav navbar-nav navbar-right">
+								<!--
+								FIXME
 								<li>
 									<a href="/#!/stats">Statistiques <span class="glyphicon glyphicon-tasks"> </span></a>
 								</li>
+								-->
 								<li>
 									<a ng-href="/#!/ranks">Classement <span class="glyphicon glyphicon-list"> </span><span class="badge" style="margin-left: 5px; margin-bottom: 5px;">{{currentRanking()}}</span></a>
 								</li>
@@ -115,7 +118,7 @@
 								<li ng-if="finalsAccessEnabled()">
 									<a ng-href="/#!/pronostic-final">Phases Finales <span class="glyphicon glyphicon-home"> </span></a>
 								</li>
-								<li ng-if="admin()">
+								<li ng-if="admin() && finalsAccessEnabled()">
 									<a ng-href="/#!/pronostic-final-delegate">Phases Finales par délégation <span class="glyphicon glyphicon-home"> </span></a>
 								</li>
 								<li>
