@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+
 @font-face {
     font-family: "Dusha";
     src: url('../fonts/dusha.ttf');
 }
+
 
 .vTabs--default {
     font-family: 'Dusha', sans-serif;
@@ -17,20 +21,63 @@ h1#main-title{
 	line-height: 0.6;
 	position: relative;
     top: -20px;
-}
-
-h1#main-title::first-letter {
-    font-size: 200%;
+    font-variant: small-caps;
+    text-shadow: 0 1px 0 #ccc,
+                    0 2px 0 #c9c9c9,
+                    0 3px 0 #bbb,
+                    0 4px 0 #b9b9b9,
+                    0 6px 1px rgba(0,0,0,.1),
+                    0 0 5px rgba(0,0,0,.1),
+                    0 1px 3px rgba(0,0,0,.3),
+                    0 3px 5px rgba(0,0,0,.2),
+                    0 5px 10px rgba(0,0,0,.25),
+                    0 10px 10px rgba(0,0,0,.2),
+                    0 20px 20px rgba(0,0,0,.15);
 }
 
 #wrapper{
-	background-image: url('../images/field-stripes.jpg');
+	background-image: url('../images/stadium.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: 1;
+    position: relative;
 }
+
+#wrapper::before{
+    display: block;
+    content: '';
+    position: absolute;
+    left:0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #0f4583;
+
+    opacity: .5
+}
+
+#wrapper::after{
+    display: block;
+    content: '';
+    position: absolute;
+    left:0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, #000 100%);
+    opacity: .4;
+}
+
 
 .box{
 	background-color: white;
-	border-radius: 10px;
+	border-radius: 0px;
 	padding: 20px 20px;
+    border: solid 1px #E9E9E9;
+    box-shadow: 0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15);
 }
 
 ul[rn-carousel] {
@@ -41,7 +88,11 @@ ul[rn-carousel] {
 
 #logo-row{
 	padding-top: 15px;
-	margin-bottom:0px;
+	margin-bottom:30px;
+}
+
+#logo-row img{
+    height: 150px;
 }
 
 .scoreInput {
@@ -81,21 +132,27 @@ ul[rn-carousel] {
 
 
 .navbar-transparent{
-	position: absolute;
 	width: 100%;
 	z-index: 5;
+    background-color: #FFF;
+    border: solid 1px #E9E9E9;
+    border-radius: 0px;
+    box-shadow: 0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 10px 10px rgba(0,0,0,.2);
 }
 
 .navbar-transparent a{
-	color: #EEEEEE;
+	color: #333;
 }
 
 .navbar-transparent .nav>li>a{
-	transition: all .3s ease-out;
+	transition: all .1s ease-out;
 }
 
 .navbar-transparent .nav>li>a:focus, .navbar-transparent .nav>li>a:hover{
-	color: white;
+	color: #000;
+    text-decoration: underline;
 	background-color: transparent;
 }
 
@@ -173,6 +230,7 @@ ul[rn-carousel] {
 body {
     position: relative;
     overflow-x: hidden;
+    font-family: 'Open Sans';
 }
 body,
 html { height: 100%;}
@@ -224,6 +282,7 @@ html { height: 100%;}
 	z-index: 5;
 	position: relative;
 	min-height: 100vh;
+    padding-bottom: 50px;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -510,4 +569,52 @@ html { height: 100%;}
 
 .previousranks{
 	margin-left: 25px;
+}
+
+.form-control{
+    border-radius: 0px;
+}
+
+.btn{
+    border-radius: 0px;
+}
+
+.btn-primary{
+    background-image: none;
+    background-color: #0f4583;
+    border: solid 1px #08376B;
+}
+
+.btn-primary:hover{
+    background-color: #08376B;
+    border: solid 1px #08376B;
+}
+
+.btn-success{
+    background-image: none;
+    background-color: #97C007;
+    border: solid 1px #7A9D00;
+}
+
+
+.btn-success:hover{
+    background-color: #7A9D00;
+    border: solid 1px #7A9D00;
+}
+
+.well{
+    border-radius: 0px;
+    padding-top: 9px;
+}
+
+.panel{
+    border-radius: 0px;
+}
+
+.panel .panel-heading{
+
+}
+
+.panel .panel-heading h3{
+    margin: 0px;
 }

@@ -88,7 +88,7 @@
 <body>
 	<div id="wrapper">
 		<div id="page-content-wrapper" ng-controller="HomeController" ng-init="init()">		
-				<nav class="navbar navbar-transparent">
+				<nav class="navbar navbar-transparent" ng-show="connected()">
 					<div class="container-fluid">
 						<!-- Brand and toggle get grouped for better mobile display -->
 						<div class="navbar-header">
@@ -102,33 +102,55 @@
 
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul ng-show="connected()" class="nav navbar-nav navbar-right">
+							<ul class="nav navbar-nav navbar-left">
 								<!--
 								FIXME
 								<li>
-									<a href="/#!/stats">Statistiques <span class="glyphicon glyphicon-tasks"> </span></a>
+									<a href="/#!/stats">Statistiques <span class="fa fa-tasks"> </span></a>
 								</li>
 								-->
 								<li>
-									<a ng-href="/#!/ranks">Classement <span class="glyphicon glyphicon-list"> </span><span class="badge" style="margin-left: 5px; margin-bottom: 5px;">{{currentRanking()}}</span></a>
+									<a ng-href="/#!/ranks">
+										<i class="fa fa-list-ol"></i>
+										Classement <span class="badge" style="margin-left: 5px; margin-bottom: 5px;">{{currentRanking()}}</span>
+									</a>
 								</li>
 								<li ng-if="groupsAccessEnabled()">
-									<a ng-href="/#!/pronostic">Phase de Groupes <span class="glyphicon glyphicon-home"> </span></a>
+									<a ng-href="/#!/pronostic">
+										<i class="fa fa-th"></i>
+										Phase de Groupes
+									</a>
 								</li>
 								<li ng-if="finalsAccessEnabled()">
-									<a ng-href="/#!/pronostic-final">Phases Finales <span class="glyphicon glyphicon-home"> </span></a>
+									<a ng-href="/#!/pronostic-final">
+										<i class="fa fa-sitemap"></i>
+										Phases Finales
+									</a>
 								</li>
 								<li ng-if="admin() && finalsAccessEnabled()">
-									<a ng-href="/#!/pronostic-final-delegate">Phases Finales par délégation <span class="glyphicon glyphicon-home"> </span></a>
+									<a ng-href="/#!/pronostic-final-delegate">
+										<i class="fas fa-user-friends"></i>
+										Phases Finales par délégation
+									</a>
 								</li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
 								<li>
-									<a ng-href="/#!/user-profile">Profil <span class="glyphicon glyphicon-user"> </span></a>
+									<a ng-href="/#!/user-profile">
+										Profil <i class="fa fa-user"> </i>
+									</a>
 								</li>
 								<li ng-show="admin()">
-									<a ng-href="/#!/admin">Administration <span class="glyphicon glyphicon-cog"> </span></a>
+									<a ng-href="/#!/admin">
+										Administration
+										<i class="fa fa-cogs"> </i>
+									</a>
 								</li>
 								<li>
-									<a href="" ng-click="logOut()">Se déconnecter <span class="glyphicon glyphicon-off"> </span></a>
+									<a href="" ng-click="logOut()">
+										Se déconnecter
+										<i class="fa fa-sign-out-alt "> </i>
+									</a>
 								</li>
 						  </ul>
 						</div><!-- /.navbar-collapse -->

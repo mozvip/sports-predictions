@@ -8,7 +8,7 @@
             <form name="userProfileForm">
                 <div class="form-group has-feedback" ng-class="{'has-error' : !userProfileForm.name.$pristine && userProfileForm.name.$invalid, 'has-success' : !userProfileForm.name.$invalid}">
                     <input name="name" placeholder="Nom" ng-required="true" class="form-control" type="text" ng-model="currentUser.name" />
-                    <span class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></span>
+                    <span class="fa fa-user form-control-feedback" aria-hidden="true"></span>
                     <p ng-show="userProfileForm.name.$error.required && !userProfileForm.name.$pristine" class="help-block">Un nom est requis</p>
                 </div>
                 <div class="button-group">
