@@ -23,6 +23,14 @@ public class PredictionsConfiguration extends Configuration {
 	@NotNull
 	private String publicDomain = "pronostics2016.com";
 
+	@Valid
+	@NotNull
+	private String smtpServer = "smtp." + publicDomain;
+
+	@Valid
+	@NotNull
+	private int smtpPort = 465;
+
     @Valid
     @NotNull
 	private String defaultCommunity = "grand-est";
@@ -127,7 +135,6 @@ public class PredictionsConfiguration extends Configuration {
 		this.googleReCaptchaEnabled = googleReCaptchaEnabled;
 	}
 
-
 	public void setoAuth2CredentialsFolder(String oAuth2CredentialsFolder) {
 		this.oAuth2CredentialsFolder = oAuth2CredentialsFolder;
 	}
@@ -154,5 +161,21 @@ public class PredictionsConfiguration extends Configuration {
 
 	public void setAdministratorAccounts(Set<String> administratorAccounts) {
 		this.administratorAccounts = administratorAccounts;
+	}
+
+	public String getSmtpServer() {
+		return smtpServer;
+	}
+
+	public void setSmtpServer(String smtpServer) {
+		this.smtpServer = smtpServer;
+	}
+
+	public int getSmtpPort() {
+		return smtpPort;
+	}
+
+	public void setSmtpPort(int smtpPort) {
+		this.smtpPort = smtpPort;
 	}
 }

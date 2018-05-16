@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.*;
+import org.apache.commons.mail.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -284,11 +285,30 @@ public class UserResource {
 		String subject = String.format("Mot de passe oublié pour https://%s.%s", community, configuration.getPublicDomain());
 		
 		String resetPasswordLink = String.format("https://%s.%s/#!/forget-password/%s/%s", community, configuration.getPublicDomain(), email, uuid.toString());
-		String htmlMessage = String.format( "<p>Cliquez <a href='%s'>ce lien</a> pour choisir un nouveau mot de passe</p>", resetPasswordLink );
+		String htmlMessage = String.format( "<html><p>Cliquez <a href='%s'>ce lien</a> pour choisir un nouveau mot de passe</p></html>", resetPasswordLink );
 
-		gmail.sendEmail( mailFrom, existingUser.getEmail(), subject, htmlMessage );
+		try {
+			HtmlEmail message = new HtmlEmail();
+			message.setHostName(configuration.getSmtpServer());
+			message.setSmtpPort(configuration.getSmtpPort());
+			// message.setAuthenticator(new DefaultAuthenticator("username", "password"));
+			message.setSSLOnConnect(true);
+			message.setFrom(mailFrom);
+			message.setSubject(subject);
+			message.setHtmlMsg(htmlMessage);
+			message.addTo(existingUser.getEmail(), existingUser.getName());
 
-		
+			message.setSSLOnConnect(false);
+			message.setStartTLSEnabled(false);
+			message.setStartTLSRequired(false);
+
+			message.send();
+		} catch (EmailException e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+
+//		gmail.sendEmail( mailFrom, existingUser.getEmail(), subject, htmlMessage );
+
 		return Response.ok().build();
 	}
 
