@@ -292,7 +292,7 @@
     "dateTime": "2018-06-18T17:00",
     "group": "G",
     "stadium": "Fisht Olympic Stadium, Sochi",
-    "homeTeamName": "Belgium",
+    "homeTeamName": "Belgique",
     "awayTeamName": "Panama"
   },
   {
@@ -300,23 +300,23 @@
     "dateTime": "2018-06-18T20:00",
     "group": "G",
     "stadium": "Volgograd Arena, Volgograd",
-    "homeTeamName": "Tunisia",
-    "awayTeamName": "England"
+    "homeTeamName": "Tunisie",
+    "awayTeamName": "Angleterre"
   },
   {
     "matchNum": 29,
     "dateTime": "2018-06-23T14:00",
     "group": "G",
     "stadium": "Otkritie Arena, Moscow",
-    "homeTeamName": "Belgium",
-    "awayTeamName": "Tunisia"
+    "homeTeamName": "Belgique",
+    "awayTeamName": "Tunisie"
   },
   {
     "matchNum": 30,
     "dateTime": "2018-06-24T14:00",
     "group": "G",
     "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
-    "homeTeamName": "England",
+    "homeTeamName": "Angleterre",
     "awayTeamName": "Panama"
   },
   {
@@ -324,8 +324,8 @@
     "dateTime": "2018-06-28T20:00",
     "group": "G",
     "stadium": "Kaliningrad Stadium, Kaliningrad",
-    "homeTeamName": "England",
-    "awayTeamName": "Belgium"
+    "homeTeamName": "Angleterre",
+    "awayTeamName": "Belgique"
   },
   {
     "matchNum": 46,
@@ -333,55 +333,55 @@
     "group": "G",
     "stadium": "Mordovia Arena, Saransk",
     "homeTeamName": "Panama",
-    "awayTeamName": "Tunisia"
+    "awayTeamName": "Tunisie"
   },
   {
     "matchNum": 16,
     "dateTime": "2018-06-19T14:00",
     "group": "H",
     "stadium": "Mordovia Arena, Saransk",
-    "homeTeamName": "Colombia",
-    "awayTeamName": "Japan"
+    "homeTeamName": "Colombie",
+    "awayTeamName": "Japon"
   },
   {
     "matchNum": 15,
     "dateTime": "2018-06-19T17:00",
     "group": "H",
     "stadium": "Otkritie Arena, Moscow",
-    "homeTeamName": "Poland",
-    "awayTeamName": "Senegal"
+    "homeTeamName": "Pologne",
+    "awayTeamName": "Sénégal"
   },
   {
     "matchNum": 32,
     "dateTime": "2018-06-24T17:00",
     "group": "H",
     "stadium": "Central Stadium, Yekaterinburg",
-    "homeTeamName": "Japan",
-    "awayTeamName": "Senegal"
+    "homeTeamName": "Japon",
+    "awayTeamName": "Sénégal"
   },
   {
     "matchNum": 31,
     "dateTime": "2018-06-24T20:00",
     "group": "H",
     "stadium": "Kazan Arena, Kazan",
-    "homeTeamName": "Poland",
-    "awayTeamName": "Colombia"
+    "homeTeamName": "Pologne",
+    "awayTeamName": "Colombie"
   },
   {
     "matchNum": 47,
     "dateTime": "2018-06-28T16:00",
     "group": "H",
     "stadium": "Volgograd Arena, Volgograd",
-    "homeTeamName": "Japan",
-    "awayTeamName": "Poland"
+    "homeTeamName": "Japon",
+    "awayTeamName": "Pologne"
   },
   {
     "matchNum": 48,
     "dateTime": "2018-06-28T16:00",
     "group": "H",
     "stadium": "Cosmos Arena, Samara",
-    "homeTeamName": "Senegal",
-    "awayTeamName": "Colombia"
+    "homeTeamName": "Sénégal",
+    "awayTeamName": "Colombie"
   },
   {
     "matchNum": 50,
