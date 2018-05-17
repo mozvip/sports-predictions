@@ -141,8 +141,10 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    config.setResourcePackage("predictions");
 	    config.setScan(true);
 
-		for (String email : configuration.getAdministratorAccounts()) {
-			userDAO.setAdmin(email, true);
+	    if (configuration.getAdministratorAccounts() != null) {
+			for (String email : configuration.getAdministratorAccounts()) {
+				userDAO.setAdmin(email, true);
+			}
 		}
 	}
 
