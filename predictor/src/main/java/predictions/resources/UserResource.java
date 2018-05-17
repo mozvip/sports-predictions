@@ -15,7 +15,6 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import predictions.PredictionsConfiguration;
-import predictions.gmail.GmailService;
 import predictions.model.GoogleReCaptchaResponse;
 import predictions.model.MatchPredictions;
 import predictions.model.Rankings;
@@ -56,11 +55,10 @@ public class UserResource {
 	
 	private HttpClient client;
 	private PredictionsConfiguration configuration;
-	private GmailService gmail;
 
 	@Context private HttpServletRequest httpRequest;
 
-	public UserResource( PhaseManager phaseManager, UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, CommunityDAO communityDAO, HttpClient client, PredictionsConfiguration configuration, GmailService gmail ) {
+	public UserResource( PhaseManager phaseManager, UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, CommunityDAO communityDAO, HttpClient client, PredictionsConfiguration configuration) {
 		this.phaseManager = phaseManager;
 		this.userDAO = dao;
 		this.matchPredictionDAO = matchPredictionDAO;
@@ -68,7 +66,6 @@ public class UserResource {
 		this.communityDAO = communityDAO;
 		this.client = client;
 		this.configuration = configuration;
-		this.gmail = gmail;
 	}
 	
 	@GET
@@ -287,29 +284,35 @@ public class UserResource {
 		String resetPasswordLink = String.format("https://%s.%s/#!/forget-password/%s/%s", community, configuration.getPublicDomain(), email, uuid.toString());
 		String htmlMessage = String.format( "<html><p>Cliquez <a href='%s'>ce lien</a> pour choisir un nouveau mot de passe</p></html>", resetPasswordLink );
 
+		sendEmail(existingUser, mailFrom, subject, htmlMessage);
+
+		return Response.ok().build();
+	}
+
+	private void sendEmail(User toUser, String mailFrom, String subject, String htmlMessage) {
+		HtmlEmail message = new HtmlEmail();
+		message.setHostName(configuration.getSmtpServer());
+		message.setSmtpPort(configuration.getSmtpPort());
+		message.setSSLOnConnect(false);
+		message.setStartTLSEnabled(false);
+		message.setStartTLSRequired(false);
+
 		try {
-			HtmlEmail message = new HtmlEmail();
-			message.setHostName(configuration.getSmtpServer());
-			message.setSmtpPort(configuration.getSmtpPort());
-			// message.setAuthenticator(new DefaultAuthenticator("username", "password"));
-			message.setSSLOnConnect(true);
 			message.setFrom(mailFrom);
 			message.setSubject(subject);
 			message.setHtmlMsg(htmlMessage);
-			message.addTo(existingUser.getEmail(), existingUser.getName());
-
-			message.setSSLOnConnect(false);
-			message.setStartTLSEnabled(false);
-			message.setStartTLSRequired(false);
-
-			message.send();
+			message.addTo(toUser.getEmail(), toUser.getName());
 		} catch (EmailException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
 
-//		gmail.sendEmail( mailFrom, existingUser.getEmail(), subject, htmlMessage );
-
-		return Response.ok().build();
+		new Thread(() -> {
+			try {
+				message.send();
+			} catch (EmailException e) {
+				LOGGER.error(e.getMessage(), e);
+			}
+		}).start();
 	}
 
 	public String getAdminEmail(String community) {

@@ -25,7 +25,6 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jdbi.v3.core.Jdbi;
 import predictions.auth.*;
-import predictions.gmail.GmailService;
 import predictions.model.db.*;
 import predictions.phases.PhaseFilter;
 import predictions.phases.PhaseManager;
@@ -91,13 +90,10 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    ClientConnectionManager mgr = client.getConnectionManager();
 	    HttpParams params = client.getParams();
 	    client = new DefaultHttpClient(new ThreadSafeClientConnManager(params, mgr.getSchemeRegistry()), params);		
-		
-		GmailService gmail = new GmailService(getName(), configuration);
-		environment.lifecycle().manage(gmail);
 
 		environment.jersey().register(new GoogleSigninResource(configuration.getGoogleSignin().getClientId()));
 
-		environment.jersey().register(new UserResource(phaseManager, userDAO, matchPredictionDAO, actualResultDAO, communityDAO, client, configuration, gmail));
+		environment.jersey().register(new UserResource(phaseManager, userDAO, matchPredictionDAO, actualResultDAO, communityDAO, client, configuration));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new ValidateEmailResource(userDAO));
 		environment.jersey().register(new AdminResource(userDAO));
