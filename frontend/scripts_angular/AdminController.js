@@ -107,8 +107,8 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
 
                 var listOfEmailsToDelete = [];
 
-                for (var i = 0; i < $scope.userGridNoPredictionOptionsApi.selection.getSelectedCount(); i++) {
-                        var userProfile = $scope.userGridNoPredictionOptionsApi.selection.getSelectedRows()[i];
+                for (var i = 0; i < $scope.userGridOptionsApi.selection.getSelectedCount(); i++) {
+                        var userProfile = $scope.userGridOptionsApi.selection.getSelectedRows()[i];
                         if (userProfile) {
                                 listOfEmailsToDelete.push( userProfile.email );
                         }
@@ -130,10 +130,10 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
                                 }
                                 for (var email of listOfEmailsToDelete) {
                                         AdminService.deleteUser(email).then( function() {
-                                                for (var i=$scope.userNoPredictionGridOptions.data.length-1; i>=0; i--) {
-                                                        var row = $scope.userNoPredictionGridOptions.data[i];
+                                                for (var i=$scope.userGridOptionsApi.data.length-1; i>=0; i--) {
+                                                        var row = $scope.userGridOptionsApi.data[i];
                                                         if (row.email && row.email == email) {
-                                                                $scope.userNoPredictionGridOptions.data.splice(i, 1);
+                                                                $scope.userGridOptionsApi.data.splice(i, 1);
                                                         }
                                                 }
                                                 Notification.success("L'utilisateur " + email + " a été supprimé")}, function() {}

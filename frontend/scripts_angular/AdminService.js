@@ -71,11 +71,9 @@ angular.module('sports-predictions')
             },
             deleteUser: function (email) {
                 var deferredObject = $q.defer();
-                var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
-                
-                var data = 'email=' + email;
+                var config = BackendService.getRequestConfig();
 
-                $http.post(BackendService.getBackEndURL() + 'admin/delete-user/' + email, config)
+                $http.delete(BackendService.getBackEndURL() + 'user/' + email, config)
                     .then(function (response) {
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {
