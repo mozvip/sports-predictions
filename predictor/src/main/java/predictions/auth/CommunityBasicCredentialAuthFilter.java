@@ -7,6 +7,8 @@ import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.auth.basic.BasicCredentials;
 
 import javax.annotation.Nullable;
+import javax.annotation.Priority;
+import javax.ws.rs.Priorities;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.HttpHeaders;
@@ -14,6 +16,7 @@ import javax.ws.rs.core.SecurityContext;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 
+@Priority(Priorities.AUTHENTICATION)
 public class CommunityBasicCredentialAuthFilter<P extends Principal> extends AuthFilter<CommunityBasicCredentials, P> {
 
     private String defaultCommunity;
@@ -24,7 +27,7 @@ public class CommunityBasicCredentialAuthFilter<P extends Principal> extends Aut
 
     @Override
     public void filter(ContainerRequestContext requestContext) {
-    	String community = CommunityFilter.extractCommunity(requestContext.getUriInfo().getRequestUri().getHost(), defaultCommunity);
+       	String community = CommunityFilter.extractCommunity(requestContext.getUriInfo().getRequestUri().getHost(), defaultCommunity);
         final CommunityBasicCredentials credentials = getCredentials(community, requestContext.getHeaders().getFirst(HttpHeaders.AUTHORIZATION));
         if (!authenticate(requestContext, credentials, SecurityContext.BASIC_AUTH)) {
             throw new WebApplicationException(unauthorizedHandler.buildResponse(prefix, realm));

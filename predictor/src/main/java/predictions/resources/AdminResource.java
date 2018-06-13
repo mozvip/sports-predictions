@@ -1,6 +1,10 @@
 package predictions.resources;
 
-import java.util.List;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+import predictions.model.db.User;
+import predictions.model.db.UserDAO;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
@@ -8,14 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-
-import io.dropwizard.auth.Auth;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.Authorization;
-import predictions.model.db.User;
-import predictions.model.db.UserDAO;
+import java.util.List;
 
 @Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)

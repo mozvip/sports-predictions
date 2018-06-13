@@ -10,7 +10,7 @@ public class ActualResultResultSetMapper implements RowMapper<ActualResult> {
 
 	public ActualResult map(ResultSet r, StatementContext ctx)
 			throws SQLException {
-		return new ActualResult( r.getInt("match_id"), r.getInt("away_score"), r.getString("away_team_id"), r.getInt("home_score"), r.getString("home_team_id"), r.getBoolean("home_winner"), r.getBoolean("validated"));
+		return new ActualResult( r.getInt("match_id"), r.getInt("away_score"), r.getString("AWAY_TEAM_NAME"), r.getInt("home_score"), r.getString("HOME_TEAM_NAME"), r.getBoolean("home_winner"), r.getBoolean("validated"));
 	}
 
 }

@@ -34,6 +34,7 @@ import predictions.resources.*;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration.Dynamic;
 import java.util.EnumSet;
+import java.util.List;
 
 public class PredictionsApplication extends Application<PredictionsConfiguration> {
 
@@ -66,7 +67,6 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		final TeamDAO teamDAO = jdbi.onDemand(TeamDAO.class);
 		final MatchPredictionDAO matchPredictionDAO = jdbi.onDemand(MatchPredictionDAO.class);
 		final ActualResultDAO actualResultDAO = jdbi.onDemand(ActualResultDAO.class);
-		final CompetitionDAO competitionDAO = jdbi.onDemand(CompetitionDAO.class);
 		final CommunityDAO communityDAO = jdbi.onDemand(CommunityDAO.class);
 
 		PhaseManager phaseManager = new PhaseManager();
@@ -104,10 +104,6 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().register(new CommunityResource( communityDAO ));
 		environment.jersey().register(new ScoreResource(gamesManager, actualResultDAO, matchPredictionDAO, userDAO));
 
-		FootballDataClient footballDataClient = FootballDataClient.Builder(configuration.getFootballDataApiKey()).build();
-
-		environment.jersey().register(new CompetitionResource(footballDataClient, competitionDAO, actualResultDAO));
-
 		Dynamic corsFilter = environment.servlets().addFilter("CrossOriginFilter", CrossOriginFilter.class);
 		corsFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 		corsFilter.setInitParameter("allowedOrigins", "*");
@@ -134,6 +130,11 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    config.setResourcePackage("predictions");
 	    config.setScan(true);
 
+	    if (configuration.getAdministratorAccounts() != null) {
+			for (String email : configuration.getAdministratorAccounts()) {
+				userDAO.setAdmin(email, true);
+			}
+		}
 	}
 
 	public static void main(String[] args) throws Exception {

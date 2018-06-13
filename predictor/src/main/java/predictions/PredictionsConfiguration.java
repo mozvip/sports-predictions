@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
-import predictions.configuration.GoogleSigninConfiguration;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -54,10 +53,6 @@ public class PredictionsConfiguration extends Configuration {
 
 	@Valid
 	@NotNull
-	private String oAuth2CredentialsFolder;
-
-	@Valid
-	@NotNull
 	private Path dataFolder = Paths.get("data");
 
 	private Set<String> administratorAccounts;
@@ -69,12 +64,6 @@ public class PredictionsConfiguration extends Configuration {
 	public boolean isGoogleReCaptchaEnabled() {
 		return googleReCaptchaEnabled;
 	}
-	
-	public String getoAuth2CredentialsFolder() {
-		return oAuth2CredentialsFolder;
-	}
-
-	private GoogleSigninConfiguration googleSignin = new GoogleSigninConfiguration();
 
 	@Valid
 	@NotNull
@@ -141,24 +130,12 @@ public class PredictionsConfiguration extends Configuration {
 		this.googleReCaptchaEnabled = googleReCaptchaEnabled;
 	}
 
-	public void setoAuth2CredentialsFolder(String oAuth2CredentialsFolder) {
-		this.oAuth2CredentialsFolder = oAuth2CredentialsFolder;
-	}
-
 	public DataSourceFactory getDatabase() {
 		return database;
 	}
 
 	public void setDatabase(DataSourceFactory database) {
 		this.database = database;
-	}
-
-	public GoogleSigninConfiguration getGoogleSignin() {
-		return googleSignin;
-	}
-
-	public void setGoogleSignin(GoogleSigninConfiguration googleSignin) {
-		this.googleSignin = googleSignin;
 	}
 
 	public Set<String> getAdministratorAccounts() {

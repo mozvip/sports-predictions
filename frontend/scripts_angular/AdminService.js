@@ -9,7 +9,7 @@ angular.module('sports-predictions')
                     .then(function (response) {
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {
-                        Notification.error({ 'title': response.statusText, 'message': response.data });
+                        Notification.error({ 'title': response.statusText, 'message': response.data.message });
                         deferredObject.reject();
                     });
 
@@ -35,7 +35,7 @@ angular.module('sports-predictions')
                     .then(function (response) {
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {
-                        Notification.error({ 'title': response.statusText, 'message': response.data });
+                        Notification.error({ 'title': response.statusText, 'message': response.data.message });
                         deferredObject.reject();
                     });
 
@@ -43,11 +43,23 @@ angular.module('sports-predictions')
             },
             toggleActive: function (email) {
                 var deferredObject = $q.defer();
-                var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
-                
-                var data = 'email=' + email;
+                var config = BackendService.getRequestConfig();
 
-                $http.post(BackendService.getBackEndURL() + 'admin/toggle-active', data, config)
+                $http.post(BackendService.getBackEndURL() + 'admin/toggle-active/' + email, config)
+                    .then(function (response) {
+                        deferredObject.resolve({ users: response.data });
+                    }, function (response) {
+                        Notification.error({ 'title': response.statusText, 'message': response.data });
+                        deferredObject.reject();
+                    });
+
+                return deferredObject.promise;
+            },
+            toggleAdmin: function (email) {
+                var deferredObject = $q.defer();
+                var config = BackendService.getRequestConfig();
+
+                $http.post(BackendService.getBackEndURL() + 'admin/toggle-admin/' + email, config)
                     .then(function (response) {
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {
@@ -63,7 +75,7 @@ angular.module('sports-predictions')
                 
                 var data = 'email=' + email;
 
-                $http.post(BackendService.getBackEndURL() + 'admin/delete-user', data, config)
+                $http.post(BackendService.getBackEndURL() + 'admin/delete-user/' + email, config)
                     .then(function (response) {
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {

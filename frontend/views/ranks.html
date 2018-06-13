@@ -2,15 +2,12 @@
 	<div class="col-md-12" data-wow-delay="0.2s">
 		<div class="box">		
 			<h2>Classement</h2><br/><br/>
-			<!-- <user-rank ng-repeat="user in Ranks" user="user"></user-rank> -->
 			<table ng-table="RanksParams" class="table" show-filter="true">
 				<tr ng-repeat="rank in $data" ng-class="classCurentUser(rank)">
 					<td title="'Rank'" filter="{ currentRanking: 'text'}" sortable="'currentRanking'">
 						{{rank.currentRanking}}<span class="arrow" ng-class="whatArrow(rank)"></span><span ng-show="rank.currentRanking != rank.previousRanking" class="previousranks">({{rank.previousRanking}})</span></td>
 					<td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
 						{{rank.name}}</td>
-					<td title="'Email'" filter="{ email: 'text'}" sortable="'email'">
-						{{rank.email}}</td>
 					<td title="'Score'" filter="{ currentScore: 'number'}" sortable="'currentScore'">
 						{{rank.currentScore}}</td>
 				</tr>
