@@ -137,7 +137,7 @@ var pronosticFinal = function(){
 			}
 			
 			$scope.isPronosticable = function(){
-				return $location.path() == '/pronostic-final-delegate' || ($scope.access == 'W' && !$scope.match.done ); //FIXME : && $scope.match.dateTime <= new Date());
+				return $location.path() == '/pronostic-final-delegate' || ($scope.access=='W' && new Date(match.dateTime) >= new Date() && !match.done);
 			}
 
 			$scope.displayFinalScore = function() {

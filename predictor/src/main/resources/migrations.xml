@@ -174,4 +174,33 @@
     	</createTable>
     </changeSet>
 
+    <changeSet id="23" author="Guillaume Serre">
+
+        <createTable tableName="TEAM">
+            <column name="NAME" type="VARCHAR(100)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="USER_TEAMS">
+            <column name="EMAIL" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TEAM" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="USER_TEAMS" columnNames="EMAIL, TEAM"/>
+        <addForeignKeyConstraint baseTableName="USER_TEAMS" baseColumnNames="EMAIL" constraintName="FK_USER_TEAMS_USER"
+                                 referencedTableName="SP_USER"
+                                 referencedColumnNames="EMAIL"/>
+        <addForeignKeyConstraint baseTableName="USER_TEAMS" baseColumnNames="TEAM" constraintName="FK_USER_TEAMS_TEAM"
+                                 referencedTableName="SP_USER"
+                                 referencedColumnNames="NAME"/>
+    </changeSet>
+
 </databaseChangeLog>

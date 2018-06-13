@@ -7,7 +7,7 @@ var sportsPredictions = angular.module('sports-predictions',
 		'angular-linq',
 		'ui-notification',
 		'ngTable',
-		'oitozero.ngSweetAlert'])
+		'oitozero.ngSweetAlert', 'ngTagsInput'])
 	.config(function (cfpLoadingBarProvider) {
 		cfpLoadingBarProvider.includeSpinner = false;
 	});
