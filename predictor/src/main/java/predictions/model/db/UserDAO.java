@@ -48,9 +48,6 @@ public interface UserDAO {
 	@SqlUpdate("delete from sp_user where community = :community and email=LOWER(:email)")
 	void delete(@Bind("community") String community, @Bind("email") String email);
 
-	@SqlQuery("select * from sp_user WHERE active = true")
-	List<User> findAllActive();
-
 	@SqlUpdate("update sp_user set CHANGE_PASSWORD_TOKEN=:token where community=:community AND email=LOWER(:email)")
 	void setChangePasswordToken(@Bind("community") String community, @Bind("email") String email, @Bind("token") UUID uuid);
 

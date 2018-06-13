@@ -22,7 +22,8 @@ public class Game {
 	private int awayTeamLoserFrom = -1;
 	private int homeScore;
 	private int awayScore;
-	private String winningTeam;
+	private String winner;
+	private String loser;
 
 	public Date getDateTime() {
 		return dateTime;
@@ -96,12 +97,12 @@ public class Game {
 		this.awayScore = awayScore;
 	}
 
-	public String getWinningTeam() {
-		return winningTeam;
+	public String getWinner() {
+		return winner;
 	}
 
-	public void setWinningTeam(String winningTeam) {
-		this.winningTeam = winningTeam;
+	public void setWinner(String winner) {
+		this.winner = winner;
 	}
 
 	public int getHomeTeamWinnerFrom() {
@@ -142,5 +143,13 @@ public class Game {
 
 	public void setAwayTeamLoserFrom(int awayTeamLoserFrom) {
 		this.awayTeamLoserFrom = awayTeamLoserFrom;
+	}
+
+	public String getLoser() {
+		return loser;
+	}
+
+	public void setLoser(String loser) {
+		this.loser = loser;
 	}
 }

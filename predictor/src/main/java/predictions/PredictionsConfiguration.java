@@ -9,6 +9,8 @@ import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
 import predictions.configuration.GoogleSigninConfiguration;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Set;
 
 public class PredictionsConfiguration extends Configuration {
@@ -53,6 +55,10 @@ public class PredictionsConfiguration extends Configuration {
 	@Valid
 	@NotNull
 	private String oAuth2CredentialsFolder;
+
+	@Valid
+	@NotNull
+	private Path dataFolder = Paths.get("data");
 
 	private Set<String> administratorAccounts;
 
@@ -177,5 +183,13 @@ public class PredictionsConfiguration extends Configuration {
 
 	public void setSmtpPort(int smtpPort) {
 		this.smtpPort = smtpPort;
+	}
+
+	public Path getDataFolder() {
+		return dataFolder;
+	}
+
+	public void setDataFolder(Path dataFolder) {
+		this.dataFolder = dataFolder;
 	}
 }

@@ -1,6 +1,6 @@
 package predictions.resources;
 
-import java.io.InputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +23,9 @@ import io.swagger.annotations.Authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.ApiOperation;
+import predictions.model.GamesManager;
 import predictions.model.db.ActualResult;
 import predictions.model.db.ActualResultDAO;
 import predictions.model.Game;
@@ -46,67 +44,23 @@ public class ScoreResource {
 	ActualResultDAO actualResultDAO;
 	MatchPredictionDAO matchPredictionDAO;
 	UserDAO userDAO;
-	
-	private List<Game> games;
-	private Map<Integer, Game> gamesById = new HashMap<>();
+
+	private GamesManager gamesManager;
+
 	private Map<Integer, String> winners = new HashMap<>();
 	
-	public ScoreResource(ActualResultDAO actualResultDAO, MatchPredictionDAO matchPredictionDAO, UserDAO userDAO ) {
+	public ScoreResource(GamesManager gamesManager, ActualResultDAO actualResultDAO, MatchPredictionDAO matchPredictionDAO, UserDAO userDAO ) throws IOException {
+		this.gamesManager = gamesManager;
 		this.actualResultDAO = actualResultDAO;
 		this.matchPredictionDAO = matchPredictionDAO;
 		this.userDAO = userDAO;
-		
-		InputStream input = this.getClass().getClassLoader().getResourceAsStream("games.json");
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			games = mapper.readValue(input, new TypeReference<List<Game>>(){});
-			for (Game game : games) {
-				gamesById.put(game.getMatchNum(), game);
-			}
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-		
-		associateScores();
-		
-	}
-	
-	private synchronized void associateScores() {
-		List<ActualResult> allResults = actualResultDAO.findAll();
-		for (ActualResult actualResult : allResults) {
-			int gameId = actualResult.getMatch_id();
-			Game game = gamesById.get( gameId );
-			game.setDone( true );
-			game.setHomeScore( actualResult.getHome_score());
-			game.setAwayScore( actualResult.getAway_score());
-			
-			String winningTeam = actualResult.getHome_team_id();
-			if (actualResult.getHome_score() > actualResult.getAway_score()) {
-				winningTeam = actualResult.getHome_team_id();
-			} else if (actualResult.getHome_score() < actualResult.getAway_score()) {
-				winningTeam = actualResult.getAway_team_id();
-			} else {
-				winningTeam = actualResult.isHome_winner() ? actualResult.getHome_team_id() : actualResult.getAway_team_id();
-			}
-
-			game.setWinningTeam( winningTeam );
-			
-			winners.put(game.getMatchNum(), game.getWinningTeam());
-		}
-		
-		for (Game game : games) {
-			if (game.getHomeTeamName() == null || game.getAwayTeamName() == null) {
-				game.setHomeTeamName( winners.get( game.getHomeTeamWinnerFrom() ));
-				game.setAwayTeamName( winners.get( game.getAwayTeamWinnerFrom() ));
-			}
-		}
 	}
 	
 	@GET
 	@Path("/games")
 	@ApiOperation(tags="public", value="Get the list of all games, along with the final result for the games which have already been played")
 	public List<Game> getGames() {
-		return games;
+		return gamesManager.getGames();
 	}
 	
 	@GET
@@ -124,9 +78,9 @@ public class ScoreResource {
 	
 	private synchronized void updateMatchPredictionScores( int gameNum, String homeTeam, String awayTeam, int homeScore, int awayScore, boolean homeWinning ) {
 		
-		Game game = games.get( gameNum );
+		Game game = gamesManager.getGame(gameNum);
 		
-		String actualWinner = awayTeam;
+		String actualWinner;
 		if (homeScore > awayScore) {
 			actualWinner = homeTeam;
 		} else if (awayScore > homeScore) {
@@ -232,7 +186,7 @@ public class ScoreResource {
 	@ApiOperation(tags="admin", value="Submit actual score for a game after it ended, this will recalculate scores and rankings, winningTeamName must be specified only is not obvious from the score (penalty shootout was used to determine the winner)", authorizations = @Authorization("basicAuth"))
 	public Response postScore(@ApiParam(hidden = true) @Auth User user, @Min(0) @FormParam("gameNum") int gameNum, @Min(0) @FormParam("homeScore") int homeScore, @Min(0) @FormParam("awayScore") int awayScore, @FormParam("winningTeamName") String winningTeamName) {
 
-		Game game = gamesById.get( gameNum );
+		Game game = gamesManager.getGame(gameNum);
 		if (game == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -248,7 +202,7 @@ public class ScoreResource {
 			// do nothing : might be a data fix ??? this will break the previous ranking in this case : minor issue
 		}
 
-		boolean homeWinning = false;
+		boolean homeWinning;
 		if (homeScore > awayScore) {
 			homeWinning = true;
 		} else if (awayScore > homeScore) {
@@ -261,7 +215,8 @@ public class ScoreResource {
 		updateMatchPredictionScores( gameNum, game.getHomeTeamName(), game.getAwayTeamName(), homeScore, awayScore, homeWinning );
 		userDAO.recalculateScores();
 		userDAO.updateRankings();
-		associateScores();
+
+		gamesManager.setFinalScore(gameNum, homeScore, awayScore, homeWinning);
 		
 		return Response.ok().build();
 	}

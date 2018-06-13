@@ -15,9 +15,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import predictions.PredictionsConfiguration;
-import predictions.model.GoogleReCaptchaResponse;
-import predictions.model.MatchPredictions;
-import predictions.model.Rankings;
+import predictions.model.*;
 import predictions.model.db.*;
 import predictions.phases.Phase;
 import predictions.phases.PhaseManager;
@@ -50,7 +48,6 @@ public class UserResource {
 
 	private UserDAO userDAO;
 	private MatchPredictionDAO matchPredictionDAO;
-	private ActualResultDAO actualResultDAO;
 	private CommunityDAO communityDAO;
 	
 	private HttpClient client;
@@ -58,11 +55,13 @@ public class UserResource {
 
 	@Context private HttpServletRequest httpRequest;
 
-	public UserResource( PhaseManager phaseManager, UserDAO dao, MatchPredictionDAO matchPredictionDAO, ActualResultDAO actualResultDAO, CommunityDAO communityDAO, HttpClient client, PredictionsConfiguration configuration) {
+	GamesManager gamesManager;
+
+	public UserResource(GamesManager gamesManager, PhaseManager phaseManager, UserDAO dao, MatchPredictionDAO matchPredictionDAO, CommunityDAO communityDAO, HttpClient client, PredictionsConfiguration configuration) {
+		this.gamesManager = gamesManager;
 		this.phaseManager = phaseManager;
 		this.userDAO = dao;
 		this.matchPredictionDAO = matchPredictionDAO;
-		this.actualResultDAO = actualResultDAO;
 		this.communityDAO = communityDAO;
 		this.client = client;
 		this.configuration = configuration;
@@ -165,13 +164,11 @@ public class UserResource {
 	}
 
 	private void savePredictions( Community community, String email, MatchPredictions predictions, boolean forceSave ) {
-		Set<Integer> validatedMatches = new HashSet<Integer>();
-		List<ActualResult> result = actualResultDAO.findValidated();
-		for (ActualResult actualResult : result) {
-			validatedMatches.add( actualResult.getMatch_id() );
-		}
+		Date now = new Date();
 		for (MatchPrediction prediction : predictions.getMatch_predictions_attributes()) {
-			if (forceSave || !validatedMatches.contains( prediction.getMatch_id())) {
+			Game game = gamesManager.getGame(prediction.getMatch_id());
+			boolean saveMatch = (forceSave || game.getDateTime().after(now));
+			if (saveMatch) {
 				if (prediction.getHome_team_name() != null && prediction.getAway_team_name() != null) {
 					matchPredictionDAO.merge(community.getName(), email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_name(), prediction.getAway_team_name(), prediction.isHome_winner());
 				}
@@ -225,7 +222,7 @@ public class UserResource {
 	@GET
 	@Path("/predictions")
 	@ApiOperation(tags="user", value="Get the current predictions for the connected user", authorizations = @Authorization("basicAuth"))
-	public MatchPredictions getPredictions(@ApiParam(hidden = true) @Auth User user ) {
+	public MatchPredictions getPredictions(@ApiParam(hidden = true) @Auth User user) {
 		return buildPredictions( user );
 	}
 	

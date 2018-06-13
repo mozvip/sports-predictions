@@ -98,6 +98,19 @@ angular.module('sports-predictions')
                 templateUrl: '/views/signup.html',
                 authorized: false
             })
+            .when('/teams', {
+                controller: 'TeamsController',
+                templateUrl: '/views/teams.html',
+                authorized: true,
+                resolve: {
+                    currentUser: ['UserService', function (UserService) {
+                        return UserService.getCurrentUser();
+                    }],
+                    community: ['CommunityService', function (CommunityService) {
+                        return CommunityService.getCommunity();
+                    }],
+                }
+            })
             .when('/admin', {
                 templateUrl: '/views/admin.html',
                 resolve: {
