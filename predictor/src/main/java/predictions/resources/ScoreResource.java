@@ -92,7 +92,7 @@ public class ScoreResource {
 		List<MatchPrediction> predictions = matchPredictionDAO.findPredictions( gameNum );
 		for (MatchPrediction prediction : predictions) {
 			
-			String predictionWinner = prediction.getAway_team_name();
+			String predictionWinner;
 			if (prediction.getHome_score() > prediction.getAway_score()) {
 				predictionWinner = prediction.getHome_team_name();
 			} else if (prediction.getAway_score() > prediction.getHome_score()) {
@@ -144,7 +144,7 @@ public class ScoreResource {
 			} else {
 				
 
-				if (!game.getGroup().startsWith("Groupe ")) {
+				if (game.getGroup() == null) {
 					
 					if ( prediction.getHome_score() == homeScore && prediction.getAway_score() == awayScore && prediction.getHome_team_name().equals(game.getHomeTeamName()) && prediction.getAway_team_name().equals(game.getAwayTeamName())) {
 						matchScore = 5;
