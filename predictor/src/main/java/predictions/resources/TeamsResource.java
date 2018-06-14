@@ -13,8 +13,10 @@ import predictions.model.db.Team;
 import predictions.model.db.TeamDAO;
 import predictions.model.db.User;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +32,9 @@ public class TeamsResource {
 
     TeamDAO teamDAO;
     PredictionsConfiguration configuration;
+
+    @Context
+    private HttpServletRequest httpRequest;
 
     public TeamsResource(PredictionsConfiguration configuration, TeamDAO teamDAO) {
         this.teamDAO = teamDAO;
@@ -49,7 +54,10 @@ public class TeamsResource {
                            @FormDataParam("file") InputStream uploadedInputStream,
                            @FormDataParam("file") FormDataContentDisposition fileDetail) throws IOException {
         logger.info(String.format("Creating new team : name=%s description=%s", name, description));
-        teamDAO.createTeam(name, description);
+
+        String community = (String) httpRequest.getAttribute("community");
+
+        teamDAO.createTeam(community, name, description);
         if (uploadedInputStream != null) {
             String fileName = String.format("%s.jpg", name);
             java.nio.file.Path imageFile = configuration.getDataFolder().resolve("teams").resolve(fileName);
@@ -61,6 +69,8 @@ public class TeamsResource {
     @DELETE
     @Path("/{name}")
     public void deleteTeam(@ApiParam(hidden = true) @Auth User user, @PathParam("name") String name) {
-        teamDAO.deleteTeam(name);
+
+        String community = (String) httpRequest.getAttribute("community");
+        teamDAO.deleteTeam(community, name);
     }
 }

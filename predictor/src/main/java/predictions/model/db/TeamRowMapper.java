@@ -10,6 +10,7 @@ public class TeamRowMapper implements RowMapper<Team> {
     @Override
     public Team map(ResultSet rs, StatementContext ctx) throws SQLException {
         return new Team(
+                rs.getString("COMMUNITY"),
                 rs.getString("NAME"),
                 rs.getString("DESCRIPTION")
         );

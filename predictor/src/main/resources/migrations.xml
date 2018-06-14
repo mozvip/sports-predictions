@@ -176,16 +176,32 @@
 
     <changeSet id="23" author="Guillaume Serre">
 
+        <dropTable tableName="TEAM" />
+
         <createTable tableName="TEAM">
+            <column name="COMMUNITY" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
             <column name="NAME" type="VARCHAR(100)">
-                <constraints primaryKey="true" nullable="false"/>
+                <constraints nullable="false"/>
             </column>
             <column name="DESCRIPTION" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
+        <addPrimaryKey tableName="TEAM" columnNames="COMMUNITY, NAME" />
+
+        <addForeignKeyConstraint baseTableName="TEAM" baseColumnNames="COMMUNITY" constraintName="FK_TEAM_COMMUNITY"
+                                 referencedTableName="COMMUNITY"
+                                 referencedColumnNames="COMMUNITY_NAME"/>
+
+        <dropTable tableName="USER_TEAMS" />
+
         <createTable tableName="USER_TEAMS">
+            <column name="COMMUNITY" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
             <column name="EMAIL" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
@@ -194,13 +210,14 @@
             </column>
         </createTable>
 
-        <addPrimaryKey tableName="USER_TEAMS" columnNames="EMAIL, TEAM"/>
-        <addForeignKeyConstraint baseTableName="USER_TEAMS" baseColumnNames="EMAIL" constraintName="FK_USER_TEAMS_USER"
+        <addPrimaryKey tableName="USER_TEAMS" columnNames="COMMUNITY, EMAIL, TEAM"/>
+
+        <addForeignKeyConstraint baseTableName="USER_TEAMS" baseColumnNames="COMMUNITY,EMAIL" constraintName="FK_USER_TEAMS_USER"
                                  referencedTableName="SP_USER"
-                                 referencedColumnNames="EMAIL"/>
-        <addForeignKeyConstraint baseTableName="USER_TEAMS" baseColumnNames="TEAM" constraintName="FK_USER_TEAMS_TEAM"
-                                 referencedTableName="SP_USER"
-                                 referencedColumnNames="NAME"/>
+                                 referencedColumnNames="COMMUNITY,EMAIL"/>
+        <addForeignKeyConstraint baseTableName="USER_TEAMS" baseColumnNames="COMMUNITY,TEAM" constraintName="FK_USER_TEAMS_TEAM"
+                                 referencedTableName="TEAM"
+                                 referencedColumnNames="COMMUNITY,TEAM"/>
     </changeSet>
 
 </databaseChangeLog>

@@ -13,19 +13,19 @@ public interface TeamDAO {
     @SqlQuery("select * from team")
     List<Team> getTeams();
 
-    @SqlQuery("select team.* from team inner join user_teams on team.name = user_teams.team where user_teams.email=:email")
-    List<Team> getTeamsForUser(@Bind("email") String email);
+    @SqlQuery("select team.* from team inner join user_teams on team.name = user_teams.team where user_teams.email=:email AND user_teams.community=:community")
+    List<Team> getTeamsForUser(@Bind("community") String community, @Bind("email") String email);
 
-    @SqlUpdate("insert into user_teams values (:email, :team)")
-    void associateUserToTeam(@Bind("email") String email, @Bind("team") String team);
+    @SqlUpdate("insert into user_teams values (:community, :email, :team)")
+    void associateUserToTeam(@Bind("community") String community, @Bind("email") String email, @Bind("team") String team);
 
-    @SqlUpdate("delete from user_teams where email=:email and team=:team")
-    void removeUserFromTeam(@Bind("email") String email, @Bind("team") String team);
+    @SqlUpdate("delete from user_teams where email=:email and community=:community and team=:team")
+    void removeUserFromTeam(@Bind("community") String community, @Bind("email") String email, @Bind("team") String team);
 
-    @SqlUpdate("delete from team where name=:name")
-    void deleteTeam(@Bind("name") String name);
+    @SqlUpdate("delete from team where community=:community and name=:name")
+    void deleteTeam(@Bind("community") String community, @Bind("name") String name);
 
-    @SqlUpdate("insert into team values(:name, :description)")
-    void createTeam(@Bind("name") String name, @Bind("description") String description);
+    @SqlUpdate("insert into team values(:community, :name, :description)")
+    void createTeam(@Bind("community") String community, @Bind("name") String name, @Bind("description") String description);
 
 }
