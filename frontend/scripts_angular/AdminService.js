@@ -45,7 +45,7 @@ angular.module('sports-predictions')
                 var deferredObject = $q.defer();
                 var config = BackendService.getRequestConfig();
 
-                $http.post(BackendService.getBackEndURL() + 'admin/toggle-active/' + email, config)
+                $http.post(BackendService.getBackEndURL() + 'admin/toggle-active/' + email, '', config)
                     .then(function (response) {
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {
@@ -59,7 +59,7 @@ angular.module('sports-predictions')
                 var deferredObject = $q.defer();
                 var config = BackendService.getRequestConfig();
 
-                $http.post(BackendService.getBackEndURL() + 'admin/toggle-admin/' + email, config)
+                $http.post(BackendService.getBackEndURL() + 'admin/toggle-admin/' + email, '', config)
                     .then(function (response) {
                         deferredObject.resolve({ users: response.data });
                     }, function (response) {

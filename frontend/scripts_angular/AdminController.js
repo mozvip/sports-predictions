@@ -91,16 +91,25 @@ angular.module('sports-predictions').controller('AdminController', ['$scope', '$
             });
         }
 
-        $scope.authorizeGMail = function() {
-            Notification.error({ 'title': 'Error', 'message': 'not implemented yet!' });
-        }
-
         $scope.recalculateScores = function() {
                 AdminService.recalculateScores().then( function(response) {
                         Notification.success({ 'title': 'Success', 'message': 'Les scores ont été recalculés avec succès' });
                 }, function(response) {
                         Notification.error({ 'title': response.statusText, 'message': response.data });
                 });
+        }
+
+        $scope.toggleAdmin = function() {
+                for (var i = 0; i < $scope.userGridOptionsApi.selection.getSelectedCount(); i++) {
+                    var userProfile = $scope.userGridOptionsApi.selection.getSelectedRows()[i];
+                    if (userProfile) {
+                        AdminService.toggleAdmin(userProfile.email).then(function () {
+                                Notification.success("Opération effectuée avec succès !")
+                            }, function () {
+                            }
+                        );
+                    }
+                }
         }
 
         $scope.deleteUsers = function() {
