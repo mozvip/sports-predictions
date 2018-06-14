@@ -61,7 +61,7 @@ var pronostic = function(){
                     "Egypte" : "eg",
                     "Iran" : "ir",
 					"Roumanie" : "ROU",
-					"Angleterre" : "gb",
+					"Angleterre" : "gb-eng",
 					"Slovaquie" : "SVK",
 					"Galles" : "WAL",
 					"Irlande Du Nord" : "NIR", 
