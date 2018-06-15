@@ -167,15 +167,16 @@ public class UserResource {
 		Date now = new Date();
 		for (MatchPrediction prediction : predictions.getMatch_predictions_attributes()) {
 			Game game = gamesManager.getGame(prediction.getMatch_id());
+
 			if (game.getGroup() != null && !community.getGroupsAccess().equals(AccessType.W)) {
 				continue;
 			}
 			if (game.getRound() != null && !community.getFinalsAccess().equals(AccessType.W)) {
 				continue;
 			}
+
 			boolean saveMatch = (forceSave || game.getDateTime().after(now));
 			if (saveMatch) {
-
 				if (prediction.getHome_team_name() != null && prediction.getAway_team_name() != null) {
 					matchPredictionDAO.merge(community.getName(), email, prediction.getMatch_id(), prediction.getHome_score(), prediction.getAway_score(), prediction.getHome_team_name(), prediction.getAway_team_name(), prediction.isHome_winner());
 				}
