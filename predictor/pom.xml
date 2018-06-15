@@ -14,25 +14,12 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.0</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
 
 			<!-- we use the resources plugin to copy all files from frontend -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.0.2</version>
-
 				<executions>
 					<execution>
 						<id>copy-resources</id>
@@ -46,7 +33,6 @@
 								<resource>
 									<directory>../frontend</directory>
 									<filtering>false</filtering>
-
 									<excludes>
 										<exclude>node_modules/**</exclude>
 									</excludes>

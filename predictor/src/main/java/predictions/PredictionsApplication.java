@@ -19,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.HttpParams;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jdbi.v3.core.Jdbi;
 import predictions.auth.CommunityBasicCredentialAuthFilter;
@@ -95,11 +96,13 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 	    HttpParams params = client.getParams();
 	    client = new DefaultHttpClient(new ThreadSafeClientConnManager(params, mgr.getSchemeRegistry()), params);
 
+		environment.jersey().register(MultiPartFeature.class);
+
 		environment.jersey().register(new UserResource(gamesManager, phaseManager, userDAO, matchPredictionDAO, communityDAO, client, configuration));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new ValidateEmailResource(userDAO));
 		environment.jersey().register(new AdminResource(userDAO));
-		//environment.jersey().register(new TeamsResource(configuration, teamDAO));
+		environment.jersey().register(new TeamsResource(configuration, teamDAO));
 		environment.jersey().register(new GameResource( matchPredictionDAO ));
 		environment.jersey().register(new CommunityResource( communityDAO ));
 		environment.jersey().register(new ScoreResource(gamesManager, actualResultDAO, matchPredictionDAO, userDAO));

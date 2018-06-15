@@ -12,7 +12,8 @@ public class TeamRowMapper implements RowMapper<Team> {
         return new Team(
                 rs.getString("COMMUNITY"),
                 rs.getString("NAME"),
-                rs.getString("DESCRIPTION")
+                rs.getString("DESCRIPTION"),
+                rs.getString("OWNER")
         );
     }
 }

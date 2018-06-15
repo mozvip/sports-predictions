@@ -1,5 +1,5 @@
 angular.module('sports-predictions')
-    .factory('TeamService', ['$q', '$http', 'BackendService', 'UserService', 'Notification', function ($q, $http, BackendService, UserService, Notification) {
+    .factory('TeamService', ['$q', '$http', 'BackendService', 'UserService', 'Notification', 'Upload', function ($q, $http, BackendService, UserService, Notification, Upload) {
         return {
             getTeams: function () {
                 var deferredObject = $q.defer();
@@ -15,61 +15,22 @@ angular.module('sports-predictions')
 
                 return deferredObject.promise;
             },
-            recalculateScores: function() {
-                var deferredObject = $q.defer();
-                var config = BackendService.getRequestConfig();
-                $http.get(BackendService.getBackEndURL() + 'score/recalculate', config)
-                    .then(function (response) {
-                        deferredObject.resolve(response);
-                    }, function (response) {
-                        deferredObject.reject(response);
-                    });
-
-                return deferredObject.promise;
-            },
-            getUsersNoPrediction: function () {
-                var deferredObject = $q.defer();
-                var config = BackendService.getRequestConfig();
-
-                $http.get(BackendService.getBackEndURL() + 'admin/users-no-prediction', config)
-                    .then(function (response) {
-                        deferredObject.resolve({ users: response.data });
-                    }, function (response) {
-                        Notification.error({ 'title': response.statusText, 'message': response.data });
-                        deferredObject.reject();
-                    });
-
-                return deferredObject.promise;
-            },
-            toggleActive: function (email) {
+            createTeam: function (name, description, image) {
                 var deferredObject = $q.defer();
                 var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
-                
-                var data = 'email=' + email;
 
-                $http.post(BackendService.getBackEndURL() + 'admin/toggle-active', data, config)
-                    .then(function (response) {
-                        deferredObject.resolve({ users: response.data });
-                    }, function (response) {
-                        Notification.error({ 'title': response.statusText, 'message': response.data });
-                        deferredObject.reject();
-                    });
-
-                return deferredObject.promise;
-            },
-            deleteUser: function (email) {
-                var deferredObject = $q.defer();
-                var config = BackendService.getRequestConfig('application/x-www-form-urlencoded; charset=UTF-8');
-                
-                var data = 'email=' + email;
-
-                $http.post(BackendService.getBackEndURL() + 'admin/delete-user', data, config)
-                    .then(function (response) {
-                        deferredObject.resolve({ users: response.data });
-                    }, function (response) {
-                        Notification.error({ 'title': response.statusText, 'message': response.data });
-                        deferredObject.reject();
-                    });
+                Upload.upload({
+                    url: BackendService.getBackEndURL() + 'teams',
+                    data: {file: file, 'name': $scope.teamName, 'description': $scope.teamDescription}
+                }).then(function (resp) {
+                    console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+                }, function (resp) {
+                    console.log('Error status: ' + resp.status);
+                    Notification.error({ 'title': resp.status, 'message': resp.data });
+                }, function (evt) {
+                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                });
 
                 return deferredObject.promise;
             }

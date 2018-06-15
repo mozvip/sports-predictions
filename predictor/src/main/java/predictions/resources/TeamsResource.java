@@ -28,7 +28,7 @@ import java.util.List;
 @Api
 public class TeamsResource {
 
-    private final static Logger logger = LoggerFactory.getLogger( Teams.class );
+    private final static Logger LOGGER = LoggerFactory.getLogger( Teams.class );
 
     TeamDAO teamDAO;
     PredictionsConfiguration configuration;
@@ -42,8 +42,9 @@ public class TeamsResource {
     }
 
     @GET
-    public List<Team> getTeams(@ApiParam(hidden = true) @Auth User user) {
-        return teamDAO.getTeams();
+    public List<Team> getTeams() {
+        String community = (String) httpRequest.getAttribute("community");
+        return teamDAO.getTeams(community);
     }
 
     @POST
@@ -53,11 +54,15 @@ public class TeamsResource {
                            @NotNull @FormDataParam("description") String description,
                            @FormDataParam("file") InputStream uploadedInputStream,
                            @FormDataParam("file") FormDataContentDisposition fileDetail) throws IOException {
-        logger.info(String.format("Creating new team : name=%s description=%s", name, description));
-
         String community = (String) httpRequest.getAttribute("community");
 
-        teamDAO.createTeam(community, name, description);
+        LOGGER.info(String.format("Creating new team : community=%s, name=%s, description=%s", name, description));
+
+        teamDAO.createTeam(community, name, description, user.getEmail());
+
+        // associate user to the team he just created
+        teamDAO.associateUserToTeam(community, user.getEmail(), name);
+
         if (uploadedInputStream != null) {
             String fileName = String.format("%s.jpg", name);
             java.nio.file.Path imageFile = configuration.getDataFolder().resolve("teams").resolve(fileName);
@@ -71,6 +76,17 @@ public class TeamsResource {
     public void deleteTeam(@ApiParam(hidden = true) @Auth User user, @PathParam("name") String name) {
 
         String community = (String) httpRequest.getAttribute("community");
-        teamDAO.deleteTeam(community, name);
+
+        Team team = teamDAO.getTeam(community, name);
+        if (team == null) {
+            // TODO: 404
+        }
+
+        // only the owner or an admin can delete a team
+        if (user.isAdmin() || team.getOwner().equals(user.getEmail())) {
+            teamDAO.deleteTeam(community, name);
+        } else {
+            // TODO: 403
+        }
     }
 }

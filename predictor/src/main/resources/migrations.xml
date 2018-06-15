@@ -176,7 +176,8 @@
 
     <changeSet id="23" author="Guillaume Serre">
 
-        <dropTable tableName="TEAM" />
+        <sql>DROP TABLE IF EXISTS TEAM;</sql>
+        <sql>DROP TABLE IF EXISTS USER_TEAMS;</sql>
 
         <createTable tableName="TEAM">
             <column name="COMMUNITY" type="VARCHAR(100)">
@@ -188,6 +189,9 @@
             <column name="DESCRIPTION" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="OWNER" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <addPrimaryKey tableName="TEAM" columnNames="COMMUNITY, NAME" />
@@ -196,7 +200,9 @@
                                  referencedTableName="COMMUNITY"
                                  referencedColumnNames="COMMUNITY_NAME"/>
 
-        <dropTable tableName="USER_TEAMS" />
+        <addForeignKeyConstraint baseTableName="TEAM" baseColumnNames="COMMUNITY,OWNER" constraintName="FK_TEAM_OWNER"
+                                 referencedTableName="SP_USER"
+                                 referencedColumnNames="COMMUNITY,EMAIL"/>
 
         <createTable tableName="USER_TEAMS">
             <column name="COMMUNITY" type="VARCHAR(100)">
@@ -217,7 +223,7 @@
                                  referencedColumnNames="COMMUNITY,EMAIL"/>
         <addForeignKeyConstraint baseTableName="USER_TEAMS" baseColumnNames="COMMUNITY,TEAM" constraintName="FK_USER_TEAMS_TEAM"
                                  referencedTableName="TEAM"
-                                 referencedColumnNames="COMMUNITY,TEAM"/>
+                                 referencedColumnNames="COMMUNITY,NAME"/>
     </changeSet>
 
 </databaseChangeLog>

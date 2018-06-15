@@ -5,11 +5,13 @@ public class Team {
     private String community;
     private String name;
     private String description;
+    private String owner;
 
-    public Team(String community, String name, String description) {
+    public Team(String community, String name, String description, String owner) {
         this.community = community;
         this.name = name;
         this.description = description;
+        this.owner = owner;
     }
 
     public String getCommunity() {
@@ -36,4 +38,11 @@ public class Team {
         this.description = description;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 }
