@@ -3,6 +3,7 @@ package predictions;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.mozvip.footballdata.FootballDataClient;
+import com.google.common.io.Resources;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -10,6 +11,7 @@ import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.migrations.MigrationsBundle;
+import io.dropwizard.servlets.assets.AssetServlet;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.swagger.jaxrs.config.BeanConfig;
@@ -34,6 +36,7 @@ import predictions.resources.*;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration.Dynamic;
+import java.nio.file.Path;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -77,6 +80,10 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.lifecycle().manage(gamesManager);
 
 		environment.jersey().setUrlPattern("/api");
+
+		Path dataFolder = configuration.getDataFolder().toAbsolutePath();
+
+		environment.servlets().addServlet("data folder assets", new StaticResourcesServlet(dataFolder, "/data", null, null)).addMapping("/data/*");
 
 		CommunityFilter communityFilter = new CommunityFilter(configuration.getDefaultCommunity());
 		

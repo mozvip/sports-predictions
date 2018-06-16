@@ -45,4 +45,8 @@ public class Team {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
+    public String getImageURL() {
+        return String.format("/data/teams/%s/%s.jpg", community, name);
+    }
 }

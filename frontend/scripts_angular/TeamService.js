@@ -7,7 +7,7 @@ angular.module('sports-predictions')
 
                 $http.get(BackendService.getBackEndURL() + 'teams', config)
                     .then(function (response) {
-                        deferredObject.resolve({ teams: response.data });
+                        deferredObject.resolve(response.data);
                     }, function (response) {
                         Notification.error({ 'title': response.statusText, 'message': response.data });
                         deferredObject.reject();
@@ -21,15 +21,14 @@ angular.module('sports-predictions')
 
                 Upload.upload({
                     url: BackendService.getBackEndURL() + 'teams',
-                    data: {file: file, 'name': $scope.teamName, 'description': $scope.teamDescription}
+                    headers : config.headers,
+                    data: {file: image, 'name': name, 'description': description}
                 }).then(function (resp) {
-                    console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+                    Notification.success({ 'title': 'Succès', 'message': 'L\'équipe a été créée' });
+                    deferredObject.resolve(resp);
                 }, function (resp) {
-                    console.log('Error status: ' + resp.status);
-                    Notification.error({ 'title': resp.status, 'message': resp.data });
-                }, function (evt) {
-                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                    Notification.error({ 'title': resp.statusText, 'message': resp.data });
+                    deferredObject.reject(resp.statusText);
                 });
 
                 return deferredObject.promise;

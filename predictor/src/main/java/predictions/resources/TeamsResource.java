@@ -20,7 +20,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Path("/teams")
@@ -56,7 +58,7 @@ public class TeamsResource {
                            @FormDataParam("file") FormDataContentDisposition fileDetail) throws IOException {
         String community = (String) httpRequest.getAttribute("community");
 
-        LOGGER.info(String.format("Creating new team : community=%s, name=%s, description=%s", name, description));
+        LOGGER.info(String.format("Creating new team : community=%s, name=%s, description=%s", community, name, description));
 
         teamDAO.createTeam(community, name, description, user.getEmail());
 
@@ -65,9 +67,9 @@ public class TeamsResource {
 
         if (uploadedInputStream != null) {
             String fileName = String.format("%s.jpg", name);
-            java.nio.file.Path imageFile = configuration.getDataFolder().resolve("teams").resolve(fileName);
+            java.nio.file.Path imageFile = configuration.getDataFolder().resolve("teams").resolve(community).resolve(fileName);
             Files.createDirectories(imageFile.getParent());
-            Files.copy(uploadedInputStream, imageFile);
+            Files.copy(uploadedInputStream, imageFile, StandardCopyOption.REPLACE_EXISTING);
         }
     }
 

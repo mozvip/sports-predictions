@@ -103,12 +103,15 @@ angular.module('sports-predictions')
                 templateUrl: '/views/teams.html',
                 authorized: true,
                 resolve: {
+                    teams: ['TeamService', function(TeamService){
+                        return TeamService.getTeams();
+                    }],
                     currentUser: ['UserService', function (UserService) {
                         return UserService.getCurrentUser();
                     }],
                     community: ['CommunityService', function (CommunityService) {
                         return CommunityService.getCommunity();
-                    }],
+                    }]
                 }
             })
             .when('/admin', {
