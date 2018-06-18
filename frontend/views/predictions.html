@@ -1,13 +1,11 @@
 <div ng-init="init()">			
 	<div class="col-md-12" data-wow-delay="0.2s">
 		<div class="box">		
-			 <section class="u-paddingBl">
-				<v-tabs class="vTabs--default" id="tabs" horizontal control="currentTab" active="currentTab.active">
-					<v-tab ng-repeat="tab in tabs" ng-bind="tab.title"></v-tab>
-				</v-tabs>
-				<div class="u-marginVm" compile-html="tabs[currentTab.active].content"></div>
-			</section>
-
+			<uib-tabset>
+				<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}">
+					<div compile-html="tab.content"></div>
+				</uib-tab>
+			</uib-tabset>
 			<p class="text-center" ng-if="writeAccessAllowed"><button class="btn btn-primary btn-lg" ng-click="submitPronostic()">Sauvegarder mes pronostics</button></p>
 		</div>
 	</div>

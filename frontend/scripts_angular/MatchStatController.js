@@ -4,8 +4,8 @@
  * login() * Try to log in user input
  **/
 angular.module('sports-predictions')
-	.controller('MatchStatController', ['$scope', '$location', '$routeParams', 'GamesService', '$linq', 
-		function ($scope, $location, $routeParams, GamesService, $linq) {
+	.controller('MatchStatController', ['$scope', '$location', '$routeParams', 'GamesService', '$linq', 'Notification',
+		function ($scope, $location, $routeParams, GamesService, $linq, Notification) {
 
 			$scope.gameStats = { perfect: 0, good: 0, bad: 0};
 

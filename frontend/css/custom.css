@@ -7,7 +7,7 @@
 }
 
 
-.vTabs--default {
+.nav-tabs>li>a {
     font-family: 'Dusha', sans-serif;
     font-size: 24px;
 }

@@ -3,7 +3,8 @@ var sportsPredictions = angular.module('sports-predictions',
     [
         'ui.grid', 'ui.grid.selection',
         'ui.grid.exporter',
-        'ngAnimate', 'vTabs', 'ui.bootstrap',
+        'ngAnimate',
+        'ui.bootstrap',
         'chieffancypants.loadingBar',
         'ngRoute',
         'ngCookies',
@@ -12,7 +13,6 @@ var sportsPredictions = angular.module('sports-predictions',
         'ui-notification',
         'ngTable',
         'oitozero.ngSweetAlert',
-        'ngTagsInput',
         'ngFileUpload'
     ])
     .config(function (cfpLoadingBarProvider) {

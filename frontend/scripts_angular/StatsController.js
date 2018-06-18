@@ -1,5 +1,5 @@
 angular.module('sports-predictions')
-.controller('StatsController', ['$scope', 'GamesService', '$location', '$linq', 'currentUser', function($scope, GamesService, $location, $linq, currentUser){
+.controller('StatsController', ['$scope', 'GamesService', '$location', '$linq', 'Highcharts', 'currentUser', function($scope, GamesService, $location, $linq, Highcharts, currentUser){
 	
 	$scope.statsPrediction = {perfect:0, good: 0, bad:  0 };
 	

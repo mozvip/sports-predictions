@@ -110,7 +110,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().register(new ValidateEmailResource(userDAO));
 		environment.jersey().register(new AdminResource(userDAO, matchPredictionDAO, actualResultDAO, gamesManager));
 		environment.jersey().register(new TeamsResource(configuration, teamDAO));
-		environment.jersey().register(new GameResource( matchPredictionDAO ));
+		environment.jersey().register(new GameResource(matchPredictionDAO, gamesManager));
 		environment.jersey().register(new CommunityResource( communityDAO ));
 		environment.jersey().register(new ScoreResource(gamesManager, actualResultDAO, matchPredictionDAO, userDAO));
 

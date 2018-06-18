@@ -17,7 +17,7 @@ public interface MatchPredictionDAO {
 			   @Bind("home_team_name") String home_team_name, @Bind("away_team_name") String away_team_name,
 			   @Bind("home_winner") boolean home_winner);
 
-	@SqlQuery("select match_prediction.* from match_prediction inner join user on match_prediction.community = user.community and match_prediction.email = user.email where user.active=true and match_prediction.community=:community and match_id = :gameId")
+	@SqlQuery("select match_prediction.* from match_prediction inner join sp_user on match_prediction.community = sp_user.community and match_prediction.email = sp_user.email where sp_user.active=true and match_prediction.community=:community and match_id = :gameId")
 	List<MatchPrediction> findByGame(@Bind("community") String community, @Bind("gameId") int gameId);
 
 	@SqlQuery("select * from match_prediction where community=:community AND UPPER(email)=UPPER(:email)")

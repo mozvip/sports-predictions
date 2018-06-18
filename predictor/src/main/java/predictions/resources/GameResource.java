@@ -16,7 +16,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
+import predictions.model.Game;
 import predictions.model.GameStats;
+import predictions.model.GamesManager;
 import predictions.model.db.MatchPrediction;
 import predictions.model.db.MatchPredictionDAO;
 import predictions.model.db.User;
@@ -29,18 +31,22 @@ public class GameResource {
 	@Context private HttpServletRequest httpRequest;
 	
 	private MatchPredictionDAO gamePredictionsDAO;
-	
-	public GameResource( MatchPredictionDAO dao ) {
-		this.gamePredictionsDAO = dao;
+	private GamesManager gamesManager;
+
+	public GameResource(MatchPredictionDAO gamePredictionsDAO, GamesManager gamesManager) {
+		this.gamePredictionsDAO = gamePredictionsDAO;
+		this.gamesManager = gamesManager;
 	}
-	
+
 	@GET
 	@ApiOperation(tags="user", value="Retrieve the statistics for a game", authorizations = @Authorization("basicAuth"))
 	public GameStats getGameStats(@ApiParam(hidden = true) @Auth User user, @NotNull @QueryParam("gameId") int gameId) {
 		
 		String community = user.getCommunity();
 
-		List<MatchPrediction> predictionsForGame = gamePredictionsDAO.findByGame( community,  gameId);
+		Game game = gamesManager.getGame(gameId);
+
+		List<MatchPrediction> predictionsForGame = gamePredictionsDAO.findByGame(community,gameId);
 		
 		int perfect = 0;
 		int good = 0;
@@ -48,21 +54,19 @@ public class GameResource {
 
 		for (MatchPrediction matchPrediction : predictionsForGame) {
 
-			//FIXME
-			if (matchPrediction.getMatch_id() < 36 ) {
+			if (game.getGroup() != null) {
 				
 				if (matchPrediction.getScore() == 3) {
 					perfect ++;
-				} else if (community.equals("michelin-solutions") && matchPrediction.getScore() == 2) {
-					good ++;
-				} else if (!community.equals("michelin-solutions") && matchPrediction.getScore() == 1) {
+				} else if (matchPrediction.getScore() == 1) {
 					good ++;
 				} else {
 					bad ++;
 				}
 
 			} else {	// finals phase
-				
+
+				//FIXME
 				if (matchPrediction.getScore() == 5) {
 					perfect ++;
 				} else if (matchPrediction.getScore() == 3) {
@@ -75,7 +79,7 @@ public class GameResource {
 			
 		}
 		
-		return new GameStats( predictionsForGame.get(0).getHome_team_name(), predictionsForGame.get(0).getAway_team_name(), predictionsForGame.size(), perfect, good, bad);
+		return new GameStats( game.getHomeTeamName(), game.getAwayTeamName(), predictionsForGame.size(), perfect, good, bad);
 		
 	}
 
