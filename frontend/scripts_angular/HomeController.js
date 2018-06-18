@@ -37,11 +37,7 @@ angular.module('sports-predictions')
 			$scope.currentRanking = function() {
 				return UserService.getCurrentRanking();
 			}
-			
-			$scope.updateGroupEnabled = function() {
-				return $scope.community != undefined && $scope.community.groupsAccess == 'W';
-			}
-			
+
 			$scope.updateFinalEnabled = function() {
 				return $scope.community != undefined && $scope.community.finalsAccess == 'W';
 			}

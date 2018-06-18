@@ -226,4 +226,10 @@
                                  referencedColumnNames="COMMUNITY,NAME"/>
     </changeSet>
 
+    <changeSet id="24" author="Guillaume Serre">
+        <addColumn tableName="SP_USER">
+            <column name="LATE" type="BOOLEAN" defaultValueBoolean="false" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

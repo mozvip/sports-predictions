@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import predictions.PredictionsConfiguration;
 import predictions.model.*;
 import predictions.model.db.*;
-import predictions.phases.Phase;
 import predictions.phases.PhaseManager;
 
 import javax.annotation.security.RolesAllowed;
@@ -71,7 +70,7 @@ public class UserResource {
 	@Path("/emailAvailable")
 	@ApiOperation(tags="public", value="Indicates if the email is available for new users")
 	public boolean isEmailAvailable(@NotNull @QueryParam("email") String email) {
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		return userDAO.findUser(community, email) == null;
 	}
 	
@@ -79,7 +78,7 @@ public class UserResource {
 	@Path("/nameAvailable")
 	@ApiOperation(tags="public", value="Indicates if the name is available for new users")
 	public boolean isNameAvailable(@QueryParam("email") String email, @QueryParam("name") String name) {
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		return userDAO.findExistingUserByName(community, email, name) == null;
 	}
 
@@ -87,7 +86,7 @@ public class UserResource {
 	@Path("/count")
 	@ApiOperation(tags="public", value="Returns the current user count for the community")
 	public long getUserCount() {
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		return userDAO.getCount(community);
 	}
 
@@ -97,7 +96,7 @@ public class UserResource {
 	@RolesAllowed("ADMIN")
 	@ApiOperation(tags="admin", value="Deletes a user from the application", authorizations = @Authorization("basicAuth"))
 	public void deleteUser(@NotNull @PathParam("email") String email ) {
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		email = email.toLowerCase().trim();
 		userDAO.delete( community, email );
 	}
@@ -107,7 +106,7 @@ public class UserResource {
 	@ApiOperation(tags={"public", "captcha"}, value="Create a new regular user")
 	public void createUser(@NotNull @FormParam("email") String email, @NotNull @FormParam("name") String name, @NotNull @FormParam("password") String password, @NotNull @FormParam("g-recaptcha-response") String recaptcha) throws IOException {
 		
-		String communityName = (String) httpRequest.getAttribute("community");
+		String communityName = getCommunity();
 		Community community = communityDAO.getCommunity(communityName);
 
 		if (community == null) {
@@ -129,6 +128,10 @@ public class UserResource {
 		} else {
 			LOGGER.warn("Attempt to create an already existing user : {} on community {}", email, communityName);
 		}
+	}
+
+	private String getCommunity() {
+		return (String) httpRequest.getAttribute("community");
 	}
 
 	private void recaptcha(String recaptcha) throws IOException {
@@ -159,20 +162,28 @@ public class UserResource {
 	@Path("/set-admin")
 	@ApiOperation(tags="admin", value="Gives or remove admin privileges to an existing user, can only be invoked by an admin", authorizations = @Authorization("basicAuth"))
 	public void setAdmin(@ApiParam(hidden = true) @Auth User user, @NotNull @FormParam("email") String email, @NotNull @FormParam("admin") boolean admin) {
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		userDAO.setAdmin( community, email, admin );
 	}
 
-	private void savePredictions( Community community, String email, MatchPredictions predictions, boolean forceSave ) {
+	private void savePredictions(Community community, String email, MatchPredictions predictions, boolean forceSave ) {
 		Date now = new Date();
+
+		User user = userDAO.findUser(community.getName(), email);
+		if (user == null || !user.isActive()) {
+			return;
+		}
+
 		for (MatchPrediction prediction : predictions.getMatch_predictions_attributes()) {
 			Game game = gamesManager.getGame(prediction.getMatch_id());
 
-			if (game.getGroup() != null && !community.getGroupsAccess().equals(AccessType.W)) {
-				continue;
-			}
-			if (game.getRound() != null && !community.getFinalsAccess().equals(AccessType.W)) {
-				continue;
+			if (!user.isLate()) {
+				if (game.getGroup() != null && !community.getGroupsAccess().equals(AccessType.W)) {
+					continue;
+				}
+				if (game.getRound() != null && !community.getFinalsAccess().equals(AccessType.W)) {
+					continue;
+				}
 			}
 
 			boolean saveMatch = (forceSave || game.getDateTime().after(now));
@@ -198,14 +209,10 @@ public class UserResource {
 	@ApiOperation(tags="user", value="Save predictions for the connected user", authorizations = @Authorization("basicAuth"))
 	public void save(@ApiParam(hidden = true) @Auth User user, MatchPredictions predictions ) {
 
-		String name = (String) httpRequest.getAttribute("community");
+		String name = getCommunity();
 		Community community = communityDAO.getCommunity(name);
 
-		// FIXME: only save relevant data !! use currentPhase !!
-		Phase currentPhase = phaseManager.getCurrentPhase();
-		if (community.getFinalsAccess() == AccessType.W || community.getGroupsAccess() == AccessType.W) {
-			savePredictions( community, user.getEmail(), predictions, false );
-		}
+		savePredictions( community, user.getEmail(), predictions, false );
 	}
 	
 	@POST
@@ -214,7 +221,7 @@ public class UserResource {
 	@ApiOperation(tags="admin", value="Save predictions for *another* user", authorizations = @Authorization("basicAuth"))
 	@RolesAllowed("ADMIN")
 	public void saveImpersonate(@ApiParam(hidden = true) @Auth User user, MatchPredictions predictions ) {
-		String name = (String) httpRequest.getAttribute("community");
+		String name = getCommunity();
 		Community community = communityDAO.getCommunity(name);
 		savePredictions( community, predictions.getEmail(), predictions, true );
 	}	
@@ -223,7 +230,7 @@ public class UserResource {
 	@Path("/rankings")
 	@ApiOperation(tags="public", value="Return the current rankings")
 	public Rankings getRankings() {
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		return new Rankings( userDAO.findUsersOrderedByScore( community ) );
 	}	
 	
@@ -239,7 +246,7 @@ public class UserResource {
 	@RolesAllowed("ADMIN")
 	@ApiOperation(tags="admin", value="Get the current predictions for the specified user", authorizations = @Authorization("basicAuth"))
 	public MatchPredictions getPredictionsForUser(@ApiParam(hidden = true) @Auth User user, @NotNull @PathParam("email") String email ) {
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		email = email.trim().toLowerCase();
 		return buildPredictions( userDAO.findUser(community, email) );
 	}
@@ -251,7 +258,8 @@ public class UserResource {
 		predictions.setEmail( user.getEmail() );
 		predictions.setName( user.getName() );
 		predictions.setCurrentRanking( user.getCurrentRanking() );
-		predictions.setAdmin( user.isAdmin() || user.getCommunity().equals("localhost") );
+		predictions.setAdmin(user.isAdmin() || user.getCommunity().equals("localhost") );
+		predictions.setLate(user.isLate());
 
 		List<MatchPrediction> matchPredictions = matchPredictionDAO.findForUser( user.getCommunity(), user.getEmail() );
 		predictions.setMatch_predictions_attributes( matchPredictions );
@@ -271,7 +279,7 @@ public class UserResource {
 	public Response forgetPassword(@NotNull @FormParam("email") String email,@NotNull @FormParam("g-recaptcha-response") String recaptcha ) throws IOException, MessagingException {
 		recaptcha(recaptcha);
 
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		email = email.trim();
 		
 		User existingUser = userDAO.findUser(community, email);
@@ -334,7 +342,7 @@ public class UserResource {
 	@ApiOperation(tags="public", value="Used to login a user")
 	public MatchPredictions signIn(@NotNull @FormParam("email") String email, @NotNull @FormParam("password") String password ) {
 
-		String community = (String) httpRequest.getAttribute("community");
+		String community = getCommunity();
 		email = email.toLowerCase().trim();
 		password = password.trim();
 		

@@ -3,22 +3,32 @@
         <h3>Equipes</h3>
     </div>
     <div class="panel-body">
-        <div ng-repeat="t in teams" class="thumbnail col-sm-6 col-md-4">
-            <div  style="height:360px;">
+        <div class="form-group">
+            <label class="control-label">Filtrer</label>
+            <input class="form-control" ng-model="filter" />
+        </div>
+        <div ng-repeat="t in teams | filter : filter" class="thumbnail col-sm-6 col-md-4">
+            <div style="height:355px; text-align: center">
                 <img ng-src="{{imageURL(t)}}" alt="{{t.name}}" title="{{t.name}}" class="img-rounded">
             </div>
             <div class="caption">
                 <h3>{{t.name}}</h3>
                 <p>{{t.description}}</p>
-                <a ng-if="canJoin(t)" class="btn btn-block btn-default">Rejoindre cette équipe</a>
-                <a ng-if="canLeave(t)" class="btn btn-block btn-default">Quitter cette équipe</a>
-                <a ng-if="canDelete(t)" class="btn btn-block btn-danger">Supprimer cette équipe</a>
+                <button ng-if="canJoin(t)" ng-click="joinTeam(t)" type="button" class="btn btn-block btn-primary">
+                    <span class="fa fa-sign-in-alt" /> Rejoindre cette équipe
+                </button>
+                <button ng-if="canLeave(t)" ng-click="leaveTeam(t)" type="button" class="btn btn-block btn-default">
+                    <span class="fa fa-sign-out-alt" /> Quitter cette équipe
+                </button>
+                <button ng-if="canDelete(t)" ng-click="deleteTeam(t)" type="button" class="btn btn-block btn-danger">
+                    <span class="fa fa-trash" /> Supprimer cette équipe
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<form name="createTeamForm" novalidate>
+<form name="createTeamForm" novalidate ng-submit="createTeam()">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3>Créer une nouvelle équipe</h3>
@@ -28,20 +38,35 @@
                 <label for="teamName">Nom de l'équipe</label>
                 <input id="teamName" class="form-control" ng-required="true" ng-model="teamName"/>
             </div>
+            <div ng-if="!createTeamForm.teamName.$valid" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                Un nom est obligatoire
+            </div>
             <div class="form-group">
                 <label for="teamDescription">Description</label>
                 <input id="teamDescription" class="form-control" ng-required="true" ng-model="teamDescription"/>
+            </div>
+            <div ng-if="!createTeamForm.teamDescription.$valid" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                Une description est obligatoire
             </div>
             <div class="form-group">
                 <label for="image">Image</label>
                 <input type="file" id="image" class="form-control" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
                      ngf-accept="'image/*'" ngf-max-size="1MB" ngf-resize="{width: 350, height: 350}" />
             </div>
+            <div ng-if="!createTeamForm.file.$valid" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                Une image est obligatoire
+            </div>
             <img ng-show="createTeamForm.file.$valid" ngf-thumbnail="file" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
         </div>
         <div class="panel-footer">
-            <button ng-disabled="createTeamForm.error" class="btn btn-primary btn-block" ng-click="createTeam()">Créer
-                cette équipe
+            <button type="submit" ng-disabled="createTeamForm.error" class="btn btn-primary btn-block">
+                Créer cette équipe
             </button>
         </div>
     </div>

@@ -13,7 +13,7 @@ var pronostic = function(){
 		controller: function($scope, $location) {
 									
 			$scope.isPronosticable = function(match){
-				return $scope.access=='W' && new Date(match.dateTime) >= new Date() && !match.done;
+				return new Date(match.dateTime) >= new Date() && $scope.access;
 			}
 			
 			$scope.realScore = function(predictionScore, realScore){

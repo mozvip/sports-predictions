@@ -14,7 +14,8 @@ public class UserResultSetMapper implements RowMapper<User> {
 		return new User(r.getString("community"), r.getString("name"), r.getString("email"), r.getString("password"), r.getString("CHANGE_PASSWORD_TOKEN"),
 				new DateTime(r.getDate("LAST_LOGIN_DATE")),
 				r.getInt("CURRENT_SCORE"), r.getInt("RANKING"), r.getInt("PREVIOUS_RANKING"),
-				r.getBoolean("admin"), r.getBoolean("active") );
+				r.getBoolean("admin"), r.getBoolean("active"),
+				r.getBoolean("LATE") );
 	}
 
 }

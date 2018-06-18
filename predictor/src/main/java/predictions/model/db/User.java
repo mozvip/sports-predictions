@@ -40,12 +40,14 @@ public class User implements Principal {
 	private boolean admin = false;
 	
 	private boolean active = true;
-	
+
+	private boolean late = false;
+
 	public User() {
 	}
 
 	public User(String community, String name, String email, String password, String changePasswordToken,
-			DateTime lastLoginDate, int currentScore, int currentRanking, int previousRanking, boolean admin, boolean active) {
+			DateTime lastLoginDate, int currentScore, int currentRanking, int previousRanking, boolean admin, boolean active, boolean late) {
 		super();
 		this.community = community;
 		this.name = name;
@@ -58,6 +60,7 @@ public class User implements Principal {
 		this.previousRanking = previousRanking;
 		this.admin = admin;
 		this.active = active;
+		this.late = late;
 	}
 
 	@JsonProperty
@@ -83,6 +86,11 @@ public class User implements Principal {
 	@JsonProperty
 	public boolean isAdmin() {
 		return admin;
+	}
+
+	@JsonProperty
+	public boolean isLate() {
+		return late;
 	}
 
 	@JsonProperty

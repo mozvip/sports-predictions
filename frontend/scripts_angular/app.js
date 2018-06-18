@@ -1,6 +1,7 @@
 // Application du site sportsPredictions
 var sportsPredictions = angular.module('sports-predictions',
-    ['ui.grid', 'ui.grid.selection',
+    [
+        'ui.grid', 'ui.grid.selection',
         'ui.grid.exporter',
         'ngAnimate', 'vTabs', 'ui.bootstrap',
         'chieffancypants.loadingBar',
@@ -11,7 +12,9 @@ var sportsPredictions = angular.module('sports-predictions',
         'ui-notification',
         'ngTable',
         'oitozero.ngSweetAlert',
-        'ngTagsInput', "ngFileUpload"])
+        'ngTagsInput',
+        'ngFileUpload'
+    ])
     .config(function (cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = false;
     });

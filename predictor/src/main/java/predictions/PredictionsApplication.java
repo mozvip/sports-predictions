@@ -76,7 +76,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		PhaseManager phaseManager = new PhaseManager();
 		environment.lifecycle().manage(phaseManager);
 
-		GamesManager gamesManager = new GamesManager(actualResultDAO);
+		GamesManager gamesManager = new GamesManager(actualResultDAO, matchPredictionDAO);
 		environment.lifecycle().manage(gamesManager);
 
 		environment.jersey().setUrlPattern("/api");
@@ -108,7 +108,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		environment.jersey().register(new UserResource(gamesManager, phaseManager, userDAO, matchPredictionDAO, communityDAO, client, configuration));
 		environment.jersey().register(new ChangePasswordResource(userDAO));
 		environment.jersey().register(new ValidateEmailResource(userDAO));
-		environment.jersey().register(new AdminResource(userDAO));
+		environment.jersey().register(new AdminResource(userDAO, matchPredictionDAO, actualResultDAO, gamesManager));
 		environment.jersey().register(new TeamsResource(configuration, teamDAO));
 		environment.jersey().register(new GameResource( matchPredictionDAO ));
 		environment.jersey().register(new CommunityResource( communityDAO ));

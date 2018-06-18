@@ -4,6 +4,9 @@ import io.dropwizard.testing.junit.ResourceTestRule;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.mockito.stubbing.Answer;
+import predictions.model.GamesManager;
+import predictions.model.db.ActualResultDAO;
+import predictions.model.db.MatchPredictionDAO;
 import predictions.model.db.User;
 import predictions.model.db.UserDAO;
 
@@ -19,7 +22,10 @@ import static org.mockito.Mockito.*;
 public class AdminResourceTest {
 
     private static final UserDAO dao = mock(UserDAO.class);
-    private static final AdminResource adminResource = spy(new AdminResource(dao));
+    private static final MatchPredictionDAO matchPredictionDAO = mock(MatchPredictionDAO.class);
+    private static final ActualResultDAO actualResultDAO = mock(ActualResultDAO.class);
+    private static final GamesManager gamesManager = mock(GamesManager.class);
+    private static final AdminResource adminResource = spy(new AdminResource(dao, matchPredictionDAO, actualResultDAO, gamesManager));
 
     @ClassRule
     public static final ResourceTestRule resources = ResourceTestRule.builder()
@@ -29,7 +35,7 @@ public class AdminResourceTest {
     public static final String COMMUNITY = "test";
 
     private static List<User> allUsers = new ArrayList<>();
-    private static User testUser = new User("test", "Test User", "test@testdomain.com", "password", null, null, 0, 0, 0, false, true);
+    private static User testUser = new User("test", "Test User", "test@testdomain.com", "password", null, null, 0, 0, 0, false, true, false);
     private static Map<String, User> users = new HashMap<>();
 
     @BeforeClass
@@ -38,7 +44,7 @@ public class AdminResourceTest {
         when(adminResource.getCommunity()).thenReturn("test");
 
         for (int i=0; i<100; i++) {
-            User testUser = new User(COMMUNITY, String.format("Test User %d", i), String.format("test%d@testdomain.com", i), "password", null, null, 0, 0, 0, false, true);
+            User testUser = new User(COMMUNITY, String.format("Test User %d", i), String.format("test%d@testdomain.com", i), "password", null, null, 0, 0, 0, false, true, false);
             allUsers.add(testUser);
         }
 

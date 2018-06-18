@@ -9,14 +9,18 @@ function ($scope, $location, UserService, PredictionService, GamesService, Notif
 
     $scope.games = [];
 
-    $scope.tabs = [{ id: 1, title: 'Groupe A', content: '<div class="GroupeA"><pronostic access="community.groupsAccess" ng-repeat="match in games | filter: {group:\'A\'}" match="match"></pronostic></div>' },
-        { id: 2, title: 'Groupe B', content: '<div class="GroupeB"><pronostic access="community.groupsAccess" ng-repeat="match in games | filter:{group:\'B\'}" match="match"></pronostic></div>' },
-        { id: 3, title: 'Groupe C', content: '<div class="GroupeC"><pronostic access="community.groupsAccess" ng-repeat="match in games | filter:{group:\'C\'}" match="match"></pronostic></div>' },
-        { id: 4, title: 'Groupe D', content: '<div class="GroupeD"><pronostic access="community.groupsAccess" ng-repeat="match in games | filter:{group:\'D\'}" match="match"></pronostic></div>' },
-        { id: 5, title: 'Groupe E', content: '<div class="GroupeE"><pronostic access="community.groupsAccess" ng-repeat="match in games | filter:{group:\'E\'}" match="match"></pronostic></div>' },
-        { id: 6, title: 'Groupe F', content: '<div class="GroupeF"><pronostic access="community.groupsAccess" ng-repeat="match in games | filter:{group:\'F\'}" match="match"></pronostic></div>' },
-        { id: 7, title: 'Groupe G', content: '<div class="GroupeF"><pronostic access="community.groupsAccess" ng-repeat="match in games | filter:{group:\'G\'}" match="match"></pronostic></div>' },
-        { id: 8, title: 'Groupe H', content: '<div class="GroupeF"><pronostic access="community.groupsAccess" ng-repeat="match in games | filter:{group:\'H\'}" match="match"></pronostic></div>' }];
+    $scope.writeAccessAllowed = ( community.groupsAccess == 'W' || currentUser.late );
+
+    $scope.tabs = [
+        { id: 1, title: 'Groupe A', content: '<div class="GroupeA"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter: {group:\'A\'}" match="match"></pronostic></div>' },
+        { id: 2, title: 'Groupe B', content: '<div class="GroupeB"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'B\'}" match="match"></pronostic></div>' },
+        { id: 3, title: 'Groupe C', content: '<div class="GroupeC"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'C\'}" match="match"></pronostic></div>' },
+        { id: 4, title: 'Groupe D', content: '<div class="GroupeD"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'D\'}" match="match"></pronostic></div>' },
+        { id: 5, title: 'Groupe E', content: '<div class="GroupeE"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'E\'}" match="match"></pronostic></div>' },
+        { id: 6, title: 'Groupe F', content: '<div class="GroupeF"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'F\'}" match="match"></pronostic></div>' },
+        { id: 7, title: 'Groupe G', content: '<div class="GroupeF"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'G\'}" match="match"></pronostic></div>' },
+        { id: 8, title: 'Groupe H', content: '<div class="GroupeF"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'H\'}" match="match"></pronostic></div>' }
+        ];
 
     $scope.init = function () {
         var error = false;

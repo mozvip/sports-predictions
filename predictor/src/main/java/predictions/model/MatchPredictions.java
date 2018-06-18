@@ -20,6 +20,9 @@ public class MatchPredictions {
 	private boolean admin;
 
 	@JsonProperty
+	private boolean late;
+
+	@JsonProperty
 	private int currentRanking;
 
 	@JsonProperty
@@ -82,6 +85,14 @@ public class MatchPredictions {
 
 	public void setCurrentRanking(int currentRanking) {
 		this.currentRanking = currentRanking;
+	}
+
+	public boolean isLate() {
+		return late;
+	}
+
+	public void setLate(boolean late) {
+		this.late = late;
 	}
 
 	public MatchPredictions() {

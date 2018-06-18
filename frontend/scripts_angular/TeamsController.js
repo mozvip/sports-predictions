@@ -27,6 +27,9 @@ angular.module('sports-predictions').controller('TeamsController', ['$scope', '$
     }
 
     $scope.deleteTeam = function(team) {
+
+        SweetAlert.swal("Etes vous sûr de vouloir supprimer cette équipe ?");
+
         TeamService.deleteTeam(team.name);
     }
 
