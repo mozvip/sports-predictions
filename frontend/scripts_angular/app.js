@@ -24,3 +24,4 @@ sportsPredictions.directive('pronostic', pronostic);
 sportsPredictions.directive('compileHtml', compileHtml);
 sportsPredictions.directive('pronosticFinal', pronosticFinal);
 sportsPredictions.directive('backButton', backButton);
+sportsPredictions.directive('team', team);

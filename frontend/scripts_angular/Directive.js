@@ -1,3 +1,68 @@
+
+var team = function() {
+    return {
+        restrict: 'E',
+        scope: {
+        	name: "=",
+			position: "@"
+        },
+        templateUrl: '/partials-views/team.html',
+        controller: function($scope) {
+
+            $scope.classFlagTeam = function() {
+                var linking = {
+                    "France" : "fr",
+                    "Allemagne" : "de",
+                    "Albanie" : "al",
+                    "Arabie Saoudite" : "sa",
+                    "Autriche" : "AUT",
+                    "Australie" : "au",
+                    "Belgique" : "be",
+                    "Brésil" : "br",
+                    "Costa Rica" : "cr",
+                    "Croatie" : "hr",
+                    "Danemark" : "dk",
+                    "Pérou" : "pe",
+                    "Maroc" : "ma",
+                    "Russie" : "ru",
+                    "Uruguay" : "uy",
+                    "Panama": "pa",
+                    "Tunisie": "tn",
+                    "Japon": "jp",
+                    "Pologne": "pl",
+                    "Colombie": "co",
+                    "Argentine" : "ar",
+                    "Egypte" : "eg",
+                    "Iran" : "ir",
+                    "Roumanie" : "ROU",
+                    "Angleterre" : "gb-eng",
+                    "Slovaquie" : "SVK",
+                    "Galles" : "WAL",
+                    "Irlande Du Nord" : "NIR",
+                    "Ukraine" : "UKR",
+                    "Rep. Tcheque"  : "CZE",
+                    "Corée du Sud"  : "kr",
+                    "Espagne" : "es",
+                    "Nigéria"  : "ng",
+                    "Turquie" : "TUR",
+                    "Italie" : "ITA",
+                    "Irlande" : "IRL",
+                    "Mexique" : "mx",
+                    "Serbie" : "rs",
+                    "Sénégal" : "sn",
+                    "Suède" : "se",
+                    "Suisse" : "ch",
+                    "Hongrie" : "hu",
+                    "Islande" : "is",
+                    "Portugal" : "pt"
+                }
+                return "flag-icon flag-icon-"+linking[$scope.name];
+            };
+        }
+    };
+}
+
+
 /**
 * Angular Directive -> pronostic
 * Element Directive for display a match

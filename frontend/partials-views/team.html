@@ -1,0 +1,18 @@
+<div ng-if="position=='left'">
+    <div class="col-xs-12 col-md-2">
+        <span style="height:50px; width:100%;" ng-class="classFlagTeam(name)"></span>
+    </div>
+    <div class="col-xs-12 col-md-3 team-name">
+        <h3 class="text-right hidden-xs hidden-sm">{{name}}</h3>
+        <h3 class="text-center visible-xs visible-sm">{{name}}</h3>
+    </div>
+</div>
+<div ng-if="position=='right'">
+    <div class="col-xs-12 col-md-3 team-name">
+        <h3 class="text-left hidden-xs hidden-sm">{{name}}</h3>
+        <h3 class="text-center visible-xs visible-sm">{{name}}</h3>
+    </div>
+    <div class="col-xs-12 col-md-2">
+        <span style="height:50px; width:100%;" ng-class="classFlagTeam(name)"></span>
+    </div>
+</div>

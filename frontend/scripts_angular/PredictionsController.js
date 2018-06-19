@@ -12,7 +12,7 @@ function ($scope, $location, UserService, PredictionService, GamesService, Notif
     $scope.writeAccessAllowed = ( community.groupsAccess == 'W' || currentUser.late );
 
     $scope.tabs = [
-        { id: 1, title: 'Groupe A', content: '<div class="GroupeA"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter: {group:\'A\'}" match="match"></pronostic></div>' },
+        { id: 1, title: 'Groupe A', content: '<div class="GroupeA"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'A\'}" match="match"></pronostic></div>' },
         { id: 2, title: 'Groupe B', content: '<div class="GroupeB"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'B\'}" match="match"></pronostic></div>' },
         { id: 3, title: 'Groupe C', content: '<div class="GroupeC"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'C\'}" match="match"></pronostic></div>' },
         { id: 4, title: 'Groupe D', content: '<div class="GroupeD"><pronostic access="writeAccessAllowed" ng-repeat="match in games | filter:{group:\'D\'}" match="match"></pronostic></div>' },
