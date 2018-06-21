@@ -1,25 +1,22 @@
 <div ng-init="init()">
-	<div class="col-md-12" data-wow-delay="0.2s">
-		<div class="box">
-			<form name="delegateForm">
-				<div class="form-group has-feedback" ng-class="{'has-error' : !delegateForm.email.$pristine && delegateForm.email.$invalid, 'has-success' : !delegateForm.email.$invalid}">
-					<label for="delegateEmail">Saisir pour</label>
-					<input type="email" class="form-control" name="email" ng-model="delegateEmail" email-exists placeholder="Email" ng-change="delegateUserChanged()" />
-					<span class="form-control-feedback" aria-hidden="true">@</span>
-					<p ng-show="delegateForm.email.$error.required && !delegateForm.email.$pristine" class="help-block">Une adresse mail est requise</p>
-					<p ng-show="delegateForm.email.$error.email && !delegateForm.email.$pristine" class="help-block">Cette adresse mail est incorrecte</p>
-					<p ng-show="delegateForm.email.$pending.emailExists" class="help-block">Nous vérifions si cette adresse existe...</p>
-					<p ng-show="delegateForm.email.$error.emailExists" class="help-block">Cet adresse mail n'existe pas!</p>												
-				</div>
-			</form>
-			<section class="u-paddingBl">
-				<v-tabs class="vTabs--default" id="tebs" horizontal control="currentTab" active="currentTab.active">
-					<v-tab ng-repeat="tab in tabs" ng-bind="tab.title"></v-tab>
-				</v-tabs>
-				<div class="u-marginVm" compile-html="tabs[currentTab.active].content"></div>
-			</section>
-			<button class="btn btn-primary btn-btn-block" ng-click="submitPronosticsImpersonate()">Sauvegarder les pronostics</button>
-			
-		</div>
+	<div class="box col-md-12" data-wow-delay="0.2s">
+		<form name="delegateForm">
+			<div class="form-group has-feedback" ng-class="{'has-error' : !delegateForm.email.$pristine && delegateForm.email.$invalid, 'has-success' : !delegateForm.email.$invalid}">
+				<label for="delegateEmail">Saisir pour</label>
+				<input type="email" class="form-control" name="email" ng-model="delegateEmail" email-exists placeholder="Email" ng-change="delegateUserChanged()" />
+				<span class="form-control-feedback" aria-hidden="true">@</span>
+				<p ng-show="delegateForm.email.$error.required && !delegateForm.email.$pristine" class="help-block">Une adresse mail est requise</p>
+				<p ng-show="delegateForm.email.$error.email && !delegateForm.email.$pristine" class="help-block">Cette adresse mail est incorrecte</p>
+				<p ng-show="delegateForm.email.$pending.emailExists" class="help-block">Nous vérifions si cette adresse existe...</p>
+				<p ng-show="delegateForm.email.$error.emailExists" class="help-block">Cet adresse mail n'existe pas!</p>
+			</div>
+		</form>
+		<section class="u-paddingBl">
+			<v-tabs class="vTabs--default" id="tebs" horizontal control="currentTab" active="currentTab.active">
+				<v-tab ng-repeat="tab in tabs" ng-bind="tab.title"></v-tab>
+			</v-tabs>
+			<div class="u-marginVm" compile-html="tabs[currentTab.active].content"></div>
+		</section>
+		<button class="btn btn-primary btn-btn-block" ng-click="submitPronosticsImpersonate()">Sauvegarder les pronostics</button>
 	</div>
 </div>

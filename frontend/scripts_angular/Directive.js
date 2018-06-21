@@ -200,10 +200,10 @@ var pronosticFinal = function(){
 				return $scope.match.predictionHome_Score != undefined && $scope.match.predictionAway_Score != undefined &&
 					$scope.match.predictionHome_Score == $scope.match.predictionAway_Score;
 			}
-			
-			$scope.isPronosticable = function(){
-				return $location.path() == '/pronostic-final-delegate' || ($scope.access=='W' && new Date(match.dateTime) >= new Date() && !match.done);
-			}
+
+            $scope.isPronosticable = function(match){
+                return $location.path() == '/pronostic-final-delegate' || (new Date(match.dateTime) >= new Date() && $scope.access);
+            }
 
 			$scope.displayFinalScore = function() {
 				return $location.path() != '/pronostic-final-delegate' && $scope.match.done;

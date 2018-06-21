@@ -1,0 +1,22 @@
+[
+  {
+    "title_fr": "Score parfait",
+    "description_fr":"Vous avez trouvé un score parfait"
+  },
+  {
+    "title_fr": "La Loose",
+    "description_fr":"Vous n'avez pas trouvé la bonne tendance d'un match alors que 95% des joueurs l'avaient trouvé"
+  },
+  {
+    "title_fr": "La Mega-Loose",
+    "description_fr":"Vous n'avez pas trouvé la bonne tendance d'un match alors que 98% des joueurs l'avaient trouvé"
+  },
+  {
+    "title_fr": "Score rare",
+    "description_fr":"Vous avez trouvé le score parfait d'un match alors que moins de 5% des joueurs l'avaient trouvé"
+  },
+  {
+    "title_fr": "Score ultra-rare",
+    "description_fr":"Vous avez trouvé le score parfait d'un match alors que moins de 2% des joueurs l'avaient trouvé"
+  }
+]

@@ -1,13 +1,10 @@
 <div ng-init="init()">			
-	<div class="col-md-12" data-wow-delay="0.2s">
-		<div class="box">		
-			<uib-tabset>
-				<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}">
-					<div compile-html="tab.content"></div>
-				</uib-tab>
-			</uib-tabset>
-			<p class="text-center" ng-if="writeAccessAllowed"><button class="btn btn-primary btn-lg" ng-click="submitPronostic()">Sauvegarder mes pronostics</button></p>
-		</div>
+	<div class="box col-md-12" data-wow-delay="0.2s">
+		<uib-tabset>
+			<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}">
+				<div compile-html="tab.content"></div>
+			</uib-tab>
+		</uib-tabset>
+		<p class="text-center" ng-if="writeAccessAllowed"><button class="btn btn-primary btn-lg" ng-click="submitPronostic()">Sauvegarder mes pronostics</button></p>
 	</div>
-
 </div>
