@@ -1,121 +1,68 @@
-<div class="container">
-    <form name="scoreSubmitForm" novalidate>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3>Soumettre un score</h3>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Paramètres de la communauté {{community.name}}</h3>
+    </div>
+    <div class="panel-body">
+
+        <div class="checkbox">
+            <label>
+                <input ng-model="community.createAccountEnabled" type="checkbox"> Autoriser les créations de nouveaux
+                comptes
+            </label>
         </div>
-        <div class="panel-body">
-                <select class="form-control" ng-required="true" ng-options="item as gameLabel(item) for item in games | filter : {done: false} | orderBy: 'dateTime'"
-                    ng-model="selectedGame"></select>
-                <div ng-show="selectedGame" class="row pronostic-row">
-                    <div class="well">
-                        <div>
-                            <small>Le {{selectedGame.dateTime | date : 'dd/MM/yyyy HH:mm:ss' }} à {{selectedGame.stadium}}</small>
-                        </div>
-                        <div class="row pronostic-row">
-                            <team name="selectedGame.homeTeamName" position="left" ></team>
-                            <div class="col-md-1">
-                                <input class="scoreInput form-control" ng-required="true" ng-model="homeScore" size="2" maxlength="2">
-                            </div>
-                            <div class="col-md-1">
-                                <input class="scoreInput form-control" ng-required="true" ng-model="awayScore" size="2" maxlength="2">
-                            </div>
-                            <team name="selectedGame.awayTeamName" position="right" ></team>
-                        </div>
-                        <div class="row" ng-show="mustDetermineWinner()">
-                            <div class="form-inline col-md-12">
-                                <div class="control-group">
-                                    <div class="col-md-6" style="text-align: right">
-                                        <label class="control-label">
-                                            Equipe gagnante après tirs aux buts :
-                                        </label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select class="form-control" ng-model="winningTeamName">
-                                            <option value="{{selectedGame.homeTeamName}}">{{selectedGame.homeTeamName}}</option>
-                                            <option value="{{selectedGame.awayTeamName}}">{{selectedGame.awayTeamName}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <div class="panel-footer">
-                <button ng-show="selectedGame" ng-disabled="scoreSubmitForm.error" class="btn btn-primary btn-block" ng-click="submitScore()">Soumettre le score</button>
-            </div>
+        <div class="form-group">
+            <label class="control-label">
+                Date d'ouverture de la communauté
+            </label>
+            <input class="form-control" ng-model="community.openingDate" type="datetime-local"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">
+                Accès aux phases de groupes
+            </label>
+            <select class="form-control" ng-model="community.groupsAccess">
+                <option value="R">Lecture</option>
+                <option value="W">Lecture & Modification</option>
+                <option value="N">Pas d'accès</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label">
+                Accès aux phases finales
+            </label>
+            <select class="form-control" ng-model="community.finalsAccess">
+                <option value="R">Lecture</option>
+                <option value="W">Lecture & Modification</option>
+                <option value="N">Pas d'accès</option>
+            </select>
         </div>
     </div>
-    </form>
+    <div class="panel-footer">
+        <button class="btn btn-primary btn-block" ng-click="saveParameters()">Sauvegarder les paramètres</button>
     </div>
+</div>
 
-    <button class="btn btn-primary btn-block" ng-click="recalculateScores()">Recalculer les scores</button>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3>Paramètres de la communauté {{community.name}}</h3>
-        </div>
-        <div class="panel-body">
-
-            <div class="checkbox">
-                <label>
-                    <input ng-model="community.createAccountEnabled" type="checkbox"> Autoriser les créations de nouveaux comptes
-                </label>
-            </div>
-            <div class="form-group">
-                <label class="control-label">
-                    Date d'ouverture de la communauté
-                </label>
-                <input class="form-control" ng-model="community.openingDate" type="datetime-local" />
-            </div>
-            <div class="form-group">
-                <label class="control-label">
-                    Accès aux phases de groupes
-                </label>
-                <select class="form-control" ng-model="community.groupsAccess">
-                    <option value="R">Lecture</option>
-                    <option value="W">Lecture & Modification</option>
-                    <option value="N">Pas d'accès</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">
-                    Accès aux phases finales
-                </label>
-                <select class="form-control" ng-model="community.finalsAccess">
-                    <option value="R">Lecture</option>
-                    <option value="W">Lecture & Modification</option>
-                    <option value="N">Pas d'accès</option>
-                </select>
-            </div>
-        </div>
-        <div class="panel-footer">
-            <button class="btn btn-primary btn-block" ng-click="saveParameters()">Sauvegarder les paramètres</button>
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Utilisateurs de la communauté {{community.name}}</h3>
     </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3>Utilisateurs de la communauté {{community.name}}</h3>
-        </div>
-        <div class="panel-body">
-            <div ui-grid="userGridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
-        </div>
-        <div class="panel-footer">
-            <button class="btn btn-default btn-block" ng-click="disableEnable()">Activer/Désactiver les utilisateurs sélectionnés</button>
-            <button class="btn btn-default btn-block" ng-click="toggleAdmin()">Activer/Désactiver le statut Admin</button>
-            <button class="btn btn-danger btn-block" ng-click="deleteUsers()">Supprimer les utilisateurs sélectionnés</button>
-        </div>
+    <div class="panel-body">
+        <div ui-grid="userGridOptions" ui-grid-edit ui-grid-exporter class="grid"></div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3>Utilisateurs de la communauté {{community.name}} n'ayant enregistré aucuns pronostics</h3>
-        </div>
-        <div class="panel-body">
-            <div ui-grid="userNoPredictionGridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
-        </div>
-        <div class="panel-footer">
-            <button class="btn btn-danger btn-block" ng-click="deleteUsers()">Supprimer les utilisateurs sélectionnés</button>
-        </div>
+    <div class="panel-footer">
+        <button class="btn btn-danger btn-block" ng-click="deleteUsers()">Supprimer les utilisateurs sélectionnés
+        </button>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Utilisateurs de la communauté {{community.name}} n'ayant enregistré aucuns pronostics</h3>
+    </div>
+    <div class="panel-body">
+        <div ui-grid="userNoPredictionGridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
+    </div>
+    <div class="panel-footer">
+        <button class="btn btn-danger btn-block" ng-click="deleteUsers()">Supprimer les utilisateurs sélectionnés
+        </button>
     </div>
 </div>

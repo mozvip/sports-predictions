@@ -76,6 +76,15 @@ public class AdminResource {
 	}
 
 	@POST
+	@Path("/toggle-late/{email}")
+	@ApiOperation(value="Toggle the late status of an user of this community")
+	public void toggleLate(@NotNull @PathParam("email") String email) {
+		String community = getCommunity();
+		email = email.toLowerCase().trim();
+		userDAO.toggleLate( community, email );
+	}
+
+	@POST
 	@Path("/submit-prediction")
 	@RolesAllowed("ADMIN")
 	@ApiOperation(tags="admin", value="Submit a single prediction for a user", authorizations = @Authorization("basicAuth"))

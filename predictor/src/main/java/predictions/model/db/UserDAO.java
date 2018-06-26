@@ -63,6 +63,9 @@ public interface UserDAO {
 	@SqlUpdate("update sp_user set admin=NOT admin where community=:community AND email=:email")
 	void toggleAdmin(@Bind("community") String community, @Bind("email") String email);
 
+	@SqlUpdate("update sp_user set late=NOT late where community=:community AND email=:email")
+	void toggleLate(@Bind("community") String community, @Bind("email") String email);
+
 	@SqlQuery("SELECT COUNT(*) FROM SP_USER WHERE ACTIVE=true AND COMMUNITY=:community")
 	long getCount(@Bind("community") String community);
 

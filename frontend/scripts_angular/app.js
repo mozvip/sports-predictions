@@ -1,7 +1,9 @@
 // Application du site sportsPredictions
 var sportsPredictions = angular.module('sports-predictions',
     [
-        'ui.grid', 'ui.grid.selection',
+        'ui.grid',
+        'ui.grid.edit',
+        'ui.grid.selection',
         'ui.grid.exporter',
         'ngAnimate',
         'ui.bootstrap',

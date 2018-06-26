@@ -69,6 +69,20 @@ angular.module('sports-predictions')
 
                 return deferredObject.promise;
             },
+            toggleLate: function (email) {
+                var deferredObject = $q.defer();
+                var config = BackendService.getRequestConfig();
+
+                $http.post(BackendService.getBackEndURL() + 'admin/toggle-late/' + email, '', config)
+                    .then(function (response) {
+                        deferredObject.resolve({ users: response.data });
+                    }, function (response) {
+                        Notification.error({ 'title': response.statusText, 'message': response.data });
+                        deferredObject.reject();
+                    });
+
+                return deferredObject.promise;
+            },
             deleteUser: function (email) {
                 var deferredObject = $q.defer();
                 var config = BackendService.getRequestConfig();

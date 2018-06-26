@@ -192,6 +192,7 @@ var pronosticFinal = function(){
 		templateUrl: '/partials-views/pronosticFinal.html',
 		scope: {
 			match: "=match",
+            ready: "=ready",
 			access: "=access"
 		},
 		controller: function($scope, $location) {

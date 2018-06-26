@@ -1,4 +1,16 @@
-<div class="well">
+<div class="well" ng-if="!ready">
+	<div class="row pronostic-row">
+		<small>Le {{match.dateTime | date : 'dd/MM/yyyy HH:mm:ss' }} à {{match.stadium}}</small>
+		<div class="col-xs-6 col-md-6">
+			<team name="match.homeTeamName" position="left" />
+		</div>
+		<div class="col-xs-6 col-md-6">
+			<team name="match.awayTeamName" position="right" />
+		</div>
+	</div>
+</div>
+
+<div class="well" ng-if="ready">
 	<div class="row pronostic-row">
 		<small>Le {{match.dateTime | date : 'dd/MM/yyyy HH:mm:ss' }} à {{match.stadium}}</small>
 		<div class="col-xs-12 col-md-3 team-name">

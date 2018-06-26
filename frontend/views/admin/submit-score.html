@@ -1,0 +1,54 @@
+<div class="container">
+    <form name="scoreSubmitForm" novalidate>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Soumettre un score</h3>
+            </div>
+            <div class="panel-body">
+                <select class="form-control" ng-required="true" ng-options="item as gameLabel(item) for item in games | filter : {done: false} | orderBy: 'dateTime'"
+                        ng-model="selectedGame"></select>
+                <div ng-show="selectedGame" class="row pronostic-row">
+                    <div class="well">
+                        <div>
+                            <small>Le {{selectedGame.dateTime | date : 'dd/MM/yyyy HH:mm:ss' }} à {{selectedGame.stadium}}</small>
+                        </div>
+                        <div class="row pronostic-row">
+                            <team name="selectedGame.homeTeamName" position="left" ></team>
+                            <div class="col-md-1">
+                                <input class="scoreInput form-control" ng-required="true" ng-model="homeScore" size="2" maxlength="2">
+                            </div>
+                            <div class="col-md-1">
+                                <input class="scoreInput form-control" ng-required="true" ng-model="awayScore" size="2" maxlength="2">
+                            </div>
+                            <team name="selectedGame.awayTeamName" position="right" ></team>
+                        </div>
+                        <div class="row" ng-show="mustDetermineWinner()">
+                            <div class="form-inline col-md-12">
+                                <div class="control-group">
+                                    <div class="col-md-6" style="text-align: right">
+                                        <label class="control-label">
+                                            Equipe gagnante après tirs aux buts :
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-control" ng-model="winningTeamName">
+                                            <option value="{{selectedGame.homeTeamName}}">{{selectedGame.homeTeamName}}</option>
+                                            <option value="{{selectedGame.awayTeamName}}">{{selectedGame.awayTeamName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button ng-show="selectedGame" ng-disabled="scoreSubmitForm.error" class="btn btn-primary btn-block" ng-click="submitScore()">Soumettre ce score</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="well">
+    <button class="btn btn-primary btn-block" ng-click="recalculateScores()">Recalculer tous les scores</button>
+</div>

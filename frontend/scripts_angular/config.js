@@ -41,9 +41,12 @@ angular.module('sports-predictions')
                     currentUser: ['UserService', function (UserService) {
                         return UserService.getCurrentUser();
                     }],
+                    games: ['GamesService', function(GamesService) {
+                        return GamesService.getGames();
+                    }],
                     community: ['CommunityService', function(CommunityService) {
                         return CommunityService.getCommunity();
-                    }],                    
+                    }],
 					check:['CommunityService', '$location', function(CommunityService, $location){
 						CommunityService.getCommunity().then(function(result){
 							if(result.finalsAccess == 'N')
@@ -113,6 +116,20 @@ angular.module('sports-predictions')
                         return CommunityService.getCommunity();
                     }]
                 }
+            })
+            .when('/submit-score', {
+                templateUrl: '/views/admin/submit-score.html',
+                resolve: {
+                    currentUser: ['UserService', function (UserService) {
+                        return UserService.getCurrentUser();
+                    }],
+                    community: ['CommunityService', function(CommunityService) {
+                        return CommunityService.getCommunity();
+                    }]
+
+                },
+                authorized: true,
+                controller: 'SubmitScoreController'
             })
             .when('/admin', {
                 templateUrl: '/views/admin.html',
