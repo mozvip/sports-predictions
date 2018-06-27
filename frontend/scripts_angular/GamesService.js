@@ -6,7 +6,7 @@ angular.module('sports-predictions')
                                 var deferredObject = $q.defer();
 
                                 $http
-                                        .get(BackendService.getBackEndURL() + 'score/games')
+                                        .get(BackendService.getBackEndURL() + 'score/games', { headers: { 'Cache-Control' : 'no-cache' } } )
                                         .then(function (response) {
                                                 deferredObject.resolve(response.data);
                                         }, function (response) {
@@ -43,30 +43,6 @@ angular.module('sports-predictions')
                                                                 .From(data.data)
                                                                 .Where(function (match) {
                                                                         return match.group;
-                                                                })
-                                                                .OrderBy(function (match) {
-                                                                        return match.matchNum;
-                                                                })
-                                                                .ToArray();
-                                                deferredObject.resolve({ Games: result });
-                                        }, function (data) {
-                                                deferredObject.resolve({ Games: null });
-                                        });
-
-                                return deferredObject.promise;
-                        },
-                        getFinalGames: function () {
-                                var deferredObject = $q.defer();
-                                var result;
-
-                                $http
-                                        .get(BackendService.getBackEndURL() + 'score/games')
-                                        .then(function (data) {
-                                                if (data.status === 200)
-                                                        result = $linq.Enumerable()
-                                                                .From(data.data)
-                                                                .Where(function (match) {
-                                                                        return !match.group;
                                                                 })
                                                                 .OrderBy(function (match) {
                                                                         return match.matchNum;

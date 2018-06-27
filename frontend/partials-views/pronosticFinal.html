@@ -1,95 +1,51 @@
 <div class="well" ng-if="!ready">
 	<div class="row pronostic-row">
 		<small>Le {{match.dateTime | date : 'dd/MM/yyyy HH:mm:ss' }} à {{match.stadium}}</small>
-		<div class="col-xs-6 col-md-6">
-			<team name="match.homeTeamName" position="left" />
-		</div>
-		<div class="col-xs-6 col-md-6">
-			<team name="match.awayTeamName" position="right" />
-		</div>
 	</div>
+
+	<h3 class="text-center">
+		Ce match n'est pas encore pronosticable !
+	</h3>
+
 </div>
 
 <div class="well" ng-if="ready">
-	<div class="row pronostic-row">
+	<div>
 		<small>Le {{match.dateTime | date : 'dd/MM/yyyy HH:mm:ss' }} à {{match.stadium}}</small>
-		<div class="col-xs-12 col-md-3 team-name">
-			<h3 class="text-right hidden-xs hidden-sm" ng-if="match.trueHomeTeam == undefined">{{match.homeTeamName}}</h3>
-			<h3 class="text-center visible-xs visible-sm" ng-if="match.trueHomeTeam == undefined">{{match.homeTeamName}}</h3>
-		</div>
-		<div class="col-xs-12 col-md-2">
-			<team name="match.homeTeamName" position="left" />
+	</div>
+	<div class="row pronostic-row">
+		<team name="match.homeTeamName" position="left"></team>
+		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
+			<input class="scoreInput form-control" ng-if="isPronosticable(match)" onfocus="this.select()" ng-model="match.predictionHome_Score" size="2" maxlength="2">
+			<p class="form-control-static scoreInput" ng-if='!isPronosticable(match)'>{{match.predictionHome_Score}}</p>
 		</div>
 		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-			<p class="form-control-static scoreInput" ng-if="!isPronosticable(match)">{{match.predictionHome_Score}}</p>
-			<input class="scoreInput form-control" ng-model="match.predictionHome_Score" onfocus="this.select()" ng-if="isPronosticable(match)" size="2"
-									 maxlength="2">
+			<input class="scoreInput form-control" ng-if="isPronosticable(match)" onfocus="this.select()" ng-model="match.predictionAway_Score" size="2" maxlength="2">
+			<p class="form-control-static scoreInput" ng-if='!isPronosticable(match)'>{{match.predictionAway_Score}}</p>
 		</div>
-		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-			<input class="scoreInput form-control" ng-model="match.predictionAway_Score" onfocus="this.select()" ng-if="isPronosticable(match)" size="2"
-				maxlength="2">
-			<p class="form-control-static scoreInput" ng-if="!isPronosticable(match)">{{match.predictionAway_Score}}</p>
-		</div>
-		<div class="col-xs-12 col-md-2">
-			<team name="match.awayTeamName" position="right" />
-		</div>
-		<div class="col-xs-12 col-md-3 team-name">
-			<h3 class="text-left hidden-xs hidden-sm" ng-if="match.trueAwayTeam == undefined">{{match.awayTeamName}}</h3>
-			<h3 class="text-center visible-xs visible-sm" ng-if="match.trueAwayTeam == undefined">{{match.awayTeamName}}</h3>
-		</div>
+		<team name="match.awayTeamName" position="right"></team>
 	</div>
 	<div class="row" ng-show="matchNul()">
-		<div class="form-group" ng-if="isPronosticable()">
+		<div class="form-group" ng-if="isPronosticable(match)">
 			<label for="winner">Equipe gagnante après les tirs aux buts</label>
 			<select id="winner" class="form-control" ng-model="match.home_winner" ng-options="(item?match.homeTeamName:match.awayTeamName) for item in [true, false]"></select>
 		</div>
-		<p ng-if="!isPronosticable()" class="form-control-static">
+		<p ng-if="!isPronosticable(match)" class="form-control-static">
 			Equipe gagnante après les tirs aux buts : {{match.home_winner?match.homeTeamName:match.awayTeamName}}
 		</p>
 	</div>
-	<div class="row pronostic-row" ng-show="(match.trueTeamFrom !=  undefined || match.trueTeamAway != undefined) && (match.trueTeamFrom != homeTeamName || match.trueTeamAway != awayTeamName)">
-		<small>Equipes réellement qualifiées</small>
-		<div class="col-xs-12 col-md-3 team-name">
-			<h3 class="text-right hidden-xs hidden-sm">{{match.trueTeamFrom}}</h3>
-			<h3 class="text-center visible-xs visible-sm">{{match.trueTeamFrom}}</h3>
-		</div>
-		<div class="col-xs-12 col-md-2">
-			<div class="text-left hidden-xs hidden-sm">
-				<span ng-class="classFlagTeam(match.trueTeamFrom)"></span>
-			</div>
-			<div class="text-center visible-xs visible-sm">
-				<span ng-class="classFlagTeam(match.trueTeamFrom)"></span>
-			</div>
-		</div>
-		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-		</div>
-		<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-		</div>
-		<div class="col-xs-12 col-md-2">
-			<div class="text-right hidden-xs hidden-sm">
-				<span ng-class="classFlagTeam(match.trueTeamAway)"></span>
-			</div>
-			<div class="text-center visible-xs visible-sm">
-				<span ng-class="classFlagTeam(match.trueTeamAway)"></span>
-			</div>
-		</div>
-		<div class="col-xs-12 col-md-3 team-name">
-			<h3 class="text-left hidden-xs hidden-sm">{{match.trueTeamAway}}</h3>
-			<h3 class="text-center visible-xs visible-sm">{{match.trueTeamAway}}</h3>
-		</div>
-	</div>
-	<div class="row" ng-if="displayFinalScore()">
-		<a href="#/stat-match/{{match.matchNum}}" style="color: black">
+	<div class="row" ng-if="match.done">
+		<a ng-href="/#!/stat-match/{{match.matchNum}}" style="color: black">
 			<div class="col-xs-12 col-md-3">
 			</div>
 			<div class="col-xs-12 col-md-2 team-name" style="margin-top:20px;">
 				Score final
 			</div>
 			<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-				<p ng-class="['form-control-static', 'scoreInput', {scoreWinner: match.homeScore == match.awayScore && match.winner == match.homeTeamName}]">{{match.homeScore}}</p>
+				<p class="form-control-static scoreInput">{{match.homeScore}}</p>
 			</div>
 			<div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-1">
-				<p ng-class="['form-control-static', 'scoreInput', {scoreWinner: match.homeScore == match.awayScore && match.winner == match.awayTeamName}]">{{match.awayScore}}</p>
+				<p class="form-control-static scoreInput">{{match.awayScore}}</p>
 			</div>
 			<div class="col-xs-12 col-md-5 team-name" style="margin-top:20px;">
 				Vous marquez {{match.predictionScore}} points

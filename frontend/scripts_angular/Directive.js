@@ -99,56 +99,6 @@ var pronostic = function(){
 			   else
 				   $scope.match.predictionAway_Score = parseInt(newValue);
 			  }, true);
-			
-			$scope.classFlagTeam = function(nameTeam) {
-				var linking = {
-					"France" : "fr",
-					"Allemagne" : "de",
-					"Albanie" : "al",
-                    "Arabie Saoudite" : "sa",
-					"Autriche" : "AUT",
-                    "Australie" : "au",
-					"Belgique" : "be",
-                    "Brésil" : "br",
-                    "Costa Rica" : "cr",
-                    "Croatie" : "hr",
-                    "Danemark" : "dk",
-                    "Pérou" : "pe",
-                    "Maroc" : "ma",
-                    "Russie" : "ru",
-                    "Uruguay" : "uy",
-					"Panama": "pa",
-					"Tunisie": "tn",
-                    "Japon": "jp",
-                    "Pologne": "pl",
-                    "Colombie": "co",
-                    "Argentine" : "ar",
-                    "Egypte" : "eg",
-                    "Iran" : "ir",
-					"Roumanie" : "ROU",
-					"Angleterre" : "gb-eng",
-					"Slovaquie" : "SVK",
-					"Galles" : "WAL",
-					"Irlande Du Nord" : "NIR", 
-					"Ukraine" : "UKR",
-					"Rep. Tcheque"  : "CZE",
-                    "Corée du Sud"  : "kr",
-					"Espagne" : "es",
-                    "Nigéria"  : "ng",
-					"Turquie" : "TUR",
-					"Italie" : "ITA", 
-					"Irlande" : "IRL",
-                    "Mexique" : "mx",
-                    "Serbie" : "rs",
-                    "Sénégal" : "sn",
-					"Suède" : "se",
-                    "Suisse" : "ch",
-					"Hongrie" : "hu",
-					"Islande" : "is",
-					"Portugal" : "pt"
-				}
-				return "flag-icon flag-icon-"+linking[nameTeam];
-			};
         }
     };
 }
@@ -206,77 +156,20 @@ var pronosticFinal = function(){
                 return $location.path() == '/pronostic-final-delegate' || (new Date(match.dateTime) >= new Date() && $scope.access);
             }
 
-			$scope.displayFinalScore = function() {
-				return $location.path() != '/pronostic-final-delegate' && $scope.match.done;
-			}
-			
-			$scope.realScore = function(predictionScore, realScore){
-				return predictionScore == realScore ? "realScoreGood" : "realScoreBad";
-			}
-			
-			$scope.$watch('match.home_winner', function( newValue, oldValue ){
-				if(newValue != undefined){
-					$scope.$parent.watchMatch($scope.match);
-				}
-			  }, true);
-			
-			$scope.$watch('match.predictionHome_Score', function( newValue, oldValue ){
-				if(newValue != undefined)
-				{
-				   if(newValue == "")
-						$scope.match.predictionHome_Score = 0;
-				   else{
-						$scope.match.predictionHome_Score = parseInt(newValue);
-						if($scope.match.predictionHome_Score > $scope.match.predictionAway_Score)
-							$scope.match.home_winner  = true;
-				   }
-					$scope.$parent.watchMatch($scope.match);
-				}
-			  }, true);
-			  
-			$scope.$watch('match.predictionAway_Score', function( newValue, oldValue ){
-				if(newValue != undefined)
-				{
-				   if(newValue == "")
-					   $scope.match.predictionAway_Score = 0;
-				   else{
-					   $scope.match.predictionAway_Score = parseInt(newValue);
-					   if($scope.match.predictionHome_Score < $scope.match.predictionAway_Score)
-							$scope.match.home_winner  = false;
-				   }
-					$scope.$parent.watchMatch($scope.match);
-				}
-			  }, true);
-			
-			$scope.classFlagTeam = function(nameTeam) {
-				var linking = {
-					"France" : "FRA",
-					"Allemagne" : "GER",
-					"Albanie" : "ALB",
-					"Autriche" : "AUT",
-					"Belgique" : "BEL", 
-					"Roumanie" : "ROU",
-					"Suisse" : "SUI", 
-					"Angleterre" : "ENG", 
-					"Russie" : "RUS", 
-					"Slovaquie" : "SVK",
-					"Galles" : "WAL",
-					"Irlande Du Nord" : "NIR", 
-					"Pologne" : "POL", 
-					"Ukraine" : "UKR",
-					"Croatie" :  "CRO",
-					"Rep. Tcheque"  : "CZE",
-					"Espagne" : "ESP",
-					"Turquie" : "TUR",
-					"Italie" : "ITA", 
-					"Irlande" : "IRL", 
-					"Suede" : "SWE", 
-					"Hongrie" : "HUN", 
-					"Islande" : "ISL",
-					"Portugal" : "POR"
-				}
-				return nameTeam != undefined ? "flag-"+linking[nameTeam] : "flag-";
-			};
+            $scope.$watch('match.predictionHome_Score', function( newValue, oldValue ){
+
+                if(newValue == "" || newValue == undefined)
+                    $scope.match.predictionHome_Score = 0;
+                else
+                    $scope.match.predictionHome_Score = parseInt(newValue);
+            }, true);
+
+            $scope.$watch('match.predictionAway_Score', function( newValue, oldValue ){
+                if(newValue == "" || newValue == undefined)
+                    $scope.match.predictionAway_Score = 0;
+                else
+                    $scope.match.predictionAway_Score = parseInt(newValue);
+            }, true);
         }
     };
 }

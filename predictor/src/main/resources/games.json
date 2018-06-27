@@ -387,32 +387,32 @@
     "matchNum": 50,
     "dateTime": "2018-06-30T16:00",
     "stadium": "Kazan Arena, Kazan",
-    "homeTeamName": "Winners Group C",
-    "awayTeamName": "Runners-up Group D",
+    "homeTeamName": "France",
+    "awayTeamName": "Argentine",
     "round": "Round of 16"
   },
   {
     "matchNum": 49,
     "dateTime": "2018-06-30T20:00",
     "stadium": "Fisht Olympic Stadium, Sochi",
-    "homeTeamName": "Winners Group A",
-    "awayTeamName": "Runners-up Group B",
+    "homeTeamName": "Uruguay",
+    "awayTeamName": "Portugal",
     "round": "Round of 16"
   },
   {
     "matchNum": 51,
     "dateTime": "2018-07-01T16:00",
     "stadium": "Luzhniki Stadium, Moscow",
-    "homeTeamName": "Winners Group B",
-    "awayTeamName": "Runners-up Group A",
+    "homeTeamName": "Espagne",
+    "awayTeamName": "Russie",
     "round": "Round of 16"
   },
   {
     "matchNum": 52,
     "dateTime": "2018-07-01T20:00",
     "stadium": "Nizhny Novgorod Stadium, Nizhny Novgorod",
-    "homeTeamName": "Winners Group D",
-    "awayTeamName": "Runners-up Group C",
+    "homeTeamName": "Croatie",
+    "awayTeamName": "Danemark",
     "round": "Round of 16"
   },
   {

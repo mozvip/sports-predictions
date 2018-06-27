@@ -117,7 +117,7 @@ public class PredictionsApplication extends Application<PredictionsConfiguration
 		Dynamic corsFilter = environment.servlets().addFilter("CrossOriginFilter", CrossOriginFilter.class);
 		corsFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 		corsFilter.setInitParameter("allowedOrigins", "*");
-		corsFilter.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,Authorization");
+		corsFilter.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,Authorization,Cache-Control");
 		corsFilter.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
 
 		PredictorBasicAuthenticator basicAuthenticator = new PredictorBasicAuthenticator( userDAO );
