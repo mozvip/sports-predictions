@@ -419,32 +419,32 @@
     "matchNum": 53,
     "dateTime": "2018-07-02T16:00",
     "stadium": "Cosmos Arena, Samara",
-    "homeTeamName": "Winners Group E",
-    "awayTeamName": "Runners-up Group F",
+    "homeTeamName": "Brésil",
+    "awayTeamName": "Mexique",
     "round": "Round of 16"
   },
   {
     "matchNum": 54,
     "dateTime": "2018-07-02T20:00",
     "stadium": "Rostov Arena, Rostov-on-Don",
-    "homeTeamName": "Winners Group G",
-    "awayTeamName": "Runners-up Group H",
+    "homeTeamName": "1G",
+    "awayTeamName": "2H",
     "round": "Round of 16"
   },
   {
     "matchNum": 55,
     "dateTime": "2018-07-03T16:00",
     "stadium": "Krestovsky Stadium, Saint Petersburg",
-    "homeTeamName": "Winners Group F",
-    "awayTeamName": "Runners-up Group E",
+    "homeTeamName": "Suède",
+    "awayTeamName": "Suisse",
     "round": "Round of 16"
   },
   {
     "matchNum": 56,
     "dateTime": "2018-07-03T20:00",
     "stadium": "Otkritie Arena, Moscow",
-    "homeTeamName": "Winners Group H",
-    "awayTeamName": "Runners-up Group G",
+    "homeTeamName": "1H",
+    "awayTeamName": "2G",
     "round": "Round of 16"
   },
   {
